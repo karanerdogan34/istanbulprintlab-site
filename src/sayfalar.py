@@ -16,7 +16,7 @@ class IcerikHatasi(Exception):
 
 
 GUVENLI_URL = re.compile(r'^(?:https?://[^\s"<>]+|/[^\s"<>]*|#[\w-]*|mailto:[^\s"<>]+|tel:\+?[\d ]+)$')
-GUVENLI_GORSEL = re.compile(r'^/img/[A-Za-z0-9._/ -]+\.(?:webp|jpe?g|png|gif|svg|avif)$', re.I)
+GUVENLI_GORSEL = re.compile(r'^/img/[A-Za-z0-9._/ -]+\.(?:webp|jpe?g|png|gif|avif)$', re.I)
 
 
 def guvenli_url(u):
@@ -181,9 +181,13 @@ def _sss_yaz(s, sss, p):
         return s
     a, b, ornek = f
     eski_sorular = [m2t(h2m(q)) for _, q, _ in DETAY.findall(ornek)]
-    s = s[:a] + _sss_html(sss, ornek) + s[b:]
+    yeni_html = _sss_html(sss, ornek)
+    degisti = yeni_html != s[a:b]
+    s = s[:a] + yeni_html + s[b:]
     ld = _ld_faq(s)
-    if ld and [x.get('name') for x in ld[2]] == eski_sorular:
+    if ld and [x.get('name') for x in ld[2]] != eski_sorular and degisti:
+        raise IcerikHatasi('SSS değişti ama sayfadaki Google SSS verisi (JSON-LD) görünen sorularla eşleşmiyor; otomatik güncellenemedi.')
+    if ld and degisti:
         k, e, eski = ld
         yeni = [{"@type": "Question", "name": m2t(x.get('soru')), "acceptedAnswer": {"@type": "Answer", "text": m2t(x.get('cevap'))}} for x in sss]
         s = s[:k] + json.dumps(yeni, ensure_ascii=False).replace('<', '\\u003c').replace('>', '\\u003e') + s[e:]

@@ -40,7 +40,7 @@ def projeler_html():
             continue
         link = (p.get('baglanti') or '').strip()
         out.append(KART.format(
-            href=E(link or '#teklif'), src=E(p['gorsel']),
+            href=S.guvenli_url(link or '#teklif'), src=S.gorsel(p['gorsel']),
             alt=E(p.get('alt') or '%s — %s' % (p.get('baslik', ''), p.get('aciklama', ''))),
             tag=E(p.get('etiket', '')), t=E(p.get('baslik', '')), d=E(p.get('aciklama', '')),
             oku=' <b>Vaka çalışmasını oku →</b>' if link else ''))
@@ -74,6 +74,17 @@ def fiyatlari_dogrula(P):
 
 
 def onceki_fiyatlar():
+    # 1) Netlify'ın bir önceki başarılı yayınının commit'i, 2) bir önceki commit, 3) canlı site
+    import subprocess
+    for ref in [os.environ.get('CACHED_COMMIT_REF'), 'HEAD~1']:
+        if not ref:
+            continue
+        try:
+            out = subprocess.run(['git', 'show', '%s:content/fiyatlar.json' % ref], capture_output=True, timeout=20)
+            if out.returncode == 0:
+                return json.loads(out.stdout.decode('utf-8'))
+        except Exception:
+            pass
     try:
         with urllib.request.urlopen('https://www.istanbulprintlab.com/fiyatlar.json', timeout=15) as r:
             return json.loads(r.read().decode('utf-8'))
@@ -95,7 +106,7 @@ def fiyat_raporu(P, eski):
             if abs(oran) > 50:
                 buyuk.append('%s: %s → %s' % (k, eski[k], v))
     import datetime
-    bugun = (datetime.datetime.utcnow() + datetime.timedelta(hours=3)).strftime('%Y-%m-%d')
+    bugun = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)).strftime('%Y-%m-%d')
     if buyuk and str(P.get('buyuk_degisiklik_onay') or '')[:10] != bugun:
         raise FiyatHatasi('%%50\'den büyük fiyat değişikliği: %s. Doğruysa panelde "Büyük fiyat değişikliği onay tarihi" alanına bugünün tarihini seçip tekrar yayınlayın.' % ', '.join(buyuk))
 
@@ -176,8 +187,9 @@ def vakalar():
     if ek:
         sm = sm.replace('</urlset>', ek + '</urlset>')
     yaz('%s/sitemap.xml' % DIST, sm)
-    if yonlendir:
-        yaz('%s/_redirects' % DIST, yonlendir + oku('%s/_redirects' % DIST))
+    # Silinen (ya da adı değişen) her vaka sayfası, geçmişte yayınlanmış olsun olmasın, proje bölümüne yönlenir.
+    # Netlify bu kuralı yalnızca o adreste dosya yoksa uygular; mevcut vaka sayfaları etkilenmez.
+    yaz('%s/_redirects' % DIST, yonlendir + oku('%s/_redirects' % DIST).rstrip('\n') + '\n/projeler/*  /#projeler  301\n')
 
 
 def ic_baglanti_kontrol():
