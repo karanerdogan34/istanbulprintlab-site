@@ -1,3 +1,5 @@
+site_url: "https://www.istanbulprintlab.com"
+display_url: "https://www.istanbulprintlab.com"
 backend:
   name: github
   repo: karanerdogan34/istanbulprintlab-site
@@ -35,9 +37,9 @@ collections:
               - { label: "Başlık (firma / proje)", name: "baslik", widget: "string" }
               - { label: "Üst etiket (ör. İnşaat · Büyük format)", name: "etiket", widget: "string" }
               - { label: "Kısa açıklama", name: "aciklama", widget: "string" }
-              - { label: "Fotoğraf", name: "gorsel", widget: "image", media_folder: "/site/img/yuklenen/projeler", public_folder: "/img/yuklenen/projeler", choose_url: false, hint: "Dikey (portre) fotoğraf önerilir." }
+              - { label: "Fotoğraf", name: "gorsel", widget: "image", media_folder: "/site/img/yuklenen/projeler", public_folder: "/img/yuklenen/projeler", choose_url: false, hint: "Dikey (portre) fotoğraf önerilir. Telefon fotoğrafı olduğu gibi yüklenebilir; yayında otomatik küçültülür." }
               - { label: "Fotoğraf açıklaması (Google için)", name: "alt", widget: "string", required: false, hint: "Boş bırakılırsa başlık ve açıklamadan otomatik oluşturulur." }
-              - { label: "Vaka çalışması sayfası (varsa)", name: "baglanti", widget: "string", required: false, hint: "Örnek: /projeler/antre-gourmet/ — boş bırakılırsa kart teklif formuna gider." }
+              - { label: "Vaka çalışması sayfası (varsa)", name: "baglanti", widget: "string", required: false, pattern: ["^$|^/projeler/[a-z0-9-]+/$", "Biçim: /projeler/sayfa-adresi/ (başta ve sonda eğik çizgi) ya da boş"], hint: "Örnek: /projeler/antre-gourmet/ — boş bırakılırsa kart teklif formuna gider." }
               - { label: "Sitede gizle", name: "gizle", widget: "boolean", default: false, required: false }
       - name: "fiyatlar"
         label: "Fiyatlar (bütün sayfalar ve hesaplayıcılar)"
@@ -115,6 +117,7 @@ collections:
     label: "Ürün Sayfaları"
     label_singular: "Ürün sayfası"
     folder: "content/sayfalar"
+    preview_path: "{{fields.yol}}/"
     extension: "json"
     format: "json"
     create: false
@@ -162,6 +165,7 @@ collections:
     label: "Vaka Çalışmaları (proje sayfaları)"
     label_singular: "Vaka çalışması"
     folder: "content/vakalar"
+    preview_path: "projeler/{{fields.slug}}/"
     extension: "json"
     format: "json"
     create: true
