@@ -12,8 +12,6 @@ locale: tr
 media_folder: "site/img"
 public_folder: "/img"
 publish_mode: simple
-media_library:
-  max_file_size: 25000000
 slug:
   encoding: "ascii"
   clean_accents: true
