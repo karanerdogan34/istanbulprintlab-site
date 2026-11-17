@@ -406,7 +406,7 @@ main{counter-reset:sec}
 <span class="tag">Rehber · IstanbulPrintLab atölyesinden</span>
 <h1 class="h2" style="margin:12px 0">Fotoblok (foreks) baskı rehberi: ölçü, kesim ve kullanım</h1>
 <p class="lead">Fotoblok, reklamcı dilinde çoğu zaman foreks diye bilinen, hafif ve düz yüzeyli pano baskısıdır. Doğru ölçü, doğru kesim ve doğru kullanım yeri için kısa rehber.</p>
-<h2>Fotoblok ne işe yarar?</h2><p>Mağaza ve AVM panoları, fuar standı, ofis duvar panosu, karşılama ve fotoğraf panoları, yönlendirme levhaları gibi iç mekan işlerinde kullanılır. Hafif olduğu için kolay taşınır ve asılır.</p><h2>Düz kesim mi, özel kesim mi?</h2><p>Dikdörtgen panolar düz kesimdir ve fiyatı metrekareyle hesaplanır (1.600 ₺ + KDV / m², KDV dahil 1.920 ₺; asgari 1 m²). Karakter, maskot, logo veya ürün şeklinde kesilen panolar özel kesimdir (dekupe); fiyatı daha yüksektir ve teklifle belirlenir.</p><h2>En büyük ölçü</h2><p>Tek parça en fazla 150 × 300 cm üretilir. Daha büyük bir görsel istiyorsanız birden fazla parçayla tasarlamak gerekir.</p><h2>Dosya nasıl hazırlanır?</h2><p>Gerçek ölçüde, yazıları eğriye çevrilmiş PDF gönderin. Özel kesimde kesim çizgisini ayrı bir katmanda, sade bir vektör olarak hazırlayın; çok noktalı karmaşık çizgiler kesimi zorlaştırır.</p><h2>Yılbaşı ve sezon panoları</h2><p>Yılbaşı, açılış ve kampanya dönemlerinde karakter figürleri ve karşılama panoları en çok istenen işlerdir. Sezondan önce yazarsanız üretimi rahatça planlarız.</p>
+<h2>Fotoblok ne işe yarar?</h2><p>Mağaza ve AVM panoları, fuar standı, ofis duvar panosu, karşılama ve fotoğraf panoları, yönlendirme levhaları gibi iç mekan işlerinde kullanılır. Hafif olduğu için kolay taşınır ve asılır.</p><h2>Düz kesim mi, özel kesim mi?</h2><p>Dikdörtgen panolar düz kesimdir ve fiyatı metrekareyle hesaplanır ({{foreks}} ₺ + KDV / m², KDV dahil {{foreks+kdv}} ₺; asgari 1 m²). Karakter, maskot, logo veya ürün şeklinde kesilen panolar özel kesimdir (dekupe); fiyatı daha yüksektir ve teklifle belirlenir.</p><h2>En büyük ölçü</h2><p>Tek parça en fazla 150 × 300 cm üretilir. Daha büyük bir görsel istiyorsanız birden fazla parçayla tasarlamak gerekir.</p><h2>Dosya nasıl hazırlanır?</h2><p>Gerçek ölçüde, yazıları eğriye çevrilmiş PDF gönderin. Özel kesimde kesim çizgisini ayrı bir katmanda, sade bir vektör olarak hazırlayın; çok noktalı karmaşık çizgiler kesimi zorlaştırır.</p><h2>Yılbaşı ve sezon panoları</h2><p>Yılbaşı, açılış ve kampanya dönemlerinde karakter figürleri ve karşılama panoları en çok istenen işlerdir. Sezondan önce yazarsanız üretimi rahatça planlarız.</p>
 <div class="row" style="margin-top:32px"><a class="btn" href="/fotoblok-baski/">Fotoblok fiyatını hesapla</a><a class="btn ghost" href="https://wa.me/905325237364">WhatsApp'tan sor</a></div>
 </div></section>
 </div>
@@ -546,7 +546,7 @@ tabs.forEach(function(t,i){
 function sel(i){tabs.forEach(function(t,j){t.setAttribute('aria-selected',String(i===j));t.tabIndex=i===j?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=i!==j})}
 
 // price calculator (fiyatlar KDV hariç; KDV ayrıca eklenir)
-var PRICE=1750,KDV=0.2,MINNET=999,FREESHIP=5000,ROLL=130,ROLLMAX=152,GAP=0.4;
+var PRICE={{sticker:ham}},KDV=0.2,MINNET={{asgari:ham}},FREESHIP={{kargo_esik:ham}},ROLL=130,ROLLMAX=152,GAP=0.4;
 // Yerleşim: fiyat 130 cm rulo üzerinden; 130 cm'ye sığmayan (152 cm'ye kadar) işler 130 cm rulo üzerinden
 function layout(w,h,q){var R,ww,hh,rot;
   if(w<=ROLL){R=ROLL;ww=w;hh=h;rot=false}else if(h<=ROLL){R=ROLL;ww=h;hh=w;rot=true}
@@ -573,8 +573,8 @@ function calc(){
   $('#sUnit').textContent=(net/q).toLocaleString('tr-TR',{maximumFractionDigits:2})+' ₺ + KDV';
   var sn=$('#sNet');if(sn)sn.textContent=fmt(net)+' + KDV';
   animTotal($('#sTotal'),total);
-  $('#sShip').textContent=net>=FREESHIP?'Ücretsiz (5.000 ₺ + KDV üzeri)':'Alıcıya ait · atölyeden teslim alınabilir';
-  var wn=[];if(minUsed)wn.push('Asgari sipariş tutarı 999 ₺ + KDV uygulandı.');
+  $('#sShip').textContent=net>=FREESHIP?'Ücretsiz ({{kargo_esik}} ₺ + KDV üzeri)':'Alıcıya ait · atölyeden teslim alınabilir';
+  var wn=[];if(minUsed)wn.push('Asgari sipariş tutarı {{asgari}} ₺ + KDV uygulandı.');
   if(Math.min(w,h)<4||cut==='kontur'||q>250)wn.push('Bu iş için kesin fiyat dosya kontrolünden sonra teklifle belirlenir (4 cm altı kesim detayı, kontur kesim veya 250 adetten fazla parça).');
   var sw=$('#sWarn');if(sw)sw.textContent=wn.join(' ');
   $('#waLink').href='https://wa.me/905325237364?text='+encodeURIComponent('Merhaba, sticker baskı için teklif almak istiyorum: '+w+'×'+h+' cm, '+q+' adet, '+f.get('mat')+', laminasyon: '+lam+', '+f.get('cut')+' kesim. Ön fiyat: '+fmt(net)+' + KDV');
@@ -772,8 +772,8 @@ $$('.mcalc').forEach(function(f){
     var mr=$('.mRate',f);if(mr)mr.textContent=EN?(fmt(rate).replace(' ₺',' TRY')+' / m² excl. VAT'):(fmt(Math.round(rate*(1+KDV)))+' / m² · '+fmt(rate)+' + KDV');
     var mn=$('.mNet',f);if(mn)mn.textContent=EN?fmt(net).replace(' ₺',' TRY'):fmt(net)+' + KDV';
     if(EN){animTotal($('.mTotal',f),net);f.__t=net;fxShow(f)}else animTotal($('.mTotal',f),total);
-    var ms=$('.mShip',f);if(ms&&!EN)ms.textContent=bulky?'Alıcıya ait · atölyeden teslim alınabilir':(net>=FREESHIP?'Ücretsiz (5.000 ₺ + KDV üzeri)':'Alıcıya ait · atölyeden teslim alınabilir');
-    var wn=[];if(minNu)wn.push(EN?'Minimum order 999 TRY + VAT applied.':'Asgari sipariş tutarı 999 ₺ + KDV uygulandı.');
+    var ms=$('.mShip',f);if(ms&&!EN)ms.textContent=bulky?'Alıcıya ait · atölyeden teslim alınabilir':(net>=FREESHIP?'Ücretsiz ({{kargo_esik}} ₺ + KDV üzeri)':'Alıcıya ait · atölyeden teslim alınabilir');
+    var wn=[];if(minNu)wn.push(EN?'Minimum order {{asgari}} TRY + VAT applied.':'Asgari sipariş tutarı {{asgari}} ₺ + KDV uygulandı.');
     if(ROLLM){var cutv=f.elements.cut?String(f.elements.cut.value):'';if(Math.min(w,h)<4||/^Kontur|^Contour/.test(cutv)||q>250)wn.push(EN?'Final price is confirmed by quote after file check (cut details under 4 cm, contour cut or more than 250 pieces).':'Bu iş için kesin fiyat dosya kontrolünden sonra teklifle belirlenir (4 cm altı kesim detayı, kontur kesim veya 250 adetten fazla parça).')}
     var mw=$('.mWarn',f);if(mw)mw.textContent=wn.join(' ');
     var ex=f.elements.mat?', '+f.elements.mat.value+', '+f.elements.cut.value:'';

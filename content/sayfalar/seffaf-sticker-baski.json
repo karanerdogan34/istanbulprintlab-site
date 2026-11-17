@@ -1,0 +1,42 @@
+{
+  "yol": "seffaf-sticker-baski",
+  "seo_baslik": "Şeffaf Sticker ve Şeffaf Etiket Baskı | IstanbulPrintLab",
+  "seo_aciklama": "Şeffaf sticker ve etiket baskı: cam kavanoz, şişe, vitrin ve şeffaf ambalaj için. Kontur kesim, anında fiyat, 1–2 iş gününde hazır. {{sticker}} ₺ + KDV / m² (KDV dahil {{sticker+kdv}} ₺).",
+  "etiket": "Küçük format · Cam, şişe, ambalaj",
+  "baslik": "Şeffaf sticker ve etiket baskı",
+  "giris": "Arka planı görünmeyen, \"baskı doğrudan yüzeye yapılmış gibi\" duran etiketler: cam kavanoz, şişe, vitrin ve şeffaf ambalaj için. Şeffaf Oracal folyoya baskı ve kontur kesim.",
+  "neden": [
+    "Baskı ve kontur kesim aynı Mimaki'de: kesim baskıya oturur",
+    "Dosya kontrolü ve dijital prova; onayınız olmadan üretim başlamaz",
+    "Standart işler onaydan sonra 1–2 iş gününde hazır"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/etiket-rulo3.webp",
+      "aciklama": "Şeffaf zemin üzerinde baskılı etiketler"
+    }
+  ],
+  "ozellikler": [],
+  "sss": [
+    {
+      "soru": "Beyaz renk basılabilir mi?",
+      "cevap": "Şeffaf folyoda beyaz alanlar baskısız kalır, yani şeffaf görünür. Tasarımınızda beyaz önemliyse dosyanızı gönderin, en doğru sonucu verecek malzemeyi birlikte seçelim.",
+      "acik": false
+    },
+    {
+      "soru": "Koyu renkli yüzeyde görünür mü?",
+      "cevap": "Şeffaf etiket açık renkli ve şeffaf yüzeylerde en iyi sonucu verir. Koyu yüzeyde renkler koyulaşır; bu durumda beyaz folyo önerilir.",
+      "acik": false
+    },
+    {
+      "soru": "Suya dayanıklı mı?",
+      "cevap": "Folyo baskı olduğu için suya ve neme dayanıklıdır; kavanoz ve şişe etiketlerinde rahatlıkla kullanılır.",
+      "acik": false
+    },
+    {
+      "soru": "Fiyat nasıl hesaplanıyor?",
+      "cevap": "Beyaz folyo ile aynı birim fiyattan: {{sticker}} ₺ + KDV / m² (KDV dahil {{sticker+kdv}} ₺), 130 cm rulo üzerindeki yerleşime göre; asgari sipariş {{asgari}} ₺ + KDV.",
+      "acik": false
+    }
+  ]
+}

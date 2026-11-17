@@ -1,0 +1,54 @@
+{
+  "slug": "antre-gourmet",
+  "seo_baslik": "Antre Gourmet Altın Kabartma Harf | IstanbulPrintLab",
+  "seo_aciklama": "Antre Gourmet için lacivert ahşap cephe ve kapı paneline altın kabartma harf ve amblem uygulaması: ihtiyaç, zorluk ve çözüm.",
+  "firma": "Antre Gourmet",
+  "etiket": "Perakende · Mağaza cephesi",
+  "baslik": "Antre Gourmet: altın kabartma harf ve amblem",
+  "kapak": "/img/proje-antre.webp",
+  "kapak_aciklama": "Antre Gourmet lacivert ahşap cephede altın harf ve logo",
+  "ihtiyac": "Premium bir yöresel ürünler dükkânının kimliğine uygun, lacivert ahşap cephe ve kapı paneli üzerinde okunaklı ve zarif bir marka uygulaması.",
+  "zorluk": "El yazısı karakterdeki ince çizgilerin kesimde kopmadan, ahşap yüzeye milimetrik hizada uygulanması.",
+  "cozum": [
+    "Altın renkli kabartma harf ve amblem kesimi",
+    "İnce çizgiler dahil her harf için hassas kesim",
+    "Uygulama şablonu ile milimetrik yerleşim",
+    "Lacivert ahşap cephe ve kapı paneline uygulama"
+  ],
+  "bilgiler": [
+    {
+      "ad": "Müşteri",
+      "deger": "Antre Gourmet"
+    },
+    {
+      "ad": "Sektör",
+      "deger": "Perakende / gıda"
+    },
+    {
+      "ad": "Uygulama",
+      "deger": "Kabartma harf ve amblem"
+    },
+    {
+      "ad": "Yüzey",
+      "deger": "Lacivert ahşap cephe ve kapı paneli"
+    }
+  ],
+  "kareler": [
+    {
+      "gorsel": "/img/antre-2.webp",
+      "aciklama": "Antre Gourmet uygulamasından kare 1"
+    },
+    {
+      "gorsel": "/img/antre-3.webp",
+      "aciklama": "Antre Gourmet uygulamasından kare 2"
+    },
+    {
+      "gorsel": "/img/antre-4.webp",
+      "aciklama": "Antre Gourmet uygulamasından kare 3"
+    },
+    {
+      "gorsel": "/img/antre-5.webp",
+      "aciklama": "Antre Gourmet uygulamasından kare 4"
+    }
+  ]
+}

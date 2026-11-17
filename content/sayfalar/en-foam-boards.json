@@ -1,0 +1,38 @@
+{
+  "yol": "en/foam-boards",
+  "seo_baslik": "Printed Foam Boards in Istanbul | IstanbulPrintLab",
+  "seo_aciklama": "Printed foam boards (photo boards) for promotions, wayfinding and décor, printed in Istanbul and shipped worldwide. Enter your size for an instant price.",
+  "etiket": "Indoor · Boards & cut-outs",
+  "baslik": "Printed foam boards (photo boards)",
+  "giris": "Full-colour printing on rigid foam board for promotional boards, wayfinding, photo panels and décor — known in Turkey as fotoblok or foreks.",
+  "neden": [
+    "Produced end to end in our own Kadıköy workshop, on our own machine park",
+    "Numbered quote and digital proof — nothing is produced without your approval",
+    "Secure packaging, shipped worldwide"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/gercek-fotoblok-avm.webp",
+      "aciklama": "Die-cut standing foam board figure at a shopping mall entrance"
+    }
+  ],
+  "ozellikler": [
+    {
+      "ad": "Material",
+      "deger": "Digital print on rigid foam board"
+    },
+    {
+      "ad": "Size",
+      "deger": "Single piece up to 150 × 300 cm"
+    },
+    {
+      "ad": "Use",
+      "deger": "Shop and mall promotions, exhibition stands, office walls, photo corners"
+    },
+    {
+      "ad": "Installation",
+      "deger": "In Istanbul we install with our own team; elsewhere we ship ready to display."
+    }
+  ],
+  "sss": []
+}

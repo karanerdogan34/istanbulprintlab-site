@@ -1,0 +1,91 @@
+{
+  "yol": "sticker-baski",
+  "seo_baslik": "Sticker ve Etiket Baskı — Anında Fiyat Hesapla | IstanbulPrintLab",
+  "seo_aciklama": "Sticker ve etiket baskı: ölçü ve adedi girin, fiyatı anında görün. Baskı ve kontur kesim, dosya kontrolü, 1–2 iş gününde hazır. {{sticker}} ₺ + KDV / m² (KDV dahil {{sticker+kdv}} ₺).",
+  "etiket": "Küçük format · İç ve dış mekan",
+  "baslik": "Sticker ve etiket baskı",
+  "giris": "Logonuz, ürün etiketiniz veya kampanya stickerınız; istediğiniz ölçü ve şekilde basılır, kontur kesilir.",
+  "neden": [
+    "Baskı ve kontur kesim aynı Mimaki'de: kesim baskıya oturur",
+    "Dosyanız yüklenir yüklenmez otomatik kontrol, ardından ekibimizin kontrolü",
+    "Üretim hatasında ücretsiz yeniden baskı"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/sticker-el.webp",
+      "aciklama": "Elde tutulan kontur kesim sticker",
+      "kucuk_aciklama": "Kadıköy'deki atölyemizde basılan kesimli logo sticker"
+    },
+    {
+      "gorsel": "/img/etiket-rulo.webp",
+      "aciklama": "Rulo halinde renkli etiketler",
+      "kucuk_aciklama": "Renkli rulo etiketler ve kontur kesimli sticker baskı"
+    },
+    {
+      "gorsel": "/img/etiket-rulo2.webp",
+      "aciklama": "Rulo etiket örnekleri",
+      "kucuk_aciklama": "Kargo ve ürün için yuvarlak rulo etiket baskı"
+    },
+    {
+      "gorsel": "/img/etiket-rulo3.webp",
+      "aciklama": "Ürün etiketleri",
+      "kucuk_aciklama": "Marka logolu rulo ürün etiketi baskısı"
+    }
+  ],
+  "ozellikler": [
+    {
+      "ad": "Malzeme",
+      "deger": "Oracal baskı folyosu · beyaz parlak, beyaz mat, şeffaf"
+    },
+    {
+      "ad": "Baskı ve kesim",
+      "deger": "Mimaki CJV200-160B · baskı ve kontur kesim aynı makinede"
+    },
+    {
+      "ad": "Mürekkep",
+      "deger": "Mimaki CS250 mürekkep"
+    },
+    {
+      "ad": "Kullanılabilir genişlik",
+      "deger": "152 cm (tek parça en büyük sticker eni)"
+    },
+    {
+      "ad": "Kesim şekilleri",
+      "deger": "Kontur, kare/dikdörtgen, daire/oval — kesim fiyata dahil"
+    },
+    {
+      "ad": "Kullanım",
+      "deger": "İç ve dış mekan"
+    },
+    {
+      "ad": "Dış mekan dayanımı",
+      "deger": "Dış mekân folyosuyla basılan stickerlar uzun yıllar rengini korur; güneşe ve suya dayanıklıdır"
+    },
+    {
+      "ad": "Teslim şekli",
+      "deger": "Elle yapıştırmaya uygun tabaka ya da toplu kullanım için rulo"
+    }
+  ],
+  "sss": [
+    {
+      "soru": "En az kaç adet sipariş verebilirim?",
+      "cevap": "Adet sınırı yok; asgari sipariş tutarımız {{asgari}} ₺ + KDV'dir. Küçük işlerinizi adet artırarak bu tutara tamamlayabilirsiniz. Fiyat ölçüye ve adede göre değişir; hesaplayıcıdan görebilir ya da dosyanızı gönderip hesaplatabilirsiniz.",
+      "acik": false
+    },
+    {
+      "soru": "Dosyam hazır değil, tasarım yapıyor musunuz?",
+      "cevap": "Tasarımınız yoksa logonuzu sticker'a uygun hale getiriyor, kesim çizgisini biz hazırlıyoruz.",
+      "acik": false
+    },
+    {
+      "soru": "Farklı tasarımları aynı siparişte bastırabilir miyim?",
+      "cevap": "Evet. Tasarımları aynı tabakaya yerleştirebiliriz. Dosyaları ayrı ayrı yükleyip adetlerini notta yazmanız yeterli.",
+      "acik": false
+    },
+    {
+      "soru": "Hesaplanan fiyat değişebilir mi?",
+      "cevap": "Dosya kontrolünde ölçü, adet veya kesim değişirse yeni fiyatı onayınıza sunarız. Onayınız olmadan üretime geçmeyiz.",
+      "acik": false
+    }
+  ]
+}

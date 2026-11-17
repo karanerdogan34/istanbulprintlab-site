@@ -1,0 +1,61 @@
+{
+  "seo_baslik": "Sticker, Etiket ve Hızlı Baskı İstanbul | IstanbulPrintLab",
+  "seo_aciklama": "Hızlı baskı İstanbul: sticker, etiket, fotoblok, afiş ve branda Kadıköy'deki atölyemizde. Standart işler 1–2 iş günü içinde hazır. Fiyatı hesaplayın.",
+  "ust_baslik": "İstanbul'da hızlı dijital baskı",
+  "buyuk_baslik": [
+    "Üretimi Kadıköy'deki atölyemizde yapıyoruz.",
+    "Her işi özenle hazırlıyoruz."
+  ],
+  "giris": "Sticker, etiket, fotoblok, folyo, afiş, poster, branda, foreks ve roll-up. Makine parkurumuzla eksiksiz basıyor, kesiyor; Türkiye'nin her yerine ve dünyaya gönderiyoruz.",
+  "hiz_notu": "**Standart işler 1–2 iş günü içinde hazır.** Dosya ve ödeme onayından sonra üretime başlıyoruz.",
+  "yilbasi": {
+    "goster": true,
+    "gorsel": "/img/gercek-fotoblok-avm2.webp",
+    "gorsel_aciklama": "AVM koridorunda yılbaşı mesajlı ayaklı fotoblok figür",
+    "ust_yazi": "Yılbaşı · AVM ve mağazalar",
+    "baslik": "Yılbaşı ayaklı fotoblok ve dekupe figür",
+    "maddeler": [
+      "**Son sipariş 15 Aralık** — yılbaşından önce teslim için",
+      "Dekupe figür **{{dekupe}} ₺'den başlayan fiyatlarla**",
+      "İstanbul AVM'lerinde mağaza kapandıktan sonra **gece montajı**",
+      "Zincir mağazalar için aynı tasarımda toplu üretim, şubelere ayrı teslim"
+    ]
+  },
+  "cam_filmi": {
+    "ust_yazi": "Plaza · Ofis · Balkon ve pencere",
+    "baslik": "Ofis cam filmi ve kumlama folyo",
+    "giris": "Cam bölmeler, toplantı ve yönetici odaları, balkon ve pencere camları için mahremiyet. Kumlama, şerit, logolu kesim veya ultra clear folyoya baskı; ölçü, üretim ve montaj tek elden."
+  },
+  "sss": [
+    {
+      "soru": "Siparişim ne zaman hazır olur?",
+      "cevap": "Standart baskı işleri dosya ve ödeme onayından sonra 1–2 iş gününde hazırlanır. Büyük adetli, montajlı veya özel işlerde süre teklifte yazılır.",
+      "acik": true
+    },
+    {
+      "soru": "Fiyat hesaplayıcıdaki fiyat kesin mi?",
+      "cevap": "Hesaplayıcı seçtiğiniz ölçü, adet ve malzemeye göre m² üzerinden fiyat verir. Dosya kontrolünde ölçü veya kesim değişirse size yeni fiyatı onaya sunarız; onayınız olmadan üretime geçmeyiz.",
+      "acik": true
+    },
+    {
+      "soru": "Hangi ödeme yöntemleri var?",
+      "cevap": "Havale/EFT ile ödeme alıyoruz; kartla ödeme yakında. Kişiye özel üretim nedeniyle kapıda ödeme yoktur.",
+      "acik": true
+    },
+    {
+      "soru": "Hangi dosya formatlarını kabul ediyorsunuz?",
+      "cevap": "PDF, AI, EPS ve SVG tercih ederiz. Yazılar eğriye çevrilmiş, kesim çizgisi ayrı katmanda olmalı. PNG, JPG ve TIFF gerçek ölçüde en az 150 dpi olmalı. Ürün sayfasında dosyanızı yüklediğinizde bunlar otomatik kontrol edilir.",
+      "acik": false
+    },
+    {
+      "soru": "Sticker ve baskılar dış mekanda ne kadar dayanır?",
+      "cevap": "Dış mekân folyosuyla basılan sticker ve kesim folyolar uzun yıllar rengini korur. Güneşe, yağmura ve dış mekân koşullarına dayanıklı mürekkeple basıyoruz.",
+      "acik": false
+    },
+    {
+      "soru": "Baskıda hata olursa ne olur?",
+      "cevap": "Baskı hatası, onaylanan ölçüden farklı üretim veya kargoda hasar gibi bizden kaynaklanan sorunlarda ürünü ücretsiz yeniden üretip gönderiyoruz. Ürünü teslim aldıktan sonra fotoğraflarıyla bize yazmanız yeterli. Kişiye özel ürünlerde cayma ve iade yoktur.",
+      "acik": false
+    }
+  ]
+}

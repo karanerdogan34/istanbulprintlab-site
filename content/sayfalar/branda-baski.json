@@ -1,0 +1,80 @@
+{
+  "yol": "branda-baski",
+  "seo_baslik": "Branda Afiş Baskı İstanbul — m² Fiyatı Hesapla | IstanbulPrintLab",
+  "seo_aciklama": "Branda afiş baskı: Avrupa ithal 400 gr dökme branda, dış mekana dayanıklı. Ölçünüzü girin, fiyatı anında hesaplayın. {{branda_beyaz}} ₺ + KDV / m²'den (KDV dahil {{branda_beyaz+kdv}} ₺), asgari 1 m².",
+  "etiket": "Büyük format · Dış mekan",
+  "baslik": "Branda afiş baskı",
+  "giris": "Kampanya, duyuru ve cephe afişleri için dayanıklı branda baskı.",
+  "neden": [
+    "Kadıköy'deki atölyemizde, makine parkurumuzla eksiksiz üretim",
+    "Numaralı teklif ve dijital prova; onayınız olmadan üretim başlamaz",
+    "Türkiye'ye ve dünyaya gönderim"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/gercek-branda-renev.webp",
+      "aciklama": "Şantiye çevresine montajı yapılmış baskılı branda",
+      "kucuk_aciklama": "Renev inşaat projesi için şantiye çevresi branda baskı"
+    },
+    {
+      "gorsel": "/img/gercek-branda-birgen.webp",
+      "aciklama": "Birgen İnşaat şantiye brandası, cadde görünümü",
+      "kucuk_aciklama": "Birgen İnşaat şantiye çevirme branda uygulaması"
+    },
+    {
+      "gorsel": "/img/gercek-branda-ozakkaya.webp",
+      "aciklama": "Özakkaya şantiye brandası, akşam",
+      "kucuk_aciklama": "Özakkaya cephesi için dış mekan branda afiş"
+    },
+    {
+      "gorsel": "/img/gercek-branda-rulo.webp",
+      "aciklama": "Atölyede baskısı tamamlanmış branda rulosu",
+      "kucuk_aciklama": "Atölyemizde baskıdan çıkan rulo branda afiş"
+    }
+  ],
+  "ozellikler": [
+    {
+      "ad": "Malzeme",
+      "deger": "Avrupa ithal 400 gr dökme branda"
+    },
+    {
+      "ad": "Baskı",
+      "deger": "Mimaki CJV200-160B · Mimaki CS250 mürekkep"
+    },
+    {
+      "ad": "Kullanım",
+      "deger": "Kenar dikişi ve kuşgözü ile asılır; ihtiyacınızı teklifte birlikte netleştiririz."
+    },
+    {
+      "ad": "Montaj",
+      "deger": "İstanbul içinde kendi ekibimizle yerinde montaj; diğer şehirlere ölçüsünde üretip kargoluyoruz."
+    }
+  ],
+  "sss": [
+    {
+      "soru": "Branda ile mesh branda arasındaki fark nedir?",
+      "cevap": "Branda kapalı yüzeylidir; görsel daha dolgun ve canlı görünür. Mesh branda deliklidir, rüzgârı geçirir; bu yüzden rüzgâr alan cephe, iskele ve şantiye çevresinde tercih edilir. Uzaktan bakıldığında mesh baskı da net okunur. [Mesh branda baskı →](/mesh-branda/)",
+      "acik": false
+    },
+    {
+      "soru": "Kenar dikişi ve kuşgözü yapıyor musunuz?",
+      "cevap": "Evet. Brandanın nereye ve nasıl asılacağını yazın; kenar dikişi, kuşgözü veya ip geçirme payını ihtiyacınıza göre teklifte birlikte netleştirelim.",
+      "acik": false
+    },
+    {
+      "soru": "Dış mekanda dayanır mı?",
+      "cevap": "Avrupa ithal 400 gr dökme branda dış mekan için üretilmiştir; güneşe ve yağmura dayanıklı mürekkeple basıyoruz.",
+      "acik": false
+    },
+    {
+      "soru": "Dosyamı nasıl hazırlamalıyım?",
+      "cevap": "Gerçek ölçüde ya da ölçeğini belirterek PDF gönderin; yazıları eğriye çevirin. Dosya kontrolünde sorun görürsek üretimden önce size döneriz. Ayrıntılar: [baskı dosyası hazırlama rehberi](/rehber/baski-dosyasi-hazirlama/).",
+      "acik": false
+    },
+    {
+      "soru": "Montaj yapıyor musunuz?",
+      "cevap": "İstanbul içinde kendi ekibimizle yerinde montaj; diğer şehirlere ölçüsünde üretip kargoluyoruz.",
+      "acik": false
+    }
+  ]
+}

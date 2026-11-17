@@ -1,0 +1,75 @@
+{
+  "yol": "folyo-baski",
+  "seo_baslik": "Baskılı Folyo ve Folyo Kesim — Fiyat Hesapla | IstanbulPrintLab",
+  "seo_aciklama": "Baskılı yapışkanlı folyo: duvar, vitrin, kapı ve düz yüzeyler için. Ölçünüzü girin, fiyatı anında hesaplayın. {{folyo}} ₺ + KDV / m²'den (KDV dahil {{folyo+kdv}} ₺), asgari 1 m².",
+  "etiket": "Folyo ve cam",
+  "baslik": "Baskılı folyo",
+  "giris": "Duvar, vitrin, kapı ve düz yüzeyler için baskılı yapışkanlı folyo.",
+  "neden": [
+    "Kadıköy'deki atölyemizde, makine parkurumuzla eksiksiz üretim",
+    "Numaralı teklif ve dijital prova; onayınız olmadan üretim başlamaz",
+    "Türkiye'ye ve dünyaya gönderim"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/gercek-folyo-olivium.webp",
+      "aciklama": "Olivium AVM: kartonet üzerine vinil baskı ve montaj",
+      "kucuk_aciklama": "Olivium AVM cephesine karkaslı vinil baskı ve montaj"
+    },
+    {
+      "gorsel": "/img/gercek-folyo-baydoner.webp",
+      "aciklama": "AVM mağaza önü vinil giydirme",
+      "kucuk_aciklama": "Baydöner için AVM içi baskılı folyo kaplama"
+    },
+    {
+      "gorsel": "/img/gercek-folyo-avm-cephe.webp",
+      "aciklama": "AVM cephesinde büyük ölçü vinil uygulama",
+      "kucuk_aciklama": "AVM cam cephesine baskılı folyo uygulaması"
+    },
+    {
+      "gorsel": "/img/folyo-baski.webp",
+      "aciklama": "Baskılı yapışkanlı folyo örneği",
+      "kucuk_aciklama": "Mağaza vitrinine baskılı yapışkanlı folyo uygulaması"
+    }
+  ],
+  "ozellikler": [
+    {
+      "ad": "Malzeme",
+      "deger": "Baskılı yapışkanlı folyo"
+    },
+    {
+      "ad": "Baskı",
+      "deger": "Mimaki CJV200-160B · Mimaki CS250 mürekkep"
+    },
+    {
+      "ad": "Kullanım",
+      "deger": "Düz ve temiz yüzeylere uygulanır."
+    },
+    {
+      "ad": "Montaj",
+      "deger": "İstanbul içinde kendi ekibimizle yerinde montaj; diğer şehirlere ölçüsünde üretip kargoluyoruz."
+    }
+  ],
+  "sss": [
+    {
+      "soru": "Hangi yüzeylere uygulanır?",
+      "cevap": "Duvar, kapı, vitrin, dolap ve düz, temiz yüzeylere. Pürüzlü, tozlu veya yeni boyanmış yüzeylerde yapışma zayıf olabilir; uygulama yerini bize yazın.",
+      "acik": false
+    },
+    {
+      "soru": "Mat mı parlak mı seçmeliyim?",
+      "cevap": "Parlak folyo renkleri daha canlı gösterir. Mat folyo ışığı yansıtmaz; ışıklı mekanlarda ve fotoğraf çekilen alanlarda daha rahat okunur.",
+      "acik": false
+    },
+    {
+      "soru": "Şekilli kesim yapılabilir mi?",
+      "cevap": "Evet. Baskı ve kontur kesim aynı makinede yapılır; logo veya figür şeklinde kesebiliriz. Küçük ölçülü işler için [sticker baskı](/sticker-baski/) sayfasına bakın.",
+      "acik": false
+    },
+    {
+      "soru": "Montaj yapıyor musunuz?",
+      "cevap": "İstanbul içinde kendi ekibimizle yerinde montaj; diğer şehirlere ölçüsünde üretip kargoluyoruz.",
+      "acik": false
+    }
+  ]
+}

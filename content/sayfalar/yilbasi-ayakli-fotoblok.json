@@ -1,0 +1,79 @@
+{
+  "yol": "yilbasi-ayakli-fotoblok",
+  "seo_baslik": "Yılbaşı Ayaklı Fotoblok ve Dekupe Figür | IstanbulPrintLab",
+  "seo_aciklama": "AVM ve mağazalar için yılbaşı ayaklı fotoblok, dekupe karakter figürü ve kampanya panoları. Kadıköy atölyemizde üretim, İstanbul'da teslim ve yerleşim.",
+  "etiket": "Yılbaşı · AVM ve mağazalar",
+  "baslik": "Yılbaşı için ayaklı fotoblok ve dekupe figür",
+  "giris": "AVM'lerdeki mağazalar ve markalar için yılbaşı karakter figürleri, mağaza önü karşılama panoları, kampanya ve yönlendirme fotoblokları. Tasarımınızı şekline göre kesiyor, arkasına ayak takarak ayakta duracak şekilde teslim ediyoruz.",
+  "neden": [],
+  "fotolar": [
+    {
+      "gorsel": "/img/gercek-fotoblok-avm.webp",
+      "aciklama": "AVM'de mağaza önünde yılbaşı ağacı şeklinde ayaklı fotoblok figür",
+      "kucuk_aciklama": "AVM'de yılbaşı ağacı şeklinde ayaklı fotoblok"
+    },
+    {
+      "gorsel": "/img/gercek-fotoblok-avm2.webp",
+      "aciklama": "AVM koridorunda yılbaşı mesajlı ayaklı fotoblok",
+      "kucuk_aciklama": "Mağaza girişinde yılbaşı temalı dekupe figür"
+    },
+    {
+      "gorsel": "/img/gercek-fotoblok-atolye.webp",
+      "aciklama": "Atölyede kesimi tamamlanmış yılbaşı karakter figürü",
+      "kucuk_aciklama": "Atölyemizde hazırlanan yılbaşı ayaklı fotoblok figür"
+    }
+  ],
+  "ozellikler": [
+    {
+      "ad": "Ne üretiyoruz?",
+      "deger": "Ayaklı dekupe figür, yılbaşı ağacı ve karakter figürleri, karşılama ve kampanya panoları, fotoğraf köşesi panoları"
+    },
+    {
+      "ad": "Ölçü",
+      "deger": "Tek parça en fazla 150 × 300 cm"
+    },
+    {
+      "ad": "Fiyat",
+      "deger": "Ayaklı dekupe figür **{{dekupe}} ₺ + KDV'den başlayan fiyatlarla**; ölçü, tasarım ve adede göre teklif. Düz pano için [m² fiyatını hesaplayın](/fotoblok-baski/)."
+    },
+    {
+      "ad": "Son sipariş",
+      "deger": "**15 Aralık** — yılbaşından önce teslim için"
+    },
+    {
+      "ad": "Zincir mağazalar",
+      "deger": "Aynı tasarımı birden fazla mağaza için çok adet üretip şubelere ayrı ayrı gönderebiliyoruz."
+    },
+    {
+      "ad": "Teslim ve montaj",
+      "deger": "İstanbul'daki AVM'lerde teslim ve yerleşimi kendi ekibimizle yapıyoruz; AVM kurallarına göre mağaza kapandıktan sonra **gece montajı** ve randevulu teslim. Diğer şehirlere sağlam paketle kargo."
+    }
+  ],
+  "sss": [
+    {
+      "soru": "Ayaklı fotoblok nasıl ayakta duruyor?",
+      "cevap": "Figürün arkasına destek ayağı takılır; yere sağlam basacak şekilde teslim edilir. Ölçüye göre ayak yapısını biz belirleriz.",
+      "acik": false
+    },
+    {
+      "soru": "Fiyatı nasıl öğrenirim?",
+      "cevap": "Düz (dikdörtgen) fotoblok {{foreks}} ₺ + KDV / m² (KDV dahil {{foreks+kdv}} ₺) olarak hesaplayıcıda görünür. Ayaklı ve özel kesim figürler için tasarımınızı, ölçüyü ve adedi WhatsApp'tan gönderin; numaralı teklifle bildirelim.",
+      "acik": false
+    },
+    {
+      "soru": "Tasarımımız yok, yardım ediyor musunuz?",
+      "cevap": "Evet. Fikrinizi ve marka renklerinizi gönderin, taslağı birlikte hazırlayalım; dijital provayı onayınıza sunarız.",
+      "acik": false
+    },
+    {
+      "soru": "Birden fazla AVM'deki şubelerimize gönderebilir misiniz?",
+      "cevap": "Evet. Aynı tasarımı çok adet üretip İstanbul'daki şubelere teslim ediyor, diğer şehirlere kargoluyoruz.",
+      "acik": false
+    },
+    {
+      "soru": "Ne kadar önceden sipariş vermeliyim?",
+      "cevap": "Standart işler dosya ve ödeme onayından sonra 1–2 iş gününde hazır olur. Yılbaşından önce teslim için son sipariş tarihi 15 Aralık; Aralık yoğunluğu nedeniyle Kasım'da veya Aralık başında sipariş etmenizi öneririz.",
+      "acik": false
+    }
+  ]
+}

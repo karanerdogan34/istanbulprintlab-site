@@ -1,0 +1,37 @@
+{
+  "yol": "duvar-kagidi-baski",
+  "seo_baslik": "Kişiye Özel Duvar Kağıdı Baskı İstanbul | IstanbulPrintLab",
+  "seo_aciklama": "Fotoğrafınız veya tasarımınızla duvar ölçüsünde duvar kağıdı baskı: ev, ofis, mağaza, kafe. Çocuk odası için sertifikalı seçenek. İstanbul'da uygulama.",
+  "etiket": "Ev · Ofis · Mağaza · Kafe",
+  "baslik": "Kişiye özel duvar kağıdı baskı",
+  "giris": "Fotoğrafınızı, tasarımınızı ya da kurumsal görselinizi duvarınızın ölçüsünde duvar kağıdı olarak basıyoruz. Ev, ofis, mağaza, kafe ve restoran duvarları için.",
+  "neden": [
+    "Kadıköy'deki atölyemizde, makine parkurumuzla eksiksiz üretim",
+    "Numaralı teklif ve dijital prova; onayınız olmadan üretim başlamaz",
+    "İstanbul içinde kendi ekibimizle montaj, Türkiye'ye ve dünyaya gönderim"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/poster-salon.webp",
+      "aciklama": "Duvar dekoru ve baskı uygulaması"
+    }
+  ],
+  "ozellikler": [],
+  "sss": [
+    {
+      "soru": "Duvar ölçüsünü nasıl almalıyım?",
+      "cevap": "Duvarın enini ve yüksekliğini santimetre olarak ölçün, priz ve pencere gibi boşlukları belirtin ve bir fotoğraf gönderin. İstanbul içinde yerinde ölçü de alabiliriz.",
+      "acik": false
+    },
+    {
+      "soru": "Kendi fotoğrafımı kullanabilir miyim?",
+      "cevap": "Evet. Yüksek çözünürlüklü fotoğrafınızı gönderin; duvar ölçüsüne uygunluğunu kontrol edip dijital provayı onayınıza sunarız.",
+      "acik": false
+    },
+    {
+      "soru": "Uygulamayı siz mi yapıyorsunuz?",
+      "cevap": "İstanbul içinde uygulamayı kendi ekibimizle yapıyoruz; diğer şehirlere parçalı ve numaralı olarak gönderiyoruz.",
+      "acik": false
+    }
+  ]
+}

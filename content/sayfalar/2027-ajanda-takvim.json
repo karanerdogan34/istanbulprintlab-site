@@ -1,0 +1,54 @@
+{
+  "yol": "2027-ajanda-takvim",
+  "seo_baslik": "2027 Ajanda Takvim Poster — 12 Renk, Çerçeveli | IstanbulPrintLab",
+  "seo_aciklama": "2027 ajanda takvim poster: 70×100 cm {{takvim}} ₺, çerçeveli 61×91 cm {{takvim_cerceveli}} ₺, 12 renk, 2 iş günü içinde kargoda. Toplu siparişte 50+ adet {{takvim_50}} ₺, logo ücretsiz.",
+  "etiket": "Sezon ürünü · 2027 sizin olsun",
+  "baslik": "2027 ajanda takvim poster",
+  "giris": "Tüm yılı tek bakışta gösteren, kalemle üzerine yazılabilen yıllık duvar planlayıcı. 12 renk seçeneği; poster ya da çerçeveli.",
+  "neden": [
+    "Kadıköy'deki atölyemizde, makine parkurumuzla eksiksiz üretim",
+    "Sağlam tüp ve korumalı paketleme",
+    "Türkiye'nin her yerine kargo"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/takvim-cerceve.webp",
+      "aciklama": "Çerçeveli 2027 ajanda takvim poster"
+    }
+  ],
+  "ozellikler": [
+    {
+      "ad": "Renk",
+      "deger": "12 renk seçeneği"
+    },
+    {
+      "ad": "Ölçü",
+      "deger": "Poster 70 × 100 cm · çerçeveli en fazla 61 × 91 cm"
+    },
+    {
+      "ad": "Toplu sipariş",
+      "deger": "50+ adet **{{takvim_50}} ₺**, 100+ adet **{{takvim_100}} ₺** (adet başı) · firmanızın logosu ücretsiz eklenir"
+    },
+    {
+      "ad": "Asma",
+      "deger": "Poster yapıştırma hamuruyla duvara zarar vermeden asılır; dilerseniz kendi çerçevenizi kullanabilir ya da çerçeveli alabilirsiniz."
+    }
+  ],
+  "sss": [
+    {
+      "soru": "Takvim ne zaman kargoya verilir?",
+      "cevap": "Siparişiniz 2 iş günü içinde sağlam tüp içinde kargoya verilir; çerçeveli takvimler korumalı paketle gönderilir.",
+      "acik": false
+    },
+    {
+      "soru": "Firmamızın logosunu ekleyebilir misiniz?",
+      "cevap": "Evet. 50 adet ve üzeri siparişlerde logonuzu ücretsiz ekliyoruz; 50+ adet {{takvim_50}} ₺, 100+ adet {{takvim_100}} ₺ (adet başı).",
+      "acik": false
+    },
+    {
+      "soru": "Hangi renkler var?",
+      "cevap": "12 renk seçeneği var. Renk tercihinizi siparişte belirtin; emin olamazsanız WhatsApp'tan renk görsellerini gönderelim.",
+      "acik": false
+    }
+  ]
+}

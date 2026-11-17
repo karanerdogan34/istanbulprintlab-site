@@ -1,0 +1,69 @@
+{
+  "yol": "one-way-vision",
+  "seo_baslik": "One Way Vision Cam Folyosu Baskı | IstanbulPrintLab",
+  "seo_aciklama": "One way vision delikli cam folyosu baskı: dışarıdan görsel, içeriden görüş. Vitrin ve araç camı için. Fiyatı anında hesaplayın. {{owv}} ₺ + KDV / m² (KDV dahil {{owv+kdv}} ₺), asgari 1 m².",
+  "etiket": "Folyo ve cam",
+  "baslik": "One way vision cam folyosu",
+  "giris": "Dışarıdan tam görsel görünür, içeriden dışarısı görünür. Vitrin ve araç camı kampanyaları için.",
+  "neden": [
+    "Kadıköy'deki atölyemizde, makine parkurumuzla eksiksiz üretim",
+    "Numaralı teklif ve dijital prova; onayınız olmadan üretim başlamaz",
+    "Türkiye'ye ve dünyaya gönderim"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/one-way.webp",
+      "aciklama": "Delikli one way vision cam folyosu"
+    }
+  ],
+  "ozellikler": [
+    {
+      "ad": "Malzeme",
+      "deger": "Delikli cam folyosu"
+    },
+    {
+      "ad": "Baskı",
+      "deger": "Mimaki CJV200-160B · Mimaki CS250 mürekkep"
+    },
+    {
+      "ad": "Kullanım",
+      "deger": "Cama dış yüzeyden uygulanır; içerisi gün ışığı almaya devam eder."
+    },
+    {
+      "ad": "Montaj",
+      "deger": "İstanbul içinde kendi ekibimizle yerinde montaj; diğer şehirlere ölçüsünde üretip kargoluyoruz."
+    }
+  ],
+  "sss": [
+    {
+      "soru": "One way vision nasıl çalışır?",
+      "cevap": "Delikli bir folyodur. Dış yüzeye görsel basılır, iç tarafı koyudur. Dışarıdan bakan tam görseli görür; içeriden bakan ise deliklerden dışarıyı görmeye devam eder.",
+      "acik": false
+    },
+    {
+      "soru": "Gece de aynı şekilde görünür mü?",
+      "cevap": "Gündüz en iyi sonucu verir. Gece içerisi aydınlık, dışarısı karanlıksa dışarıdan içerisi görülebilir.",
+      "acik": false
+    },
+    {
+      "soru": "Araç camına uygulanabilir mi?",
+      "cevap": "Evet. Taksi, servis ve ticari araçların arka camlarında sık kullanılır.",
+      "acik": false
+    },
+    {
+      "soru": "Sökülünce iz kalır mı?",
+      "cevap": "Sökülürken cama iz bırakmayan folyolar kullanıyoruz.",
+      "acik": false
+    },
+    {
+      "soru": "Mahremiyet için de kullanılır mı?",
+      "cevap": "Kısmen. Asıl amacı camı reklam alanına çevirmektir. Yalnızca mahremiyet istiyorsanız [kumlama folyo](/ofis-cam-filmi/) daha uygundur.",
+      "acik": false
+    },
+    {
+      "soru": "Montaj yapıyor musunuz?",
+      "cevap": "İstanbul içinde kendi ekibimizle yerinde montaj; diğer şehirlere ölçüsünde üretip kargoluyoruz.",
+      "acik": false
+    }
+  ]
+}

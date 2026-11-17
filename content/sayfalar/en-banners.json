@@ -1,0 +1,54 @@
+{
+  "yol": "en/banners",
+  "seo_baslik": "PVC Banner Printing in Istanbul | IstanbulPrintLab",
+  "seo_aciklama": "Durable 380 g PVC banners for shopfronts, events and building sites, printed in Istanbul and shipped worldwide. Enter your size for an instant price.",
+  "etiket": "Large format · Outdoor",
+  "baslik": "PVC banner printing",
+  "giris": "Durable printed banners for campaigns, announcements and facades.",
+  "neden": [
+    "Produced end to end in our own Kadıköy workshop, on our own machine park",
+    "Numbered quote and digital proof — nothing is produced without your approval",
+    "Secure packaging, shipped worldwide"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/gercek-branda-renev.webp",
+      "aciklama": "Printed banner installed around a construction site",
+      "kucuk_aciklama": "PVC hoarding banner printed for the Renev construction site"
+    },
+    {
+      "gorsel": "/img/gercek-branda-birgen.webp",
+      "aciklama": "Construction hoarding banner for Birgen İnşaat",
+      "kucuk_aciklama": "Construction site hoarding banners for Birgen İnşaat"
+    },
+    {
+      "gorsel": "/img/gercek-branda-ozakkaya.webp",
+      "aciklama": "Özakkaya site hoarding banner at dusk",
+      "kucuk_aciklama": "Outdoor facade banner for Özakkaya in Istanbul"
+    },
+    {
+      "gorsel": "/img/gercek-branda-rulo.webp",
+      "aciklama": "Finished banner roll in our workshop",
+      "kucuk_aciklama": "Freshly printed banner roll in our Kadıköy workshop"
+    }
+  ],
+  "ozellikler": [
+    {
+      "ad": "Material",
+      "deger": "European 400 g cast PVC banner"
+    },
+    {
+      "ad": "Printing",
+      "deger": "Mimaki CJV200-160B · Mimaki CS250 ink"
+    },
+    {
+      "ad": "Use",
+      "deger": "Hemmed edges and eyelets for hanging — confirmed in your quote"
+    },
+    {
+      "ad": "Installation",
+      "deger": "In Istanbul we install with our own team; elsewhere we produce to your measurements and ship ready to apply."
+    }
+  ],
+  "sss": []
+}

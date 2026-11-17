@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <title>Baskılı Folyo ve Folyo Kesim — Fiyat Hesapla | IstanbulPrintLab</title>
-<meta name="description" content="Baskılı yapışkanlı folyo: duvar, vitrin, kapı ve düz yüzeyler için. Ölçünüzü girin, fiyatı anında hesaplayın. 800 ₺ + KDV / m²'den (KDV dahil 960 ₺), asgari 1 m².">
+<meta name="description" content="Baskılı yapışkanlı folyo: duvar, vitrin, kapı ve düz yüzeyler için. Ölçünüzü girin, fiyatı anında hesaplayın. {{folyo}} ₺ + KDV / m²'den (KDV dahil {{folyo+kdv}} ₺), asgari 1 m².">
 <link rel="canonical" href="https://www.istanbulprintlab.com/folyo-baski/">
 <link rel="alternate" hreflang="tr" href="https://www.istanbulprintlab.com/folyo-baski/">
 <link rel="alternate" hreflang="en" href="https://www.istanbulprintlab.com/en/printed-vinyl/">
 <link rel="alternate" hreflang="x-default" href="https://www.istanbulprintlab.com/folyo-baski/">
 <meta property="og:title" content="Baskılı Folyo ve Folyo Kesim — Fiyat Hesapla | IstanbulPrintLab">
-<meta property="og:description" content="Baskılı yapışkanlı folyo: duvar, vitrin, kapı ve düz yüzeyler için. Ölçünüzü girin, fiyatı anında hesaplayın. 800 ₺ + KDV / m²'den (KDV dahil 960 ₺), asgari 1 m².">
+<meta property="og:description" content="Baskılı yapışkanlı folyo: duvar, vitrin, kapı ve düz yüzeyler için. Ölçünüzü girin, fiyatı anında hesaplayın. {{folyo}} ₺ + KDV / m²'den (KDV dahil {{folyo+kdv}} ₺), asgari 1 m².">
 <meta property="og:url" content="https://www.istanbulprintlab.com/folyo-baski/">
 <meta property="og:locale" content="tr_TR">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -425,13 +425,13 @@ main{counter-reset:sec}
 </ul>
 </div>
 </div>
-<form class="conf mcalc" data-price="800" data-name="Baskılı folyo" data-mina="1" novalidate>
+<form class="conf mcalc" data-price="{{folyo:ham}}" data-name="Baskılı folyo" data-mina="1" novalidate>
 <div><span class="tag">Folyo ve cam</span>
 <h1 style="margin-top:8px">Baskılı folyo</h1>
 <p class="lead" style="margin-top:10px">Duvar, vitrin, kapı ve düz yüzeyler için baskılı yapışkanlı folyo.</p></div>
 <div class="cgroup"><b>Laminasyon</b><div class="opts" role="radiogroup">
-<label class="opt"><input type="radio" name="var" value="laminasyonsuz" data-p="800" checked><span>Laminasyonsuz · 960 ₺/m² KDV dahil · 800 ₺ + KDV</span></label>
-<label class="opt"><input type="radio" name="var" value="laminasyonlu" data-p="1200"><span>Laminasyonlu · 1.440 ₺/m² KDV dahil · 1.200 ₺ + KDV</span></label>
+<label class="opt"><input type="radio" name="var" value="laminasyonsuz" data-p="{{folyo:ham}}" checked><span>Laminasyonsuz · {{folyo+kdv}} ₺/m² KDV dahil · {{folyo}} ₺ + KDV</span></label>
+<label class="opt"><input type="radio" name="var" value="laminasyonlu" data-p="{{folyo_lam:ham}}"><span>Laminasyonlu · {{folyo_lam+kdv}} ₺/m² KDV dahil · {{folyo_lam}} ₺ + KDV</span></label>
 </div></div>
 <div class="cgroup"><b>Ölçü ve adet</b>
 <div class="dims">
@@ -458,7 +458,7 @@ main{counter-reset:sec}
 </tbody></table>
 <div class="row"><a class="btn" href="#teklif" style="flex:1">Bu ölçüyle teklif al</a><a class="btn ghost mWa" href="https://wa.me/905325237364">WhatsApp ile sor</a></div>
 <p class="note">Oracal folyo: mat, parlak, şeffaf mat ve şeffaf parlak. Asgari 1 m²; 1 m² altındaki işler 1 m² üzerinden hesaplanır. Kontur kesim ve uygulama (montaj) teklifle belirlenir.</p>
-<p class="note">Hesaplanan tutar ön fiyattır; bu form kesin sipariş değil, teklif talebidir. Dosyanızı kontrol ettikten sonra kesin fiyatı ve onayı biz iletiriz; onayınız ve ödemenizden sonra üretim başlar. Fiyatlara tasarım, montaj ve kargo dahil değildir; tasarım ve montaj hizmetimiz yalnızca teklif yoluyla fiyatlandırılır. Kargo ücreti alıcıya aittir (5.000 ₺ + KDV üzeri siparişlerde kargo bizden; roll-up, foreks ve fotoblok hariç); dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz. Teklifler 7 gün geçerlidir.</p>
+<p class="note">Hesaplanan tutar ön fiyattır; bu form kesin sipariş değil, teklif talebidir. Dosyanızı kontrol ettikten sonra kesin fiyatı ve onayı biz iletiriz; onayınız ve ödemenizden sonra üretim başlar. Fiyatlara tasarım, montaj ve kargo dahil değildir; tasarım ve montaj hizmetimiz yalnızca teklif yoluyla fiyatlandırılır. Kargo ücreti alıcıya aittir ({{kargo_esik}} ₺ + KDV üzeri siparişlerde kargo bizden; roll-up, foreks ve fotoblok hariç); dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz. Teklifler 7 gün geçerlidir.</p>
 <p class="note">Sıfır Mimaki CJV200-160B makinemizde orijinal Mimaki mürekkep, Oracal ve Avrupa ithal malzemeyle basıyoruz: doğru renk, keskin baskı ve uzun ömür. Piyasadaki eski makine ve muadil mürekkeple yapılan baskılarla aynı iş değildir.</p>
 </form>
 </section>
@@ -600,7 +600,7 @@ tabs.forEach(function(t,i){
 function sel(i){tabs.forEach(function(t,j){t.setAttribute('aria-selected',String(i===j));t.tabIndex=i===j?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=i!==j})}
 
 // price calculator (fiyatlar KDV hariç; KDV ayrıca eklenir)
-var PRICE=1750,KDV=0.2,MINNET=999,FREESHIP=5000,ROLL=130,ROLLMAX=152,GAP=0.4;
+var PRICE={{sticker:ham}},KDV=0.2,MINNET={{asgari:ham}},FREESHIP={{kargo_esik:ham}},ROLL=130,ROLLMAX=152,GAP=0.4;
 // Yerleşim: fiyat 130 cm rulo üzerinden; 130 cm'ye sığmayan (152 cm'ye kadar) işler 130 cm rulo üzerinden
 function layout(w,h,q){var R,ww,hh,rot;
   if(w<=ROLL){R=ROLL;ww=w;hh=h;rot=false}else if(h<=ROLL){R=ROLL;ww=h;hh=w;rot=true}
@@ -627,8 +627,8 @@ function calc(){
   $('#sUnit').textContent=(net/q).toLocaleString('tr-TR',{maximumFractionDigits:2})+' ₺ + KDV';
   var sn=$('#sNet');if(sn)sn.textContent=fmt(net)+' + KDV';
   animTotal($('#sTotal'),total);
-  $('#sShip').textContent=net>=FREESHIP?'Ücretsiz (5.000 ₺ + KDV üzeri)':'Alıcıya ait · atölyeden teslim alınabilir';
-  var wn=[];if(minUsed)wn.push('Asgari sipariş tutarı 999 ₺ + KDV uygulandı.');
+  $('#sShip').textContent=net>=FREESHIP?'Ücretsiz ({{kargo_esik}} ₺ + KDV üzeri)':'Alıcıya ait · atölyeden teslim alınabilir';
+  var wn=[];if(minUsed)wn.push('Asgari sipariş tutarı {{asgari}} ₺ + KDV uygulandı.');
   if(Math.min(w,h)<4||cut==='kontur'||q>250)wn.push('Bu iş için kesin fiyat dosya kontrolünden sonra teklifle belirlenir (4 cm altı kesim detayı, kontur kesim veya 250 adetten fazla parça).');
   var sw=$('#sWarn');if(sw)sw.textContent=wn.join(' ');
   $('#waLink').href='https://wa.me/905325237364?text='+encodeURIComponent('Merhaba, sticker baskı için teklif almak istiyorum: '+w+'×'+h+' cm, '+q+' adet, '+f.get('mat')+', laminasyon: '+lam+', '+f.get('cut')+' kesim. Ön fiyat: '+fmt(net)+' + KDV');
@@ -826,8 +826,8 @@ $$('.mcalc').forEach(function(f){
     var mr=$('.mRate',f);if(mr)mr.textContent=EN?(fmt(rate).replace(' ₺',' TRY')+' / m² excl. VAT'):(fmt(Math.round(rate*(1+KDV)))+' / m² · '+fmt(rate)+' + KDV');
     var mn=$('.mNet',f);if(mn)mn.textContent=EN?fmt(net).replace(' ₺',' TRY'):fmt(net)+' + KDV';
     if(EN){animTotal($('.mTotal',f),net);f.__t=net;fxShow(f)}else animTotal($('.mTotal',f),total);
-    var ms=$('.mShip',f);if(ms&&!EN)ms.textContent=bulky?'Alıcıya ait · atölyeden teslim alınabilir':(net>=FREESHIP?'Ücretsiz (5.000 ₺ + KDV üzeri)':'Alıcıya ait · atölyeden teslim alınabilir');
-    var wn=[];if(minNu)wn.push(EN?'Minimum order 999 TRY + VAT applied.':'Asgari sipariş tutarı 999 ₺ + KDV uygulandı.');
+    var ms=$('.mShip',f);if(ms&&!EN)ms.textContent=bulky?'Alıcıya ait · atölyeden teslim alınabilir':(net>=FREESHIP?'Ücretsiz ({{kargo_esik}} ₺ + KDV üzeri)':'Alıcıya ait · atölyeden teslim alınabilir');
+    var wn=[];if(minNu)wn.push(EN?'Minimum order {{asgari}} TRY + VAT applied.':'Asgari sipariş tutarı {{asgari}} ₺ + KDV uygulandı.');
     if(ROLLM){var cutv=f.elements.cut?String(f.elements.cut.value):'';if(Math.min(w,h)<4||/^Kontur|^Contour/.test(cutv)||q>250)wn.push(EN?'Final price is confirmed by quote after file check (cut details under 4 cm, contour cut or more than 250 pieces).':'Bu iş için kesin fiyat dosya kontrolünden sonra teklifle belirlenir (4 cm altı kesim detayı, kontur kesim veya 250 adetten fazla parça).')}
     var mw=$('.mWarn',f);if(mw)mw.textContent=wn.join(' ');
     var ex=f.elements.mat?', '+f.elements.mat.value+', '+f.elements.cut.value:'';

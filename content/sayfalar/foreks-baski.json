@@ -1,0 +1,70 @@
+{
+  "yol": "foreks-baski",
+  "seo_baslik": "Foreks Baskı İstanbul — m² Fiyatı Hesapla | IstanbulPrintLab",
+  "seo_aciklama": "Foreks (fotoblok) pano baskı: tanıtım, yönlendirme ve dekor panoları. Düz kesim {{foreks}} ₺ + KDV / m² (KDV dahil {{foreks+kdv}} ₺), ön fiyatı anında hesaplayın; özel kesime teklif alın.",
+  "etiket": "İç mekan · Pano ve tabela",
+  "baslik": "Foreks baskı",
+  "giris": "Reklamcılar arasında \"foreks baskı\" diye bilinen sert pano baskısını fotoblok levha üzerine üretiyoruz: tanıtım panosu, yönlendirme, dekupe figür ve dekor panoları.",
+  "neden": [
+    "Kadıköy'deki atölyemizde, makine parkurumuzla eksiksiz üretim",
+    "Numaralı teklif ve dijital prova; onayınız olmadan üretim başlamaz",
+    "İstanbul içinde kendi ekibimizle montaj, Türkiye'ye ve dünyaya gönderim"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/gercek-fotoblok-atolye.webp",
+      "aciklama": "Atölyede baskısı ve kesimi tamamlanmış foreks (fotoblok) pano",
+      "kucuk_aciklama": "Atölyemizde basılıp özel kesilen foreks pano"
+    },
+    {
+      "gorsel": "/img/gercek-fotoblok-avm.webp",
+      "aciklama": "AVM girişinde foreks (fotoblok) dekupe figür",
+      "kucuk_aciklama": "AVM'de kullanılan baskılı foreks tanıtım panosu"
+    },
+    {
+      "gorsel": "/img/gercek-fotoblok-avm2.webp",
+      "aciklama": "AVM'de ayaklı foreks (fotoblok) yönlendirme panosu",
+      "kucuk_aciklama": "Mağaza girişinde ayaklı foreks yönlendirme panosu"
+    }
+  ],
+  "ozellikler": [
+    {
+      "ad": "Malzeme",
+      "deger": "Fotoblok levha üzerine dijital baskı"
+    },
+    {
+      "ad": "Ölçü",
+      "deger": "Tek parça en fazla 150 × 300 cm"
+    },
+    {
+      "ad": "Kesim",
+      "deger": "Düz (dikdörtgen) kesim {{foreks}} ₺ + KDV / m²; özel kesim (dekupe) fiyatı daha yüksektir, fiyat için bizimle iletişime geçin."
+    },
+    {
+      "ad": "Montaj",
+      "deger": "İstanbul içinde kendi ekibimizle yerinde montaj; diğer şehirlere ölçüsünde üretip kargoluyoruz."
+    }
+  ],
+  "sss": [
+    {
+      "soru": "Foreks ile fotoblok aynı şey mi?",
+      "cevap": "Sektörde sert pano baskılarına çoğu zaman \"foreks\" denir. Biz bu işleri fotoblok levha üzerine üretiyoruz; fiyat ve ölçü sınırları [fotoblok baskı](/fotoblok-baski/) ile aynıdır.",
+      "acik": false
+    },
+    {
+      "soru": "Fiyat nasıl hesaplanıyor?",
+      "cevap": "Düz (dikdörtgen) kesim {{foreks}} ₺ + KDV / m² (KDV dahil {{foreks+kdv}} ₺; laminasyonlu {{foreks_lam}} ₺ + KDV) üzerinden, asgari 1 m², girdiğiniz ölçü ve adede göre hesaplanır. Özel kesim (dekupe) fiyatı daha yüksektir; teklifle bildiririz.",
+      "acik": false
+    },
+    {
+      "soru": "En büyük ölçü nedir?",
+      "cevap": "Tek parça en fazla 150 × 300 cm. Daha büyük ölçüler tek parça halinde üretilemez.",
+      "acik": false
+    },
+    {
+      "soru": "Nerelerde kullanılır?",
+      "cevap": "Mağaza ve AVM panoları, fuar standı, ofis duvar panosu, yönlendirme, karşılama ve fotoğraf panoları. İç mekan içindir.",
+      "acik": false
+    }
+  ]
+}

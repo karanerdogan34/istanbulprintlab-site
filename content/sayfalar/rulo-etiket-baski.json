@@ -1,0 +1,55 @@
+{
+  "yol": "rulo-etiket-baski",
+  "seo_baslik": "Rulo Etiket Baskı İstanbul — Ürün Etiketi | IstanbulPrintLab",
+  "seo_aciklama": "Rulo etiket baskı: ürün, ambalaj ve kavanoz etiketleri rulo veya tabaka halinde. Oracal folyo, kontur kesim, suya dayanıklı. Hızlı teklif.",
+  "etiket": "Küçük format · Ürün ve ambalaj",
+  "baslik": "Rulo etiket baskı",
+  "giris": "Ürün, ambalaj ve kavanoz etiketlerinizi toplu kullanım için rulo halinde basıp kesiyoruz. Elle yapıştırmaya uygun tabaka da seçebilirsiniz.",
+  "neden": [],
+  "fotolar": [
+    {
+      "gorsel": "/img/etiket-rulo.webp",
+      "aciklama": "Rulo halinde renkli ürün etiketleri"
+    }
+  ],
+  "ozellikler": [
+    {
+      "ad": "Malzeme",
+      "deger": "Oracal baskı folyosu · beyaz parlak, beyaz mat, şeffaf"
+    },
+    {
+      "ad": "Baskı ve kesim",
+      "deger": "Mimaki CJV200-160B · baskı ve kontur kesim aynı makinede"
+    },
+    {
+      "ad": "Teslim şekli",
+      "deger": "Rulo ya da tabaka"
+    },
+    {
+      "ad": "Fiyat",
+      "deger": "Rulo etiket yalnızca teklifle fiyatlandırılır (sarım ve kesim düzeni işe göre değişir). Tabaka halinde sticker için hesaplayıcıyı kullanabilirsiniz."
+    }
+  ],
+  "sss": [
+    {
+      "soru": "Rulo ile tabaka arasındaki fark nedir?",
+      "cevap": "Tabaka etiket elle yapıştırmaya uygundur; birçok etiket tek sayfada gelir. Rulo etiket toplu kullanım için sarılı gelir ve hızlı uygulanır.",
+      "acik": false
+    },
+    {
+      "soru": "Etiket makinesine uygun rulo yapıyor musunuz?",
+      "cevap": "Kullandığınız makinenin rulo iç çapı, sarım yönü ve etiketler arası boşluk gibi bilgilerini yazın; uygunluğunu kontrol edip teklifte bildirelim.",
+      "acik": false
+    },
+    {
+      "soru": "Şeffaf rulo etiket olur mu?",
+      "cevap": "Evet. Şeffaf folyoya da basıyoruz. [Şeffaf sticker ve etiket →](/seffaf-sticker-baski/)",
+      "acik": false
+    },
+    {
+      "soru": "Suya ve neme dayanıklı mı?",
+      "cevap": "Folyo etiket olduğu için suya ve neme dayanıklıdır; buzdolabı ve kavanoz ürünlerinde kullanılabilir.",
+      "acik": false
+    }
+  ]
+}

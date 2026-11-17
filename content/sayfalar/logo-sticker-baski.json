@@ -1,0 +1,42 @@
+{
+  "yol": "logo-sticker-baski",
+  "seo_baslik": "Logo Sticker Baskı İstanbul — Kesimli | IstanbulPrintLab",
+  "seo_aciklama": "Logo sticker baskı: logonuz kendi şeklinden kesilir. Ambalaj, kutu, cam ve laptop için; asgari {{asgari}} ₺ + KDV. Anında ön fiyat, {{sticker}} ₺ + KDV / m² (KDV dahil {{sticker+kdv}} ₺).",
+  "etiket": "Küçük format · Marka ve tanıtım",
+  "baslik": "Logo sticker baskı",
+  "giris": "Logonuzu kendi şeklinden kesilmiş sticker olarak basıyoruz: ürün paketleri, teşekkür kartları, laptop ve vitrin için. Asgari {{asgari}} ₺ + KDV'den binlerce adede aynı kalite.",
+  "neden": [
+    "Baskı ve kontur kesim aynı Mimaki'de: kesim baskıya oturur",
+    "Dosya kontrolü ve dijital prova; onayınız olmadan üretim başlamaz",
+    "Standart işler onaydan sonra 1–2 iş gününde hazır"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/sticker-el.webp",
+      "aciklama": "Elde tutulan logo sticker"
+    }
+  ],
+  "ozellikler": [],
+  "sss": [
+    {
+      "soru": "Logomun vektör dosyası yok, ne yapmalıyım?",
+      "cevap": "Elinizdeki en net görseli gönderin. Tasarımınız yoksa logonuzu sticker'a uygun hale getiriyor, kesim çizgisini biz hazırlıyoruz.",
+      "acik": false
+    },
+    {
+      "soru": "En az kaç adet?",
+      "cevap": "Adet sınırı yok; asgari sipariş tutarımız {{asgari}} ₺ + KDV'dir. Küçük işlerinizi adet artırarak bu tutara tamamlayabilirsiniz. Fiyat ölçüye ve adede göre değişir; yukarıdaki hesaplayıcıdan görebilirsiniz.",
+      "acik": false
+    },
+    {
+      "soru": "Farklı boyutlarda logo aynı siparişte olur mu?",
+      "cevap": "Evet. Farklı boyut ve tasarımları aynı tabakaya yerleştirebiliriz; adetlerini notta yazmanız yeterli.",
+      "acik": false
+    },
+    {
+      "soru": "Dış mekanda kullanılabilir mi?",
+      "cevap": "Evet. Dış mekân folyosuyla basılan stickerlar uzun yıllar rengini korur.",
+      "acik": false
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "yol": "mesh-branda",
+  "seo_baslik": "Mesh Branda Baskı İstanbul — m² Fiyatı Hesapla | IstanbulPrintLab",
+  "seo_aciklama": "Mesh (delikli) branda baskı: rüzgâr alan cephe, iskele ve şantiye çevresi için. Ölçünüzü girin, fiyatı anında hesaplayın. {{mesh}} ₺ + KDV / m² (KDV dahil {{mesh+kdv}} ₺), asgari 1 m².",
+  "etiket": "Büyük format · Dış mekan",
+  "baslik": "Mesh branda baskı",
+  "giris": "Rüzgâr alan cephe, iskele ve şantiye çevresi için hava geçiren delikli branda.",
+  "neden": [
+    "Kadıköy'deki atölyemizde, makine parkurumuzla eksiksiz üretim",
+    "Numaralı teklif ve dijital prova; onayınız olmadan üretim başlamaz",
+    "Türkiye'ye ve dünyaya gönderim"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/mesh.webp",
+      "aciklama": "Cephede mesh branda"
+    }
+  ],
+  "ozellikler": [
+    {
+      "ad": "Malzeme",
+      "deger": "Mesh (delikli) branda"
+    },
+    {
+      "ad": "Baskı",
+      "deger": "Mimaki CJV200-160B · Mimaki CS250 mürekkep"
+    },
+    {
+      "ad": "Kullanım",
+      "deger": "Rüzgâr yükünü azaltır; geniş cephelerde tercih edilir."
+    },
+    {
+      "ad": "Montaj",
+      "deger": "İstanbul içinde kendi ekibimizle yerinde montaj; diğer şehirlere ölçüsünde üretip kargoluyoruz."
+    }
+  ],
+  "sss": [
+    {
+      "soru": "Mesh branda nedir?",
+      "cevap": "Mesh, üzerinde küçük delikler bulunan, hava geçiren bir brandadır. Rüzgâr yükünü azalttığı için büyük cephelerde, iskelelerde ve şantiye çevresinde kullanılır.",
+      "acik": false
+    },
+    {
+      "soru": "Normal branda yerine ne zaman mesh seçmeliyim?",
+      "cevap": "Baskı büyük bir yüzeye asılacak ve rüzgâr alacaksa mesh seçin. Rüzgârın az olduğu, yakından bakılan yerlerde normal branda daha dolgun görünür. [Branda baskı →](/branda-baski/)",
+      "acik": false
+    },
+    {
+      "soru": "Mesh baskı uzaktan net görünür mü?",
+      "cevap": "Evet. Delikler yakından fark edilir; uzaktan bakıldığında görsel bütün ve okunaklı görünür.",
+      "acik": false
+    },
+    {
+      "soru": "Montaj yapıyor musunuz?",
+      "cevap": "İstanbul içinde kendi ekibimizle yerinde montaj; diğer şehirlere ölçüsünde üretip kargoluyoruz.",
+      "acik": false
+    }
+  ]
+}

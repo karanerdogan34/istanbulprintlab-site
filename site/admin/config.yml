@@ -10,6 +10,9 @@ locale: tr
 media_folder: "site/img"
 public_folder: "/img"
 publish_mode: simple
+slug:
+  encoding: "ascii"
+  clean_accents: true
 editor:
   preview: false
 
@@ -34,6 +37,67 @@ collections:
               - { label: "Fotoğraf açıklaması (Google için)", name: "alt", widget: "string", required: false, hint: "Boş bırakılırsa başlık ve açıklamadan otomatik oluşturulur." }
               - { label: "Vaka çalışması sayfası (varsa)", name: "baglanti", widget: "string", required: false, hint: "Örnek: /projeler/antre-gourmet/ — boş bırakılırsa kart teklif formuna gider." }
               - { label: "Sitede gizle", name: "gizle", widget: "boolean", default: false, required: false }
+      - name: "fiyatlar"
+        label: "Fiyatlar (bütün sayfalar ve hesaplayıcılar)"
+        file: "content/fiyatlar.json"
+        format: "json"
+        description: "Takvim dışındaki fiyatlar KDV hariçtir; KDV dahil fiyatlar sitede otomatik hesaplanır."
+        fields:
+          - { label: "Sticker ve etiket (m², baskı + kesim)", name: "sticker", widget: "number", value_type: "int", min: 0 }
+          - { label: "Baskılı folyo (m²)", name: "folyo", widget: "number", value_type: "int", min: 0 }
+          - { label: "Baskılı folyo, laminasyonlu (m²)", name: "folyo_lam", widget: "number", value_type: "int", min: 0 }
+          - { label: "One way vision (m²)", name: "owv", widget: "number", value_type: "int", min: 0 }
+          - { label: "Foreks / fotoblok, düz kesim (m²)", name: "foreks", widget: "number", value_type: "int", min: 0 }
+          - { label: "Foreks / fotoblok, laminasyonlu (m²)", name: "foreks_lam", widget: "number", value_type: "int", min: 0 }
+          - { label: "Branda, arkası beyaz (m²)", name: "branda_beyaz", widget: "number", value_type: "int", min: 0 }
+          - { label: "Branda, arkası siyah (m²)", name: "branda_siyah", widget: "number", value_type: "int", min: 0 }
+          - { label: "Mesh branda (m²)", name: "mesh", widget: "number", value_type: "int", min: 0 }
+          - { label: "Ofis cam filmi (m²)", name: "cam_filmi", widget: "number", value_type: "int", min: 0 }
+          - { label: "Roll-up 85×200 (adet)", name: "rollup", widget: "number", value_type: "int", min: 0 }
+          - { label: "Dekupe figür başlangıç fiyatı", name: "dekupe", widget: "number", value_type: "int", min: 0 }
+          - { label: "Duvar kağıdı başlangıç fiyatı", name: "duvar_kagidi", widget: "number", value_type: "int", min: 0 }
+          - { label: "Asgari sipariş tutarı", name: "asgari", widget: "number", value_type: "int", min: 0 }
+          - { label: "Ücretsiz kargo sınırı", name: "kargo_esik", widget: "number", value_type: "int", min: 0 }
+          - { label: "2027 takvim poster (KDV dahil)", name: "takvim", widget: "number", value_type: "int", min: 0 }
+          - { label: "2027 takvim çerçeveli (KDV dahil)", name: "takvim_cerceveli", widget: "number", value_type: "int", min: 0 }
+          - { label: "Takvim toplu, 50+ adet (adet başı, KDV dahil)", name: "takvim_50", widget: "number", value_type: "int", min: 0 }
+          - { label: "Takvim toplu, 100+ adet (adet başı, KDV dahil)", name: "takvim_100", widget: "number", value_type: "int", min: 0 }
+      - name: "anasayfa"
+        label: "Anasayfa Metinleri ve SSS"
+        file: "content/anasayfa.json"
+        format: "json"
+        fields:
+          - { label: "Küçük üst başlık", name: "ust_baslik", widget: "string" }
+          - { label: "Büyük başlık satırları", name: "buyuk_baslik", widget: "list", field: { label: "Satır", name: "satir", widget: "string" } }
+          - { label: "Giriş yazısı", name: "giris", widget: "text" }
+          - { label: "Hız notu", name: "hiz_notu", widget: "text", hint: "**kalın** yazmak için iki yıldız arasına alın." }
+          - label: "Yılbaşı bandı"
+            name: "yilbasi"
+            widget: "object"
+            fields:
+              - { label: "Sitede göster", name: "goster", widget: "boolean", default: true }
+              - { label: "Fotoğraf", name: "gorsel", widget: "image", choose_url: false }
+              - { label: "Fotoğraf açıklaması", name: "gorsel_aciklama", widget: "string" }
+              - { label: "Üst yazı", name: "ust_yazi", widget: "string" }
+              - { label: "Başlık", name: "baslik", widget: "string" }
+              - { label: "Maddeler", name: "maddeler", widget: "list", field: { label: "Madde", name: "madde", widget: "string" }, hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir." }
+          - label: "Ofis cam filmi bandı"
+            name: "cam_filmi"
+            widget: "object"
+            fields:
+              - { label: "Üst yazı", name: "ust_yazi", widget: "string" }
+              - { label: "Başlık", name: "baslik", widget: "string" }
+              - { label: "Giriş yazısı", name: "giris", widget: "text" }
+          - label: "Sık sorulanlar"
+            name: "sss"
+            widget: "list"
+            summary: "{{fields.soru}}"
+            fields:
+              - { label: "Soru", name: "soru", widget: "string" }
+              - { label: "Cevap", name: "cevap", widget: "text", hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir." }
+              - { label: "Açık başlasın", name: "acik", widget: "boolean", default: false, required: false }
+          - { label: "Google başlığı (SEO)", name: "seo_baslik", widget: "string" }
+          - { label: "Google açıklaması (SEO)", name: "seo_aciklama", widget: "text" }
       - name: "iletisim"
         label: "İletişim Bilgileri (bütün sayfalar ve diller)"
         file: "content/iletisim.json"
@@ -43,3 +107,90 @@ collections:
           - { label: "E-posta", name: "eposta", widget: "string" }
           - { label: "Adres (mahalle, sokak, no)", name: "adres", widget: "string", hint: "Örnek: Fikirtepe Mah. Dispanser Sok. No:50/A-B" }
           - { label: "İlçe", name: "ilce", widget: "string" }
+
+  - name: "sayfalar"
+    label: "Ürün Sayfaları"
+    label_singular: "Ürün sayfası"
+    folder: "content/sayfalar"
+    extension: "json"
+    format: "json"
+    create: false
+    delete: false
+    identifier_field: "baslik"
+    summary: "{{baslik}} — /{{yol}}/"
+    sortable_fields: ["baslik", "yol"]
+    fields:
+      - { label: "yol", name: "yol", widget: "hidden" }
+      - { label: "Üst etiket", name: "etiket", widget: "string", required: false }
+      - { label: "Sayfa başlığı", name: "baslik", widget: "string" }
+      - { label: "Giriş yazısı", name: "giris", widget: "text", required: false, hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir." }
+      - { label: "Neden bizden? maddeleri", name: "neden", widget: "list", required: false, field: { label: "Madde", name: "madde", widget: "string" } }
+      - label: "Fotoğraflar"
+        name: "fotolar"
+        widget: "list"
+        required: false
+        hint: "İlk fotoğraf büyük görsel olarak gösterilir."
+        summary: "{{fields.aciklama}}"
+        fields:
+          - { label: "Fotoğraf", name: "gorsel", widget: "image", choose_url: false }
+          - { label: "Fotoğraf açıklaması", name: "aciklama", widget: "string" }
+          - { label: "Küçük resim açıklaması", name: "kucuk_aciklama", widget: "string", required: false }
+      - label: "Teknik özellikler tablosu"
+        name: "ozellikler"
+        widget: "list"
+        required: false
+        summary: "{{fields.ad}}"
+        fields:
+          - { label: "Başlık", name: "ad", widget: "string" }
+          - { label: "Değer", name: "deger", widget: "text", hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir." }
+      - label: "Sık sorulan sorular"
+        name: "sss"
+        widget: "list"
+        required: false
+        summary: "{{fields.soru}}"
+        fields:
+          - { label: "Soru", name: "soru", widget: "string" }
+          - { label: "Cevap", name: "cevap", widget: "text", hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir. Bağlantı için [yazı](/adres/), kalın için **yazı** kullanın." }
+          - { label: "Açık başlasın", name: "acik", widget: "boolean", default: false, required: false }
+      - { label: "Google başlığı (SEO)", name: "seo_baslik", widget: "string" }
+      - { label: "Google açıklaması (SEO)", name: "seo_aciklama", widget: "text", hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir." }
+
+  - name: "vakalar"
+    label: "Vaka Çalışmaları (proje sayfaları)"
+    label_singular: "Vaka çalışması"
+    folder: "content/vakalar"
+    extension: "json"
+    format: "json"
+    create: true
+    delete: true
+    identifier_field: "firma"
+    slug: "{{slug}}"
+    summary: "{{firma}} — /projeler/{{slug}}/"
+    fields:
+      - { label: "Firma / proje adı", name: "firma", widget: "string" }
+      - { label: "Sayfa adresi", name: "slug", widget: "string", pattern: ["^[a-z0-9-]+$", "Yalnızca küçük harf, rakam ve tire kullanın (ör. birgen-santiye)"], hint: "Sayfa istanbulprintlab.com/projeler/BU-ADRES/ adresinde yayınlanır. Anasayfadaki karta bağlamak için Yaptığımız İşler'de bağlantıya /projeler/BU-ADRES/ yazın." }
+      - { label: "Üst etiket", name: "etiket", widget: "string", hint: "Örnek: İnşaat · Büyük format" }
+      - { label: "Sayfa başlığı", name: "baslik", widget: "string" }
+      - { label: "Kapak fotoğrafı", name: "kapak", widget: "image", choose_url: false }
+      - { label: "Kapak fotoğrafı açıklaması", name: "kapak_aciklama", widget: "string" }
+      - { label: "İhtiyaç", name: "ihtiyac", widget: "text" }
+      - { label: "Zorluk", name: "zorluk", widget: "text" }
+      - { label: "Çözüm maddeleri", name: "cozum", widget: "list", field: { label: "Madde", name: "madde", widget: "string" } }
+      - label: "Proje bilgileri"
+        name: "bilgiler"
+        widget: "list"
+        summary: "{{fields.ad}}: {{fields.deger}}"
+        default: [{ad: "Müşteri", deger: ""}, {ad: "Sektör", deger: ""}, {ad: "Uygulama", deger: ""}]
+        fields:
+          - { label: "Başlık", name: "ad", widget: "string" }
+          - { label: "Değer", name: "deger", widget: "string" }
+      - label: "Uygulamadan kareler"
+        name: "kareler"
+        widget: "list"
+        summary: "{{fields.aciklama}}"
+        fields:
+          - { label: "Fotoğraf", name: "gorsel", widget: "image", choose_url: false }
+          - { label: "Açıklama", name: "aciklama", widget: "string" }
+      - { label: "Google başlığı (SEO)", name: "seo_baslik", widget: "string", required: false, hint: "Örnek: Birgen İnşaat Şantiye Brandası | IstanbulPrintLab" }
+      - { label: "Google açıklaması (SEO)", name: "seo_aciklama", widget: "text", required: false }
+      - { label: "Taslak (sitede gösterme)", name: "taslak", widget: "boolean", default: false, required: false }

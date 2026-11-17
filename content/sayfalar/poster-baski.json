@@ -1,0 +1,37 @@
+{
+  "yol": "poster-baski",
+  "seo_baslik": "Poster Baskı İstanbul — Çerçeveli Poster | IstanbulPrintLab",
+  "seo_aciklama": "Poster baskı İstanbul: ev, ofis, kafe ve restoran için çerçeveli veya çerçevesiz poster. Kendi tasarımınız istediğiniz ölçüde, Türkiye ve dünyaya gönderim.",
+  "etiket": "Ev · Ofis · Kafe ve restoran",
+  "baslik": "Poster baskı",
+  "giris": "Ev, ofis, kafe ve restoran duvarları için poster baskı; çerçeveli ya da çerçevesiz. Kendi tasarımınızı veya fotoğrafınızı istediğiniz ölçüde basıyoruz.",
+  "neden": [
+    "Kadıköy'deki atölyemizde, makine parkurumuzla eksiksiz üretim",
+    "Numaralı teklif ve dijital prova; onayınız olmadan üretim başlamaz",
+    "İstanbul içinde kendi ekibimizle montaj, Türkiye'ye ve dünyaya gönderim"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/poster-salon.webp",
+      "aciklama": "Salon duvarında çerçeveli poster baskılar"
+    }
+  ],
+  "ozellikler": [],
+  "sss": [
+    {
+      "soru": "Kendi fotoğrafımı poster yapabilir miyim?",
+      "cevap": "Evet. Yüksek çözünürlüklü fotoğrafınızı gönderin; ölçüye uygunluğunu kontrol edip dijital provayı onayınıza sunarız.",
+      "acik": false
+    },
+    {
+      "soru": "Çerçeveli poster de yapıyor musunuz?",
+      "cevap": "Evet, çerçeveli ve çerçevesiz seçenekler var; ölçüye göre teklifte netleşir.",
+      "acik": false
+    },
+    {
+      "soru": "Hazır poster satıyor musunuz?",
+      "cevap": "2027 ajanda takvim posterimiz gibi hazır ürünlerimiz de var; ana sayfadaki ürünlerden inceleyebilirsiniz.",
+      "acik": false
+    }
+  ]
+}

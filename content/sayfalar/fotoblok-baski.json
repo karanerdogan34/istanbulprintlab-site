@@ -1,0 +1,84 @@
+{
+  "yol": "fotoblok-baski",
+  "seo_baslik": "Fotoblok Baskı İstanbul — m² Fiyatı Hesapla | IstanbulPrintLab",
+  "seo_aciklama": "Fotoblok baskı İstanbul: tanıtım, stant ve dekor panoları. Düz fotoblok {{foreks}} ₺ + KDV / m² (KDV dahil {{foreks+kdv}} ₺), ön fiyatı anında hesaplayın; dekupe figür için teklif alın.",
+  "etiket": "İç mekan · Tanıtım ve dekor",
+  "baslik": "Fotoblok baskı",
+  "giris": "Fotoblok levha üzerine baskı: tanıtım panosu, dekupe figür, fotoğraf ve dekor panoları.",
+  "neden": [
+    "Kadıköy'deki atölyemizde, makine parkurumuzla eksiksiz üretim",
+    "Numaralı teklif ve dijital prova; onayınız olmadan üretim başlamaz",
+    "Türkiye'ye ve dünyaya gönderim"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/gercek-fotoblok-avm.webp",
+      "aciklama": "AVM girişinde dekupe kesim fotoblok karakter figürü",
+      "kucuk_aciklama": "AVM içinde kullanılan kesimli fotoblok figür"
+    },
+    {
+      "gorsel": "/img/gercek-fotoblok-atolye.webp",
+      "aciklama": "Atölyede baskısı ve kesimi tamamlanmış fotoblok figür",
+      "kucuk_aciklama": "Kadıköy'deki atölyemizde basılıp kesilen fotoblok pano"
+    },
+    {
+      "gorsel": "/img/gercek-fotoblok-avm2.webp",
+      "aciklama": "AVM'de ayaklı fotoblok yönlendirme figürü",
+      "kucuk_aciklama": "Mağaza önünde ayaklı fotoblok tanıtım panosu"
+    }
+  ],
+  "ozellikler": [
+    {
+      "ad": "Malzeme",
+      "deger": "Fotoblok levha üzerine dijital baskı"
+    },
+    {
+      "ad": "Ölçü",
+      "deger": "Tek parça en fazla 150 × 300 cm"
+    },
+    {
+      "ad": "Kesim",
+      "deger": "Düz kesim hesaplayıcıdaki fiyatla; özel kesim (dekupe) figürler {{dekupe}} ₺ + KDV'den başlayan fiyatlarla, tasarım ve ölçüye göre teklif."
+    },
+    {
+      "ad": "Kullanım",
+      "deger": "İç mekan tanıtım panosu, dekupe figür, fotoğraf ve dekor panosu."
+    },
+    {
+      "ad": "Montaj",
+      "deger": "İstanbul içinde kendi ekibimizle yerinde montaj; diğer şehirlere ölçüsünde üretip kargoluyoruz."
+    }
+  ],
+  "sss": [
+    {
+      "soru": "En büyük ölçü nedir?",
+      "cevap": "Tek parça fotoblok en fazla 150 × 300 cm olabilir. Daha büyük ölçüler tek parça halinde üretilemez.",
+      "acik": false
+    },
+    {
+      "soru": "Fiyat nasıl hesaplanıyor?",
+      "cevap": "Düz (dikdörtgen) fotoblok {{foreks}} ₺ + KDV / m² (KDV dahil {{foreks+kdv}} ₺; laminasyonlu {{foreks_lam}} ₺ + KDV) birim fiyattan, asgari 1 m², girdiğiniz ölçü ve adede göre toplam alan üzerinden hesaplanır. Özel kesim (dekupe) fotoblokun fiyatı daha yüksektir; fiyat için bizimle iletişime geçin.",
+      "acik": false
+    },
+    {
+      "soru": "Dekupe (şekline göre) kesim yapıyor musunuz?",
+      "cevap": "Evet. Karakter, maskot, logo ve ürün figürlerini çizgisine göre dekupe keserek üretiyoruz. Özel kesim fotoblokun fiyatı düz fotobloktan daha yüksektir; tasarımınızı gönderin, numaralı teklifle bildirelim.",
+      "acik": false
+    },
+    {
+      "soru": "Baskı dosyası nasıl hazırlanmalı?",
+      "cevap": "Gerçek ölçüde, yazılar eğriye çevrilmiş PDF en iyisidir. Yüksek çözünürlüklü fotoğraf da gönderebilirsiniz; dosyanızı kontrol edip dijital provayı onayınıza sunarız. Ayrıntılar için [baskı dosyası hazırlama rehberi](/rehber/baski-dosyasi-hazirlama/).",
+      "acik": false
+    },
+    {
+      "soru": "Ne kadar sürede teslim edilir?",
+      "cevap": "Standart işlerde dosya ve ödeme onayından sonra 1–2 iş günü içinde üretim tamamlanır. İstanbul içinde montajı kendi ekibimiz yapar, diğer şehirlere kargolarız.",
+      "acik": false
+    },
+    {
+      "soru": "Dış mekanda kullanılabilir mi?",
+      "cevap": "Fotoblok iç mekan için uygundur. Dış mekan için branda, folyo veya dayanıklı levha seçeneklerini teklifte birlikte değerlendirelim.",
+      "acik": false
+    }
+  ]
+}

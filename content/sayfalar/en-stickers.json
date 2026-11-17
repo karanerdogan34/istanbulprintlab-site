@@ -1,0 +1,34 @@
+{
+  "yol": "en/stickers",
+  "seo_baslik": "Custom Sticker & Label Printing Istanbul | IstanbulPrintLab",
+  "seo_aciklama": "Custom stickers and labels printed and contour-cut in Istanbul, shipped worldwide. Enter size and quantity for an instant price.",
+  "etiket": "Small format · Indoor & outdoor",
+  "baslik": "Stickers & labels",
+  "giris": "Logo stickers, product labels and campaign stickers — printed on Oracal vinyl and contour-cut on the same Mimaki, so the cut follows your design.",
+  "neden": [
+    "Produced end to end in our own Kadıköy workshop, on our own machine park",
+    "Numbered quote and digital proof — nothing is produced without your approval",
+    "Secure packaging, shipped worldwide"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/sticker-el.webp",
+      "aciklama": "Contour-cut sticker held in hand"
+    }
+  ],
+  "ozellikler": [
+    {
+      "ad": "Material",
+      "deger": "Oracal print vinyl · white gloss, white matte or clear"
+    },
+    {
+      "ad": "Printing",
+      "deger": "Mimaki CJV200-160B · Mimaki CS250 ink"
+    },
+    {
+      "ad": "Use",
+      "deger": "Indoor and outdoor"
+    }
+  ],
+  "sss": []
+}

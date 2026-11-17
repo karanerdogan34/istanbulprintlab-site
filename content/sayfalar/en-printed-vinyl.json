@@ -1,0 +1,54 @@
+{
+  "yol": "en/printed-vinyl",
+  "seo_baslik": "Printed Self-Adhesive Vinyl — Instant Price | IstanbulPrintLab",
+  "seo_aciklama": "Printed self-adhesive vinyl for walls, windows, doors and flat surfaces, printed in Istanbul and shipped worldwide. Enter your size for an instant price.",
+  "etiket": "Vinyl & glass",
+  "baslik": "Printed self-adhesive vinyl",
+  "giris": "Printed adhesive vinyl for walls, windows, doors and other flat surfaces.",
+  "neden": [
+    "Produced end to end in our own Kadıköy workshop, on our own machine park",
+    "Numbered quote and digital proof — nothing is produced without your approval",
+    "Secure packaging, shipped worldwide"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/gercek-folyo-olivium.webp",
+      "aciklama": "Olivium mall: printed vinyl, produced and installed",
+      "kucuk_aciklama": "Framed vinyl print installed on the Olivium mall facade"
+    },
+    {
+      "gorsel": "/img/gercek-folyo-baydoner.webp",
+      "aciklama": "Shopfront vinyl wrap in a shopping mall",
+      "kucuk_aciklama": "Printed vinyl hoarding for Baydöner inside a mall"
+    },
+    {
+      "gorsel": "/img/gercek-folyo-avm-cephe.webp",
+      "aciklama": "Large-format vinyl on a mall facade",
+      "kucuk_aciklama": "Printed window vinyl on a shopping centre glass facade"
+    },
+    {
+      "gorsel": "/img/folyo-baski.webp",
+      "aciklama": "Printed self-adhesive vinyl example",
+      "kucuk_aciklama": "Printed self-adhesive vinyl on a shopfront window"
+    }
+  ],
+  "ozellikler": [
+    {
+      "ad": "Material",
+      "deger": "Printed self-adhesive vinyl"
+    },
+    {
+      "ad": "Printing",
+      "deger": "Mimaki CJV200-160B · Mimaki CS250 ink"
+    },
+    {
+      "ad": "Use",
+      "deger": "For flat, clean surfaces"
+    },
+    {
+      "ad": "Installation",
+      "deger": "In Istanbul we install with our own team; elsewhere we produce to your measurements and ship ready to apply."
+    }
+  ],
+  "sss": []
+}

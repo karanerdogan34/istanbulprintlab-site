@@ -1,0 +1,42 @@
+{
+  "yol": "en/standing-cutouts",
+  "seo_baslik": "Die-Cut Standing Figures & Cut-Outs | IstanbulPrintLab",
+  "seo_aciklama": "Die-cut standing figures on printed foam board from {{asgari}} TRY: characters, mascots and Christmas displays, with night installation in Istanbul malls.",
+  "etiket": "Shops · Malls · Exhibitions · Seasonal",
+  "baslik": "Die-cut standing figures and cut-outs",
+  "giris": "Characters, mascots, products and life-size people cut to shape on printed foam board, with a stand on the back so they stand on their own. For shop entrances, launches, exhibitions and Christmas displays.",
+  "neden": [
+    "Produced end to end in our own Kadıköy workshop, on our own machine park",
+    "Numbered quote and digital proof — nothing is produced without your approval",
+    "Secure packaging, shipped worldwide"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/gercek-fotoblok-avm.webp",
+      "aciklama": "Die-cut standing foam board figure at a shopping mall entrance"
+    }
+  ],
+  "ozellikler": [
+    {
+      "ad": "Price",
+      "deger": "From **{{asgari}} TRY** per figure; quoted by size, design and quantity"
+    },
+    {
+      "ad": "Size",
+      "deger": "Single piece up to 150 × 300 cm"
+    },
+    {
+      "ad": "Retail chains",
+      "deger": "Same design in many copies, delivered separately to each store"
+    },
+    {
+      "ad": "Installation",
+      "deger": "In Istanbul shopping malls we deliver and set up with our own team, including **night installation** after store hours. Elsewhere we ship securely packed."
+    },
+    {
+      "ad": "Christmas",
+      "deger": "Last order date for Christmas delivery: **15 December**"
+    }
+  ],
+  "sss": []
+}

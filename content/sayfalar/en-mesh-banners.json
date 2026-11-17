@@ -1,0 +1,38 @@
+{
+  "yol": "en/mesh-banners",
+  "seo_baslik": "Mesh Banner Printing — Instant Price | IstanbulPrintLab",
+  "seo_aciklama": "Wind-permeable mesh banners for building facades, scaffolding and fences, printed in Istanbul and shipped worldwide. Enter your size for an instant price.",
+  "etiket": "Large format · Outdoor",
+  "baslik": "Mesh banner printing",
+  "giris": "Wind-permeable perforated banner for facades, scaffolding and construction hoardings.",
+  "neden": [
+    "Produced end to end in our own Kadıköy workshop, on our own machine park",
+    "Numbered quote and digital proof — nothing is produced without your approval",
+    "Secure packaging, shipped worldwide"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/mesh.webp",
+      "aciklama": "Mesh banner on a building facade"
+    }
+  ],
+  "ozellikler": [
+    {
+      "ad": "Material",
+      "deger": "Mesh (perforated) banner"
+    },
+    {
+      "ad": "Printing",
+      "deger": "Mimaki CJV200-160B · Mimaki CS250 ink"
+    },
+    {
+      "ad": "Use",
+      "deger": "Reduces wind load; preferred for large facades"
+    },
+    {
+      "ad": "Installation",
+      "deger": "In Istanbul we install with our own team; elsewhere we produce to your measurements and ship ready to apply."
+    }
+  ],
+  "sss": []
+}

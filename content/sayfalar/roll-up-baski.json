@@ -1,0 +1,37 @@
+{
+  "yol": "roll-up-baski",
+  "seo_baslik": "Roll-up Baskı İstanbul — Fuar ve Mağaza | IstanbulPrintLab",
+  "seo_aciklama": "İstanbul'da roll-up baskı: fuar, mağaza ve etkinlikler için. En çok istenen 85×200 cm; Kadıköy atölyemizde baskı, numaralı teklif, Türkiye'ye gönderim.",
+  "etiket": "Fuar · Mağaza · Etkinlik",
+  "baslik": "Roll-up baskı",
+  "giris": "Fuar, mağaza, lansman ve etkinlikler için roll-up baskı. Kolay taşınır, dakikalar içinde kurulur; markanızı her ortama götürür.",
+  "neden": [
+    "Kadıköy'deki atölyemizde, makine parkurumuzla eksiksiz üretim",
+    "Numaralı teklif ve dijital prova; onayınız olmadan üretim başlamaz",
+    "İstanbul içinde kendi ekibimizle montaj, Türkiye'ye ve dünyaya gönderim"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/baski-yakin.webp",
+      "aciklama": "Roll-up için dijital baskı"
+    }
+  ],
+  "ozellikler": [],
+  "sss": [
+    {
+      "soru": "Roll-up ile birlikte başka ne lazım olur?",
+      "cevap": "Fuar ve etkinliklerde roll-up ile birlikte [fotoblok pano](/fotoblok-baski/), [sticker](/sticker-baski/) ve [afiş](/afis-baski/) en çok istenenlerdir. [Fuar ve etkinlik baskı kontrol listemize](/rehber/fuar-ve-etkinlik-baski-listesi/) bakabilirsiniz.",
+      "acik": false
+    },
+    {
+      "soru": "Ne kadar sürede hazır olur?",
+      "cevap": "Standart işlerde dosya ve ödeme onayından sonra 1–2 iş günü içinde üretilir. Acil işleriniz için WhatsApp'tan yazın.",
+      "acik": false
+    },
+    {
+      "soru": "Dosya ölçüsü nasıl olmalı?",
+      "cevap": "Roll-up ölçüsünde, alt kısımda mekanizmaya giren pay bırakılmış PDF gönderin; dosyanızı kontrol edip provayı onayınıza sunarız.",
+      "acik": false
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "yol": "dekupe-figur",
+  "seo_baslik": "Dekupe Figür ve Ayaklı Pano Baskı İstanbul | IstanbulPrintLab",
+  "seo_aciklama": "Ayaklı dekupe figür, maket adam, maskot ve karakter figürleri: mağaza, AVM, fuar ve etkinlikler için. Kadıköy atölyemizde baskı ve kesim, aynı gün teklif.",
+  "etiket": "Mağaza · AVM · Fuar · Etkinlik",
+  "baslik": "Dekupe figür ve ayaklı pano",
+  "giris": "Karakter, maskot, ürün ve kişi figürlerini şekline göre kesiyor, arkasına ayak takarak ayakta duracak şekilde teslim ediyoruz. Mağaza açılışları, kampanyalar, fuarlar ve özel günler için yıl boyu üretiyoruz.",
+  "neden": [
+    "Kadıköy'deki atölyemizde, makine parkurumuzla eksiksiz üretim",
+    "Numaralı teklif ve dijital prova; onayınız olmadan üretim başlamaz",
+    "İstanbul içinde kendi ekibimizle montaj, Türkiye'ye ve dünyaya gönderim"
+  ],
+  "fotolar": [
+    {
+      "gorsel": "/img/gercek-fotoblok-avm.webp",
+      "aciklama": "AVM'de mağaza önünde ayaklı dekupe figür"
+    }
+  ],
+  "ozellikler": [],
+  "sss": [
+    {
+      "soru": "Ayaklı figür nasıl ayakta duruyor?",
+      "cevap": "Figürün arkasına destek ayağı takılır ve yere sağlam basacak şekilde teslim edilir; ayak yapısını ölçüye göre biz belirleriz.",
+      "acik": false
+    },
+    {
+      "soru": "Tasarımımız yok, hazırlıyor musunuz?",
+      "cevap": "Evet. Fikrinizi, logonuzu ve marka renklerinizi gönderin; taslağı birlikte hazırlayıp dijital provayı onayınıza sunalım.",
+      "acik": false
+    },
+    {
+      "soru": "Fiyatı nasıl öğrenirim?",
+      "cevap": "Tasarımı (ya da fikri), ölçüyü ve adedi WhatsApp'tan gönderin; numaralı teklifinizi aynı gün gönderelim.",
+      "acik": false
+    },
+    {
+      "soru": "Yılbaşı için de yapıyor musunuz?",
+      "cevap": "Elbette; yılbaşı figürleri için [yılbaşı ayaklı fotoblok](/yilbasi-ayakli-fotoblok/) sayfamıza bakabilirsiniz.",
+      "acik": false
+    }
+  ]
+}
