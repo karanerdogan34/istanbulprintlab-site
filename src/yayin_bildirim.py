@@ -34,11 +34,12 @@ def bildir(site, basarili, sebep=''):
         'sebep': sebep or '-',
         'degisiklik': degisiklik or '-',
         'ayrinti': '\n'.join(RAPOR) or '-',
-        'commit': (os.environ.get('COMMIT_REF') or '')[:7],
     }
     try:
         req = urllib.request.Request(site.rstrip('/') + '/yayin-durumu/', data=urllib.parse.urlencode(veri).encode('utf-8'),
-                                     headers={'Content-Type': 'application/x-www-form-urlencoded'})
+                                     headers={'Content-Type': 'application/x-www-form-urlencoded',
+                                              'User-Agent': 'Mozilla/5.0 (compatible; YayinBildirimi/1.0)',
+                                              'Referer': site.rstrip('/') + '/yayin-durumu/'})
         urllib.request.urlopen(req, timeout=20).read()
         print('Yayın bildirimi gönderildi: %s' % durum)
     except Exception as e:
