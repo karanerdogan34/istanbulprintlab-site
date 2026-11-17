@@ -11,10 +11,32 @@ def h2m(s):
     return html.unescape(s)
 
 
+class IcerikHatasi(Exception):
+    pass
+
+
+GUVENLI_URL = re.compile(r'^(?:https?://[^\s"<>]+|/[^\s"<>]*|#[\w-]*|mailto:[^\s"<>]+|tel:\+?[\d ]+)$')
+GUVENLI_GORSEL = re.compile(r'^/img/[A-Za-z0-9._/ -]+\.(?:webp|jpe?g|png|gif|svg|avif)$', re.I)
+
+
+def guvenli_url(u):
+    u = html.unescape(u or '').strip()
+    if not GUVENLI_URL.match(u) or '..' in u:
+        raise IcerikHatasi('İzin verilmeyen bağlantı adresi: %r (yalnızca /site-ici-adres, https://..., mailto:, tel: kullanılabilir)' % u)
+    return attr(u)
+
+
+def gorsel(u):
+    u = (u or '').strip()
+    if not GUVENLI_GORSEL.match(u) or '..' in u:
+        raise IcerikHatasi('Geçersiz fotoğraf adresi: %r (fotoğraflar /img/ klasöründen seçilmeli)' % u)
+    return attr(u)
+
+
 def m2h(s):
     s = html.escape(s or '', quote=False)
     s = re.sub(r'\*\*(.+?)\*\*', r'<b>\1</b>', s)
-    s = re.sub(r'\[([^\]]+)\]\(([^)\s]+)\)', lambda m: '<a href="%s">%s</a>' % (m.group(2), m.group(1)), s)
+    s = re.sub(r'\[([^\]]+)\]\(([^)\s]+)\)', lambda m: '<a href="%s">%s</a>' % (guvenli_url(m.group(2)), m.group(1)), s)
     return s
 
 
@@ -97,7 +119,7 @@ def cikar_urun(s):
     m = _bul(r'</h1>\s*<p class="lead"[^>]*>(.*?)</p>', s, p); d['giris'] = h2m(m.group(1)) if m else ''
     m = _bul(r'<ul class="checks">\n(.*?)</ul>', s, p)
     d['neden'] = [h2m(x) for x in re.findall(r'<li class="ok"><span class="dot">✓</span><span>(.*?)</span></li>', m.group(1))] if m else []
-    gm = _bul(r'<img class="gal-main ph" src="([^"]*)" alt="([^"]*)"', s, p)
+    gm = _bul(r'<img class="gal-main ph"(?: id="[^"]*")? src="([^"]*)" alt="([^"]*)"', s, p)
     th = _bul(r'<div class="thumbs"[^>]*>\n(.*?)\n</div>', s, p)
     if th:
         d['fotolar'] = [dict(gorsel=b, aciklama=html.unescape(a), kucuk_aciklama=html.unescape(c))
@@ -121,24 +143,26 @@ def uygula_urun(s, d):
     def sub1(pat, repl, s, grp=1):
         m = _bul(pat, s, p)
         if not m:
-            return s
+            raise IcerikHatasi('Sayfada beklenen alan bulunamadı: %s' % pat[:60])
         return s[:m.start(grp)] + repl + s[m.end(grp):]
 
-    s = sub1(r'<span class="tag">(.*?)</span>', m2h(d.get('etiket')), s)
+    if eski['etiket'] or d.get('etiket'):
+        s = sub1(r'<span class="tag">(.*?)</span>', m2h(d.get('etiket')), s)
     s = sub1(r'<h1[^>]*>(.*?)</h1>', m2h(d.get('baslik')), s)
-    s = sub1(r'</h1>\s*<p class="lead"[^>]*>(.*?)</p>', m2h(d.get('giris')), s)
+    if eski['giris'] or d.get('giris'):
+        s = sub1(r'</h1>\s*<p class="lead"[^>]*>(.*?)</p>', m2h(d.get('giris')), s)
     if eski['neden'] or d.get('neden'):
         s = sub1(r'<ul class="checks">\n(.*?)</ul>', ''.join('<li class="ok"><span class="dot">✓</span><span>%s</span></li>\n' % m2h(x) for x in d.get('neden') or []), s)
     fot = [x for x in d.get('fotolar') or [] if x.get('gorsel')]
     if fot:
-        s = sub1(r'<img class="gal-main ph" src="([^"]*)"', fot[0]['gorsel'], s)
-        s = sub1(r'<img class="gal-main ph" src="[^"]*" alt="([^"]*)"', attr(fot[0].get('aciklama')), s)
+        s = sub1(r'<img class="gal-main ph"(?: id="[^"]*")? src="([^"]*)"', gorsel(fot[0]['gorsel']), s)
+        s = sub1(r'<img class="gal-main ph"(?: id="[^"]*")? src="[^"]*" alt="([^"]*)"', attr(fot[0].get('aciklama')), s)
         th = _bul(r'<div class="thumbs"[^>]*>\n(.*?)\n</div>', s, p)
         if th:
             ilk_lazy = 'loading="lazy"></button>' in th.group(1).split('\n')[0]
             s = sub1(r'<div class="thumbs"[^>]*>\n(.*?)\n</div>', '\n'.join(
                 '<button type="button" aria-pressed="%s" aria-label="%s" data-src="%s" data-alt="%s"><img src="%s" alt="%s"%s></button>' % (
-                    'true' if i == 0 else 'false', attr(x.get('aciklama')), x['gorsel'], attr(x.get('aciklama')), x['gorsel'],
+                    'true' if i == 0 else 'false', attr(x.get('aciklama')), gorsel(x['gorsel']), attr(x.get('aciklama')), gorsel(x['gorsel']),
                     attr(x.get('kucuk_aciklama') or x.get('aciklama')), '' if (i == 0 and not ilk_lazy) else ' loading="lazy"') for i, x in enumerate(fot)), s)
     if eski['ozellikler'] or d.get('ozellikler'):
         s = sub1(r'<table class="spec"><tbody>\n(.*?)</tbody></table>', ''.join(
@@ -152,6 +176,8 @@ def _sss_yaz(s, sss, p):
         return s
     f = _faq_blok(s, p)
     if not f:
+        if sss:
+            raise IcerikHatasi('Bu sayfada SSS bölümü yok; SSS eklenemez.')
         return s
     a, b, ornek = f
     eski_sorular = [m2t(h2m(q)) for _, q, _ in DETAY.findall(ornek)]
@@ -160,7 +186,7 @@ def _sss_yaz(s, sss, p):
     if ld and [x.get('name') for x in ld[2]] == eski_sorular:
         k, e, eski = ld
         yeni = [{"@type": "Question", "name": m2t(x.get('soru')), "acceptedAnswer": {"@type": "Answer", "text": m2t(x.get('cevap'))}} for x in sss]
-        s = s[:k] + json.dumps(yeni, ensure_ascii=False) + s[e:]
+        s = s[:k] + json.dumps(yeni, ensure_ascii=False).replace('<', '\\u003c').replace('>', '\\u003e') + s[e:]
     return s
 
 
@@ -203,7 +229,9 @@ def uygula_ana(s, d):
 
     def sub1(pat, repl, s, bas=0, grp=1):
         m = _bul(pat, s, bas)
-        return s[:m.start(grp)] + repl + s[m.end(grp):] if m else s
+        if not m:
+            raise IcerikHatasi('Anasayfada beklenen alan bulunamadı: %s' % pat[:60])
+        return s[:m.start(grp)] + repl + s[m.end(grp):]
 
     s = sub1(r'<h1 class="hsmall"><span class="regmark" aria-hidden="true"></span>(.*?)</h1>', m2h(d.get('ust_baslik')), s)
     s = sub1(r'<p class="hbig">(.*?)</p>', ' '.join('<span class="ln"><span>%s</span></span>' % m2h(x) for x in d.get('buyuk_baslik') or []), s)
@@ -215,7 +243,7 @@ def uygula_ana(s, d):
         s = s[:a] + '<!-- yılbaşı bandı gizli -->' + s[b + len('</section>'):]
     else:
         sec = s[a:b]
-        sec = sub1(r'<img class="ph" src="([^"]*)"', y.get('gorsel', ''), sec)
+        sec = sub1(r'<img class="ph" src="([^"]*)"', gorsel(y.get('gorsel', '')), sec)
         sec = sub1(r'<img class="ph" src="[^"]*" alt="([^"]*)"', attr(y.get('gorsel_aciklama')), sec)
         sec = sub1(r'<span class="eyebrow">(.*?)</span>', m2h(y.get('ust_yazi')), sec)
         sec = sub1(r'<h2 class="h2">(.*?)</h2>', m2h(y.get('baslik')), sec)
@@ -273,20 +301,22 @@ def uret_vaka(sablon, sablon_slug, d):
     if d.get('firma') != eski['firma']:
         s = s.replace('<a href="/#projeler">Projeler</a> / %s</div>' % m2h(eski['firma']), '<a href="/#projeler">Projeler</a> / %s</div>' % m2h(d.get('firma')))
         s = s.replace('"name": %s, "item": "https://www.istanbulprintlab.com/projeler/' % json.dumps(m2t(eski['firma']), ensure_ascii=False),
-                      '"name": %s, "item": "https://www.istanbulprintlab.com/projeler/' % json.dumps(m2t(d.get('firma')), ensure_ascii=False))
+                      '"name": %s, "item": "https://www.istanbulprintlab.com/projeler/' % json.dumps(m2t(d.get('firma')), ensure_ascii=False).replace('<', '\\u003c').replace('>', '\\u003e'))
     m0 = s.index('<main')
 
     def sub1(pat, repl, s, grp=1):
         m = _bul(pat, s, m0)
-        return s[:m.start(grp)] + repl + s[m.end(grp):] if m else s
+        if not m:
+            raise IcerikHatasi('Proje şablonunda beklenen alan bulunamadı: %s' % pat[:60])
+        return s[:m.start(grp)] + repl + s[m.end(grp):]
 
     s = sub1(r'<span class="tag">(.*?)</span>', m2h(d.get('etiket')), s)
     s = sub1(r'<h1 class="h2"[^>]*>(.*?)</h1>', m2h(d.get('baslik')), s)
-    s = sub1(r'<section class="wrap"><img class="ph" src="([^"]*)"', d.get('kapak') or eski['kapak'], s)
+    s = sub1(r'<section class="wrap"><img class="ph" src="([^"]*)"', gorsel(d.get('kapak') or eski['kapak']), s)
     s = sub1(r'<section class="wrap"><img class="ph" src="[^"]*" alt="([^"]*)"', attr(d.get('kapak_aciklama')), s)
     s = sub1(r'<h2 style="font-size:28px">İhtiyaç</h2><p class="lead"[^>]*>(.*?)</p>', m2h(d.get('ihtiyac')), s)
     s = sub1(r'<h2 style="font-size:28px">Zorluk</h2><p class="lead"[^>]*>(.*?)</p>', m2h(d.get('zorluk')), s)
     s = sub1(r'<h2 style="font-size:28px">Çözüm</h2><ul[^>]*>(.*?)</ul>', ''.join('<li>%s</li>' % m2h(x) for x in d.get('cozum') or []), s)
     s = sub1(r'<table class="spec"><tbody>\n(.*?)</tbody></table>', ''.join('<tr><th scope="row">%s</th><td>%s</td></tr>\n' % (m2h(x.get('ad')), m2h(x.get('deger'))) for x in d.get('bilgiler') or []), s)
-    s = sub1(r'<div class="grid g4">\n(.*?)</div>', ''.join('<img class="ph" src="%s" alt="%s" loading="lazy" style="height:260px">\n' % (x['gorsel'], attr(x.get('aciklama'))) for x in d.get('kareler') or [] if x.get('gorsel')), s)
+    s = sub1(r'<div class="grid g4">\n(.*?)</div>', ''.join('<img class="ph" src="%s" alt="%s" loading="lazy" style="height:260px">\n' % (gorsel(x['gorsel']), attr(x.get('aciklama'))) for x in d.get('kareler') or [] if x.get('gorsel')), s)
     return s

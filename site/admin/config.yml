@@ -41,7 +41,7 @@ collections:
         label: "Fiyatlar (bütün sayfalar ve hesaplayıcılar)"
         file: "content/fiyatlar.json"
         format: "json"
-        description: "Takvim dışındaki fiyatlar KDV hariçtir; KDV dahil fiyatlar sitede otomatik hesaplanır."
+        description: "Takvim dışındaki fiyatlar KDV hariçtir; KDV dahil fiyatlar sitede otomatik hesaplanır. Bir fiyat %50'den fazla değişirse yayın güvenlik için durur; değişiklik doğruysa en alttaki onay tarihine bugünü seçin."
         fields:
           - { label: "Sticker ve etiket (m², baskı + kesim)", name: "sticker", widget: "number", value_type: "int", min: 0 }
           - { label: "Baskılı folyo (m²)", name: "folyo", widget: "number", value_type: "int", min: 0 }
@@ -62,6 +62,7 @@ collections:
           - { label: "2027 takvim çerçeveli (KDV dahil)", name: "takvim_cerceveli", widget: "number", value_type: "int", min: 0 }
           - { label: "Takvim toplu, 50+ adet (adet başı, KDV dahil)", name: "takvim_50", widget: "number", value_type: "int", min: 0 }
           - { label: "Takvim toplu, 100+ adet (adet başı, KDV dahil)", name: "takvim_100", widget: "number", value_type: "int", min: 0 }
+          - { label: "Büyük fiyat değişikliği onay tarihi", name: "buyuk_degisiklik_onay", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, required: false, hint: "Yalnızca bir fiyatı %50'den fazla değiştirdiğinizde bugünün tarihini seçin. Onay sadece o gün geçerlidir." }
       - name: "anasayfa"
         label: "Anasayfa Metinleri ve SSS"
         file: "content/anasayfa.json"
@@ -80,7 +81,7 @@ collections:
               - { label: "Fotoğraf açıklaması", name: "gorsel_aciklama", widget: "string" }
               - { label: "Üst yazı", name: "ust_yazi", widget: "string" }
               - { label: "Başlık", name: "baslik", widget: "string" }
-              - { label: "Maddeler", name: "maddeler", widget: "list", field: { label: "Madde", name: "madde", widget: "string" }, hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir." }
+              - { label: "Maddeler", name: "maddeler", widget: "list", field: { label: "Madde", name: "madde", widget: "string" }, hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir. Kısaltmalar: sticker, folyo, folyo_lam, owv, foreks, foreks_lam, branda_beyaz, branda_siyah, mesh, cam_filmi, rollup, dekupe, duvar_kagidi, asgari, kargo_esik, takvim, takvim_cerceveli, takvim_50, takvim_100 (takvim fiyatları zaten KDV dahildir). Yanlış yazılırsa yayın durur ve site değişmez." }
           - label: "Ofis cam filmi bandı"
             name: "cam_filmi"
             widget: "object"
@@ -94,7 +95,7 @@ collections:
             summary: "{{fields.soru}}"
             fields:
               - { label: "Soru", name: "soru", widget: "string" }
-              - { label: "Cevap", name: "cevap", widget: "text", hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir." }
+              - { label: "Cevap", name: "cevap", widget: "text", hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir. Kısaltmalar: sticker, folyo, folyo_lam, owv, foreks, foreks_lam, branda_beyaz, branda_siyah, mesh, cam_filmi, rollup, dekupe, duvar_kagidi, asgari, kargo_esik, takvim, takvim_cerceveli, takvim_50, takvim_100 (takvim fiyatları zaten KDV dahildir). Yanlış yazılırsa yayın durur ve site değişmez." }
               - { label: "Açık başlasın", name: "acik", widget: "boolean", default: false, required: false }
           - { label: "Google başlığı (SEO)", name: "seo_baslik", widget: "string" }
           - { label: "Google açıklaması (SEO)", name: "seo_aciklama", widget: "text" }
@@ -123,7 +124,7 @@ collections:
       - { label: "yol", name: "yol", widget: "hidden" }
       - { label: "Üst etiket", name: "etiket", widget: "string", required: false }
       - { label: "Sayfa başlığı", name: "baslik", widget: "string" }
-      - { label: "Giriş yazısı", name: "giris", widget: "text", required: false, hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir." }
+      - { label: "Giriş yazısı", name: "giris", widget: "text", required: false, hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir. Kısaltmalar: sticker, folyo, folyo_lam, owv, foreks, foreks_lam, branda_beyaz, branda_siyah, mesh, cam_filmi, rollup, dekupe, duvar_kagidi, asgari, kargo_esik, takvim, takvim_cerceveli, takvim_50, takvim_100 (takvim fiyatları zaten KDV dahildir). Yanlış yazılırsa yayın durur ve site değişmez." }
       - { label: "Neden bizden? maddeleri", name: "neden", widget: "list", required: false, field: { label: "Madde", name: "madde", widget: "string" } }
       - label: "Fotoğraflar"
         name: "fotolar"
@@ -142,7 +143,7 @@ collections:
         summary: "{{fields.ad}}"
         fields:
           - { label: "Başlık", name: "ad", widget: "string" }
-          - { label: "Değer", name: "deger", widget: "text", hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir." }
+          - { label: "Değer", name: "deger", widget: "text", hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir. Kısaltmalar: sticker, folyo, folyo_lam, owv, foreks, foreks_lam, branda_beyaz, branda_siyah, mesh, cam_filmi, rollup, dekupe, duvar_kagidi, asgari, kargo_esik, takvim, takvim_cerceveli, takvim_50, takvim_100 (takvim fiyatları zaten KDV dahildir). Yanlış yazılırsa yayın durur ve site değişmez." }
       - label: "Sık sorulan sorular"
         name: "sss"
         widget: "list"
@@ -150,10 +151,10 @@ collections:
         summary: "{{fields.soru}}"
         fields:
           - { label: "Soru", name: "soru", widget: "string" }
-          - { label: "Cevap", name: "cevap", widget: "text", hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir. Bağlantı için [yazı](/adres/), kalın için **yazı** kullanın." }
+          - { label: "Cevap", name: "cevap", widget: "text", hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir. Kısaltmalar: sticker, folyo, folyo_lam, owv, foreks, foreks_lam, branda_beyaz, branda_siyah, mesh, cam_filmi, rollup, dekupe, duvar_kagidi, asgari, kargo_esik, takvim, takvim_cerceveli, takvim_50, takvim_100 (takvim fiyatları zaten KDV dahildir). Yanlış yazılırsa yayın durur ve site değişmez. Bağlantı için [yazı](/adres/), kalın için **yazı** kullanın." }
           - { label: "Açık başlasın", name: "acik", widget: "boolean", default: false, required: false }
       - { label: "Google başlığı (SEO)", name: "seo_baslik", widget: "string" }
-      - { label: "Google açıklaması (SEO)", name: "seo_aciklama", widget: "text", hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir." }
+      - { label: "Google açıklaması (SEO)", name: "seo_aciklama", widget: "text", hint: "Fiyat yazarken rakam yerine fiyat tablosundaki kısaltmayı kullanın, örneğin {{foreks}} (KDV hariç) veya {{foreks+kdv}} (KDV dahil). Böylece fiyatı değiştirdiğinizde bu metin de kendiliğinden güncellenir. Kısaltmalar: sticker, folyo, folyo_lam, owv, foreks, foreks_lam, branda_beyaz, branda_siyah, mesh, cam_filmi, rollup, dekupe, duvar_kagidi, asgari, kargo_esik, takvim, takvim_cerceveli, takvim_50, takvim_100 (takvim fiyatları zaten KDV dahildir). Yanlış yazılırsa yayın durur ve site değişmez." }
 
   - name: "vakalar"
     label: "Vaka Çalışmaları (proje sayfaları)"
