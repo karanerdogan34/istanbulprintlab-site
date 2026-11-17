@@ -10,6 +10,8 @@ locale: tr
 media_folder: "site/img"
 public_folder: "/img"
 publish_mode: simple
+media_library:
+  max_file_size: 25000000
 slug:
   encoding: "ascii"
   clean_accents: true
@@ -33,7 +35,7 @@ collections:
               - { label: "Başlık (firma / proje)", name: "baslik", widget: "string" }
               - { label: "Üst etiket (ör. İnşaat · Büyük format)", name: "etiket", widget: "string" }
               - { label: "Kısa açıklama", name: "aciklama", widget: "string" }
-              - { label: "Fotoğraf", name: "gorsel", widget: "image", choose_url: false, hint: "Dikey (portre) fotoğraf önerilir." }
+              - { label: "Fotoğraf", name: "gorsel", widget: "image", media_folder: "/site/img/yuklenen/projeler", public_folder: "/img/yuklenen/projeler", choose_url: false, hint: "Dikey (portre) fotoğraf önerilir." }
               - { label: "Fotoğraf açıklaması (Google için)", name: "alt", widget: "string", required: false, hint: "Boş bırakılırsa başlık ve açıklamadan otomatik oluşturulur." }
               - { label: "Vaka çalışması sayfası (varsa)", name: "baglanti", widget: "string", required: false, hint: "Örnek: /projeler/antre-gourmet/ — boş bırakılırsa kart teklif formuna gider." }
               - { label: "Sitede gizle", name: "gizle", widget: "boolean", default: false, required: false }
@@ -77,7 +79,7 @@ collections:
             widget: "object"
             fields:
               - { label: "Sitede göster", name: "goster", widget: "boolean", default: true }
-              - { label: "Fotoğraf", name: "gorsel", widget: "image", choose_url: false }
+              - { label: "Fotoğraf", name: "gorsel", widget: "image", media_folder: "/site/img/yuklenen/anasayfa", public_folder: "/img/yuklenen/anasayfa", choose_url: false }
               - { label: "Fotoğraf açıklaması", name: "gorsel_aciklama", widget: "string" }
               - { label: "Üst yazı", name: "ust_yazi", widget: "string" }
               - { label: "Başlık", name: "baslik", widget: "string" }
@@ -133,7 +135,7 @@ collections:
         hint: "İlk fotoğraf büyük görsel olarak gösterilir."
         summary: "{{fields.aciklama}}"
         fields:
-          - { label: "Fotoğraf", name: "gorsel", widget: "image", choose_url: false }
+          - { label: "Fotoğraf", name: "gorsel", widget: "image", media_folder: "/site/img/yuklenen/urunler", public_folder: "/img/yuklenen/urunler", choose_url: false }
           - { label: "Fotoğraf açıklaması", name: "aciklama", widget: "string" }
           - { label: "Küçük resim açıklaması", name: "kucuk_aciklama", widget: "string", required: false }
       - label: "Teknik özellikler tablosu"
@@ -172,7 +174,7 @@ collections:
       - { label: "Sayfa adresi", name: "slug", widget: "string", pattern: ["^[a-z0-9-]+$", "Yalnızca küçük harf, rakam ve tire kullanın (ör. birgen-santiye)"], hint: "Sayfa istanbulprintlab.com/projeler/BU-ADRES/ adresinde yayınlanır. Anasayfadaki karta bağlamak için Yaptığımız İşler'de bağlantıya /projeler/BU-ADRES/ yazın." }
       - { label: "Üst etiket", name: "etiket", widget: "string", hint: "Örnek: İnşaat · Büyük format" }
       - { label: "Sayfa başlığı", name: "baslik", widget: "string" }
-      - { label: "Kapak fotoğrafı", name: "kapak", widget: "image", choose_url: false }
+      - { label: "Kapak fotoğrafı", name: "kapak", widget: "image", media_folder: "/site/img/yuklenen/vakalar", public_folder: "/img/yuklenen/vakalar", choose_url: false }
       - { label: "Kapak fotoğrafı açıklaması", name: "kapak_aciklama", widget: "string" }
       - { label: "İhtiyaç", name: "ihtiyac", widget: "text" }
       - { label: "Zorluk", name: "zorluk", widget: "text" }
@@ -190,7 +192,7 @@ collections:
         widget: "list"
         summary: "{{fields.aciklama}}"
         fields:
-          - { label: "Fotoğraf", name: "gorsel", widget: "image", choose_url: false }
+          - { label: "Fotoğraf", name: "gorsel", widget: "image", media_folder: "/site/img/yuklenen/vakalar", public_folder: "/img/yuklenen/vakalar", choose_url: false }
           - { label: "Açıklama", name: "aciklama", widget: "string" }
       - { label: "Google başlığı (SEO)", name: "seo_baslik", widget: "string", required: false, hint: "Örnek: Birgen İnşaat Şantiye Brandası | IstanbulPrintLab" }
       - { label: "Google açıklaması (SEO)", name: "seo_aciklama", widget: "text", required: false }

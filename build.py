@@ -249,6 +249,8 @@ def main():
             if s2 != s:
                 yaz(yol, s2)
     yaz('%s/fiyatlar.json' % DIST, json.dumps({k: v for k, v in P.items() if k != 'buyuk_degisiklik_onay'}, ensure_ascii=False, indent=2))
+    import foto_isle
+    foto_isle.isle(DIST, YB.RAPOR)
     eksik = ic_baglanti_kontrol()
     if eksik:
         raise S.IcerikHatasi('Sitede kırık iç bağlantı var: %s' % ', '.join(sorted(eksik)[:10]))
