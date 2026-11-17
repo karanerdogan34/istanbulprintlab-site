@@ -1,0 +1,45 @@
+backend:
+  name: github
+  repo: karanerdogan34/istanbulprintlab-site
+  branch: main
+  base_url: https://api.netlify.com
+  commit_messages:
+    update: "Panel: {{slug}} güncellendi"
+
+locale: tr
+media_folder: "site/img"
+public_folder: "/img"
+publish_mode: simple
+editor:
+  preview: false
+
+collections:
+  - name: "icerik"
+    label: "Site İçeriği"
+    files:
+      - name: "projeler"
+        label: "Yaptığımız İşler (anasayfadaki proje kartları)"
+        file: "content/projeler.json"
+        format: "json"
+        fields:
+          - label: "Projeler"
+            name: "projeler"
+            widget: "list"
+            summary: "{{fields.baslik}} — {{fields.etiket}}"
+            fields:
+              - { label: "Başlık (firma / proje)", name: "baslik", widget: "string" }
+              - { label: "Üst etiket (ör. İnşaat · Büyük format)", name: "etiket", widget: "string" }
+              - { label: "Kısa açıklama", name: "aciklama", widget: "string" }
+              - { label: "Fotoğraf", name: "gorsel", widget: "image", choose_url: false, hint: "Dikey (portre) fotoğraf önerilir." }
+              - { label: "Fotoğraf açıklaması (Google için)", name: "alt", widget: "string", required: false, hint: "Boş bırakılırsa başlık ve açıklamadan otomatik oluşturulur." }
+              - { label: "Vaka çalışması sayfası (varsa)", name: "baglanti", widget: "string", required: false, hint: "Örnek: /projeler/antre-gourmet/ — boş bırakılırsa kart teklif formuna gider." }
+              - { label: "Sitede gizle", name: "gizle", widget: "boolean", default: false, required: false }
+      - name: "iletisim"
+        label: "İletişim Bilgileri (bütün sayfalar ve diller)"
+        file: "content/iletisim.json"
+        format: "json"
+        fields:
+          - { label: "Telefon / WhatsApp", name: "telefon", widget: "string", hint: "Örnek: +90 532 523 73 64. Arama ve WhatsApp butonları da bu numaraya döner." }
+          - { label: "E-posta", name: "eposta", widget: "string" }
+          - { label: "Adres (mahalle, sokak, no)", name: "adres", widget: "string", hint: "Örnek: Fikirtepe Mah. Dispanser Sok. No:50/A-B" }
+          - { label: "İlçe", name: "ilce", widget: "string" }

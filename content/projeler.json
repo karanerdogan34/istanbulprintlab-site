@@ -1,0 +1,28 @@
+{
+  "projeler": [
+    {
+      "baslik": "Antre Gourmet",
+      "etiket": "Perakende · Cephe",
+      "aciklama": "Lacivert ahşap cepheye altın kabartma harf ve amblem.",
+      "gorsel": "/img/proje-antre.webp",
+      "alt": "Antre Gourmet altın kabartma harf ve logo",
+      "baglanti": "/projeler/antre-gourmet/"
+    },
+    {
+      "baslik": "Ray Mimarlık",
+      "etiket": "İnşaat · Büyük format",
+      "aciklama": "Şantiye çevresini markanın reklam alanına dönüştüren branda.",
+      "gorsel": "/img/proje-ray.webp",
+      "alt": "Ray Mimarlık şantiye çevre brandası",
+      "baglanti": ""
+    },
+    {
+      "baslik": "Birgen İnşaat",
+      "etiket": "İnşaat · Büyük format",
+      "aciklama": "Cadde boyunca uzanan, logolu şantiye çevre brandası.",
+      "gorsel": "/img/proje-birgen.webp",
+      "alt": "Birgen İnşaat şantiye çevre brandası",
+      "baglanti": ""
+    }
+  ]
+}
