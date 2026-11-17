@@ -11,6 +11,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
 sys.path.insert(0, os.path.join(ROOT, 'src'))
 import sayfalar as S  # noqa: E402
+import yayin_bildirim as YB  # noqa: E402
 
 E = html.escape
 DIST = 'dist'
@@ -102,7 +103,9 @@ def fiyat_raporu(P, eski):
             continue
         if v != eski[k]:
             oran = (v - eski[k]) * 100.0 / eski[k] if eski[k] else 100.0
-            print('Fiyat değişti: %-18s %8s → %8s TL  (%+.1f%%)' % (k, eski[k], v, oran))
+            satir = 'Fiyat değişti: %s %s → %s TL (%+.1f%%)' % (k, eski[k], v, oran)
+            print(satir)
+            YB.RAPOR.append(satir)
             if abs(oran) > 50:
                 buyuk.append('%s: %s → %s' % (k, eski[k], v))
     import datetime
@@ -252,12 +255,20 @@ def main():
     print('Derleme tamam.')
 
 
+SITE = 'https://www.istanbulprintlab.com'
+
+
 def calistir():
     try:
         main()
     except (S.IcerikHatasi, FiyatHatasi) as e:
         print('\nYAYIN DURDURULDU — site değişmedi.\nSebep: %s\n' % e)
+        YB.bildir(SITE, False, str(e))
         sys.exit(1)
+    except Exception as e:
+        YB.bildir(SITE, False, 'Beklenmeyen teknik hata (%s: %s). Bu sizin girdiğiniz içerikten kaynaklanmıyor olabilir; Claude\'a iletin.' % (type(e).__name__, e))
+        raise
+    YB.bildir(SITE, True)
 
 
 if __name__ == '__main__':
