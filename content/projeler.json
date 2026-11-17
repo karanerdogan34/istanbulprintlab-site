@@ -22,7 +22,8 @@
       "aciklama": "Cadde boyunca uzanan, logolu şantiye çevre brandası.",
       "gorsel": "/img/proje-birgen.webp",
       "alt": "Birgen İnşaat şantiye çevre brandası",
-      "baglanti": ""
+      "baglanti": "",
+      "gizle": true
     }
   ]
 }
