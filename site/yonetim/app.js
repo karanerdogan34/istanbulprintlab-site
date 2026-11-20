@@ -84,12 +84,7 @@ async function gh(yol, yontem = 'GET', govde) {
 async function dalSha() { return (await gh(`/repos/${REPO}/git/ref/heads/${DAL}`)).object.sha; }
 async function icerikOku(sha) {
   sha = sha || await dalSha();
-  const [sahip, ad] = REPO.split('/');
-  const q = `query($o:String!,$n:String!,$e1:String!,$e2:String!,$e3:String!){repository(owner:$o,name:$n){
-    p:object(expression:$e1){...on Blob{text oid}}
-    s:object(expression:$e2){...on Tree{entries{name object{...on Blob{text oid}}}}}
-    v:object(expression:$e3){...on Tree{entries{name object{...on Blob{text oid}}}}}}}`;
-  const j = await gh('/graphql', 'POST', { query: q, variables: { o: sahip, n: ad, e1: sha + ':content/projeler.json', e2: sha + ':content/sayfalar', e3: sha + ':content/vakalar' } });
+  const j = await gh('/icerik', 'POST', { sha }); // sorguyu sunucu kurar
   if (j.errors) throw new Error(j.errors[0].message);
   const r = j.data.repository;
   const dosyalar = { 'content/projeler.json': { text: r.p.text, oid: r.p.oid } };
