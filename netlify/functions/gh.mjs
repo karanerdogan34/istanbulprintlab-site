@@ -2,7 +2,7 @@
 // - Yalnızca aynı siteden gelen JSON POST istekleri (Origin denetimi + SameSite=Strict çerez + özel başlık).
 // - Yalnızca IPL deposundaki belirli okuma/yazma uçları; silme ve zorla güncelleme yok.
 // - GraphQL sorgusu tarayıcıdan alınmaz: sunucu kendi sabit, salt-okuma sorgusunu kurar; tarayıcı yalnızca commit SHA'sı yollar.
-import { REPO, OTURUM, cerezOku, coz, oturumSil, json } from '../lib/ortak.mjs';
+import { REPO, OTURUM, cerezOku, coz, oturumSil, oturumCerezi, yenile, json } from '../lib/ortak.mjs';
 
 const ONEK = `/repos/${REPO}/`;
 const SHA = /^[0-9a-f]{40}$/;
@@ -27,8 +27,14 @@ export default async (req) => {
   if (req.method === 'DELETE') return ayniSite ? json({ tamam: true }, 200, { 'Set-Cookie': oturumSil }) : json({ message: 'İzin yok' }, 403); // çıkış
   if (req.method !== 'POST' || !ayniSite || req.headers.get('x-yonetim') !== '1' || !(req.headers.get('content-type') || '').startsWith('application/json')) return json({ message: 'İzin yok' }, 403);
   const cerez = cerezOku(req, OTURUM);
-  const token = cerez && coz(cerez);
-  if (!token) return json({ message: 'Giriş gerekli' }, 401, cerez ? { 'Set-Cookie': oturumSil } : {});
+  let oturum = cerez && coz(cerez);
+  if (!oturum) return json({ message: 'Giriş gerekli' }, 401, cerez ? { 'Set-Cookie': oturumSil } : {});
+  let yeniCerez = null;
+  if (oturum.te && oturum.te - 60000 < Date.now()) {   // erişim anahtarı bitmek üzere: sessizce yenile
+    const y = await yenile(oturum);
+    if (!y) return json({ message: 'Giriş gerekli' }, 401, { 'Set-Cookie': oturumSil });
+    oturum = y; yeniCerez = oturumCerezi(y);
+  }
   let istek;
   try { istek = await req.json(); } catch (_) { return json({ message: 'Geçersiz istek' }, 400); }
   const yontem = String(istek.yontem || 'GET').toUpperCase();
@@ -41,14 +47,20 @@ export default async (req) => {
     yol = '/graphql';
     govde = { query: ICERIK_SORGUSU, variables: { o, n, e1: sha + ':content/projeler.json', e2: sha + ':content/sayfalar', e3: sha + ':content/vakalar' } };
   } else if (!izinli(yontem, yol, govde)) return json({ message: 'Bu işleme izin verilmiyor' }, 403);
-  let r;
-  try {
-    r = await fetch('https://api.github.com' + yol, {
+  const gonder = () => fetch('https://api.github.com' + yol, {
       method: yontem,
-      headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'User-Agent': 'ipl-yonetim', 'X-GitHub-Api-Version': '2022-11-28', ...(govde ? { 'Content-Type': 'application/json' } : {}) },
+      headers: { Authorization: 'Bearer ' + oturum.t, Accept: 'application/vnd.github+json', 'User-Agent': 'ipl-yonetim', 'X-GitHub-Api-Version': '2022-11-28', ...(govde ? { 'Content-Type': 'application/json' } : {}) },
       body: govde ? JSON.stringify(govde) : undefined,
     });
-  } catch (_) { return json({ message: 'GitHub\'a ulaşılamadı' }, 502); }
+  let r;
+  try {
+    r = await gonder();
+    if (r.status === 401 && oturum.r && !yeniCerez) {        // beklenmedik bitiş: bir kez yenileyip tekrar dene
+      const y = await yenile(oturum);
+      if (y) { oturum = y; yeniCerez = oturumCerezi(y); r = await gonder(); }
+    }
+  } catch (_) { return json({ message: 'GitHub\'a ulaşılamadı' }, 502, yeniCerez ? { 'Set-Cookie': yeniCerez } : {}); }
   const metin = await r.text();
-  return new Response(metin || '{}', { status: r.status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...(r.status === 401 ? { 'Set-Cookie': oturumSil } : {}) } });
+  const cerezBasligi = r.status === 401 ? oturumSil : yeniCerez;
+  return new Response(metin || '{}', { status: r.status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...(cerezBasligi ? { 'Set-Cookie': cerezBasligi } : {}) } });
 };

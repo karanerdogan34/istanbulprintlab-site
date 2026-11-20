@@ -13,10 +13,11 @@ function anahtar() {
   if (!s) throw new Error('Sunucu ayarı eksik');
   return crypto.createHash('sha256').update('ipl-yonetim-oturum:' + s).digest();
 }
-export function sifrele(token) {
+// oturum: { t: erişim anahtarı, r: yenileme anahtarı, te: anahtarın bitişi (ms), s: oturumun bitişi (ms) }
+export function sifrele(oturum) {
   const iv = crypto.randomBytes(12);
   const c = crypto.createCipheriv('aes-256-gcm', anahtar(), iv);
-  const govde = Buffer.concat([c.update(JSON.stringify({ t: token, s: Date.now() + GUN * 86400e3 }), 'utf8'), c.final()]);
+  const govde = Buffer.concat([c.update(JSON.stringify(oturum), 'utf8'), c.final()]);
   return Buffer.concat([iv, c.getAuthTag(), govde]).toString('base64url');
 }
 export function coz(deger) {
@@ -25,15 +26,35 @@ export function coz(deger) {
     const d = crypto.createDecipheriv('aes-256-gcm', anahtar(), b.subarray(0, 12));
     d.setAuthTag(b.subarray(12, 28));
     const j = JSON.parse(Buffer.concat([d.update(b.subarray(28)), d.final()]).toString('utf8'));
-    return j.s > Date.now() ? j.t : null;
+    return j && j.t && j.s > Date.now() ? j : null;
   } catch (_) { return null; }
 }
 export function cerezOku(req, ad) {
   const m = (req.headers.get('cookie') || '').match(new RegExp('(?:^|;\\s*)' + ad + '=([^;]+)'));
   return m ? decodeURIComponent(m[1]) : null;
 }
-export function oturumCerezi(token) {
-  return `${OTURUM}=${sifrele(token)}; Path=${CEREZ_YOLU}; HttpOnly; Secure; SameSite=Strict; Max-Age=${GUN * 86400}`;
+// GitHub'ın anahtar yanıtından oturum kurar. Erişim anahtarı ~8 saatte biter; yenileme anahtarıyla sessizce tazelenir.
+export function oturumKur(j, eski) {
+  const simdi = Date.now();
+  const s = eski ? eski.s : simdi + GUN * 86400e3;
+  const rBitis = j.refresh_token_expires_in ? simdi + j.refresh_token_expires_in * 1000 : s;
+  return { t: j.access_token, r: j.refresh_token || null, te: j.expires_in ? simdi + j.expires_in * 1000 : null, s: Math.min(s, rBitis) };
+}
+export function oturumCerezi(oturum) {
+  const kalan = Math.max(60, Math.floor((oturum.s - Date.now()) / 1000));
+  return `${OTURUM}=${sifrele(oturum)}; Path=${CEREZ_YOLU}; HttpOnly; Secure; SameSite=Strict; Max-Age=${kalan}`;
+}
+export async function yenile(oturum) {
+  if (!oturum.r) return null;
+  try {
+    const r = await fetch('https://github.com/login/oauth/access_token', {
+      method: 'POST',
+      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ client_id: process.env.GITHUB_CLIENT_ID, client_secret: process.env.GITHUB_CLIENT_SECRET, grant_type: 'refresh_token', refresh_token: oturum.r }),
+    });
+    const j = await r.json();
+    return j.access_token ? oturumKur(j, oturum) : null;
+  } catch (_) { return null; }
 }
 export const oturumSil = `${OTURUM}=; Path=${CEREZ_YOLU}; HttpOnly; Secure; SameSite=Strict; Max-Age=0`;
 export function json(veri, durum = 200, ek = {}) {

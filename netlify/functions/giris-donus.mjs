@@ -1,6 +1,6 @@
 // GitHub girişinden dönüş: kodu anahtara çevirir, yalnızca site sahibinin hesabına (sayısal kimlikle) izin verir,
 // anahtarı HttpOnly oturum çerezine yazar ve uygulamaya döner. Anahtar adres çubuğuna ya da tarayıcı belleğine hiç yazılmaz.
-import { SAHIP_ID, cerezOku, oturumCerezi } from '../lib/ortak.mjs';
+import { SAHIP_ID, cerezOku, oturumCerezi, oturumKur } from '../lib/ortak.mjs';
 
 const stateSil = 'yonetim_state=; Path=/.netlify/functions/; HttpOnly; Secure; SameSite=Lax; Max-Age=0';
 function geri(mesaj, ekCerez) {
@@ -34,5 +34,5 @@ export default async (req) => {
   const kim = await r2.json().catch(() => ({}));
   if (String(kim.id) !== SAHIP_ID) return geri('Bu hesap bu siteyi yönetemez.');
 
-  return geri('', oturumCerezi(j.access_token));
+  return geri('', oturumCerezi(oturumKur(j)));
 };
