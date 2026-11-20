@@ -6,8 +6,12 @@ import { REPO, OTURUM, cerezOku, coz, oturumSil, oturumCerezi, yenile, json } fr
 
 const ONEK = `/repos/${REPO}/`;
 const SHA = /^[0-9a-f]{40}$/;
-const YAZILABILIR = /^(site\/img\/yuklenen\/(projeler|urunler|vakalar)\/[a-z0-9-]+\.jpg|content\/(projeler|anasayfa|fiyatlar)\.json|content\/(sayfalar|vakalar)\/[a-z0-9-]+\.json)$/;
-const ICERIK_SORGUSU = `query($o:String!,$n:String!,$e1:String!,$e2:String!,$e3:String!,$e4:String!,$e5:String!){repository(owner:$o,name:$n){
+const HTML_SAYFA = /^site\/(hakkimizda|kurumsal|istanbul(\/[a-z0-9-]+)?|rehber(\/[a-z0-9-]+)?)\/index\.html$/;
+const YAZILABILIR = /^(site\/img\/yuklenen\/(projeler|urunler|vakalar|anasayfa)\/[a-z0-9-]+\.jpg|content\/(projeler|anasayfa|fiyatlar|iletisim)\.json|content\/(sayfalar|vakalar)\/[a-z0-9-]+\.json|site\/(hakkimizda|kurumsal|istanbul(\/[a-z0-9-]+)?|rehber(\/[a-z0-9-]+)?)\/index\.html)$/;
+const ICERIK_SORGUSU = `query($o:String!,$n:String!,$e1:String!,$e2:String!,$e3:String!,$e4:String!,$e5:String!,$e6:String!,$e7:String!,$e8:String!){repository(owner:$o,name:$n){
+  i:object(expression:$e6){...on Blob{text oid}}
+  hi:object(expression:$e7){...on Tree{entries{name type}}}
+  hr:object(expression:$e8){...on Tree{entries{name type}}}
   f:object(expression:$e5){...on Blob{text oid}}
   p:object(expression:$e1){...on Blob{text oid}}
   a:object(expression:$e4){...on Blob{text oid}}
@@ -56,7 +60,14 @@ export default async (req) => {
     if (yontem !== 'POST' || !SHA.test(sha)) return json({ message: 'Geçersiz istek' }, 400);
     const [o, n] = REPO.split('/');
     yol = '/graphql';
-    govde = { query: ICERIK_SORGUSU, variables: { o, n, e1: sha + ':content/projeler.json', e2: sha + ':content/sayfalar', e3: sha + ':content/vakalar', e4: sha + ':content/anasayfa.json', e5: sha + ':content/fiyatlar.json' } };
+    govde = { query: ICERIK_SORGUSU, variables: { o, n, e1: sha + ':content/projeler.json', e2: sha + ':content/sayfalar', e3: sha + ':content/vakalar', e4: sha + ':content/anasayfa.json', e5: sha + ':content/fiyatlar.json', e6: sha + ':content/iletisim.json', e7: sha + ':site/istanbul', e8: sha + ':site/rehber' } };
+  } else if (yol === '/sayfa') {
+    // Tek bir düzenlenebilir HTML sayfasını okur (yalnız izin verilen sayfalar).
+    const sha = String((govde && govde.sha) || ''); const dosya = String((govde && govde.dosya) || '');
+    if (yontem !== 'POST' || !SHA.test(sha) || !HTML_SAYFA.test(dosya)) return json({ message: 'Geçersiz istek' }, 400);
+    const [o, n] = REPO.split('/');
+    yol = '/graphql';
+    govde = { query: 'query($o:String!,$n:String!,$e:String!){repository(owner:$o,name:$n){d:object(expression:$e){...on Blob{text oid}}}}', variables: { o, n, e: sha + ':' + dosya } };
   } else if (!izinli(yontem, yol, govde)) return json({ message: 'Bu işleme izin verilmiyor' }, 403);
   const gonder = () => fetch('https://api.github.com' + yol, {
       method: yontem,
