@@ -2,6 +2,9 @@
   command = "python3 build.py"
   publish = "dist"
 
+[functions]
+  directory = "netlify/functions"
+
 [build.environment]
   PYTHON_VERSION = "3.11"
 
@@ -17,3 +20,10 @@
   for = "/img/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/yonetim/*"
+  [headers.values]
+    Cache-Control = "no-cache"
+    X-Robots-Tag = "noindex, nofollow"
+    Content-Security-Policy = "frame-ancestors 'none'"

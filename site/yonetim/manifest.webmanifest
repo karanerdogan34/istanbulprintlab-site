@@ -1,0 +1,15 @@
+{
+  "name": "IstanbulPrintLab Yönetim",
+  "short_name": "IPL Yönetim",
+  "lang": "tr",
+  "start_url": "/yonetim/",
+  "scope": "/yonetim/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#111111",
+  "icons": [
+    { "src": "/yonetim/ikon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/yonetim/ikon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/yonetim/ikon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

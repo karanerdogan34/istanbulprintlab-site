@@ -1,5 +1,7 @@
 User-agent: *
 Disallow: /yayin-durumu/
+Disallow: /yonetim/
+Disallow: /admin/
 Allow: /
 Disallow: /404.html
 

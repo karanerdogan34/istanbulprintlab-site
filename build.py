@@ -236,7 +236,7 @@ def main():
     fiyat_raporu(P, onceki_fiyatlar())
     cift = iletisim_ciftleri()
     for kok, _, dosyalar in os.walk(DIST):
-        if kok.startswith(os.path.join(DIST, 'admin')):
+        if kok.startswith(os.path.join(DIST, 'admin')) or kok.startswith(os.path.join(DIST, 'yonetim')):
             continue
         for f in dosyalar:
             if not f.endswith('.html'):
@@ -252,6 +252,8 @@ def main():
     yaz('%s/fiyatlar.json' % DIST, json.dumps({k: v for k, v in P.items() if k != 'buyuk_degisiklik_onay'}, ensure_ascii=False, indent=2))
     import foto_isle
     foto_isle.isle(DIST, YB.RAPOR)
+    # yönetim uygulaması, değişikliğin sitede yayına girdiğini bu dosyadan anlar
+    yaz('%s/yonetim/surum.json' % DIST, json.dumps({'commit': os.environ.get('COMMIT_REF', '')}))
     eksik = ic_baglanti_kontrol()
     if eksik:
         raise S.IcerikHatasi('Sitede kırık iç bağlantı var: %s' % ', '.join(sorted(eksik)[:10]))
