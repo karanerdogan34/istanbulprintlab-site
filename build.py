@@ -265,6 +265,7 @@ SITE = 'https://www.istanbulprintlab.com'
 # ---------- Çerez onayı + Google Consent Mode + PostHog (src/cerez_onay.py) ----------
 import cerez_onay  # noqa: E402
 CEREZ = dict(
+    bant=False,  # True yapılırsa sağ alttaki çerez onay bandı geri gelir
     anahtar='ipl_cerez', posthog='phc_sXf3DbVV3R6LBHcQTHi7T4boryXwiLoVidPvEoB3XPY7',  # herkese açık proje anahtarı
     diller=['tr', 'en'], yedek='tr', politika={'tr': '/cerez-politikasi/', 'en': '/en/privacy/'},
     renk=dict(zemin='#FFFFFF', yazi='#0B0B0B', cizgi='#E4E4E0', vurgu='#0B0B0B', vurgu_yazi='#FFFFFF'))
@@ -272,7 +273,9 @@ ESKI_IZIN = "gtag('consent','default',{ad_storage:'granted',ad_user_data:'grante
 
 
 def cerez_ekle(s):
-    return cerez_onay.uygula(s.replace(ESKI_IZIN + '\n', '').replace(ESKI_IZIN, ''), CEREZ)
+    if CEREZ.get('bant', True):
+        s = s.replace(ESKI_IZIN + '\n', '').replace(ESKI_IZIN, '')
+    return cerez_onay.uygula(s, CEREZ)
 
 
 def calistir():

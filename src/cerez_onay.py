@@ -110,6 +110,12 @@ def uygula(s, ayar):
     """ayar: anahtar, posthog, politika{lang:url}, yedek dil, renkler. Google etiketinden önce BAS eklenir."""
     if 'id="cmpx"' in s or '</head>' not in s or '</body>' not in s:
         return s
+    if not ayar.get('bant', True):
+        # Bant kapalı: Google etiketleri sitenin kendi ayarıyla çalışır, PostHog herkes için başlar.
+        if 'posthog.init' in s:
+            return s
+        return s.replace('</head>', '<script>window.__cmp={v:1,a:true,r:true};</script>\n'
+                         + POSTHOG % {'posthog': ayar['posthog']} + '</head>', 1)
     bas = BAS % {'anahtar': ayar['anahtar'], 'sure': SURE_GUN}
     # Google etiketinden önce gelmeli: ilk <script> etiketinin önüne, yoksa </head> önüne
     i = s.find('<script', s.find('<head'))
