@@ -88,6 +88,7 @@ async function icerikOku(sha) {
   if (j.errors) throw new Error(j.errors[0].message);
   const r = j.data.repository;
   const dosyalar = { 'content/projeler.json': { text: r.p.text, oid: r.p.oid } };
+  if (r.a) dosyalar['content/anasayfa.json'] = { text: r.a.text, oid: r.a.oid };
   for (const e of (r.s?.entries || [])) if (e.name.endsWith('.json')) dosyalar['content/sayfalar/' + e.name] = e.object;
   for (const e of (r.v?.entries || [])) if (e.name.endsWith('.json')) dosyalar['content/vakalar/' + e.name] = e.object;
   return { sha, dosyalar };
@@ -95,6 +96,8 @@ async function icerikOku(sha) {
 
 function albumleriKur(dosyalar) {
   const A = [];
+  const an = dosyalar['content/anasayfa.json'];
+  if (an) A.push({ id: 'anasayfa', tur: 'anasayfa', ad: 'Anasayfa yazıları', aciklama: 'Anasayfa metinleri, dönemsel kutular ve Google görünümü', yol: 'content/anasayfa.json', alan: null, sayfa: '/', oid: an.oid, veri: JSON.parse(an.text) });
   const pj = dosyalar['content/projeler.json'];
   A.push({ id: 'projeler', tur: 'projeler', ad: 'Yaptığımız İşler', aciklama: 'Anasayfadaki proje kartları', yol: 'content/projeler.json', alan: 'projeler', klasor: 'projeler', sayfa: '/', oid: pj.oid, veri: JSON.parse(pj.text) });
   for (const [yol, d] of Object.entries(dosyalar)) {
@@ -106,17 +109,27 @@ function albumleriKur(dosyalar) {
     if (!yol.startsWith('content/sayfalar/')) continue;
     const v = JSON.parse(d.text);
     const en = /^en\//.test(v.yol || '');
-    A.push({ id: yol, tur: 'sayfa', ad: v.baslik || yol, aciklama: en ? 'Ürün sayfası (İngilizce)' : 'Ürün sayfası', yol, alan: 'fotolar', klasor: 'urunler', sayfa: '/' + (v.yol || '') + '/', oid: d.oid, veri: v });
+    A.push({ id: yol, tur: 'sayfa', en, ad: v.baslik || yol, aciklama: en ? 'Ürün sayfası (İngilizce)' : 'Ürün sayfası', yol, alan: 'fotolar', klasor: 'urunler', sayfa: '/' + (v.yol || '') + '/', oid: d.oid, veri: v });
   }
   return A;
 }
 
-function liste(al) { const v = al.veri[al.alan]; return Array.isArray(v) ? v : (al.veri[al.alan] = []); }
+function liste(al) { if (!al.alan) return []; const v = al.veri[al.alan]; return Array.isArray(v) ? v : (al.veri[al.alan] = []); }
 
 // ---------- bekleyen değişiklikleri uygulama ----------
 // İşlemler fotoğraf yoluna (gorsel) göre tanımlanır. Yayında en güncel içeriğe yeniden uygulanır;
 // "siki" modda uygulanamayan tek bir işlem bile tüm yayını durdurur.
 function islemUygula(al, i, siki) {
+  if (i.tur === 'alan' || i.tur === 'liste') {
+    const mevcut = yolAl(al.veri, i.yol);
+    if (siki) {
+      if (!esit(mevcut, i.eski)) throw Object.assign(new Error('Bu bölüm siz düzenlerken başka yerden değiştirilmiş.'), { islem: i, cakisma: true, mevcut });
+      const hata = korumaHatasi(i.eski, i.yeni);
+      if (hata) throw Object.assign(new Error(hata), { islem: i });
+    }
+    yolKoy(al.veri, i.yol, JSON.parse(JSON.stringify(i.yeni)));
+    return;
+  }
   const L = liste(al);
   const bul = () => L.findIndex((x) => x.gorsel === i.gorsel);
   const olmadi = (neden) => { if (siki) throw Object.assign(new Error(neden), { islem: i }); };
@@ -222,11 +235,11 @@ function durumSatiri() {
 
 function albumSatiri(al) {
   const g = gorunenAlbum(al); const L = liste(g).filter((x) => x.gorsel);
-  const kapak = al.tur === 'vaka' ? (g.veri.kapak || L[0]?.gorsel) : L[0]?.gorsel;
+  const kapak = al.tur === 'vaka' ? (g.veri.kapak || L[0]?.gorsel) : al.tur === 'anasayfa' ? g.veri.yilbasi?.gorsel : L[0]?.gorsel;
   const n = bekleyenSayisi(al.id);
   return `<li><button class="satir" data-album="${kacir(al.id)}">
     ${kapak ? `<img loading="lazy" src="${kacir(resimAdresi(kapak))}" alt="">` : '<span class="bos"></span>'}
-    <span class="ad"><b>${kacir(al.ad)}</b><small>${kacir(al.aciklama)} · ${L.length} fotoğraf</small></span>
+    <span class="ad"><b>${kacir(al.ad)}</b><small>${kacir(al.aciklama)}${al.alan ? ' · ' + L.length + ' fotoğraf' : ''}</small></span>
     ${n ? `<span class="rozet">${n}</span>` : ''}</button></li>`;
 }
 
@@ -235,13 +248,13 @@ function anaEkran() {
   const uy = (a) => !q || a.ad.toLocaleLowerCase('tr').includes(q);
   const grup = (tur, baslik) => {
     const A = D.albumler.filter((a) => a.tur === tur && uy(a));
-    return A.length ? `<div class="bolum">${baslik}</div><ul class="liste">${A.map(albumSatiri).join('')}</ul>` : '';
+    return A.length ? `${baslik ? `<div class="bolum">${baslik}</div>` : ''}<ul class="liste">${A.map(albumSatiri).join('')}</ul>` : '';
   };
   kok.innerHTML = `<div class="ust"><h1>IstanbulPrintLab</h1><a class="dugme ust-baglanti" href="${SITE}/" target="_blank" rel="noopener">Siteyi aç</a></div>
     ${durumSatiri()}
     <button class="buyuk-ekle" id="ekle"><span>+</span> Fotoğraf ekle</button>
     <input class="ara" id="ara" type="search" placeholder="Sayfa ara (ör. sticker, branda)" value="${kacir(D.ara)}">
-    ${grup('projeler', 'Anasayfa')}${grup('vaka', 'Vaka çalışmaları')}${grup('sayfa', 'Ürün sayfaları')}
+    ${grup('anasayfa', 'Anasayfa')}${grup('projeler', '')}${grup('vaka', 'Vaka çalışmaları')}${grup('sayfa', 'Ürün sayfaları')}
     <div class="alt-bilgi"><button id="cikis">Bu telefondan çıkış yap</button></div>`;
   $('#ekle').onclick = () => fotoSec(null);
   const ara = $('#ara'); ara.oninput = () => { D.ara = ara.value; const p = ara.selectionStart; anaEkran(); const a2 = $('#ara'); a2.focus(); a2.setSelectionRange(p, p); };
@@ -257,22 +270,36 @@ function anaEkran() {
 function albumEkrani(id) {
   const al = D.albumler.find((a) => a.id === id); if (!al) return git({ ad: 'ana' }, true);
   const g = gorunenAlbum(al); const L = liste(g);
-  const yeniler = new Set(D.islemler.filter((i) => i.album === id && i.tur === 'ekle').map((i) => i.gorsel));
-  const ilkEtiket = al.tur === 'sayfa' ? 'Ana fotoğraf' : al.tur === 'projeler' ? 'İlk kart' : '';
-  const kapak = al.tur === 'vaka' ? g.veri.kapak : null;
-  kok.innerHTML = `<div class="ust"><button class="geri" id="geri" aria-label="Geri">‹</button><h1>${kacir(al.ad)}</h1>
-      <a class="dugme ust-baglanti" href="${kacir(siteYolu(al.sayfa))}" target="_blank" rel="noopener">Sayfayı aç</a></div>
-    <div class="aciklama-not">${al.tur === 'sayfa' ? 'İlk fotoğraf sayfanın en üstünde büyük görünen ana fotoğraftır.' : al.tur === 'projeler' ? 'Her fotoğraf anasayfada bir proje kartıdır. Yeni eklenen en başa gelir.' : 'Vaka sayfasındaki “Uygulamadan kareler” bölümü.'} Düzenlemek için fotoğrafa dokunun.</div>
+  const S = SEMA[al.tur];
+  const sekmeler = [al.alan ? ['foto', 'Fotoğraflar'] : null, S ? ['metin', 'Metinler'] : null, S && S.google ? ['google', 'Google'] : null].filter(Boolean);
+  const sekme = sekmeler.some(([k]) => k === D.ekran.sekme) ? D.ekran.sekme : sekmeler[0][0];
+  let govde = '';
+  if (sekme === 'foto') {
+    const yeniler = new Set(D.islemler.filter((i) => i.album === id && i.tur === 'ekle').map((i) => i.gorsel));
+    const ilkEtiket = al.tur === 'sayfa' ? 'Ana fotoğraf' : al.tur === 'projeler' ? 'İlk kart' : '';
+    const kapak = al.tur === 'vaka' ? g.veri.kapak : null;
+    govde = `<div class="aciklama-not">${al.tur === 'sayfa' ? 'İlk fotoğraf sayfanın en üstünde büyük görünen ana fotoğraftır.' : al.tur === 'projeler' ? 'Her fotoğraf anasayfada bir proje kartıdır. Yeni eklenen en başa gelir.' : 'Vaka sayfasındaki “Uygulamadan kareler” bölümü.'} Düzenlemek için fotoğrafa dokunun.</div>
     <div class="izgara">${L.map((x, n) => !x.gorsel ? '' : `<button class="kare ${x.gizle ? 'soluk' : ''}" data-g="${kacir(x.gorsel)}">
         <img loading="lazy" src="${kacir(resimAdresi(x.gorsel))}" alt="">
         ${yeniler.has(x.gorsel) ? '<span class="etiket yeni">Yayında değil</span>' : x.gizle ? '<span class="etiket gizli">Gizli</span>' : (x.gorsel === kapak ? '<span class="etiket">Kapak</span>' : (n === 0 && ilkEtiket ? `<span class="etiket">${ilkEtiket}</span>` : ''))}
       </button>`).join('')}</div>
     ${L.length ? '' : '<div class="aciklama-not">Bu sayfada henüz fotoğraf yok. + düğmesiyle ekleyin.</div>'}
     <button class="fab" id="fab" aria-label="Bu sayfaya fotoğraf ekle">+</button>`;
+  } else if (sekme === 'metin') {
+    govde = `<div class="aciklama-not">Sitede göründüğü sırayla. Değiştirmek için dokunun.</div>${metinSekmesi(al, g)}`;
+  } else {
+    govde = googleSekmesi(al, g);
+  }
+  kok.innerHTML = `<div class="ust"><button class="geri" id="geri" aria-label="Geri">‹</button><h1>${kacir(al.ad)}</h1>
+      <a class="dugme ust-baglanti" href="${kacir(siteYolu(al.sayfa))}" target="_blank" rel="noopener">Sayfayı aç</a></div>
+    ${sekmeler.length > 1 ? `<div class="sekmeler" role="tablist">${sekmeler.map(([k, ad]) => `<button role="tab" data-sekme="${k}" aria-selected="${k === sekme}" class="${k === sekme ? 'secili' : ''}">${ad}</button>`).join('')}</div>` : ''}
+    ${govde}`;
   $('#geri').onclick = () => history.back();
-  $('#fab').onclick = () => fotoSec(id);
+  kok.querySelectorAll('[data-sekme]').forEach((b) => b.onclick = () => { D.ekran = { ...D.ekran, sekme: b.dataset.sekme }; history.replaceState(D.ekran, ''); ciz(); });
+  if ($('#fab')) $('#fab').onclick = () => fotoSec(id);
   kok.querySelectorAll('.kare').forEach((b) => b.onclick = () => fotoDetay(al, b.dataset.g));
   kok.querySelectorAll('.kare img').forEach((im) => im.onerror = () => { if (!im.dataset.yedek) { im.dataset.yedek = 1; im.src = `https://raw.githubusercontent.com/${REPO}/${DAL}/site${im.closest('.kare').dataset.g}`; } });
+  kok.querySelectorAll('[data-yol]').forEach((b) => b.onclick = () => { const def = alanBul(al.tur, JSON.parse(b.dataset.yol)); if (def) alanDuzenle(al, def); });
   yayinCubugu();
 }
 
@@ -293,8 +320,8 @@ function yayinCubugu() {
 }
 
 // Alttan açılan pencere. kilitli: işlem sürerken dışına dokunarak kapatılamaz.
-function perde(icerik, { kapaninca, kilitli } = {}) {
-  const p = document.createElement('div'); p.className = 'perde';
+function perde(icerik, { kapaninca, kilitli, tam } = {}) {
+  const p = document.createElement('div'); p.className = 'perde' + (tam ? ' tam' : '');
   p.innerHTML = `<div class="sayfa" role="dialog" aria-modal="true"><div class="tutamak"></div>${icerik}</div>`;
   p.onclick = (e) => { if (!kilitli && e.target === p) { p.remove(); kapaninca && kapaninca(); } };
   document.body.appendChild(p);
@@ -431,15 +458,287 @@ function fotoDetay(al, gorsel) {
   };
 }
 
+// ---------- metinler ve Google görünümü ----------
+const esit = (a, b) => JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
+function yolAl(o, yol) { return yol.reduce((x, k) => (x == null ? undefined : x[k]), o); }
+function yolKoy(o, yol, v) {
+  let x = o;
+  for (let n = 0; n < yol.length - 1; n++) { if (x[yol[n]] == null || typeof x[yol[n]] !== 'object') x[yol[n]] = {}; x = x[yol[n]]; }
+  x[yol[yol.length - 1]] = v;
+}
+const kopya = (v) => JSON.parse(JSON.stringify(v ?? null));
+
+// Sayfa türlerine göre düzenlenebilir alanlar (sitede göründükleri sırayla).
+const SEMA = {
+  sayfa: {
+    metin: [
+      { yol: ['etiket'], ad: 'Küçük üst yazı', tip: 'satir', ipucu: 'Başlığın üstündeki küçük gri yazı. Örn: Küçük format · İç ve dış mekan' },
+      { yol: ['baslik'], ad: 'Sayfa başlığı', tip: 'satir', zorunlu: true, ipucu: 'Sayfanın en büyük başlığı.' },
+      { yol: ['giris'], ad: 'Giriş yazısı', tip: 'paragraf', ipucu: 'Başlığın altındaki tanıtım paragrafı.' },
+      { yol: ['neden'], ad: 'Ürün avantajları', tip: 'liste', oge: 'metin', ogeAd: 'Madde' },
+      { yol: ['ozellikler'], ad: 'Teknik özellikler', tip: 'liste', oge: 'cift', ogeAd: 'Özellik', alanlar: [['ad', 'Özellik adı (örn. Malzeme)'], ['deger', 'Değeri']] },
+      { yol: ['sss'], ad: 'Sık sorulan sorular', tip: 'liste', oge: 'sss', ogeAd: 'Soru' },
+    ],
+    google: true,
+  },
+  vaka: {
+    metin: [
+      { yol: ['firma'], ad: 'Firma adı', tip: 'satir', zorunlu: true },
+      { yol: ['etiket'], ad: 'Küçük üst yazı', tip: 'satir' },
+      { yol: ['baslik'], ad: 'Sayfa başlığı', tip: 'satir', zorunlu: true },
+      { yol: ['ihtiyac'], ad: 'Müşterinin ihtiyacı', tip: 'paragraf' },
+      { yol: ['zorluk'], ad: 'İşin zorluğu', tip: 'paragraf' },
+      { yol: ['cozum'], ad: 'Çözümümüz (maddeler)', tip: 'liste', oge: 'metin', ogeAd: 'Madde' },
+      { yol: ['bilgiler'], ad: 'Proje bilgileri', tip: 'liste', oge: 'cift', ogeAd: 'Bilgi', alanlar: [['ad', 'Bilgi adı (örn. Müşteri)'], ['deger', 'Değeri']] },
+    ],
+    google: true,
+  },
+  anasayfa: {
+    metin: [
+      { yol: ['ust_baslik'], ad: 'Üst yazı', tip: 'satir' },
+      { yol: ['buyuk_baslik'], ad: 'Büyük başlık (satır satır)', tip: 'liste', oge: 'metin', ogeAd: 'Satır', enAz: 1 },
+      { yol: ['giris'], ad: 'Giriş yazısı', tip: 'paragraf' },
+      { yol: ['hiz_notu'], ad: 'Teslim süresi notu', tip: 'paragraf' },
+      { yol: ['sss'], ad: 'Sık sorulan sorular', tip: 'liste', oge: 'sss', ogeAd: 'Soru' },
+    ],
+    donemsel: [
+      { baslik: 'Yılbaşı kutusu', alanlar: [
+        { yol: ['yilbasi', 'goster'], ad: 'Anasayfada göster', tip: 'anahtar' },
+        { yol: ['yilbasi', 'ust_yazi'], ad: 'Üst yazı', tip: 'satir' },
+        { yol: ['yilbasi', 'baslik'], ad: 'Başlık', tip: 'satir' },
+        { yol: ['yilbasi', 'maddeler'], ad: 'Maddeler', tip: 'liste', oge: 'metin', ogeAd: 'Madde' },
+      ] },
+      { baslik: 'Cam filmi kutusu', alanlar: [
+        { yol: ['cam_filmi', 'ust_yazi'], ad: 'Üst yazı', tip: 'satir' },
+        { yol: ['cam_filmi', 'baslik'], ad: 'Başlık', tip: 'satir' },
+        { yol: ['cam_filmi', 'giris'], ad: 'Yazı', tip: 'paragraf' },
+      ] },
+    ],
+    google: true,
+  },
+};
+const SEO_ALANLARI = [
+  { yol: ['seo_baslik'], ad: 'Google başlığı', tip: 'satir', zorunlu: true, seo: 'baslik', ipucu: 'Google sonuçlarında mavi görünen başlık. Önerilen: 30–60 karakter.' },
+  { yol: ['seo_aciklama'], ad: 'Google açıklaması', tip: 'paragraf', seo: 'aciklama', ipucu: 'Başlığın altındaki gri açıklama. Önerilen: 70–155 karakter.' },
+];
+function tumAlanlar(tur) {
+  const S = SEMA[tur]; if (!S) return [];
+  return [...S.metin, ...(S.donemsel || []).flatMap((g) => g.alanlar), ...(S.google ? SEO_ALANLARI : [])];
+}
+const alanBul = (tur, yol) => tumAlanlar(tur).find((d) => esit(d.yol, yol));
+
+// Korumalar: otomatik fiyatlar ({{...}}) ve bağlantı adresleri değiştirilemez; kalın işaretleri (**) eşli olmalı.
+const metinleri = (v) => (typeof v === 'string' ? [v] : Array.isArray(v) ? v.flatMap(metinleri) : v && typeof v === 'object' ? Object.values(v).flatMap(metinleri) : []);
+const say = (L) => L.slice().sort().join('\u0001');
+function degiskenler(s) { return (s.match(/\{\{\s*[A-Za-z0-9_]+\s*\}\}/g) || []).map((x) => x.replace(/\s/g, '')); }
+function adresler(s) { return [...s.matchAll(/\[([^\]]+)\]\(([^)\s]+)\)/g)].map((m) => m[2]); }
+function korumaHatasi(eski, yeni) {
+  const E = metinleri(eski).join('\n'), Y = metinleri(yeni).join('\n');
+  const kalan = Y.replace(/\{\{\s*[A-Za-z0-9_]+\s*\}\}/g, '');
+  if (/\{\{|\}\}/.test(kalan)) return 'Otomatik fiyat işareti ({{…}}) bozulmuş.';
+  if (say(degiskenler(E)) !== say(degiskenler(Y))) return 'Otomatik fiyat bilgisi ({{…}}) silinmiş ya da değiştirilmiş. Fiyatlar buradan değiştirilemez.';
+  if (say(adresler(E)) !== say(adresler(Y))) return 'Metindeki bir bağlantının adresi silinmiş ya da değiştirilmiş. Bağlantı yazısını değiştirebilirsiniz, adresini değil.';
+  if (/\]\(/.test(Y.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, ''))) return 'Bir bağlantının yazımı bozulmuş ( [yazı](adres) biçiminde olmalı ).';
+  for (const t of metinleri(yeni)) if (((t.match(/\*\*/g) || []).length) % 2) return 'Kalın yazı işareti (**) eksik kalmış: her ** açılışın bir kapanışı olmalı.';
+  return '';
+}
+function bosHatasi(def, v) {
+  if (def.zorunlu && !String(v || '').trim()) return `"${def.ad}" boş bırakılamaz.`;
+  if (def.tip === 'liste') {
+    if (def.enAz && v.length < def.enAz) return `En az ${def.enAz} ${def.ogeAd.toLocaleLowerCase('tr')} olmalı.`;
+    for (const o of v) {
+      if (def.oge === 'metin' && !String(o).trim()) return 'Boş madde bırakılamaz.';
+      if (def.oge === 'cift' && (!String(o.ad || '').trim() || !String(o.deger || '').trim())) return 'Her satırın adı ve değeri dolu olmalı.';
+      if (def.oge === 'sss' && (!String(o.soru || '').trim() || !String(o.cevap || '').trim())) return 'Her sorunun hem sorusu hem cevabı dolu olmalı.';
+    }
+  }
+  return '';
+}
+function seoUyarilari(al, def, v) {
+  const U = []; const n = String(v || '').trim().length;
+  if (def.seo === 'baslik') {
+    if (n && (n < 30 || n > 60)) U.push(`Başlık ${n} karakter; 30–60 arası genelde tam görünür.`);
+    const ayni = D.albumler.filter((a) => a.id !== al.id && SEMA[a.tur]?.google && String(yolAl(gorunenAlbum(a).veri, ['seo_baslik']) || '').trim().toLocaleLowerCase('tr') === String(v).trim().toLocaleLowerCase('tr'));
+    if (n && ayni.length) U.push('Aynı Google başlığı şu sayfada da var: ' + ayni.map((a) => a.ad).join(', ') + '. Her sayfanın başlığı farklı olmalı.');
+  }
+  if (def.seo === 'aciklama') {
+    if (!n) U.push('Açıklama boş; Google sayfadan kendisi bir metin seçer.');
+    else if (n < 70 || n > 155) U.push(`Açıklama ${n} karakter; 70–155 arası genelde tam görünür.`);
+  }
+  if (al.en && /[çğışöüÇĞİŞÖÜ]/.test(String(v))) U.push('Bu İngilizce bir sayfa ama metinde Türkçe karakter var.');
+  return U;
+}
+
+// Aynı bölümün değişiklikleri tek işlemde birleşir; başlangıç değeri (sitedeki hal) korunur.
+async function alanKaydet(al, def, yeni) {
+  const tur = def.tip === 'liste' ? 'liste' : 'alan';
+  const onceki = D.islemler.find((i) => i.album === al.id && i.tur === tur && esit(i.yol, def.yol));
+  const eski = onceki ? onceki.eski : kopya(yolAl(al.veri, def.yol));
+  const kalan = D.islemler.filter((i) => i !== onceki);
+  const yeniler = esit(yeni, eski) ? kalan : [...kalan, { tur, album: al.id, yol: def.yol, eski, yeni: kopya(yeni) }];
+  await taslakYaz(yeniler);
+}
+async function alanGeriAl(al, def) {
+  await taslakYaz(D.islemler.filter((i) => !(i.album === al.id && (i.tur === 'alan' || i.tur === 'liste') && esit(i.yol, def.yol))));
+}
+const bekleyenAlan = (al, def) => D.islemler.some((i) => i.album === al.id && (i.tur === 'alan' || i.tur === 'liste') && esit(i.yol, def.yol));
+
+function onIzlemeMetni(def, v) {
+  if (def.tip === 'anahtar') return v ? 'Açık — anasayfada görünüyor' : 'Kapalı — anasayfada görünmüyor';
+  if (def.tip === 'liste') {
+    const L = Array.isArray(v) ? v : [];
+    if (!L.length) return 'Henüz yok';
+    const ilk = def.oge === 'metin' ? L[0] : def.oge === 'cift' ? `${L[0].ad}: ${L[0].deger}` : L[0].soru;
+    return `${L.length} ${def.ogeAd.toLocaleLowerCase('tr')} · ${ilk}`;
+  }
+  return String(v || '').trim() || 'Boş';
+}
+const sade = (s) => String(s || '').replace(/\*\*/g, '').replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '$1').replace(/\{\{\s*[A-Za-z0-9_]+\s*\}\}/g, '[otomatik fiyat]');
+
+function alanKarti(al, g, def) {
+  const v = yolAl(g.veri, def.yol);
+  return `<li><button class="metin-kart" data-yol="${kacir(JSON.stringify(def.yol))}">
+    <span class="mk-ad">${kacir(def.ad)}${bekleyenAlan(al, def) ? ' <span class="rozet">değişti</span>' : ''}</span>
+    <span class="mk-deger">${kacir(sade(onIzlemeMetni(def, v)))}</span></button></li>`;
+}
+function metinSekmesi(al, g) {
+  const S = SEMA[al.tur];
+  let h = `<ul class="liste kartlar">${S.metin.map((d) => alanKarti(al, g, d)).join('')}</ul>`;
+  for (const grup of S.donemsel || []) h += `<div class="bolum">${kacir(grup.baslik)}</div><ul class="liste kartlar">${grup.alanlar.map((d) => alanKarti(al, g, d)).join('')}</ul>`;
+  return h;
+}
+function googleSekmesi(al, g) {
+  const t = String(yolAl(g.veri, ['seo_baslik']) || ''), a = String(yolAl(g.veri, ['seo_aciklama']) || '');
+  const adres = 'istanbulprintlab.com' + (al.sayfa === '/' ? '' : ' › ' + al.sayfa.replace(/^\/|\/$/g, '').split('/').join(' › '));
+  return `<div class="g-onizleme"><div class="g-site">IstanbulPrintLab</div><div class="g-adres">${kacir(adres)}</div>
+      <div class="g-baslik">${kacir(t || '(başlık yok)')}</div><div class="g-aciklama">${kacir(a || '(açıklama yok)')}</div></div>
+    <div class="aciklama-not">Yaklaşık görünüm. Google başlığı ve açıklamayı farklı gösterebilir.</div>
+    <ul class="liste kartlar">${SEO_ALANLARI.map((d) => alanKarti(al, g, d)).join('')}</ul>`;
+}
+
+// Tek satır / paragraf / aç-kapa düzenleyici (tam ekran).
+function alanDuzenle(al, def, baslangic) {
+  const g = gorunenAlbum(al);
+  const ilk = baslangic !== undefined ? baslangic : yolAl(g.veri, def.yol);
+  const orijinal = kopya(yolAl(al.veri, def.yol));
+  if (def.tip === 'liste') return listeDuzenle(al, def, ilk);
+  const p = perde(`<h2>${kacir(def.ad)}</h2>
+    ${def.ipucu ? `<div class="aciklama-not perde-not">${kacir(def.ipucu)}</div>` : ''}
+    ${def.tip === 'anahtar'
+      ? `<label class="anahtar"><input type="checkbox" id="dg" ${ilk ? 'checked' : ''}><span>${kacir(def.ad)}</span></label>`
+      : def.tip === 'satir' ? `<input class="duz" id="dg" value="${kacir(ilk)}">` : `<textarea class="duz" id="dg" rows="7">${kacir(ilk)}</textarea>`}
+    ${def.tip !== 'anahtar' ? '<div class="sayac" id="sy"></div>' : ''}
+    ${degiskenler(String(ilk || '')).length ? `<div class="kilit-not">🔒 ${kacir(degiskenler(String(ilk)).join(', '))} otomatik fiyattır; değiştirmeyin. Çevresindeki yazıyı düzenleyebilirsiniz.</div>` : ''}
+    ${/\*\*/.test(String(ilk || '')) ? '<div class="aciklama-not perde-not">** işaretleri arasındaki yazı sitede kalın görünür.</div>' : ''}
+    <div id="uy"></div>
+    <button class="dugme ana tam" id="kaydet">Kaydet</button>
+    ${bekleyenAlan(al, def) ? '<button class="dugme tam ara-bosluk" id="geri">Bu değişikliği geri al (sitedeki hale dön)</button>' : ''}
+    <button class="dugme tam ara-bosluk" id="vazgec">Vazgeç</button>`, { tam: true });
+  const k = $('#dg', p);
+  const oku = () => def.tip === 'anahtar' ? k.checked : k.value.replace(/\r/g, '').replace(def.tip === 'satir' ? /\n/g : /$^/, ' ');
+  const guncelle = () => {
+    if (def.tip === 'anahtar') return;
+    const v = oku(); $('#sy', p).textContent = v.trim().length + ' karakter';
+    const U = def.seo ? seoUyarilari(al, def, v) : [];
+    $('#uy', p).innerHTML = U.map((u) => `<div class="uyari">${kacir(u)}</div>`).join('');
+  };
+  if (k.tagName !== 'INPUT' || k.type !== 'checkbox') k.oninput = guncelle;
+  guncelle();
+  $('#vazgec', p).onclick = () => p.remove();
+  if ($('#geri', p)) $('#geri', p).onclick = async () => { try { await alanGeriAl(al, def); } catch (e) { return hataPenceresi('Kaydedilemedi', e.message); } p.remove(); bildir('Değişiklik geri alındı'); ciz(); };
+  $('#kaydet', p).onclick = async () => {
+    const v = def.tip === 'anahtar' ? oku() : oku().trim();
+    const hata = bosHatasi(def, v) || korumaHatasi(orijinal, v);
+    if (hata) {
+      $('#uy', p).innerHTML = `<div class="hata-kutu bosluksuz">${kacir(hata)}</div>` + (degiskenler(String(orijinal || '')).length || adresler(String(orijinal || '')).length ? '<button class="dugme tam ara-bosluk" id="ilkhal">Yazıyı sitedeki haline döndür</button>' : '');
+      if ($('#ilkhal', p)) $('#ilkhal', p).onclick = () => { k.value = orijinal || ''; guncelle(); };
+      return;
+    }
+    try { await alanKaydet(al, def, v); } catch (e) { return hataPenceresi('Kaydedilemedi', e.message); }
+    p.remove(); bildir('Telefona kaydedildi — henüz sitede değil. Hazır olunca “Yayınla”ya basın.', 3500); ciz();
+  };
+}
+
+// Liste düzenleyici: maddeler, teknik özellikler, sık sorulan sorular. Her değişiklik anında taslağa kaydedilir.
+function listeDuzenle(al, def, ilk) {
+  let L = kopya(Array.isArray(ilk) ? ilk : []);
+  const orijinal = kopya(yolAl(al.veri, def.yol)) || [];
+  const p = perde('', { tam: true });
+  const ozet = (o) => def.oge === 'metin' ? o : def.oge === 'cift' ? `${o.ad}: ${o.deger}` : o.soru;
+  const kaydet = async (yeni) => {
+    const hata = korumaHatasi(orijinal, yeni);
+    if (hata) { hataPenceresi('Kaydedilemedi', hata); return false; }
+    try { await alanKaydet(al, def, yeni); } catch (e) { hataPenceresi('Kaydedilemedi', e.message); return false; }
+    L = kopya(yeni); return true;
+  };
+  const ciz2 = () => {
+    p.querySelector('.sayfa').innerHTML = `<div class="tutamak"></div><h2>${kacir(def.ad)}</h2>
+      <div class="aciklama-not perde-not">Düzenlemek için dokunun. Sıra sitedeki sıradır.</div>
+      <ul class="liste oge-liste">${L.map((o, n) => `<li class="oge"><button class="oge-metin" data-n="${n}">${kacir(sade(ozet(o)) || '(boş)')}</button>
+        <span class="oge-ok"><button data-yukari="${n}" ${n === 0 ? 'disabled' : ''} aria-label="Yukarı">↑</button><button data-asagi="${n}" ${n === L.length - 1 ? 'disabled' : ''} aria-label="Aşağı">↓</button></span></li>`).join('')}</ul>
+      ${L.length ? '' : '<div class="aciklama-not">Henüz yok.</div>'}
+      <button class="dugme tam ara-bosluk" id="ekle">+ ${kacir(def.ogeAd)} ekle</button>
+      ${bekleyenAlan(al, def) ? '<button class="dugme tam ara-bosluk" id="geri">Bu bölümdeki değişiklikleri geri al</button>' : ''}
+      <button class="dugme ana tam ara-bosluk" id="bitti">Tamam</button>`;
+    p.querySelectorAll('[data-n]').forEach((b) => b.onclick = () => ogeDuzenle(+b.dataset.n));
+    p.querySelectorAll('[data-yukari]').forEach((b) => b.onclick = async () => { const n = +b.dataset.yukari; const Y = kopya(L); [Y[n - 1], Y[n]] = [Y[n], Y[n - 1]]; if (await kaydet(Y)) ciz2(); });
+    p.querySelectorAll('[data-asagi]').forEach((b) => b.onclick = async () => { const n = +b.dataset.asagi; const Y = kopya(L); [Y[n + 1], Y[n]] = [Y[n], Y[n + 1]]; if (await kaydet(Y)) ciz2(); });
+    $('#ekle', p).onclick = () => ogeDuzenle(-1);
+    if ($('#geri', p)) $('#geri', p).onclick = async () => { if (!confirm('Bu bölümdeki tüm değişiklikler geri alınsın mı?')) return; try { await alanGeriAl(al, def); } catch (e) { return hataPenceresi('Kaydedilemedi', e.message); } L = kopya(orijinal); ciz2(); };
+    $('#bitti', p).onclick = () => { p.remove(); ciz(); };
+  };
+  const ogeDuzenle = (n) => {
+    const o = n >= 0 ? L[n] : (def.oge === 'metin' ? '' : def.oge === 'cift' ? { ad: '', deger: '' } : { soru: '', cevap: '', acik: false });
+    const alanlar = def.oge === 'metin' ? [['_', def.ogeAd]] : def.oge === 'cift' ? def.alanlar : [['soru', 'Soru'], ['cevap', 'Cevap']];
+    const deg = (k) => (k === '_' ? o : o[k]) || '';
+    const f = perde(`<h2>${n >= 0 ? kacir(def.ogeAd) + ' düzenle' : 'Yeni ' + kacir(def.ogeAd.toLocaleLowerCase('tr'))}</h2>
+      ${alanlar.map(([k, ad]) => `<label class="alan"><span>${kacir(ad)}</span>${k === 'cevap' || (def.oge === 'metin' && String(deg(k)).length > 60) ? `<textarea class="duz" rows="5" data-k="${k}">${kacir(deg(k))}</textarea>` : `<input class="duz" data-k="${k}" value="${kacir(deg(k))}">`}</label>`).join('')}
+      ${degiskenler(metinleri(o).join(' ')).length ? '<div class="kilit-not">🔒 {{…}} otomatik fiyattır; değiştirmeyin.</div>' : ''}
+      <div id="uy2"></div>
+      <button class="dugme ana tam" id="tm">Kaydet</button>
+      ${n >= 0 ? '<button class="dugme tehlike tam ara-bosluk" id="sil">Bunu kaldır</button>' : ''}
+      <button class="dugme tam ara-bosluk" id="vz">Vazgeç</button>`, { tam: true });
+    $('#vz', f).onclick = () => f.remove();
+    $('#tm', f).onclick = async () => {
+      const al2 = (k) => ($(`[data-k="${k}"]`, f).value || '').replace(/\r/g, '').trim();
+      const yeniO = def.oge === 'metin' ? al2('_') : def.oge === 'cift' ? { ...o, ad: al2('ad'), deger: al2('deger') } : { ...o, soru: al2('soru'), cevap: al2('cevap') };
+      const hata = bosHatasi(def, [yeniO]);
+      if (hata) { $('#uy2', f).innerHTML = `<div class="hata-kutu bosluksuz">${kacir(hata)}</div>`; return; }
+      const Y = kopya(L); if (n >= 0) Y[n] = yeniO; else Y.push(yeniO);
+      if (await kaydet(Y)) { f.remove(); bildir('Telefona kaydedildi — henüz sitede değil'); ciz2(); }
+    };
+    if ($('#sil', f)) $('#sil', f).onclick = async () => {
+      if (!confirm('Kaldırılsın mı? (Yayınlamadan önce geri alabilirsiniz.)')) return;
+      const Y = kopya(L); Y.splice(n, 1);
+      const hata = bosHatasi(def, Y); if (hata) { $('#uy2', f).innerHTML = `<div class="hata-kutu bosluksuz">${kacir(hata)}</div>`; return; }
+      if (await kaydet(Y)) { f.remove(); ciz2(); }
+    };
+  };
+  ciz2();
+}
+
+function metinDegisikligiOzeti(i) {
+  const al = D.albumler.find((a) => a.id === i.album);
+  const def = al && alanBul(al.tur, i.yol);
+  const ad = def ? def.ad : i.yol.join(' › ');
+  const fiyat = /\{\{/.test(metinleri([i.eski, i.yeni]).join(' ')) ? ' <span class="rozet">fiyat içeriyor</span>' : '';
+  if (i.tur === 'liste') return `${kacir(ad)}: ${(i.eski || []).length} → ${(i.yeni || []).length} öğe${fiyat}`;
+  if (typeof i.yeni === 'boolean') return `${kacir(ad)}: ${i.yeni ? 'açıldı' : 'kapatıldı'}`;
+  const k = (s) => { s = sade(s); return s.length > 50 ? s.slice(0, 50) + '…' : s; };
+  return `${kacir(ad)}: <s>${kacir(k(i.eski) || 'boş')}</s> → ${kacir(k(i.yeni) || 'boş')}${fiyat}`;
+}
+
 // ---------- yayınlama ----------
 function ozet() {
   const say = {};
   for (const i of D.islemler) {
     const al = D.albumler.find((a) => a.id === i.album); const k = al ? al.ad : i.album;
-    say[k] = say[k] || { ekle: [], diger: 0 }; i.tur === 'ekle' ? say[k].ekle.push(i.gorsel) : say[k].diger++;
+    say[k] = say[k] || { ekle: [], diger: 0, metin: [] };
+    if (i.tur === 'ekle') say[k].ekle.push(i.gorsel); else if (i.tur === 'alan' || i.tur === 'liste') say[k].metin.push(metinDegisikligiOzeti(i)); else say[k].diger++;
   }
-  return Object.entries(say).map(([k, v]) => `<li><b>${kacir(k)}</b>: ${[v.ekle.length ? v.ekle.length + ' yeni fotoğraf' : '', v.diger ? v.diger + ' düzenleme' : ''].filter(Boolean).join(', ')}
-    ${v.ekle.length ? `<div class="secim-ust">${v.ekle.map((g) => `<img src="${kacir(resimAdresi(g))}" alt="">`).join('')}</div>` : ''}</li>`).join('');
+  return Object.entries(say).map(([k, v]) => `<li><b>${kacir(k)}</b>${v.ekle.length || v.diger ? ': ' + [v.ekle.length ? v.ekle.length + ' yeni fotoğraf' : '', v.diger ? v.diger + ' fotoğraf düzenlemesi' : ''].filter(Boolean).join(', ') : ''}
+    ${v.ekle.length ? `<div class="secim-ust">${v.ekle.map((g) => `<img src="${kacir(resimAdresi(g))}" alt="">`).join('')}</div>` : ''}
+    ${v.metin.length ? `<ul class="metin-ozet">${v.metin.map((m) => `<li>${m}</li>`).join('')}</ul>` : ''}</li>`).join('');
 }
 
 function yayinOnay() {
@@ -481,7 +780,7 @@ async function yayinla(onaylananlar = []) {
       const anlik = albumleriKur(dosyalar);
 
       // Siz düzenlerken aynı sayfa başka yerden değiştiyse önce sorulur.
-      const degisen = [...new Set(D.islemler.filter((i) => { const al = anlik.find((a) => a.id === i.album); return al && i.taban && i.taban !== al.oid; }).map((i) => i.album))]
+      const degisen = [...new Set(D.islemler.filter((i) => { const al = anlik.find((a) => a.id === i.album); return al && i.taban && i.tur !== 'alan' && i.tur !== 'liste' && i.taban !== al.oid; }).map((i) => i.album))]
         .filter((id) => !onaylananlar.includes(id));
       if (degisen.length) { p.remove(); yayinSuruyor = false; return cakismaSor(degisen, anlik, onaylananlar); }
 
@@ -490,12 +789,12 @@ async function yayinla(onaylananlar = []) {
       for (const i of D.islemler) {
         const al = anlik.find((a) => a.id === i.album);
         if (!al) { sorunlu.push({ i, neden: 'Sayfa bulunamadı.' }); continue; }
-        try { islemUygula(al, i, true); etkilenen.add(al); } catch (e) { sorunlu.push({ i, neden: e.message }); }
+        try { islemUygula(al, i, true); etkilenen.add(al); } catch (e) { sorunlu.push({ i, neden: e.message, cakisma: !!e.cakisma, mevcut: e.mevcut }); }
       }
       const yeniler = D.islemler.filter((i) => i.tur === 'ekle');
       const bloblar = [];
       for (const y of yeniler) { const b = await DB.al('dosya', y.gorsel); if (!b) sorunlu.push({ i: y, neden: 'Fotoğraf dosyası telefonda bulunamadı.' }); else bloblar.push([y.gorsel, b]); }
-      if (sorunlu.length) { p.remove(); yayinSuruyor = false; return sorunluGoster(sorunlu); }
+      if (sorunlu.length) { p.remove(); yayinSuruyor = false; D.albumler = albumleriKur(dosyalar); return sorunluGoster(sorunlu); }
 
       const agac = [];
       for (let n = 0; n < bloblar.length; n++) {
@@ -553,18 +852,31 @@ function cakismaSor(idler, anlik, onaylananlar) {
 }
 
 function sorunluGoster(sorunlu) {
-  const ad = (i) => D.albumler.find((a) => a.id === i.album)?.ad || i.album;
+  const al = (i) => D.albumler.find((a) => a.id === i.album);
+  const ad = (i) => al(i)?.ad || i.album;
+  const bolum = (i) => { const d = al(i) && i.yol ? alanBul(al(i).tur, i.yol) : null; return d ? ' › ' + d.ad : ''; };
+  const goster = (v) => { const t = sade(metinleri(v).join(' · ')); return kacir(t.length > 140 ? t.slice(0, 140) + '…' : (t || 'boş')); };
+  const cakisan = sorunlu.filter((x) => x.cakisma), diger = sorunlu.filter((x) => !x.cakisma);
   const p = perde(`<h2>Yayın durduruldu</h2>
-    <div class="aciklama-not perde-not2">Aşağıdaki ${sorunlu.length} değişiklik uygulanamadığı için sitede hiçbir şey değiştirilmedi.</div>
-    <ul class="ozet">${sorunlu.map((s) => `<li><b>${kacir(ad(s.i))}</b>: ${kacir(s.neden)}</li>`).join('')}</ul>
-    <button class="dugme ana tam ara-bosluk" id="cikar">Bunları çıkar, kalanları yayınla</button>
+    <div class="aciklama-not perde-not2">Sitede hiçbir şey değiştirilmedi. Aşağıdakileri gözden geçirin.</div>
+    ${cakisan.map((x, n) => `<div class="cakisma"><b>${kacir(ad(x.i))}${kacir(bolum(x.i))}</b>
+      <div class="aciklama-not perde-not">Siz düzenlerken bu bölüm başka yerden (ör. bilgisayardan) değiştirilmiş.</div>
+      <div class="ck-satir"><span>Sitedeki güncel hali</span>${goster(x.mevcut)}</div>
+      <div class="ck-satir"><span>Sizin haliniz</span>${goster(x.i.yeni)}</div>
+      <div class="dugmeler"><button class="dugme" data-guncel="${n}">Güncel hali kalsın</button><button class="dugme" data-yeniden="${n}">Benimkini yeniden düzenle</button></div></div>`).join('')}
+    ${diger.length ? `<ul class="ozet">${diger.map((x) => `<li><b>${kacir(ad(x.i))}</b>: ${kacir(x.neden)}</li>`).join('')}</ul>
+      <button class="dugme ana tam ara-bosluk" id="cikar">Uygulanamayanları çıkar</button>` : ''}
     <button class="dugme tam ara-bosluk" id="kapat">Kapat</button>`);
   $('#kapat', p).onclick = () => p.remove();
-  $('#cikar', p).onclick = async () => {
-    const at = new Set(sorunlu.map((s) => s.i));
-    try { await taslakYaz(D.islemler.filter((i) => !at.has(i)), { dosyaSil: sorunlu.filter((s) => s.i.tur === 'ekle').map((s) => s.i.gorsel) }); }
-    catch (e) { p.remove(); return hataPenceresi('Kaydedilemedi', e.message); }
-    p.remove(); ciz(); if (D.islemler.length) yayinOnay();
+  const at = async (L, dosyaSil = []) => { try { await taslakYaz(D.islemler.filter((i) => !L.includes(i)), { dosyaSil }); return true; } catch (e) { hataPenceresi('Kaydedilemedi', e.message); return false; } };
+  p.querySelectorAll('[data-guncel]').forEach((b) => b.onclick = async () => { const x = cakisan[+b.dataset.guncel]; if (await at([x.i])) { p.remove(); bildir('Sitedeki güncel hal korundu; sizin değişikliğiniz bırakıldı.', 4000); ciz(); } });
+  p.querySelectorAll('[data-yeniden]').forEach((b) => b.onclick = async () => {
+    const x = cakisan[+b.dataset.yeniden]; const a2 = al(x.i); const def = a2 && alanBul(a2.tur, x.i.yol);
+    if (!def || !(await at([x.i]))) return;
+    p.remove(); ciz(); alanDuzenle(a2, def, x.i.yeni); // güncel halin üzerine, sizin metninizle açılır; kaydedince yeni değişiklik olur
+  });
+  if ($('#cikar', p)) $('#cikar', p).onclick = async () => {
+    if (await at(diger.map((x) => x.i), diger.filter((x) => x.i.tur === 'ekle').map((x) => x.i.gorsel))) { p.remove(); ciz(); if (D.islemler.length && !cakisan.length) yayinOnay(); }
   };
 }
 
