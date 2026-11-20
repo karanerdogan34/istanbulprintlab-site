@@ -1,7 +1,7 @@
 // Yalnızca uygulamanın kendi dosyalarını saklar; içerik ve GitHub istekleri hiçbir zaman önbelleğe alınmaz.
-// Ağ önce: internet varken her zaman en yeni sürüm açılır, yoksa son kayıtlı sürüm açılır.
-const AD = 'ipl-yonetim-v1';
-const DOSYALAR = ['/yonetim/', '/yonetim/app.js?v=1', '/yonetim/app.css?v=1', '/yonetim/manifest.webmanifest', '/yonetim/ikon-192.png'];
+// Ağ önce: internet varken her zaman en yeni sürüm açılır, yoksa aynı dosyanın son kayıtlı sürümü açılır.
+const AD = 'ipl-yonetim-v2';
+const DOSYALAR = ['/yonetim/', '/yonetim/app.js?v=2', '/yonetim/app.css?v=2', '/yonetim/manifest.webmanifest', '/yonetim/ikon-192.png'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(AD).then((c) => c.addAll(DOSYALAR)).then(() => self.skipWaiting()));
@@ -18,6 +18,12 @@ self.addEventListener('fetch', (e) => {
     fetch(e.request).then((r) => {
       if (r.ok) { const k = r.clone(); caches.open(AD).then((c) => c.put(e.request, k)); }
       return r;
-    }).catch(() => caches.match(e.request).then((r) => r || caches.match('/yonetim/')))
+    }).catch(async () => {
+      const r = await caches.match(e.request);
+      if (r) return r;
+      // Sayfa yerine yalnızca sayfa isteklerinde ana ekran döner; betik/stil için asla HTML döndürülmez.
+      if (e.request.mode === 'navigate') return (await caches.match('/yonetim/')) || Response.error();
+      return Response.error();
+    })
   );
 });
