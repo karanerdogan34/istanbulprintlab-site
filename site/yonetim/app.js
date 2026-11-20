@@ -159,7 +159,8 @@ function islemUygula(al, i, siki) {
       if (i.etiket !== undefined) x.etiket = i.etiket;
       if (i.baglanti !== undefined) {
         // Yalnızca boş (teklif formu) ya da sitedeki bir vaka sayfası adresi kabul edilir.
-        if (i.baglanti && !/^\/projeler\/[a-z0-9-]+\/$/.test(i.baglanti)) { if (siki) throw Object.assign(new Error('Kart bağlantısı geçersiz.'), { islem: i }); }
+        const gecerli = !i.baglanti || (/^\/projeler\/[a-z0-9-]+\/$/.test(i.baglanti) && (!siki || !GECERLI_VAKALAR || GECERLI_VAKALAR.has(i.baglanti)));
+        if (!gecerli) { if (siki) throw Object.assign(new Error('Kartın bağlandığı vaka sayfası sitede bulunamadı.'), { islem: i }); }
         else x.baglanti = i.baglanti;
       }
     }
@@ -446,7 +447,7 @@ function fotoDetay(al, gorsel) {
   const p = perde(`<img class="onizleme" src="${kacir(resimAdresi(gorsel))}" alt="">
     ${proje ? `<label class="alan"><span>Başlık</span><input id="d1" value="${kacir(x.baslik)}"></label>
                <label class="alan"><span>Ne yapıldı?</span><input id="d2" value="${kacir(x.aciklama)}"></label>
-               <label class="alan"><span>Küçük etiket (başlığın üstünde)</span><input id="d3" value="${kacir(x.etiket || '')}" placeholder="Örn. Perakende · Cephe"></label>
+               <label class="alan"><span>Küçük etiket (başlığın üstünde) — hazır seçimlere dokunarak ekleyin, en fazla 3</span><input id="d3" value="${kacir(x.etiket || '')}" placeholder="Örn. Perakende · Cephe"></label>
                <div class="secenekler cipler">${['Cephe', 'Tabela', 'Mağaza', 'Ofis', 'AVM', 'Otel', 'Fuar', 'Cam filmi', 'Araç giydirme'].map((c) => `<button type="button" data-cip="${c}">${c}</button>`).join('')}</div>
                <label class="alan"><span>Karta tıklayınca</span><select class="duz" id="d4"><option value="">Teklif formu açılsın</option>${D.albumler.filter((a) => a.tur === 'vaka').map((a) => `<option value="${kacir(a.sayfa)}" ${a.sayfa === (x.baglanti || '') ? 'selected' : ''}>Vaka sayfası: ${kacir(a.ad)}</option>`).join('')}</select></label>`
             : `<label class="alan"><span>Fotoğrafta ne var?</span><input id="d1" value="${kacir(x.aciklama)}"></label>`}
@@ -818,9 +819,13 @@ async function sayfaOku(sha, dosya) {
 const HTML_IZINLI = /^(?:[^<]|<(?:strong|b)>|<\/(?:strong|b)>|<br\s*\/?>|<a\s+href="[^"<>]*"(?:\s+(?:target|rel)="[^"<>]*")*>|<\/a>)*$/;
 const HTML_ETIKET_AD = { h1: 'Sayfa başlığı', h2: 'Ara başlık', h3: 'Küçük başlık', p: 'Paragraf', li: 'Madde' };
 function htmlOgeleri(src) {
+  // Yalnızca <main> içindeki öğeler (tek <main> şartı); dışarıdaki aynı kimliklere dokunulmaz.
+  const m0 = src.indexOf('<main'), m1 = src.indexOf('</main>');
+  if (m0 < 0 || m1 < m0 || src.indexOf('<main', m0 + 1) >= 0) return [];
+  const bolum = src.slice(m0, m1);
   const re = /<(h1|h2|h3|p|li)\b([^<>]*?)\sdata-y="(y\d+)"([^<>]*)>([\s\S]*?)<\/\1>/g; const L = []; let m;
-  while ((m = re.exec(src))) {
-    const bas = m.index + m[0].indexOf('>') + 1;
+  while ((m = re.exec(bolum))) {
+    const bas = m0 + m.index + m[0].indexOf('>') + 1;
     L.push({ etiket: m[1], anahtar: m[3], bas, son: bas + m[5].length, ic: m[5], duzenlenir: HTML_IZINLI.test(m[5]) });
   }
   return L;
@@ -856,7 +861,9 @@ function metaAl(src, k) {
   if (k === 'title') { const m = src.match(/<title>([\s\S]*?)<\/title>/); return m ? entCoz(m[1]) : null; }
   const m = src.match(/<meta name="description" content="([^"]*)"/); return m ? entCoz(m[1]) : null;
 }
+function metaSayisi(src, k) { return (src.match(k === 'title' ? /<title>[\s\S]*?<\/title>/g : /<meta name="description" content="[^"]*"/g) || []).length; }
 function metaKoy(src, k, eski, yeni) {
+  if (metaSayisi(src, k) !== 1) throw new Error('Sayfanın Google ' + (k === 'title' ? 'başlığı' : 'açıklaması') + ' güvenle bulunamadı; değişiklik uygulanmadı.');
   const a = (v) => entKac(v).replace(/"/g, '&quot;');
   if (k === 'title') {
     src = src.replace(/<title>[\s\S]*?<\/title>/, () => `<title>${entKac(yeni)}</title>`);
@@ -873,7 +880,8 @@ function htmlUygula(al, i, siki) {
   if (i.anahtar === 'title' || i.anahtar === 'description') {
     const mevcut = metaAl(src, i.anahtar);
     if (siki && mevcut !== i.eski) throw Object.assign(new Error('Bu bölüm siz düzenlerken başka yerden değiştirilmiş.'), { islem: i, cakisma: true, mevcut });
-    al.veri.kaynak = metaKoy(src, i.anahtar, mevcut, i.yeni); return;
+    try { al.veri.kaynak = metaKoy(src, i.anahtar, mevcut, i.yeni); } catch (e) { if (siki) throw Object.assign(e, { islem: i }); }
+    return;
   }
   const o = htmlOge(src, i.anahtar);
   if (!o) { if (siki) throw Object.assign(new Error('Bu yazı sayfada artık bulunamıyor.'), { islem: i }); return; }
@@ -898,7 +906,7 @@ function htmlEkrani(al) {
     const L = htmlOgeleri(src);
     govde = `<div class="aciklama-not">Sayfadaki yazılar sırayla. Değiştirmek için dokunun. Tasarım ve menü buradan değişmez.</div>
       <ul class="liste kartlar">${L.map((o) => `<li><button class="metin-kart ${o.duzenlenir ? '' : 'soluk'}" data-anahtar="${o.anahtar}" ${o.duzenlenir ? '' : 'disabled'}>
-        <span class="mk-ad">${HTML_ETIKET_AD[o.etiket]}${bekleyen.has(o.anahtar) ? ' <span class="rozet">değişti</span>' : ''}${o.duzenlenir ? '' : ' · biçimli, düzenlenemez'}</span>
+        <span class="mk-ad">${HTML_ETIKET_AD[o.etiket]}${bekleyen.has(o.anahtar) ? ' <span class="rozet">değişti</span>' : ''}${o.duzenlenir ? '' : ' · sabit tasarım öğesi, buradan değişmez'}</span>
         <span class="mk-deger">${kacir(sade(htmlDenMetin(o.ic)))}</span></button></li>`).join('')}</ul>`;
   } else {
     const t = metaAl(src, 'title') || '', d = metaAl(src, 'description') || '';
@@ -920,6 +928,7 @@ function htmlDuzenle(al, anahtar, baslangic) {
   const oGor = meta ? null : htmlOge(g.veri.kaynak, anahtar);
   const oAsil = meta ? null : htmlOge(al.veri.kaynak, anahtar);
   if (!meta && (!oGor || !oAsil || !oAsil.duzenlenir)) return hataPenceresi('Düzenlenemiyor', 'Bu yazı bu sayfada güvenle bulunamadı.');
+  if (meta && metaSayisi(al.veri.kaynak, anahtar) !== 1) return hataPenceresi('Düzenlenemiyor', 'Bu sayfanın Google alanı güvenle bulunamadı.');
   const eskiHam = meta ? metaAl(al.veri.kaynak, anahtar) : oAsil.ic; // sitedeki hal
   const eskiMetin = meta ? eskiHam : htmlDenMetin(eskiHam);
   const ilk = baslangic !== undefined ? baslangic : (meta ? metaAl(g.veri.kaynak, anahtar) : htmlDenMetin(oGor.ic));
@@ -1178,6 +1187,7 @@ async function yayinBasarili(sha) {
 }
 
 let yayinSuruyor = false;
+let GECERLI_VAKALAR = null; // yayın sırasında güncel içerikteki vaka sayfaları
 const yayinKilitli = () => !!localStorage.getItem(BEKLEYEN) || D.sonYayin?.durum === 'belirsiz';
 async function yayinla(onaylananlar = []) {
   if (yayinSuruyor || !D.islemler.length) return;
@@ -1198,6 +1208,7 @@ async function yayinla(onaylananlar = []) {
       adim(5, 'Sitenin güncel hali alınıyor');
       const { sha, dosyalar } = await icerikOku();
       const anlik = albumleriKur(dosyalar);
+      GECERLI_VAKALAR = new Set(anlik.filter((a) => a.tur === 'vaka').map((a) => a.sayfa));
       const htmlIlk = {};
       for (const id of new Set(D.islemler.filter((i) => i.tur === 'html').map((i) => i.album))) {
         const a = anlik.find((x) => x.id === id); if (!a) continue;
