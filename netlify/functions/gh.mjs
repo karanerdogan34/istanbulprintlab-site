@@ -6,8 +6,9 @@ import { REPO, OTURUM, cerezOku, coz, oturumSil, oturumCerezi, yenile, json } fr
 
 const ONEK = `/repos/${REPO}/`;
 const SHA = /^[0-9a-f]{40}$/;
-const YAZILABILIR = /^(site\/img\/yuklenen\/(projeler|urunler|vakalar)\/[a-z0-9-]+\.jpg|content\/(projeler|anasayfa)\.json|content\/(sayfalar|vakalar)\/[a-z0-9-]+\.json)$/;
-const ICERIK_SORGUSU = `query($o:String!,$n:String!,$e1:String!,$e2:String!,$e3:String!,$e4:String!){repository(owner:$o,name:$n){
+const YAZILABILIR = /^(site\/img\/yuklenen\/(projeler|urunler|vakalar)\/[a-z0-9-]+\.jpg|content\/(projeler|anasayfa|fiyatlar)\.json|content\/(sayfalar|vakalar)\/[a-z0-9-]+\.json)$/;
+const ICERIK_SORGUSU = `query($o:String!,$n:String!,$e1:String!,$e2:String!,$e3:String!,$e4:String!,$e5:String!){repository(owner:$o,name:$n){
+  f:object(expression:$e5){...on Blob{text oid}}
   p:object(expression:$e1){...on Blob{text oid}}
   a:object(expression:$e4){...on Blob{text oid}}
   s:object(expression:$e2){...on Tree{entries{name object{...on Blob{text oid}}}}}
@@ -55,7 +56,7 @@ export default async (req) => {
     if (yontem !== 'POST' || !SHA.test(sha)) return json({ message: 'Geçersiz istek' }, 400);
     const [o, n] = REPO.split('/');
     yol = '/graphql';
-    govde = { query: ICERIK_SORGUSU, variables: { o, n, e1: sha + ':content/projeler.json', e2: sha + ':content/sayfalar', e3: sha + ':content/vakalar', e4: sha + ':content/anasayfa.json' } };
+    govde = { query: ICERIK_SORGUSU, variables: { o, n, e1: sha + ':content/projeler.json', e2: sha + ':content/sayfalar', e3: sha + ':content/vakalar', e4: sha + ':content/anasayfa.json', e5: sha + ':content/fiyatlar.json' } };
   } else if (!izinli(yontem, yol, govde)) return json({ message: 'Bu işleme izin verilmiyor' }, 403);
   const gonder = () => fetch('https://api.github.com' + yol, {
       method: yontem,

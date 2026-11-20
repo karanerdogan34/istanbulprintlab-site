@@ -89,6 +89,7 @@ async function icerikOku(sha) {
   const r = j.data.repository;
   const dosyalar = { 'content/projeler.json': { text: r.p.text, oid: r.p.oid } };
   if (r.a) dosyalar['content/anasayfa.json'] = { text: r.a.text, oid: r.a.oid };
+  if (r.f) dosyalar['content/fiyatlar.json'] = { text: r.f.text, oid: r.f.oid };
   for (const e of (r.s?.entries || [])) if (e.name.endsWith('.json')) dosyalar['content/sayfalar/' + e.name] = e.object;
   for (const e of (r.v?.entries || [])) if (e.name.endsWith('.json')) dosyalar['content/vakalar/' + e.name] = e.object;
   return { sha, dosyalar };
@@ -98,6 +99,8 @@ function albumleriKur(dosyalar) {
   const A = [];
   const an = dosyalar['content/anasayfa.json'];
   if (an) A.push({ id: 'anasayfa', tur: 'anasayfa', ad: 'Anasayfa yazıları', aciklama: 'Anasayfa metinleri, dönemsel kutular ve Google görünümü', yol: 'content/anasayfa.json', alan: null, sayfa: '/', oid: an.oid, veri: JSON.parse(an.text) });
+  const fy = dosyalar['content/fiyatlar.json'];
+  if (fy) A.push({ id: 'fiyatlar', tur: 'fiyatlar', ad: 'Fiyatlar', aciklama: 'Ürün fiyatları, toplu zam / indirim', yol: 'content/fiyatlar.json', alan: null, sayfa: '/', oid: fy.oid, veri: JSON.parse(fy.text) });
   const pj = dosyalar['content/projeler.json'];
   A.push({ id: 'projeler', tur: 'projeler', ad: 'Yaptığımız İşler', aciklama: 'Anasayfadaki proje kartları', yol: 'content/projeler.json', alan: 'projeler', klasor: 'projeler', sayfa: '/', oid: pj.oid, veri: JSON.parse(pj.text) });
   for (const [yol, d] of Object.entries(dosyalar)) {
@@ -203,6 +206,7 @@ async function kucult(dosya) {
 function ciz() {
   if (D.giris === false) return girisEkrani();
   if (!D.albumler.length) return yukleniyorEkrani();
+  if (D.ekran.ad === 'album' && D.ekran.id === 'fiyatlar') return fiyatlarEkrani();
   if (D.ekran.ad === 'album') return albumEkrani(D.ekran.id);
   return anaEkran();
 }
@@ -238,7 +242,7 @@ function albumSatiri(al) {
   const kapak = al.tur === 'vaka' ? (g.veri.kapak || L[0]?.gorsel) : al.tur === 'anasayfa' ? g.veri.yilbasi?.gorsel : L[0]?.gorsel;
   const n = bekleyenSayisi(al.id);
   return `<li><button class="satir" data-album="${kacir(al.id)}">
-    ${kapak ? `<img loading="lazy" src="${kacir(resimAdresi(kapak))}" alt="">` : '<span class="bos"></span>'}
+    ${al.tur === 'fiyatlar' ? '<span class="bos ikon">₺</span>' : kapak ? `<img loading="lazy" src="${kacir(resimAdresi(kapak))}" alt="">` : '<span class="bos"></span>'}
     <span class="ad"><b>${kacir(al.ad)}</b><small>${kacir(al.aciklama)}${al.alan ? ' · ' + L.length + ' fotoğraf' : ''}</small></span>
     ${n ? `<span class="rozet">${n}</span>` : ''}</button></li>`;
 }
@@ -254,7 +258,7 @@ function anaEkran() {
     ${durumSatiri()}
     <button class="buyuk-ekle" id="ekle"><span>+</span> Fotoğraf ekle</button>
     <input class="ara" id="ara" type="search" placeholder="Sayfa ara (ör. sticker, branda)" value="${kacir(D.ara)}">
-    ${grup('anasayfa', 'Anasayfa')}${grup('projeler', '')}${grup('vaka', 'Vaka çalışmaları')}${grup('sayfa', 'Ürün sayfaları')}
+    ${grup('fiyatlar', 'Fiyatlar')}${grup('anasayfa', 'Anasayfa')}${grup('projeler', '')}${grup('vaka', 'Vaka çalışmaları')}${grup('sayfa', 'Ürün sayfaları')}
     <div class="alt-bilgi"><button id="cikis">Bu telefondan çıkış yap</button></div>`;
   $('#ekle').onclick = () => fotoSec(null);
   const ara = $('#ara'); ara.oninput = () => { D.ara = ara.value; const p = ara.selectionStart; anaEkran(); const a2 = $('#ara'); a2.focus(); a2.setSelectionRange(p, p); };
@@ -350,14 +354,14 @@ function fotoSec(albumId) {
 
 function hedefSec(F, albumId) {
   if (albumId) return eklemeFormu(F, D.albumler.find((a) => a.id === albumId));
-  const onceki = D.sonKullanilan.map((id) => D.albumler.find((a) => a.id === id)).filter(Boolean);
+  const onceki = D.sonKullanilan.map((id) => D.albumler.find((a) => a.id === id)).filter((a) => a && a.alan);
   const satir = (a) => `<li><button class="satir" data-h="${kacir(a.id)}"><span class="ad"><b>${kacir(a.ad)}</b><small>${kacir(a.aciklama)}</small></span></button></li>`;
   const p = perde(`<h2>${F.length} fotoğraf · Nereye eklensin?</h2>
     <input class="ara perde-ara" id="hara" type="search" placeholder="Sayfa ara">
     <ul class="liste" id="hliste"></ul>`);
   const doldur = (q) => {
     q = (q || '').toLocaleLowerCase('tr');
-    const tum = D.albumler.filter((a) => !q || a.ad.toLocaleLowerCase('tr').includes(q));
+    const tum = D.albumler.filter((a) => a.alan && (!q || a.ad.toLocaleLowerCase('tr').includes(q)));
     const ust = q ? [] : onceki;
     $('#hliste', p).innerHTML = (ust.length ? '<div class="bolum perde-bolum">Son kullanılanlar</div>' + ust.map(satir).join('') + '<div class="bolum perde-bolum">Tüm sayfalar</div>' : '') + tum.map(satir).join('');
     p.querySelectorAll('[data-h]').forEach((b) => b.onclick = () => { p.remove(); eklemeFormu(F, D.albumler.find((a) => a.id === b.dataset.h)); });
@@ -532,11 +536,12 @@ const alanBul = (tur, yol) => tumAlanlar(tur).find((d) => esit(d.yol, yol));
 // Korumalar: otomatik fiyatlar ({{...}}) ve bağlantı adresleri değiştirilemez; kalın işaretleri (**) eşli olmalı.
 const metinleri = (v) => (typeof v === 'string' ? [v] : Array.isArray(v) ? v.flatMap(metinleri) : v && typeof v === 'object' ? Object.values(v).flatMap(metinleri) : []);
 const say = (L) => L.slice().sort().join('\u0001');
-function degiskenler(s) { return (s.match(/\{\{\s*[A-Za-z0-9_]+\s*\}\}/g) || []).map((x) => x.replace(/\s/g, '')); }
+const FIYAT_TOK = /\{\{[a-z0-9_]+(?:\*[\d.]+)?(?:\+kdv|:ham)?\}\}/g; // build.py'deki TOK ile aynı
+function degiskenler(s) { return s.match(FIYAT_TOK) || []; }
 function adresler(s) { return [...s.matchAll(/\[([^\]]+)\]\(([^)\s]+)\)/g)].map((m) => m[2]); }
 function korumaHatasi(eski, yeni) {
   const E = metinleri(eski).join('\n'), Y = metinleri(yeni).join('\n');
-  const kalan = Y.replace(/\{\{\s*[A-Za-z0-9_]+\s*\}\}/g, '');
+  const kalan = Y.replace(FIYAT_TOK, '');
   if (/\{\{|\}\}/.test(kalan)) return 'Otomatik fiyat işareti ({{…}}) bozulmuş.';
   if (say(degiskenler(E)) !== say(degiskenler(Y))) { const eksik = degiskenler(E).filter((v) => !degiskenler(Y).includes(v)); return `Kaydetmek için otomatik fiyat kısmını koruyun${eksik.length ? ': ' + [...new Set(eksik)].join(', ') + ' metinde kalmalı' : ''}. Fiyatlar buradan değiştirilemez.`; }
   if (say(adresler(E)) !== say(adresler(Y))) return 'Metindeki bir bağlantının adresi silinmiş ya da değiştirilmiş. Bağlantı yazısını değiştirebilirsiniz, adresini değil.';
@@ -595,7 +600,7 @@ function onIzlemeMetni(def, v) {
   }
   return String(v || '').trim() || 'Boş';
 }
-const sade = (s) => String(s || '').replace(/\*\*/g, '').replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '$1').replace(/\{\{\s*[A-Za-z0-9_]+\s*\}\}/g, '[otomatik fiyat]');
+const sade = (s) => String(s || '').replace(/\*\*/g, '').replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '$1').replace(FIYAT_TOK, '[otomatik fiyat]');
 
 function alanKarti(al, g, def) {
   const v = yolAl(g.veri, def.yol);
@@ -730,10 +735,162 @@ function metinDegisikligiOzeti(i) {
   return `${kacir(ad)}: <s>${kacir(k(i.eski) || 'boş')}</s> → ${kacir(k(i.yeni) || 'boş')}${fiyat}`;
 }
 
+// ---------- fiyatlar ----------
+// Her fiyatın birimi ve KDV türü sabittir; kullanıcı değiştiremez (build.py'deki KDV_DAHIL ve ARALIK ile aynı).
+const FIYAT_GRUPLARI = [
+  { ad: 'Metrekare fiyatları', not: 'KDV hariç girilir', kdv: 'haric', toplu: true, varsayilan: true, kalemler: [
+    ['sticker', 'Sticker ve etiket (baskı + kesim)', 'm²'], ['folyo', 'Baskılı folyo', 'm²'], ['folyo_lam', 'Baskılı folyo, laminasyonlu', 'm²'],
+    ['owv', 'One way vision', 'm²'], ['foreks', 'Foreks / fotoblok, düz kesim', 'm²'], ['foreks_lam', 'Foreks / fotoblok, laminasyonlu', 'm²'],
+    ['branda_beyaz', 'Branda, arkası beyaz', 'm²'], ['branda_siyah', 'Branda, arkası siyah', 'm²'], ['mesh', 'Mesh branda', 'm²'], ['cam_filmi', 'Ofis cam filmi', 'm²']] },
+  { ad: 'Adet fiyatları', not: 'KDV hariç girilir', kdv: 'haric', toplu: true, kalemler: [['rollup', 'Roll-up 85×200', 'adet']] },
+  { ad: 'Başlangıç fiyatları', not: 'KDV hariç girilir · sitede "…den başlayan" diye geçer', kdv: 'haric', toplu: true, kalemler: [['dekupe', 'Dekupe figür', 'başlangıç'], ['duvar_kagidi', 'Duvar kağıdı', 'başlangıç']] },
+  { ad: '2027 takvim', not: 'KDV DAHİL girilir', kdv: 'dahil', toplu: true, kalemler: [['takvim', 'Takvim poster', 'adet'], ['takvim_cerceveli', 'Takvim, çerçeveli', 'adet'], ['takvim_50', 'Takvim toplu, 50+ adet', 'adet başı'], ['takvim_100', 'Takvim toplu, 100+ adet', 'adet başı']] },
+  { ad: 'Sipariş ayarları', not: 'Toplu değişikliğe girmez', kdv: '', toplu: false, kalemler: [['asgari', 'Asgari sipariş tutarı', 'tutar'], ['kargo_esik', 'Ücretsiz kargo sınırı', 'tutar']] },
+];
+const FIYAT_ARALIK = { asgari: [0, 20000], kargo_esik: [0, 200000], rollup: [500, 50000] };
+const fiyatAralik = (k) => FIYAT_ARALIK[k] || [50, 30000];
+const KDV = 0.20; // Doğrulanmadı: ürün bazında farklı KDV oranı varsa burada tanımlanmalı
+const tl = (n) => Math.round(n).toLocaleString('tr-TR') + ' ₺';
+const yuzde = (e, y) => (e ? ((y - e) * 100 / e) : 0);
+const yuzdeYaz = (p) => (p > 0 ? '+' : '') + p.toFixed(1).replace('.', ',') + '%';
+function fiyatKalemi(k) { for (const g of FIYAT_GRUPLARI) for (const [a, ad, birim] of g.kalemler) if (a === k) return { k, ad, birim, grup: g }; return null; }
+function fiyatKullanim(k) {
+  const re = new RegExp('\\{\\{' + k + '(?:\\*[\\d.]+)?(?:\\+kdv|:ham)?\\}\\}', 'g'); let n = 0; const yerler = new Set();
+  for (const a of D.albumler) { if (a.tur === 'fiyatlar') continue; const c = (JSON.stringify(a.veri).match(re) || []).length; if (c) { n += c; yerler.add(a.ad); } }
+  return { n, yerler: [...yerler] };
+}
+const fiyatAlbum = () => D.albumler.find((a) => a.tur === 'fiyatlar');
+const karsilik = (g, v) => g.kdv === 'haric' ? `KDV dahil ${tl(v * (1 + KDV))}` : g.kdv === 'dahil' ? `KDV hariç ${tl(v / (1 + KDV))}` : '';
+
+function fiyatlarEkrani() {
+  const al = fiyatAlbum(); const g = gorunenAlbum(al);
+  const satir = (grp, [k, ad, birim]) => {
+    const v = g.veri[k], e = al.veri[k], degisti = v !== e;
+    return `<li><button class="fiyat-satir" data-fiyat="${k}"><span class="fs-ad"><b>${kacir(ad)}</b><small>${kacir(birim)}${fiyatKullanim(k).n ? ' · sitede ' + fiyatKullanim(k).n + ' yerde' : ''}</small></span>
+      <span class="fs-tutar"><b>${tl(v)}</b><small>${degisti ? `<s>${tl(e)}</s> ${yuzdeYaz(yuzde(e, v))}` : kacir(karsilik(grp, v))}</small></span></button></li>`;
+  };
+  kok.innerHTML = `<div class="ust"><button class="geri" id="geri" aria-label="Geri">‹</button><h1>Fiyatlar</h1></div>
+    <div class="aciklama-not">Fiyat değişince bütün sayfalar ve fiyat hesaplayıcıları birlikte güncellenir. Değişiklik "Yayınla"ya basana kadar sitede görünmez.</div>
+    <button class="buyuk-ekle ikincil" id="toplu">Toplu zam / indirim</button>
+    ${FIYAT_GRUPLARI.map((grp) => `<div class="bolum">${kacir(grp.ad)} <span class="kdv-rozet ${grp.kdv}">${kacir(grp.not)}</span></div><ul class="liste">${grp.kalemler.map((x) => satir(grp, x)).join('')}</ul>`).join('')}
+    <div class="aciklama-not">Kampanya (üstü çizili eski fiyat, bitiş tarihi) yasal kurallar gereği ayrı bir adımda eklenecek. Şimdilik indirimi fiyatı düşürerek yapabilirsiniz.</div>`;
+  $('#geri').onclick = () => history.back();
+  $('#toplu').onclick = topluFiyat;
+  kok.querySelectorAll('[data-fiyat]').forEach((b) => b.onclick = () => fiyatDuzenle(b.dataset.fiyat));
+  yayinCubugu();
+}
+
+// Büyük değişiklikte (artış/azalış %50 üstü ya da %25 üstü indirim) ayrı onay. %50 üstü onay, değişikliğin kendisine bağlanır (eski → yeni).
+const buyukMu = (e, y) => Math.abs(yuzde(e, y)) > 50;
+const ikinciOnayGerekir = (e, y) => buyukMu(e, y) || yuzde(e, y) < -25;
+function fiyatOnayEkrani(degisimler, baslik = 'Bu fiyat değişikliği büyük') {
+  return new Promise((coz) => {
+    const p = perde(`<h2>${kacir(baslik)}</h2>
+      <div class="uyari">Lütfen tek tek kontrol edin. Uygulama kâr/maliyet kontrolü yapmaz.</div>
+      <ul class="ozet">${degisimler.map(({ k, e, y }) => { const f = fiyatKalemi(k); return `<li><b>${kacir(f.ad)}</b> (${kacir(f.birim)}, ${f.grup.kdv === 'dahil' ? 'KDV dahil' : f.grup.kdv === 'haric' ? 'KDV hariç' : 'tutar'}): ${tl(e)} → <b>${tl(y)}</b> <span class="${y < e ? 'eksi' : 'arti'}">${yuzdeYaz(yuzde(e, y))}</span></li>`; }).join('')}</ul>
+      <button class="dugme ana tam ara-bosluk" id="evet">Evet, bu fiyatlar doğru</button><button class="dugme tam ara-bosluk" id="hayir">Vazgeç</button>`, { kilitli: true });
+    $('#evet', p).onclick = () => { p.remove(); coz(true); };
+    $('#hayir', p).onclick = () => { p.remove(); coz(false); };
+  });
+}
+async function fiyatlariKaydet(degisimler) {
+  // degisimler: [{k, e (sitedeki), y (yeni)}]. Her fiyat ayrı "alan" işlemi; %50 üstü onaylılar için buyuk_onay kaydı eklenir.
+  const al = fiyatAlbum();
+  let L = D.islemler.slice();
+  for (const { k, y } of degisimler) {
+    const yol = [k]; const onceki = L.find((i) => i.album === al.id && i.tur === 'alan' && esit(i.yol, yol));
+    const eski = onceki ? onceki.eski : al.veri[k];
+    L = L.filter((i) => i !== onceki && !(i.album === al.id && esit(i.yol, ['buyuk_onay', k])));
+    if (y !== eski) {
+      L.push({ tur: 'alan', album: al.id, yol, eski, yeni: y });
+      if (buyukMu(eski, y)) L.push({ tur: 'alan', album: al.id, yol: ['buyuk_onay', k], eski: kopya(yolAl(al.veri, ['buyuk_onay', k])), yeni: [eski, y] });
+    }
+  }
+  await taslakYaz(L);
+}
+
+function fiyatDuzenle(k) {
+  const al = fiyatAlbum(); const f = fiyatKalemi(k); const g = gorunenAlbum(al);
+  const e = al.veri[k], simdi = g.veri[k]; const [lo, hi] = fiyatAralik(k); const kul = fiyatKullanim(k);
+  const p = perde(`<h2>${kacir(f.ad)}</h2>
+    <div class="kdv-rozet buyuk ${f.grup.kdv}">${kacir(f.birim)} · ${kacir(f.grup.not)}</div>
+    <label class="alan"><span>Yeni fiyat (₺)</span><input class="duz fiyat-girdi" id="fg" inputmode="numeric" pattern="[0-9]*" value="${simdi}"></label>
+    <div id="fo" class="fiyat-ozet"></div>
+    <div class="aciklama-not perde-not">${kul.n ? `Sitede ${kul.n} yerde geçiyor: ${kacir(kul.yerler.slice(0, 6).join(', '))}${kul.yerler.length > 6 ? '…' : ''}.` : 'Fiyat hesaplayıcılarında kullanılıyor.'} Hepsi birlikte güncellenir.</div>
+    <div id="uy"></div>
+    <button class="dugme ana tam" id="kaydet">Kaydet</button>
+    ${simdi !== e ? '<button class="dugme tam ara-bosluk" id="geri">Sitedeki fiyata dön</button>' : ''}
+    <button class="dugme tam ara-bosluk" id="vazgec">Vazgeç</button>`, { tam: true });
+  const k1 = $('#fg', p);
+  const oku = () => (/^\d+$/.test(k1.value.trim()) ? parseInt(k1.value.trim(), 10) : NaN);
+  const goster = () => {
+    const y = oku();
+    $('#fo', p).innerHTML = isNaN(y) ? '<div class="hata-kutu bosluksuz">Yalnızca rakam girin (kuruş ve nokta olmadan).</div>'
+      : `<div class="fo-satir"><span>Sitedeki fiyat</span><b>${tl(e)}</b></div><div class="fo-satir"><span>Yeni fiyat</span><b>${tl(y)}</b></div>
+         <div class="fo-satir"><span>Değişim</span><b class="${y < e ? 'eksi' : y > e ? 'arti' : ''}">${yuzdeYaz(yuzde(e, y))}</b></div>
+         ${f.grup.kdv ? `<div class="fo-satir"><span>${f.grup.kdv === 'haric' ? 'Müşterinin KDV dahil ödeyeceği' : 'KDV hariç karşılığı'}</span><b>${tl(f.grup.kdv === 'haric' ? y * (1 + KDV) : y / (1 + KDV))}</b></div>` : ''}`;
+  };
+  k1.oninput = goster; goster();
+  $('#vazgec', p).onclick = () => p.remove();
+  if ($('#geri', p)) $('#geri', p).onclick = async () => { try { await fiyatlariKaydet([{ k, e, y: e }]); } catch (x) { return hataPenceresi('Kaydedilemedi', x.message); } p.remove(); ciz(); };
+  $('#kaydet', p).onclick = async () => {
+    const y = oku();
+    if (isNaN(y)) return;
+    if (y < lo || y > hi) { $('#uy', p).innerHTML = `<div class="hata-kutu bosluksuz">Bu fiyat ${tl(lo)} ile ${tl(hi)} arasında olmalı.</div>`; return; }
+    if (ikinciOnayGerekir(e, y) && !(await fiyatOnayEkrani([{ k, e, y }]))) return;
+    try { await fiyatlariKaydet([{ k, e, y }]); } catch (x) { return hataPenceresi('Kaydedilemedi', x.message); }
+    p.remove(); bildir('Telefona kaydedildi — henüz sitede değil. Hazır olunca “Yayınla”ya basın.', 3500); ciz();
+  };
+}
+
+function topluFiyat() {
+  const al = fiyatAlbum(); const g = gorunenAlbum(al);
+  const gruplar = FIYAT_GRUPLARI.filter((x) => x.toplu);
+  const secili = new Set(gruplar.filter((x) => x.varsayilan).flatMap((x) => x.kalemler.map((k) => k[0])));
+  let oran = 10, yuvar = 0;
+  const p = perde('', { tam: true });
+  const hesap = () => gruplar.flatMap((grp) => grp.kalemler.map(([k, ad]) => {
+    const once = g.veri[k]; const ham = once * (1 + oran / 100);
+    const y = yuvar ? Math.round(ham / yuvar) * yuvar : Math.round(ham);
+    return { k, ad, grp, once, ham, y, e: al.veri[k] };
+  }));
+  const ciz2 = () => {
+    const H = hesap();
+    p.querySelector('.sayfa').innerHTML = `<div class="tutamak"></div><h2>Toplu zam / indirim</h2>
+      <label class="alan"><span>Yüzde (indirim için eksi yazın, örn. -10)</span><input class="duz fiyat-girdi" id="or" inputmode="text" value="${oran}"></label>
+      <div class="secenekler" id="yv">${[[0, 'Yuvarlama yok'], [10, '10 ₺'], [50, '50 ₺']].map(([v, ad]) => `<button data-yv="${v}" class="${v === yuvar ? 'secili' : ''}">${ad}</button>`).join('')}</div>
+      <div class="aciklama-not perde-not">Asgari sipariş tutarı ve ücretsiz kargo sınırı bu işleme girmez. Uygulama kâr/maliyet kontrolü yapmaz.</div>
+      ${gruplar.map((grp) => `<div class="bolum perde-bolum">${kacir(grp.ad)} <span class="kdv-rozet ${grp.kdv}">${kacir(grp.not)}</span></div>
+        <ul class="liste">${H.filter((x) => x.grp === grp).map((x) => `<li><label class="toplu-satir"><input type="checkbox" data-k="${x.k}" ${secili.has(x.k) ? 'checked' : ''}>
+          <span class="fs-ad"><b>${kacir(x.ad)}</b></span><span class="fs-tutar">${secili.has(x.k) ? `${tl(x.once)} → <b>${tl(x.y)}</b>${yuvar && Math.round(x.ham) !== x.y ? `<small>hesaplanan ${tl(x.ham)}</small>` : ''}` : `<small>${tl(x.once)} · değişmez</small>`}</span></label></li>`).join('')}</ul>`).join('')}
+      <div id="uy"></div>
+      <button class="dugme ana tam ara-bosluk" id="uygula">${secili.size} fiyata uygula</button>
+      <button class="dugme tam ara-bosluk" id="vazgec">Vazgeç</button>`;
+    const or = $('#or', p);
+    or.onchange = () => { const v = parseFloat(or.value.replace(',', '.').replace('%', '')); if (!isNaN(v) && v > -90 && v < 300) { oran = v; ciz2(); } else { $('#uy', p).innerHTML = '<div class="hata-kutu bosluksuz">Geçerli bir yüzde girin (örn. 10 ya da -15).</div>'; } };
+    p.querySelectorAll('[data-yv]').forEach((b) => b.onclick = () => { yuvar = +b.dataset.yv; ciz2(); });
+    p.querySelectorAll('[data-k]').forEach((c) => c.onchange = () => { c.checked ? secili.add(c.dataset.k) : secili.delete(c.dataset.k); ciz2(); });
+    $('#vazgec', p).onclick = () => p.remove();
+    $('#uygula', p).onclick = async () => {
+      or.onchange();
+      const S = hesap().filter((x) => secili.has(x.k) && x.y !== x.once);
+      if (!S.length) { $('#uy', p).innerHTML = '<div class="hata-kutu bosluksuz">Değişecek fiyat yok.</div>'; return; }
+      const disari = S.filter((x) => { const [lo, hi] = fiyatAralik(x.k); return x.y < lo || x.y > hi; });
+      if (disari.length) { $('#uy', p).innerHTML = `<div class="hata-kutu bosluksuz">İzin verilen aralığın dışına çıkıyor: ${kacir(disari.map((x) => x.ad).join(', '))}.</div>`; return; }
+      // Her zaman tam liste onayı (toplu işlem); büyük olanlar ayrıca işaretli.
+      if (!(await fiyatOnayEkrani(S.map((x) => ({ k: x.k, e: x.e, y: x.y })), S.length + ' fiyat değişecek'))) return;
+      try { await fiyatlariKaydet(S.map((x) => ({ k: x.k, e: x.e, y: x.y }))); } catch (x) { return hataPenceresi('Kaydedilemedi', x.message); }
+      p.remove(); bildir(S.length + ' fiyat telefona kaydedildi — henüz sitede değil.', 3500); ciz();
+    };
+  };
+  ciz2();
+}
+
 // ---------- yayınlama ----------
 function ozet() {
   const say = {};
   for (const i of D.islemler) {
+    if (i.album === 'fiyatlar') continue; // fiyatlar ayrı kutuda gösterilir
     const al = D.albumler.find((a) => a.id === i.album); const k = al ? al.ad : i.album;
     say[k] = say[k] || { ekle: [], diger: 0, metin: [] };
     if (i.tur === 'ekle') say[k].ekle.push(i.gorsel); else if (i.tur === 'alan' || i.tur === 'liste') say[k].metin.push(metinDegisikligiOzeti(i)); else say[k].diger++;
@@ -743,12 +900,19 @@ function ozet() {
     ${v.metin.length ? `<ul class="metin-ozet">${v.metin.map((m) => `<li>${m}</li>`).join('')}</ul>` : ''}</li>`).join('');
 }
 
+function fiyatOzeti() {
+  const F = D.islemler.filter((i) => i.album === 'fiyatlar' && i.tur === 'alan' && i.yol.length === 1);
+  if (!F.length) return '';
+  return `<div class="fiyat-kutu"><b>Fiyat değişiklikleri (${F.length})</b><ul>${F.map((i) => { const f = fiyatKalemi(i.yol[0]); return `<li>${kacir(f ? f.ad : i.yol[0])}: ${tl(i.eski)} → <b>${tl(i.yeni)}</b> <span class="${i.yeni < i.eski ? 'eksi' : 'arti'}">${yuzdeYaz(yuzde(i.eski, i.yeni))}</span></li>`; }).join('')}</ul>
+    <label class="anahtar"><input type="checkbox" id="fkontrol"><span>Fiyat değişikliklerini kontrol ettim</span></label></div>`;
+}
 function yayinOnay() {
-  const p = perde(`<h2>Siteye yayınlansın mı?</h2><ul class="ozet">${ozet()}</ul>
+  const fo = fiyatOzeti();
+  const p = perde(`<h2>Siteye yayınlansın mı?</h2>${fo}<ul class="ozet">${ozet()}</ul>
     <div class="aciklama-not perde-not2">Hepsi tek seferde gönderilir. Site 1–2 dakika içinde güncellenir.</div>
     <button class="dugme ana tam" id="evet">Yayınla</button><button class="dugme tam ara-bosluk" id="hayir">Henüz değil</button>`);
   $('#hayir', p).onclick = () => p.remove();
-  $('#evet', p).onclick = () => { p.remove(); yayinla(); };
+  $('#evet', p).onclick = () => { if (fo && !$('#fkontrol', p).checked) { bildir('Önce fiyat değişikliklerini kontrol edip kutuyu işaretleyin.'); return; } p.remove(); yayinla(); };
 }
 
 const BEKLEYEN = 'ipl_bekleyen_yayin';
@@ -868,8 +1032,8 @@ function cakismaSor(idler, anlik, onaylananlar) {
 function sorunluGoster(sorunlu) {
   const al = (i) => D.albumler.find((a) => a.id === i.album);
   const ad = (i) => al(i)?.ad || i.album;
-  const bolum = (i) => { const d = al(i) && i.yol ? alanBul(al(i).tur, i.yol) : null; return d ? ' › ' + d.ad : ''; };
-  const goster = (v) => { const t = sade(metinleri(v).join(' · ')); return kacir(t.length > 140 ? t.slice(0, 140) + '…' : (t || 'boş')); };
+  const bolum = (i) => { if (al(i)?.tur === 'fiyatlar' && i.yol) { const f = fiyatKalemi(i.yol[0]); return f ? ' › ' + f.ad : ''; } const d = al(i) && i.yol ? alanBul(al(i).tur, i.yol) : null; return d ? ' › ' + d.ad : ''; };
+  const goster = (v) => { if (typeof v === 'number') return kacir(tl(v)); const t = sade(metinleri(v).join(' · ')); return kacir(t.length > 140 ? t.slice(0, 140) + '…' : (t || 'boş')); };
   const cakisan = sorunlu.filter((x) => x.cakisma), diger = sorunlu.filter((x) => !x.cakisma);
   const p = perde(`<h2>Yayın durduruldu</h2>
     <div class="aciklama-not perde-not2">Sitede hiçbir şey değiştirilmedi. Aşağıdakileri gözden geçirin.</div>
@@ -885,7 +1049,9 @@ function sorunluGoster(sorunlu) {
   const at = async (L, dosyaSil = []) => { try { await taslakYaz(D.islemler.filter((i) => !L.includes(i)), { dosyaSil }); return true; } catch (e) { hataPenceresi('Kaydedilemedi', e.message); return false; } };
   p.querySelectorAll('[data-guncel]').forEach((b) => b.onclick = async () => { const x = cakisan[+b.dataset.guncel]; if (await at([x.i])) { p.remove(); bildir('Sitedeki güncel hal korundu; sizin değişikliğiniz bırakıldı.', 4000); ciz(); } });
   p.querySelectorAll('[data-yeniden]').forEach((b) => b.onclick = async () => {
-    const x = cakisan[+b.dataset.yeniden]; const a2 = al(x.i); const def = a2 && alanBul(a2.tur, x.i.yol);
+    const x = cakisan[+b.dataset.yeniden]; const a2 = al(x.i);
+    if (a2 && a2.tur === 'fiyatlar') { if (!(await at(D.islemler.filter((i) => i.album === 'fiyatlar' && (esit(i.yol, x.i.yol) || esit(i.yol, ['buyuk_onay', x.i.yol[0]])))))) return; p.remove(); git({ ad: 'album', id: 'fiyatlar' }); return fiyatDuzenle(x.i.yol[0]); }
+    const def = a2 && alanBul(a2.tur, x.i.yol);
     if (!def || !(await at([x.i]))) return;
     p.remove(); ciz(); alanDuzenle(a2, def, x.i.yeni); // güncel halin üzerine, sizin metninizle açılır; kaydedince yeni değişiklik olur
   });

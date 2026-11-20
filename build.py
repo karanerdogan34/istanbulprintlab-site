@@ -63,7 +63,7 @@ class FiyatHatasi(Exception):
 
 def fiyatlari_dogrula(P):
     for k, v in P.items():
-        if k == 'buyuk_degisiklik_onay':
+        if k in ('buyuk_degisiklik_onay', 'buyuk_onay'):
             continue
         if isinstance(v, float) and v.is_integer():
             P[k] = v = int(v)
@@ -99,14 +99,16 @@ def fiyat_raporu(P, eski):
         return
     buyuk = []
     for k, v in P.items():
-        if k == 'buyuk_degisiklik_onay' or k not in eski or not isinstance(eski.get(k), int):
+        if k in ('buyuk_degisiklik_onay', 'buyuk_onay') or k not in eski or not isinstance(eski.get(k), int):
             continue
         if v != eski[k]:
             oran = (v - eski[k]) * 100.0 / eski[k] if eski[k] else 100.0
             satir = 'Fiyat değişti: %s %s → %s TL (%+.1f%%)' % (k, eski[k], v, oran)
             print(satir)
             YB.RAPOR.append(satir)
-            if abs(oran) > 50:
+            # Yönetim uygulamasında sahip bu değişikliği tam olarak (eski → yeni) onayladıysa geçerlidir.
+            onay = (P.get('buyuk_onay') or {}).get(k) if isinstance(P.get('buyuk_onay'), dict) else None
+            if abs(oran) > 50 and onay != [eski[k], v]:
                 buyuk.append('%s: %s → %s' % (k, eski[k], v))
     import datetime
     bugun = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)).strftime('%Y-%m-%d')
@@ -117,7 +119,7 @@ def fiyat_raporu(P, eski):
 def fiyat_isle(s, P, dosya=''):
     def r(m):
         k, carpan, tur = m.group(1), m.group(2), m.group(3)
-        if k not in P or k == 'buyuk_degisiklik_onay':
+        if k not in P or k in ('buyuk_degisiklik_onay', 'buyuk_onay'):
             raise FiyatHatasi('%s: tanınmayan fiyat kısaltması {{%s}}' % (dosya, k))
         if tur == '+kdv' and k in KDV_DAHIL:
             raise FiyatHatasi('%s: {{%s+kdv}} kullanılamaz; bu fiyat zaten KDV dahil.' % (dosya, k))
@@ -249,7 +251,7 @@ def main():
             s2 = cerez_ekle(s2)
             if s2 != s:
                 yaz(yol, s2)
-    yaz('%s/fiyatlar.json' % DIST, json.dumps({k: v for k, v in P.items() if k != 'buyuk_degisiklik_onay'}, ensure_ascii=False, indent=2))
+    yaz('%s/fiyatlar.json' % DIST, json.dumps({k: v for k, v in P.items() if k not in ('buyuk_degisiklik_onay', 'buyuk_onay')}, ensure_ascii=False, indent=2))
     import foto_isle
     foto_isle.isle(DIST, YB.RAPOR)
     # yönetim uygulaması, değişikliğin sitede yayına girdiğini bu dosyadan anlar

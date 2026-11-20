@@ -92,3 +92,20 @@ textarea.duz{resize:vertical}
 
 .toast{top:calc(64px + var(--ust));bottom:auto}
 .degisiklik-kutu{margin:10px 16px 0;padding:10px 12px;border-radius:12px;background:#fff7e6;font-size:14px}
+
+.bos.ikon{display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:#fff;background:#111}
+.buyuk-ekle.ikincil{background:#fff;color:var(--vurgu);border:2px solid var(--vurgu);height:52px;font-size:17px}
+.kdv-rozet{display:inline-block;font-size:11px;font-weight:700;letter-spacing:0;text-transform:none;padding:2px 8px;border-radius:999px;background:#eee;color:#444;margin-left:6px;vertical-align:middle}
+.kdv-rozet.haric{background:#eef4ff;color:#1d3f8f}.kdv-rozet.dahil{background:#fff1e6;color:#8a4b00}
+.kdv-rozet.buyuk{font-size:13px;margin:0 0 6px}
+.fiyat-satir{display:flex;align-items:center;gap:10px;width:100%;padding:12px 16px;border-bottom:1px solid #f1f1f1;text-align:left}
+.fs-ad{flex:1;min-width:0}.fs-ad b{display:block;font-weight:600}.fs-ad small{color:var(--soluk)}
+.fs-tutar{text-align:right;white-space:nowrap}.fs-tutar b{display:block;font-size:17px}.fs-tutar small{color:var(--soluk);display:block}
+.fiyat-girdi{font-size:28px;font-weight:700;letter-spacing:.5px}
+.fiyat-ozet{border:1px solid var(--cizgi);border-radius:12px;padding:6px 12px;margin:8px 0}
+.fo-satir{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f4f4f4}.fo-satir:last-child{border:0}
+.arti{color:#0a7a3d}.eksi{color:var(--kirmizi)}
+.secenekler{display:flex;gap:6px;margin:6px 0}.secenekler button{flex:1;height:40px;border-radius:10px;background:var(--kart);font-weight:600}.secenekler button.secili{background:var(--vurgu);color:#fff}
+.toplu-satir{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid #f1f1f1}.toplu-satir input{width:22px;height:22px;flex:none}
+.fiyat-kutu{border:2px solid #f0b429;background:#fffbea;border-radius:14px;padding:10px 12px;margin-bottom:10px}.fiyat-kutu ul{margin:6px 0;padding-left:18px}
+.toast{pointer-events:none}
