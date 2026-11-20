@@ -261,13 +261,13 @@ def main():
 SITE = 'https://www.istanbulprintlab.com'
 
 # ---------- PostHog (ziyaretçi analizi, oturum kaydı) ----------
-# Form alanlarına yazılanlar kayıtta gizlenir. Ara / WhatsApp / e-posta tıklamaları ve
-# form gönderimleri ayrı olay olarak sayılır.
+# Form alanlarına yazılanlar kayıtta gizlenir. Ara / WhatsApp / e-posta tıklamaları ayrı olay olarak sayılır;
+# sitenin Google Analytics'e gönderdiği olaylar (başarılı form = generate_lead vb.) PostHog'a da aynen kopyalanır.
 POSTHOG = '''<script>
 !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister identify alias people.set people.set_once set_config reset opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_distinct_id get_property getFeatureFlag isFeatureEnabled onFeatureFlags startSessionRecording stopSessionRecording".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
 posthog.init('%s',{api_host:'https://eu.i.posthog.com',defaults:'2025-05-24',person_profiles:'identified_only',session_recording:{maskAllInputs:true}});
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href')||'';var t=/^tel:/.test(h)?'telefon_tiklama':/wa\\.me|whatsapp/i.test(h)?'whatsapp_tiklama':/^mailto:/.test(h)?'eposta_tiklama':null;if(t)posthog.capture(t,{metin:(a.textContent||'').trim().slice(0,60),sayfa:location.pathname});},true);
-document.addEventListener('submit',function(e){var f=e.target;posthog.capture('form_gonderim',{form:f.getAttribute('name')||f.id||'form',sayfa:location.pathname});},true);
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href')||'';var t=/^tel:/.test(h)?'phone_click':/wa\\.me|whatsapp/i.test(h)?'whatsapp_click':/^mailto:/.test(h)?'email_click':null;if(t)posthog.capture(t,{metin:(a.textContent||'').trim().slice(0,60),sayfa:location.pathname});},true);
+(function(){var g=window.gtag;if(typeof g!=='function')return;var atla={phone_click:1,whatsapp_click:1,email_click:1,page_view:1};window.gtag=function(){try{if(arguments[0]==='event'&&!atla[arguments[1]])posthog.capture(arguments[1],Object.assign({sayfa:location.pathname},arguments[2]||{}));}catch(x){}return g.apply(this,arguments);};})();
 </script>
 '''
 
