@@ -246,7 +246,7 @@ def main():
             s2 = fiyat_isle(s, P, yol)
             for a, b in cift:
                 s2 = s2.replace(a, b)
-            s2 = posthog_ekle(s2, POSTHOG_ANAHTAR)
+            s2 = cerez_ekle(s2)
             if s2 != s:
                 yaz(yol, s2)
     yaz('%s/fiyatlar.json' % DIST, json.dumps({k: v for k, v in P.items() if k != 'buyuk_degisiklik_onay'}, ensure_ascii=False, indent=2))
@@ -262,25 +262,17 @@ def main():
 
 SITE = 'https://www.istanbulprintlab.com'
 
-# ---------- PostHog (ziyaretçi analizi, oturum kaydı) ----------
-# Form alanlarına yazılanlar kayıtta gizlenir. Ara / WhatsApp / e-posta tıklamaları ayrı olay olarak sayılır;
-# sitenin Google Analytics'e gönderdiği olaylar (başarılı form = generate_lead vb.) PostHog'a da aynen kopyalanır.
-POSTHOG = '''<script>
-!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister identify alias people.set people.set_once set_config reset opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_distinct_id get_property getFeatureFlag isFeatureEnabled onFeatureFlags startSessionRecording stopSessionRecording".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-posthog.init('%s',{api_host:'https://eu.i.posthog.com',defaults:'2025-05-24',person_profiles:'identified_only',session_recording:{maskAllInputs:true}});
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href')||'';var t=/^tel:/.test(h)?'phone_click':/wa\\.me|whatsapp/i.test(h)?'whatsapp_click':/^mailto:/.test(h)?'email_click':null;if(t)posthog.capture(t,{metin:(a.textContent||'').trim().slice(0,60),sayfa:location.pathname});},true);
-(function(){var g=window.gtag;if(typeof g!=='function')return;var atla={phone_click:1,whatsapp_click:1,email_click:1,page_view:1};window.gtag=function(){try{if(arguments[0]==='event'&&!atla[arguments[1]])posthog.capture(arguments[1],Object.assign({sayfa:location.pathname},arguments[2]||{}));}catch(x){}return g.apply(this,arguments);};})();
-</script>
-'''
+# ---------- Çerez onayı + Google Consent Mode + PostHog (src/cerez_onay.py) ----------
+import cerez_onay  # noqa: E402
+CEREZ = dict(
+    anahtar='ipl_cerez', posthog='phc_sXf3DbVV3R6LBHcQTHi7T4boryXwiLoVidPvEoB3XPY7',  # herkese açık proje anahtarı
+    diller=['tr', 'en'], yedek='tr', politika={'tr': '/cerez-politikasi/', 'en': '/en/privacy/'},
+    renk=dict(zemin='#FFFFFF', yazi='#0B0B0B', cizgi='#E4E4E0', vurgu='#0B0B0B', vurgu_yazi='#FFFFFF'))
+ESKI_IZIN = "gtag('consent','default',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});"
 
 
-POSTHOG_ANAHTAR = 'phc_sXf3DbVV3R6LBHcQTHi7T4boryXwiLoVidPvEoB3XPY7'  # herkese açık proje anahtarı
-
-
-def posthog_ekle(s, anahtar):
-    if 'posthog.init' in s or '</head>' not in s:
-        return s
-    return s.replace('</head>', (POSTHOG % anahtar) + '</head>', 1)
+def cerez_ekle(s):
+    return cerez_onay.uygula(s.replace(ESKI_IZIN + '\n', '').replace(ESKI_IZIN, ''), CEREZ)
 
 
 def calistir():
