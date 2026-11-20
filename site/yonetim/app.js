@@ -308,10 +308,10 @@ function yayinCubugu() {
   const eski = $('.yayin-cubugu'); if (eski) eski.remove();
   if (!n) return;
   const c = document.createElement('div'); c.className = 'yayin-cubugu';
-  c.innerHTML = `<div class="bilgi"><b>${n} değişiklik hazır</b>Henüz sitede değil</div>
+  c.innerHTML = (yayinKilitli() ? `<div class="bilgi"><b>${n} değişiklik bekliyor</b>Önceki yayın kontrol ediliyor</div>` : `<div class="bilgi"><b>${n} değişiklik hazır</b>Henüz sitede değil</div>`) + `
     <button class="dugme" id="vazgec">Geri al</button><button class="dugme ana" id="yayinla">Yayınla</button>`;
   kok.appendChild(c);
-  $('#yayinla').onclick = yayinOnay;
+  $('#yayinla').onclick = () => yayinKilitli() ? yayinla() : yayinOnay();
   $('#vazgec').onclick = async () => {
     if (!confirm('Henüz yayınlanmamış ' + n + ' değişikliğin HEPSİ silinsin mi? Sitedeki hiçbir şey değişmez.')) return;
     try { await taslakYaz([], { dosyaTemizle: true }); } catch (e) { bildir(e.message, 5000); }
@@ -756,19 +756,31 @@ async function daldaMi(sha) {
   return c.status === 'identical' || c.status === 'ahead';
 }
 
+// Commit dalda doğrulandıktan sonra çağrılır. "Bekleyen yayın" kaydı, telefondaki taslak gerçekten temizlenene kadar silinmez;
+// temizlik olmazsa uygulama her açılışta yeniden dener ve bu sırada aynı değişiklikler ikinci kez gönderilemez.
 async function yayinBasarili(sha) {
-  localStorage.removeItem(BEKLEYEN);
-  const yerel = { ...D.onizleme };
-  await taslakYaz([], { dosyaTemizle: true }).catch(() => bildir('Uyarı: telefondaki taslak temizlenemedi.', 5000));
+  localStorage.setItem(BEKLEYEN, JSON.stringify({ sha, zaman: Date.now(), kaydedildi: true }));
   D.sonYayin = { sha, zaman: Date.now(), durum: 'hazirlaniyor' };
   localStorage.setItem('ipl_son_yayin', JSON.stringify(D.sonYayin));
+  const yerel = { ...D.onizleme };
+  try { await taslakYaz([], { dosyaTemizle: true }); localStorage.removeItem(BEKLEYEN); }
+  catch (_) { hataPenceresi('Yayın kaydedildi', 'Değişiklikleriniz siteye gönderildi ama telefondaki taslak temizlenemedi. Uygulamayı kapatıp açın; temizlik otomatik tekrar denenecek. Bu sırada aynı değişiklikler tekrar gönderilmez.'); }
   try { D.albumler = albumleriKur((await icerikOku(sha)).dosyalar); } catch (_) { /* liste sonra yenilenir */ }
   D.onizleme = yerel; // site yayına girene kadar yeni fotoğraflar telefondan gösterilir
 }
 
 let yayinSuruyor = false;
+const yayinKilitli = () => !!localStorage.getItem(BEKLEYEN) || D.sonYayin?.durum === 'belirsiz';
 async function yayinla(onaylananlar = []) {
   if (yayinSuruyor || !D.islemler.length) return;
+  if (yayinKilitli()) {
+    // Önceki yayının sonucu netleşmeden yeni yayın yapılmaz.
+    bildir('Önceki yayın kontrol ediliyor…', 3000);
+    await bekleyenYayiniDogrula();
+    ciz();
+    if (yayinKilitli()) { hataPenceresi('Önceki yayın henüz doğrulanamadı', 'Bir önceki yayının sitede kayda geçip geçmediği anlaşılamadı (internet bağlantısı). Aynı değişiklikler iki kez gönderilmesin diye yeni yayın bekletiliyor. Biraz sonra tekrar deneyin.'); return; }
+    if (!D.islemler.length) return;
+  }
   yayinSuruyor = true;
   const p = perde(`<h2>Yayınlanıyor…</h2><div class="ilerleme"><i id="yi"></i></div><div class="aciklama-not perde-not" id="ym">Hazırlanıyor</div>`, { kilitli: true });
   const adim = (yuzde, m) => { $('#yi', p).style.width = yuzde + '%'; $('#ym', p).textContent = m; };
@@ -885,7 +897,7 @@ async function bekleyenYayiniDogrula() {
   let b = null; try { b = JSON.parse(localStorage.getItem(BEKLEYEN) || 'null'); } catch (_) {}
   if (!b) return;
   try {
-    if (await daldaMi(b.sha)) { await yayinBasarili(b.sha); bildir('Önceki yayınınız başarıyla kaydedilmiş ✓', 4000); yayinIzle(); }
+    if (b.kaydedildi || await daldaMi(b.sha)) { await yayinBasarili(b.sha); bildir('Önceki yayınınız başarıyla kaydedilmiş ✓', 4000); yayinIzle(); }
     else { localStorage.removeItem(BEKLEYEN); D.sonYayin = null; bildir('Önceki yayın gerçekleşmemiş; değişiklikleriniz hâlâ hazır.', 5000); }
   } catch (_) { D.sonYayin = { sha: b.sha, zaman: b.zaman, durum: 'belirsiz' }; }
 }

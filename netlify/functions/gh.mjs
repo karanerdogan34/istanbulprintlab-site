@@ -6,6 +6,7 @@ import { REPO, OTURUM, cerezOku, coz, oturumSil, oturumCerezi, yenile, json } fr
 
 const ONEK = `/repos/${REPO}/`;
 const SHA = /^[0-9a-f]{40}$/;
+const YAZILABILIR = /^(site\/img\/yuklenen\/(projeler|urunler|vakalar)\/[a-z0-9-]+\.jpg|content\/(projeler|anasayfa)\.json|content\/(sayfalar|vakalar)\/[a-z0-9-]+\.json)$/;
 const ICERIK_SORGUSU = `query($o:String!,$n:String!,$e1:String!,$e2:String!,$e3:String!,$e4:String!){repository(owner:$o,name:$n){
   p:object(expression:$e1){...on Blob{text oid}}
   a:object(expression:$e4){...on Blob{text oid}}
@@ -17,7 +18,15 @@ function izinli(yontem, yol, govde) {
   if (!yol.startsWith(ONEK) || /[?#%]|\.\./.test(yol)) return false;
   const alt = yol.slice(ONEK.length);
   if (yontem === 'GET') return /^(git\/ref\/heads\/main|git\/commits\/[0-9a-f]{40}|commits\/[0-9a-f]{40}\/status|compare\/[0-9a-f]{40}\.\.\.([0-9a-f]{40}|main))$/.test(alt);
-  if (yontem === 'POST') return /^git\/(blobs|trees|commits)$/.test(alt);
+  if (yontem === 'POST' && alt === 'git/blobs') return true;
+  if (yontem === 'POST' && alt === 'git/trees') {
+    // Yalnızca yüklenen fotoğraflar ve içerik dosyaları yazılabilir.
+    const T = govde && govde.tree;
+    return !!govde && SHA.test(String(govde.base_tree || '')) && Array.isArray(T) && T.length > 0 && T.length <= 60 &&
+      T.every((e) => e && e.mode === '100644' && e.type === 'blob' && YAZILABILIR.test(String(e.path || '')) && !String(e.path).includes('..') &&
+        (('sha' in e) ? SHA.test(String(e.sha)) && !('content' in e) : typeof e.content === 'string'));
+  }
+  if (yontem === 'POST' && alt === 'git/commits') return !!govde && SHA.test(String(govde.tree || '')) && Array.isArray(govde.parents) && govde.parents.length === 1 && SHA.test(String(govde.parents[0]));
   if (yontem === 'PATCH') return alt === 'git/refs/heads/main' && !!govde && govde.force === false && SHA.test(String(govde.sha || ''));
   return false;
 }
