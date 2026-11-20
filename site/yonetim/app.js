@@ -286,7 +286,9 @@ function albumEkrani(id) {
     ${L.length ? '' : '<div class="aciklama-not">Bu sayfada henüz fotoğraf yok. + düğmesiyle ekleyin.</div>'}
     <button class="fab" id="fab" aria-label="Bu sayfaya fotoğraf ekle">+</button>`;
   } else if (sekme === 'metin') {
-    govde = `<div class="aciklama-not">Sitede göründüğü sırayla. Değiştirmek için dokunun.</div>${metinSekmesi(al, g)}`;
+    const bu = D.islemler.filter((i) => i.album === id && (i.tur === 'alan' || i.tur === 'liste'));
+    govde = (bu.length ? `<div class="degisiklik-kutu"><b>Bu sayfada ${bu.length} yazı değişikliği yayın bekliyor</b><ul class="metin-ozet">${bu.map((i) => `<li>${metinDegisikligiOzeti(i)}</li>`).join('')}</ul></div>` : '')
+      + `<div class="aciklama-not">Sitede göründüğü sırayla. Değiştirmek için dokunun.</div>${metinSekmesi(al, g)}`;
   } else {
     govde = googleSekmesi(al, g);
   }
@@ -503,7 +505,7 @@ const SEMA = {
     ],
     donemsel: [
       { baslik: 'Yılbaşı kutusu', alanlar: [
-        { yol: ['yilbasi', 'goster'], ad: 'Anasayfada göster', tip: 'anahtar' },
+        { yol: ['yilbasi', 'goster'], ad: 'Anasayfada göster', tip: 'anahtar', ipucu: 'Sezon bitince kapatmayı unutmayın.' },
         { yol: ['yilbasi', 'ust_yazi'], ad: 'Üst yazı', tip: 'satir' },
         { yol: ['yilbasi', 'baslik'], ad: 'Başlık', tip: 'satir' },
         { yol: ['yilbasi', 'maddeler'], ad: 'Maddeler', tip: 'liste', oge: 'metin', ogeAd: 'Madde' },
@@ -536,7 +538,7 @@ function korumaHatasi(eski, yeni) {
   const E = metinleri(eski).join('\n'), Y = metinleri(yeni).join('\n');
   const kalan = Y.replace(/\{\{\s*[A-Za-z0-9_]+\s*\}\}/g, '');
   if (/\{\{|\}\}/.test(kalan)) return 'Otomatik fiyat işareti ({{…}}) bozulmuş.';
-  if (say(degiskenler(E)) !== say(degiskenler(Y))) return 'Otomatik fiyat bilgisi ({{…}}) silinmiş ya da değiştirilmiş. Fiyatlar buradan değiştirilemez.';
+  if (say(degiskenler(E)) !== say(degiskenler(Y))) { const eksik = degiskenler(E).filter((v) => !degiskenler(Y).includes(v)); return `Kaydetmek için otomatik fiyat kısmını koruyun${eksik.length ? ': ' + [...new Set(eksik)].join(', ') + ' metinde kalmalı' : ''}. Fiyatlar buradan değiştirilemez.`; }
   if (say(adresler(E)) !== say(adresler(Y))) return 'Metindeki bir bağlantının adresi silinmiş ya da değiştirilmiş. Bağlantı yazısını değiştirebilirsiniz, adresini değil.';
   if (/\]\(/.test(Y.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, ''))) return 'Bir bağlantının yazımı bozulmuş ( [yazı](adres) biçiminde olmalı ).';
   for (const t of metinleri(yeni)) if (((t.match(/\*\*/g) || []).length) % 2) return 'Kalın yazı işareti (**) eksik kalmış: her ** açılışın bir kapanışı olmalı.';
@@ -565,7 +567,7 @@ function seoUyarilari(al, def, v) {
     if (!n) U.push('Açıklama boş; Google sayfadan kendisi bir metin seçer.');
     else if (n < 70 || n > 155) U.push(`Açıklama ${n} karakter; 70–155 arası genelde tam görünür.`);
   }
-  if (al.en && /[çğışöüÇĞİŞÖÜ]/.test(String(v))) U.push('Bu İngilizce bir sayfa ama metinde Türkçe karakter var.');
+  if (al.en && /[çğışöüÇĞİŞÖÜ]/.test(String(v))) U.push('İngilizce sayfada Türkçe harf kullanılmış: ' + [...new Set(String(v).match(/[çğışöüÇĞİŞÖÜ]/g))].join(', '));
   return U;
 }
 
@@ -584,7 +586,7 @@ async function alanGeriAl(al, def) {
 const bekleyenAlan = (al, def) => D.islemler.some((i) => i.album === al.id && (i.tur === 'alan' || i.tur === 'liste') && esit(i.yol, def.yol));
 
 function onIzlemeMetni(def, v) {
-  if (def.tip === 'anahtar') return v ? 'Açık — anasayfada görünüyor' : 'Kapalı — anasayfada görünmüyor';
+  if (def.tip === 'anahtar') return v ? 'Açık — anasayfada görünüyor' + (def.ipucu ? ' · ' + def.ipucu : '') : 'Kapalı — anasayfada görünmüyor';
   if (def.tip === 'liste') {
     const L = Array.isArray(v) ? v : [];
     if (!L.length) return 'Henüz yok';

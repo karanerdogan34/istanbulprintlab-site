@@ -91,3 +91,4 @@ textarea.duz{resize:vertical}
 .rozet{font-size:11px;vertical-align:middle}
 
 .toast{top:calc(64px + var(--ust));bottom:auto}
+.degisiklik-kutu{margin:10px 16px 0;padding:10px 12px;border-radius:12px;background:#fff7e6;font-size:14px}
