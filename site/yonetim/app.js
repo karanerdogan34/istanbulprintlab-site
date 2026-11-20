@@ -749,7 +749,7 @@ const FIYAT_GRUPLARI = [
 ];
 const FIYAT_ARALIK = { asgari: [0, 20000], kargo_esik: [0, 200000], rollup: [500, 50000] };
 const fiyatAralik = (k) => FIYAT_ARALIK[k] || [50, 30000];
-const KDV = 0.20; // Doğrulanmadı: ürün bazında farklı KDV oranı varsa burada tanımlanmalı
+const KDV = 0.20; // sitedeki hesaplayıcılar ve {{x+kdv}} ile aynı oran (build.py: ×1.2)
 const tl = (n) => Math.round(n).toLocaleString('tr-TR') + ' ₺';
 const yuzde = (e, y) => (e ? ((y - e) * 100 / e) : 0);
 const yuzdeYaz = (p) => (p > 0 ? '+' : '') + p.toFixed(1).replace('.', ',') + '%';
@@ -760,14 +760,14 @@ function fiyatKullanim(k) {
   return { n, yerler: [...yerler] };
 }
 const fiyatAlbum = () => D.albumler.find((a) => a.tur === 'fiyatlar');
-const karsilik = (g, v) => g.kdv === 'haric' ? `KDV dahil ${tl(v * (1 + KDV))}` : g.kdv === 'dahil' ? `KDV hariç ${tl(v / (1 + KDV))}` : '';
+const karsilik = (g, v) => g.kdv === 'haric' ? `KDV (%20) dahil ${tl(v * (1 + KDV))}` : g.kdv === 'dahil' ? `KDV (%20) hariç ${tl(v / (1 + KDV))}` : '';
 
 function fiyatlarEkrani() {
   const al = fiyatAlbum(); const g = gorunenAlbum(al);
   const satir = (grp, [k, ad, birim]) => {
     const v = g.veri[k], e = al.veri[k], degisti = v !== e;
     return `<li><button class="fiyat-satir" data-fiyat="${k}"><span class="fs-ad"><b>${kacir(ad)}</b><small>${kacir(birim)}${fiyatKullanim(k).n ? ' · sitede ' + fiyatKullanim(k).n + ' yerde' : ''}</small></span>
-      <span class="fs-tutar"><b>${tl(v)}</b><small>${degisti ? `<s>${tl(e)}</s> ${yuzdeYaz(yuzde(e, v))}` : kacir(karsilik(grp, v))}</small></span></button></li>`;
+      <span class="fs-tutar"><b>${tl(v)}</b><small>${degisti ? `yayın bekliyor · sitede ${tl(e)} (${yuzdeYaz(yuzde(e, v))})` : kacir(karsilik(grp, v))}</small></span></button></li>`;
   };
   kok.innerHTML = `<div class="ust"><button class="geri" id="geri" aria-label="Geri">‹</button><h1>Fiyatlar</h1></div>
     <div class="aciklama-not">Fiyat değişince bütün sayfalar ve fiyat hesaplayıcıları birlikte güncellenir. Değişiklik "Yayınla"ya basana kadar sitede görünmez.</div>
@@ -828,7 +828,7 @@ function fiyatDuzenle(k) {
     $('#fo', p).innerHTML = isNaN(y) ? '<div class="hata-kutu bosluksuz">Yalnızca rakam girin (kuruş ve nokta olmadan).</div>'
       : `<div class="fo-satir"><span>Sitedeki fiyat</span><b>${tl(e)}</b></div><div class="fo-satir"><span>Yeni fiyat</span><b>${tl(y)}</b></div>
          <div class="fo-satir"><span>Değişim</span><b class="${y < e ? 'eksi' : y > e ? 'arti' : ''}">${yuzdeYaz(yuzde(e, y))}</b></div>
-         ${f.grup.kdv ? `<div class="fo-satir"><span>${f.grup.kdv === 'haric' ? 'Müşterinin KDV dahil ödeyeceği' : 'KDV hariç karşılığı'}</span><b>${tl(f.grup.kdv === 'haric' ? y * (1 + KDV) : y / (1 + KDV))}</b></div>` : ''}`;
+         ${f.grup.kdv ? `<div class="fo-satir"><span>${f.grup.kdv === 'haric' ? 'Sitede KDV (%20) dahil görünen' : 'KDV (%20) hariç karşılığı'}</span><b>${tl(f.grup.kdv === 'haric' ? y * (1 + KDV) : y / (1 + KDV))}</b></div>` : ''}`;
   };
   k1.oninput = goster; goster();
   $('#vazgec', p).onclick = () => p.remove();
@@ -847,7 +847,7 @@ function topluFiyat() {
   const al = fiyatAlbum(); const g = gorunenAlbum(al);
   const gruplar = FIYAT_GRUPLARI.filter((x) => x.toplu);
   const secili = new Set(gruplar.filter((x) => x.varsayilan).flatMap((x) => x.kalemler.map((k) => k[0])));
-  let oran = 10, yuvar = 0;
+  let oran = 10, yuvar = 0, gecersiz = false;
   const p = perde('', { tam: true });
   const hesap = () => gruplar.flatMap((grp) => grp.kalemler.map(([k, ad]) => {
     const once = g.veri[k]; const ham = once * (1 + oran / 100);
@@ -867,12 +867,13 @@ function topluFiyat() {
       <button class="dugme ana tam ara-bosluk" id="uygula">${secili.size} fiyata uygula</button>
       <button class="dugme tam ara-bosluk" id="vazgec">Vazgeç</button>`;
     const or = $('#or', p);
-    or.onchange = () => { const v = parseFloat(or.value.replace(',', '.').replace('%', '')); if (!isNaN(v) && v > -90 && v < 300) { oran = v; ciz2(); } else { $('#uy', p).innerHTML = '<div class="hata-kutu bosluksuz">Geçerli bir yüzde girin (örn. 10 ya da -15).</div>'; } };
+    or.onchange = () => { const t = or.value.trim().replace(',', '.').replace('%', ''); const v = /^[+-]?\d+(\.\d+)?$/.test(t) ? parseFloat(t) : NaN; if (!isNaN(v) && v > -90 && v < 300 && v !== 0) { gecersiz = false; if (v !== oran) { oran = v; ciz2(); } } else { gecersiz = true; $('#uy', p).innerHTML = '<div class="hata-kutu bosluksuz">Geçerli bir yüzde girin (örn. 10 ya da -15). İşlem yapılmadı.</div>'; } };
     p.querySelectorAll('[data-yv]').forEach((b) => b.onclick = () => { yuvar = +b.dataset.yv; ciz2(); });
     p.querySelectorAll('[data-k]').forEach((c) => c.onchange = () => { c.checked ? secili.add(c.dataset.k) : secili.delete(c.dataset.k); ciz2(); });
     $('#vazgec', p).onclick = () => p.remove();
     $('#uygula', p).onclick = async () => {
       or.onchange();
+      if (gecersiz) return;
       const S = hesap().filter((x) => secili.has(x.k) && x.y !== x.once);
       if (!S.length) { $('#uy', p).innerHTML = '<div class="hata-kutu bosluksuz">Değişecek fiyat yok.</div>'; return; }
       const disari = S.filter((x) => { const [lo, hi] = fiyatAralik(x.k); return x.y < lo || x.y > hi; });

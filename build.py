@@ -110,10 +110,9 @@ def fiyat_raporu(P, eski):
             onay = (P.get('buyuk_onay') or {}).get(k) if isinstance(P.get('buyuk_onay'), dict) else None
             if abs(oran) > 50 and onay != [eski[k], v]:
                 buyuk.append('%s: %s → %s' % (k, eski[k], v))
-    import datetime
-    bugun = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=3)).strftime('%Y-%m-%d')
-    if buyuk and str(P.get('buyuk_degisiklik_onay') or '')[:10] != bugun:
-        raise FiyatHatasi('%%50\'den büyük fiyat değişikliği: %s. Doğruysa panelde "Büyük fiyat değişikliği onay tarihi" alanına bugünün tarihini seçip tekrar yayınlayın.' % ', '.join(buyuk))
+    # Tarih bazlı genel onay kaldırıldı: büyük değişiklik yalnızca o değişikliğe bağlı onayla (buyuk_onay) geçer.
+    if buyuk:
+        raise FiyatHatasi('%%50\'den büyük fiyat değişikliği: %s. Doğruysa telefon uygulamasında Fiyatlar ekranından bu değişikliği onaylayarak yapın.' % ', '.join(buyuk))
 
 
 def fiyat_isle(s, P, dosya=''):

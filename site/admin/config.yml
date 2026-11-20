@@ -43,7 +43,7 @@ collections:
         label: "Fiyatlar (bütün sayfalar ve hesaplayıcılar)"
         file: "content/fiyatlar.json"
         format: "json"
-        description: "Takvim dışındaki fiyatlar KDV hariçtir; KDV dahil fiyatlar sitede otomatik hesaplanır. Bir fiyat %50'den fazla değişirse yayın güvenlik için durur; değişiklik doğruysa en alttaki onay tarihine bugünü seçin."
+        description: "Takvim dışındaki fiyatlar KDV hariçtir; KDV dahil fiyatlar sitede otomatik hesaplanır. Bir fiyat %50'den fazla değişirse yayın güvenlik için durur; böyle büyük bir değişikliği telefon uygulamasının Fiyatlar ekranından, değişikliği ayrıca onaylayarak yapın."
         fields:
           - { label: "Sticker ve etiket (m², baskı + kesim)", name: "sticker", widget: "number", value_type: "int", min: 0 }
           - { label: "Baskılı folyo (m²)", name: "folyo", widget: "number", value_type: "int", min: 0 }
@@ -64,7 +64,6 @@ collections:
           - { label: "2027 takvim çerçeveli (KDV dahil)", name: "takvim_cerceveli", widget: "number", value_type: "int", min: 0 }
           - { label: "Takvim toplu, 50+ adet (adet başı, KDV dahil)", name: "takvim_50", widget: "number", value_type: "int", min: 0 }
           - { label: "Takvim toplu, 100+ adet (adet başı, KDV dahil)", name: "takvim_100", widget: "number", value_type: "int", min: 0 }
-          - { label: "Büyük fiyat değişikliği onay tarihi", name: "buyuk_degisiklik_onay", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, required: false, hint: "Yalnızca bir fiyatı %50'den fazla değiştirdiğinizde bugünün tarihini seçin. Onay sadece o gün geçerlidir." }
       - name: "anasayfa"
         label: "Anasayfa Metinleri ve SSS"
         file: "content/anasayfa.json"
