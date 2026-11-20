@@ -106,6 +106,21 @@ if(!window.__cmp){if(document.readyState==='complete')ac();else window.addEventL
 '''
 
 
+# WhatsApp: Google reklamından gelen ziyaretçinin hazır mesajına doğal bir cümle eklenir
+KAYNAK = r'''<script>
+(function(){var K='ph_kaynak_g';try{var q=new URLSearchParams(location.search);if(q.get('gclid')||q.get('gbraid')||q.get('wbraid')||(/google/i.test(q.get('utm_source')||'')&&/cpc|ppc|paid/i.test(q.get('utm_medium')||'')))sessionStorage.setItem(K,'1')}catch(x){}
+var C={tr:['Merhaba,','Google üzerinden ulaştım.'],en:['Hello,','I found you on Google.'],de:['Guten Tag,','ich habe Sie über Google gefunden.'],fr:['Bonjour,','je vous ai trouvés via Google.'],it:['Buongiorno,','vi ho trovati su Google.'],es:['Hola,','les encontré a través de Google.'],nl:['Goedendag,','ik heb u via Google gevonden.']};
+function ekle(m){var L=(document.documentElement.lang||'tr').slice(0,2),c=C[L]||C.tr;m=m||'';if(/Google/.test(m)||/sipari[sş]imin durumu|order status/i.test(m))return m;
+ var g=m.match(/^([^,.!?\n]{1,40}[,!])\s*/);if(!g)return c[0]+' '+c[1]+(m?' '+m:'');
+ var r=m.slice(g[0].length);if(r)r=r.charAt(0).toLocaleUpperCase(L)+r.slice(1);return g[1]+' '+c[1]+(r?' '+r:'')}
+function duzelt(u){try{if(sessionStorage.getItem(K)!=='1')return u;var a=new URL(u,location.href);if(!/(^|\.)wa\.me$|whatsapp\.com$/i.test(a.hostname))return u;a.searchParams.set('text',ekle(a.searchParams.get('text')));return a.toString()}catch(x){return u}}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href')||'';if(!/wa\.me|whatsapp/i.test(h))return;var n=duzelt(a.href);if(n!==a.href)a.href=n},true);
+var o=window.open;window.open=function(u){if(typeof u==='string')arguments[0]=duzelt(u);return o.apply(window,arguments)};
+})();
+</script>
+'''
+
+
 def uygula(s, ayar):
     """ayar: anahtar, posthog, politika{lang:url}, yedek dil, renkler. Google etiketinden önce BAS eklenir."""
     if 'id="cmpx"' in s or '</head>' not in s or '</body>' not in s:
@@ -115,7 +130,7 @@ def uygula(s, ayar):
         if 'posthog.init' in s:
             return s
         return s.replace('</head>', '<script>window.__cmp={v:1,a:true,r:true};</script>\n'
-                         + POSTHOG % {'posthog': ayar['posthog']} + '</head>', 1)
+                         + POSTHOG % {'posthog': ayar['posthog']} + KAYNAK + '</head>', 1)
     bas = BAS % {'anahtar': ayar['anahtar'], 'sure': SURE_GUN}
     # Google etiketinden önce gelmeli: ilk <script> etiketinin önüne, yoksa </head> önüne
     i = s.find('<script', s.find('<head'))
@@ -124,7 +139,7 @@ def uygula(s, ayar):
         s = s[:i] + bas + s[i:]
     else:
         s = s.replace('</head>', bas + '</head>', 1)
-    s = s.replace('</head>', POSTHOG % {'posthog': ayar['posthog']} + '</head>', 1)
+    s = s.replace('</head>', POSTHOG % {'posthog': ayar['posthog']} + KAYNAK + '</head>', 1)
     metin = {k: METIN[k] for k in ayar['diller']}
     bant = BANT % dict(ayar['renk'], anahtar=ayar['anahtar'], yedek=ayar['yedek'],
                        metin=json.dumps(metin, ensure_ascii=False), politika=json.dumps(ayar['politika']))
