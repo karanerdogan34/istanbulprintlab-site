@@ -1,6 +1,6 @@
 // Yalnızca uygulamanın kendi dosyalarını saklar; içerik ve GitHub istekleri hiçbir zaman önbelleğe alınmaz.
 // Ağ önce: internet varken her zaman en yeni sürüm açılır, yoksa aynı dosyanın son kayıtlı sürümü açılır.
-const AD = 'ipl-yonetim-v5';
+const AD = 'ipl-yonetim-v6';
 const DOSYALAR = ['/yonetim/', '/yonetim/app.js?v=5', '/yonetim/app.css?v=5', '/yonetim/manifest.webmanifest', '/yonetim/ikon-192.png'];
 
 self.addEventListener('install', (e) => {

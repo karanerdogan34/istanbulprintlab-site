@@ -6,8 +6,8 @@ import { REPO, OTURUM, cerezOku, coz, oturumSil, oturumCerezi, yenile, json } fr
 
 const ONEK = `/repos/${REPO}/`;
 const SHA = /^[0-9a-f]{40}$/;
-const HTML_SAYFA = /^site\/(hakkimizda|kurumsal|istanbul(\/[a-z0-9-]+)?|rehber(\/[a-z0-9-]+)?)\/index\.html$/;
-const YAZILABILIR = /^(site\/img\/yuklenen\/(projeler|urunler|vakalar|anasayfa)\/[a-z0-9-]+\.jpg|content\/(projeler|anasayfa|fiyatlar|iletisim)\.json|content\/(sayfalar|vakalar)\/[a-z0-9-]+\.json|site\/(hakkimizda|kurumsal|istanbul(\/[a-z0-9-]+)?|rehber(\/[a-z0-9-]+)?)\/index\.html)$/;
+const HTML_SAYFA = /^site\/((hakkimizda|kurumsal|istanbul(\/[a-z0-9-]+)?|rehber(\/[a-z0-9-]+)?)\/)?index\.html$/;
+const YAZILABILIR = /^(site\/img\/yuklenen\/(projeler|urunler|vakalar|anasayfa|sayfalar)\/[a-z0-9-]+\.jpg|content\/(projeler|anasayfa|fiyatlar|iletisim)\.json|content\/(sayfalar|vakalar)\/[a-z0-9-]+\.json|site\/((hakkimizda|kurumsal|istanbul(\/[a-z0-9-]+)?|rehber(\/[a-z0-9-]+)?)\/)?index\.html)$/;
 const ICERIK_SORGUSU = `query($o:String!,$n:String!,$e1:String!,$e2:String!,$e3:String!,$e4:String!,$e5:String!,$e6:String!,$e7:String!,$e8:String!){repository(owner:$o,name:$n){
   i:object(expression:$e6){...on Blob{text oid}}
   hi:object(expression:$e7){...on Tree{entries{name type}}}

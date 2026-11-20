@@ -113,6 +113,10 @@ function albumleriKur(dosyalar) {
     const v = JSON.parse(d.text);
     A.push({ id: yol, tur: 'vaka', ad: v.firma || v.baslik || yol, aciklama: 'Vaka çalışması', yol, alan: 'kareler', klasor: 'vakalar', sayfa: '/projeler/' + (v.slug || '') + '/', oid: d.oid, veri: v });
   }
+  // Henüz yayınlanmamış yeni vaka çalışmaları (taslakta) da sayfa olarak görünür.
+  for (const i of D.islemler) if (i.tur === 'yeniVaka' && !A.some((a) => a.id === i.album)) {
+    A.push({ id: i.album, tur: 'vaka', yeni: true, ad: i.veri.firma, aciklama: 'Yeni vaka çalışması — henüz sitede değil', yol: i.album, alan: 'kareler', klasor: 'vakalar', sayfa: '/projeler/' + i.veri.slug + '/', oid: null, veri: JSON.parse(JSON.stringify(i.veri)) });
+  }
   for (const [yol, d] of Object.entries(dosyalar)) {
     if (!yol.startsWith('content/sayfalar/')) continue;
     const v = JSON.parse(d.text);
@@ -138,6 +142,11 @@ function islemUygula(al, i, siki) {
     }
     yolKoy(al.veri, i.yol, JSON.parse(JSON.stringify(i.yeni)));
     return;
+  }
+  if (i.tur === 'yeniVaka') {
+    if (al.oid) { if (siki) throw Object.assign(new Error('Bu sayfa adresinde zaten bir vaka çalışması var. Yeni vakayı iptal edip başka adresle oluşturun.'), { islem: i }); return; }
+    if (siki && (!i.veri.firma || !i.veri.baslik || !i.veri.kapak || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(i.veri.slug))) throw Object.assign(new Error('Yeni vaka çalışmasının firma adı, başlığı, adresi ve kapak fotoğrafı zorunludur.'), { islem: i });
+    al.veri = kopya(i.veri); return;
   }
   const L = liste(al);
   const bul = () => L.findIndex((x) => x.gorsel === i.gorsel);
@@ -247,7 +256,7 @@ function durumSatiri() {
   const y = D.sonYayin;
   if (y && y.durum === 'belirsiz') return `<div class="durum bekle">Son yayının sonucu doğrulanamadı; internet gelince otomatik kontrol edilecek. Değişiklikleriniz telefonda güvende.</div>`;
   if (y && y.durum === 'hazirlaniyor') return `<div class="durum bekle">⏳ Değişiklikler kaydedildi, site hazırlanıyor (1–2 dakika)…</div>`;
-  if (y && y.durum === 'yayinda') return `<div class="durum iyi">✓ Son değişiklikleriniz sitede yayında.</div>`;
+  if (y && y.durum === 'yayinda') return `<div class="durum iyi">✓ Son değişiklikleriniz sitede yayında.${(y.sayfalar || []).length ? `<div class="guncellenen">Güncellenen sayfalar:<ul>${y.sayfalar.map((x) => `<li>${x.yol ? `<a href="${kacir(siteYolu(x.yol))}" target="_blank" rel="noopener">${kacir(x.ad)}</a>` : kacir(x.ad)}</li>`).join('')}</ul></div>` : ''}</div>`;
   if (y && y.durum === 'hata') return `<div class="durum hata">Site güncellenemedi; sitenin önceki hali yayında duruyor. Size e-posta da gitti.</div>`;
   if (y && y.durum === 'bilinmiyor') return `<div class="durum bekle">Değişiklikler kaydedildi ama sitede yayına girdiği henüz doğrulanamadı. “Siteyi aç” ile kontrol edebilirsiniz.</div>`;
   const n = bekleyenSayisi();
@@ -275,9 +284,12 @@ function anaEkran() {
     ${durumSatiri()}
     <button class="buyuk-ekle" id="ekle"><span>+</span> Fotoğraf ekle</button>
     <input class="ara" id="ara" type="search" placeholder="Sayfa ara (ör. sticker, branda)" value="${kacir(D.ara)}">
-    ${grup('fiyatlar', 'Fiyatlar')}${grup('anasayfa', 'Anasayfa')}${grup('projeler', '')}${grup('sayfa', 'Ürün sayfaları')}${grup('vaka', 'Vaka çalışmaları')}${grup('html', 'Bilgi sayfaları', 'bilgi')}${grup('html', 'Semt sayfaları', 'semt')}${grup('html', 'Rehber yazıları', 'rehber')}${grup('iletisim', 'Site ayarları')}
+    ${grup('fiyatlar', 'Fiyatlar')}${grup('anasayfa', 'Anasayfa')}${grup('html', '', 'ana')}${grup('projeler', '')}${grup('sayfa', 'Ürün sayfaları')}${grup('vaka', 'Vaka çalışmaları')}<button class="dugme tam" id="yeniVaka">+ Yeni vaka çalışması</button>${grup('html', 'Bilgi sayfaları', 'bilgi')}${grup('html', 'Semt sayfaları', 'semt')}${grup('html', 'Rehber yazıları', 'rehber')}${grup('iletisim', 'Site ayarları')}
+    <button class="dugme tam ara-bosluk" id="baglantiKontrol">Satış bağlantılarını kontrol et (WhatsApp, telefon, e-posta, form)</button>
     <div class="alt-bilgi"><button id="cikis">Bu telefondan çıkış yap</button></div>`;
   $('#ekle').onclick = () => fotoSec(null);
+  if ($('#yeniVaka')) $('#yeniVaka').onclick = yeniVakaEkrani;
+  $('#baglantiKontrol').onclick = baglantiKontrolu;
   const ara = $('#ara'); ara.oninput = () => { D.ara = ara.value; const p = ara.selectionStart; anaEkran(); const a2 = $('#ara'); a2.focus(); a2.setSelectionRange(p, p); };
   kok.querySelectorAll('[data-album]').forEach((b) => b.onclick = () => git({ ad: 'album', id: b.dataset.album }));
   $('#cikis').onclick = async () => {
@@ -315,11 +327,20 @@ function albumEkrani(id) {
   }
   kok.innerHTML = `<div class="ust"><button class="geri" id="geri" aria-label="Geri">‹</button><h1>${kacir(al.ad)}</h1>
       <a class="dugme ust-baglanti" href="${kacir(siteYolu(al.sayfa))}" target="_blank" rel="noopener">Sayfayı aç</a></div>
+    ${al.yeni ? `<div class="degisiklik-kutu"><b>Bu sayfa henüz sitede yok.</b> “Yayınla” ile birlikte oluşturulur. Metinler sekmesinden ihtiyaç, zorluk ve çözümü yazın; Fotoğraflar sekmesinden kareleri ekleyin.<button class="dugme tehlike tam ara-bosluk" id="vakaIptal">Bu yeni vakayı iptal et</button></div>` : ''}
     ${sekmeler.length > 1 ? `<div class="sekmeler" role="tablist">${sekmeler.map(([k, ad]) => `<button role="tab" data-sekme="${k}" aria-selected="${k === sekme}" class="${k === sekme ? 'secili' : ''}">${ad}</button>`).join('')}</div>` : ''}
     ${govde}`;
   $('#geri').onclick = () => history.back();
   kok.querySelectorAll('[data-sekme]').forEach((b) => b.onclick = () => { D.ekran = { ...D.ekran, sekme: b.dataset.sekme }; history.replaceState(D.ekran, ''); ciz(); });
   if ($('#fab')) $('#fab').onclick = () => fotoSec(id);
+  if ($('#vakaIptal')) $('#vakaIptal').onclick = async () => {
+    if (!confirm('Bu yeni vaka çalışması ve içine eklediğiniz her şey taslaktan silinsin mi?')) return;
+    // Bu vakaya taşınmış fotoğraflar kaynak sayfalarında kalır.
+    const at = D.islemler.filter((i) => i.album === id || i.tasiHedef === id);
+    const dosyalar = at.flatMap((i) => [i.tur === 'ekle' && !i.tasindi ? i.gorsel : null, i.dosya || null]).filter(Boolean);
+    try { await taslakYaz(D.islemler.filter((i) => !at.includes(i)), { dosyaSil: dosyalar }); } catch (e) { return hataPenceresi('Kaydedilemedi', e.message); }
+    D.albumler = D.albumler.filter((a) => a.id !== id); git({ ad: 'ana' }, true);
+  };
   kok.querySelectorAll('.kare').forEach((b) => b.onclick = () => fotoDetay(al, b.dataset.g));
   kok.querySelectorAll('.kare img').forEach((im) => im.onerror = () => { if (!im.dataset.yedek) { im.dataset.yedek = 1; im.src = `https://raw.githubusercontent.com/${REPO}/${DAL}/site${im.closest('.kare').dataset.g}`; } });
   kok.querySelectorAll('[data-yol]').forEach((b) => b.onclick = () => { const def = alanBul(al.tur, JSON.parse(b.dataset.yol)); if (def) alanDuzenle(al, def); });
@@ -457,6 +478,7 @@ function fotoDetay(al, gorsel) {
       <button class="dugme" id="sol" ${n === 0 ? 'disabled' : ''}>◀ Bir öne</button>
       <button class="dugme" id="sag" ${n === L.length - 1 ? 'disabled' : ''}>Bir arkaya ▶</button>
       ${al.tur === 'vaka' ? `<button class="dugme tam" id="kapak" ${g.veri.kapak === gorsel ? 'disabled' : ''}>Sayfanın kapak fotoğrafı yap</button>` : ''}
+      <button class="dugme tam" id="tasi">Başka sayfaya taşı</button>
       ${proje ? `<button class="dugme tam" id="gizle">${x.gizle ? 'Anasayfada tekrar göster' : 'Anasayfada geçici gizle'}</button>` : ''}
       <button class="dugme tehlike tam" id="kaldir">Sayfadan kaldır</button>
     </div>`);
@@ -472,12 +494,32 @@ function fotoDetay(al, gorsel) {
   $('#sag', p).onclick = () => ekle({ tur: 'tasi', yon: 1 });
   if ($('#kapak', p)) $('#kapak', p).onclick = () => ekle({ tur: 'kapak' }, 'Kapak olarak işaretlendi');
   if ($('#gizle', p)) $('#gizle', p).onclick = () => ekle({ tur: 'gizle', deger: !x.gizle });
+  $('#tasi', p).onclick = () => {
+    if (al.tur === 'vaka' && g.veri.kapak === gorsel) return hataPenceresi('Kapak fotoğrafı taşınamaz', 'Bu fotoğraf vaka sayfasının kapağı. Önce başka bir fotoğrafı kapak yapın, sonra taşıyın.');
+    if (D.islemler.some((i) => i.album === al.id && i.tur === 'ekle' && i.gorsel === gorsel)) return hataPenceresi('Henüz taşınamaz', 'Bu fotoğraf henüz sitede değil. Taşımak yerine bu sayfadan kaldırıp istediğiniz sayfaya yeniden ekleyin.');
+    const hedefler = D.albumler.filter((a) => a.alan && a.id !== al.id && !a.en);
+    const p2 = perde(`<h2>Hangi sayfaya taşınsın?</h2><div class="aciklama-not perde-not2">Fotoğraf bu sayfadan kaldırılıp seçtiğiniz sayfanın sonuna eklenir. Yayınlayana kadar sitede bir şey değişmez.</div>
+      <ul class="liste">${hedefler.map((a) => `<li><button class="satir" data-hedef="${kacir(a.id)}"><span class="ad"><b>${kacir(a.ad)}</b><small>${kacir(a.aciklama)}</small></span></button></li>`).join('')}</ul>
+      <button class="dugme tam ara-bosluk" id="vz">Vazgeç</button>`, { tam: true });
+    $('#vz', p2).onclick = () => p2.remove();
+    p2.querySelectorAll('[data-hedef]').forEach((b) => b.onclick = async () => {
+      const h = D.albumler.find((a) => a.id === b.dataset.hedef); if (!h) return;
+      if (liste(gorunenAlbum(h)).some((y) => y.gorsel === gorsel)) return hataPenceresi('Taşınamadı', 'Bu fotoğraf o sayfada zaten var.');
+      const yazi = proje ? [x.baslik, x.aciklama].filter(Boolean).join(' — ') : x.aciklama;
+      const ek = { tur: 'ekle', album: h.id, gorsel, taban: h.oid, tasindi: true, kaynak: al.id };
+      if (h.tur === 'projeler') { ek.baslik = proje ? x.baslik : (x.aciklama || al.ad).slice(0, 80); ek.kisa = proje ? x.aciklama : ''; ek.alt = [ek.baslik, ek.kisa].filter(Boolean).join(' — '); } else ek.aciklama = yazi || h.ad;
+      try { await taslakYaz([...D.islemler, { album: al.id, gorsel, taban: al.oid, tur: 'kaldir', tasiHedef: h.id }, ek]); }
+      catch (e) { p2.remove(); p.remove(); hataPenceresi('Kaydedilemedi', e.message); return ciz(); }
+      p2.remove(); p.remove(); bildir(`Taşındı: ${h.ad} — henüz sitede değil.`, 3500); ciz();
+    });
+  };
   $('#kaldir', p).onclick = async () => {
     if (!confirm('Bu fotoğraf sayfadan kaldırılsın mı? (Dosya arşivde kalır, istenirse geri eklenebilir.)')) return;
-    // Henüz yayınlanmamış yeni bir fotoğrafsa taslaktan tamamen çıkar.
+    // Henüz yayınlanmamış yeni bir fotoğrafsa taslaktan tamamen çıkar. Taşınmış bir fotoğrafsa taşıma bütünüyle geri alınır.
     const yeni = D.islemler.find((i) => i.album === al.id && i.tur === 'ekle' && i.gorsel === gorsel);
     if (yeni) {
-      try { await taslakYaz(D.islemler.filter((i) => !(i.album === al.id && i.gorsel === gorsel)), { dosyaSil: [gorsel] }); }
+      const at = (i) => (i.album === al.id && i.gorsel === gorsel) || (yeni.tasindi && i.album === yeni.kaynak && i.tur === 'kaldir' && i.gorsel === gorsel && i.tasiHedef === al.id);
+      try { await taslakYaz(D.islemler.filter((i) => !at(i)), { dosyaSil: yeni.tasindi ? [] : [gorsel] }); }
       catch (e) { p.remove(); hataPenceresi('Kaydedilemedi', e.message); return ciz(); }
       p.remove(); return ciz();
     }
@@ -801,6 +843,7 @@ const REHBER_AD = { 'baski-dosyasi-hazirlama': 'Baskı dosyası hazırlama', 'br
 const guzelAd = (slug) => slug.split('-').map((w, n) => (n ? w : w.charAt(0).toLocaleUpperCase('tr') + w.slice(1))).join(' ');
 function htmlAlbumleri(hi, hr) {
   const A = [];
+  A.push({ id: 'html:site/index.html', tur: 'html', grup: 'ana', ad: 'Anasayfa — diğer bölümler', aciklama: 'Ürün ve hizmet kutuları, bölüm yazıları ve fotoğraflar', dosya: 'site/index.html', alan: null, sayfa: '/', veri: null, oid: null, googleYok: true });
   const ekle = (dosya, ad, grup, aciklama) => A.push({ id: 'html:' + dosya, tur: 'html', grup, ad, aciklama, dosya, alan: null, sayfa: '/' + dosya.replace(/^site\//, '').replace(/index\.html$/, ''), veri: null, oid: null });
   ekle('site/hakkimizda/index.html', 'Hakkımızda', 'bilgi', 'Bilgi sayfası');
   ekle('site/kurumsal/index.html', 'Kurumsal', 'bilgi', 'Bilgi sayfası');
@@ -829,6 +872,24 @@ function htmlOgeleri(src) {
     L.push({ etiket: m[1], anahtar: m[3], bas, son: bas + m[5].length, ic: m[5], duzenlenir: HTML_IZINLI.test(m[5]) });
   }
   return L;
+}
+// <main> içindeki data-g kimlikli görseller
+function htmlGorselleri(src) {
+  const m0 = src.indexOf('<main'), m1 = src.indexOf('</main>');
+  if (m0 < 0 || m1 < m0 || src.indexOf('<main', m0 + 1) >= 0) return [];
+  const L = []; const re = /<img\s[^<>]*?\sdata-g="(g\d+)"[^<>]*>/g; let m; const bolum = src.slice(m0, m1);
+  while ((m = re.exec(bolum))) {
+    const t = m[0]; const a = (k) => { const x = t.match(new RegExp('\\s' + k + '="([^"]*)"')); return x ? entCoz(x[1]) : null; };
+    L.push({ tur: 'gorsel', anahtar: m[1], bas: m0 + m.index, son: m0 + m.index + t.length, etiket: t, src: a('src'), alt: a('alt') || '' });
+  }
+  return L;
+}
+function htmlGorsel(src, anahtar) { const L = htmlGorselleri(src).filter((x) => x.anahtar === anahtar); return L.length === 1 ? L[0] : null; }
+const BOLUM_AD = { urunler: 'Ürünler bölümü', hizmetler: 'Hizmetler bölümü', projeler: 'Projeler', sss: 'Sık sorulan sorular' };
+function bolumAdi(src, konum) {
+  let ad = 'Üst bölüm'; const re = /<section[^>]*\sid="([^"]+)"/g; let m;
+  while ((m = re.exec(src)) && m.index < konum) ad = BOLUM_AD[m[1]] || m[1];
+  return ad;
 }
 function htmlOge(src, anahtar) {
   const L = htmlOgeleri(src).filter((x) => x.anahtar === anahtar);
@@ -883,6 +944,18 @@ function htmlUygula(al, i, siki) {
     try { al.veri.kaynak = metaKoy(src, i.anahtar, mevcut, i.yeni); } catch (e) { if (siki) throw Object.assign(e, { islem: i }); }
     return;
   }
+  if (/^g\d+$/.test(i.anahtar)) {
+    const g = htmlGorsel(src, i.anahtar);
+    if (!g) { if (siki) throw Object.assign(new Error('Bu fotoğraf sayfada artık bulunamıyor.'), { islem: i }); return; }
+    if (g.src !== i.eski.src || g.alt !== i.eski.alt) { if (siki) throw Object.assign(new Error('Bu fotoğraf siz düzenlerken başka yerden değiştirilmiş.'), { islem: i, cakisma: true, mevcut: g.alt }); return; }
+    if (siki && !/^\/img\/[A-Za-z0-9._\/-]+\.(?:webp|jpe?g|png)$/.test(i.yeni.src)) throw Object.assign(new Error('Fotoğraf adresi geçersiz.'), { islem: i });
+    const ak = (v) => entKac(v).replace(/"/g, '&quot;');
+    let t = g.etiket.replace(/(\ssrc=")[^"]*(")/, (x, a, b) => a + ak(i.yeni.src) + b);
+    t = /\salt="/.test(t) ? t.replace(/(\salt=")[^"]*(")/, (x, a, b) => a + ak(i.yeni.alt) + b) : t.replace(/^<img/, '<img alt="' + ak(i.yeni.alt) + '"');
+    if (siki && !t.includes('src="' + ak(i.yeni.src) + '"')) throw Object.assign(new Error('Fotoğraf sayfaya yazılamadı.'), { islem: i });
+    if (i.yeni.w && i.yeni.h) t = t.replace(/(\swidth=")\d+(")/, (x, a, b) => a + i.yeni.w + b).replace(/(\sheight=")\d+(")/, (x, a, b) => a + i.yeni.h + b);
+    al.veri.kaynak = src.slice(0, g.bas) + t + src.slice(g.son); return;
+  }
   const o = htmlOge(src, i.anahtar);
   if (!o) { if (siki) throw Object.assign(new Error('Bu yazı sayfada artık bulunamıyor.'), { islem: i }); return; }
   if (o.ic !== i.eski) { if (siki) throw Object.assign(new Error('Bu bölüm siz düzenlerken başka yerden değiştirilmiş.'), { islem: i, cakisma: true, mevcut: htmlDenMetin(o.ic) }); return; }
@@ -899,15 +972,22 @@ async function htmlYukle(al) {
 function htmlEkrani(al) {
   if (!al.veri) { htmlYukle(al).then((ok) => (ok ? ciz() : git({ ad: 'ana' }, true))); return; }
   const g = gorunenAlbum(al); const src = g.veri.kaynak;
-  const sekme = D.ekran.sekme === 'google' ? 'google' : 'metin';
+  const sekme = D.ekran.sekme === 'google' && !al.googleYok ? 'google' : 'metin';
   const bekleyen = new Set(D.islemler.filter((i) => i.album === al.id).map((i) => i.anahtar));
   let govde;
   if (sekme === 'metin') {
-    const L = htmlOgeleri(src);
-    govde = `<div class="aciklama-not">Sayfadaki yazılar sırayla. Değiştirmek için dokunun. Tasarım ve menü buradan değişmez.</div>
-      <ul class="liste kartlar">${L.map((o) => `<li><button class="metin-kart ${o.duzenlenir ? '' : 'soluk'}" data-anahtar="${o.anahtar}" ${o.duzenlenir ? '' : 'disabled'}>
+    const L = [...htmlOgeleri(src), ...htmlGorselleri(src)].sort((a, b) => a.bas - b.bas);
+    let sonBolum = null; const parca = [];
+    for (const o of L) {
+      const bl = al.dosya === 'site/index.html' ? bolumAdi(src, o.bas) : null;
+      if (bl && bl !== sonBolum) { parca.push(`</ul><div class="bolum">${kacir(bl)}</div><ul class="liste kartlar">`); sonBolum = bl; }
+      if (o.tur === 'gorsel') parca.push(`<li><button class="metin-kart gorsel-kart" data-anahtar="${o.anahtar}"><img src="${kacir(resimAdresi(o.src))}" alt=""><span><span class="mk-ad">Fotoğraf${bekleyen.has(o.anahtar) ? ' <span class="rozet">değişti</span>' : ''}</span><span class="mk-deger">${kacir(o.alt || 'Açıklama yok')}</span></span></button></li>`);
+      else parca.push(`<li><button class="metin-kart ${o.duzenlenir ? '' : 'soluk'}" data-anahtar="${o.anahtar}" ${o.duzenlenir ? '' : 'disabled'}>
         <span class="mk-ad">${HTML_ETIKET_AD[o.etiket]}${bekleyen.has(o.anahtar) ? ' <span class="rozet">değişti</span>' : ''}${o.duzenlenir ? '' : ' · sabit tasarım öğesi, buradan değişmez'}</span>
-        <span class="mk-deger">${kacir(sade(htmlDenMetin(o.ic)))}</span></button></li>`).join('')}</ul>`;
+        <span class="mk-deger">${kacir(sade(htmlDenMetin(o.ic)))}</span></button></li>`);
+    }
+    govde = `<div class="aciklama-not">Sayfadaki yazı ve fotoğraflar sırayla. Değiştirmek için dokunun. Tasarım ve menü buradan değişmez.${al.dosya === 'site/index.html' ? ' Üst başlık, yılbaşı ve cam filmi kutuları, projeler ve SSS “Anasayfa yazıları”ndadır.' : ''}</div>
+      <ul class="liste kartlar">${parca.join('')}</ul>`;
   } else {
     const t = metaAl(src, 'title') || '', d = metaAl(src, 'description') || '';
     govde = `<div class="g-onizleme"><div class="g-site">IstanbulPrintLab</div><div class="g-adres">istanbulprintlab.com${kacir(al.sayfa === '/' ? '' : ' › ' + al.sayfa.replace(/^\/|\/$/g, '').split('/').join(' › '))}</div>
@@ -917,10 +997,10 @@ function htmlEkrani(al) {
   }
   kok.innerHTML = `<div class="ust"><button class="geri" id="geri" aria-label="Geri">‹</button><h1>${kacir(al.ad)}</h1>
       <a class="dugme ust-baglanti" href="${kacir(siteYolu(al.sayfa))}" target="_blank" rel="noopener">Sayfayı aç</a></div>
-    <div class="sekmeler" role="tablist">${[['metin', 'Metinler'], ['google', 'Google']].map(([k, ad]) => `<button role="tab" data-sekme="${k}" class="${k === sekme ? 'secili' : ''}">${ad}</button>`).join('')}</div>${govde}`;
+    <div class="sekmeler" role="tablist">${(al.googleYok ? [['metin', 'Yazılar ve fotoğraflar']] : [['metin', 'Metinler'], ['google', 'Google']]).map(([k, ad]) => `<button role="tab" data-sekme="${k}" class="${k === sekme ? 'secili' : ''}">${ad}</button>`).join('')}</div>${govde}`;
   $('#geri').onclick = () => history.back();
   kok.querySelectorAll('[data-sekme]').forEach((b) => b.onclick = () => { D.ekran = { ...D.ekran, sekme: b.dataset.sekme }; history.replaceState(D.ekran, ''); ciz(); });
-  kok.querySelectorAll('[data-anahtar]').forEach((b) => b.onclick = () => htmlDuzenle(al, b.dataset.anahtar));
+  kok.querySelectorAll('[data-anahtar]').forEach((b) => b.onclick = () => (/^g\d+$/.test(b.dataset.anahtar) ? htmlGorselDuzenle(al, b.dataset.anahtar) : htmlDuzenle(al, b.dataset.anahtar)));
   yayinCubugu();
 }
 function htmlDuzenle(al, anahtar, baslangic) {
@@ -962,7 +1042,48 @@ function htmlDuzenle(al, anahtar, baslangic) {
     p.remove(); bildir('Telefona kaydedildi — henüz sitede değil. Hazır olunca “Yayınla”ya basın.', 3500); ciz();
   };
 }
+function htmlGorselDuzenle(al, anahtar) {
+  const g = gorunenAlbum(al); const gGor = htmlGorsel(g.veri.kaynak, anahtar); const gAsil = htmlGorsel(al.veri.kaynak, anahtar);
+  if (!gGor || !gAsil) return hataPenceresi('Düzenlenemiyor', 'Bu fotoğraf sayfada güvenle bulunamadı.');
+  const onceki = D.islemler.find((i) => i.album === al.id && i.anahtar === anahtar);
+  let yeni = { src: gGor.src, alt: gGor.alt }; let dosya = null;
+  const p = perde(`<h2>Fotoğraf</h2>
+    <img class="onizleme" id="oz" src="${kacir(resimAdresi(gGor.src))}" alt="">
+    <button class="dugme tam" id="degistir">Fotoğrafı değiştir</button>
+    <label class="alan"><span>Fotoğrafta ne var? (Google ve görme engelli ziyaretçiler için)</span><input class="duz" id="alt" value="${kacir(gGor.alt)}"></label>
+    <div id="uy"></div>
+    <button class="dugme ana tam" id="kaydet">Kaydet</button>
+    ${onceki ? '<button class="dugme tam ara-bosluk" id="geri2">Sitedeki hale dön</button>' : ''}
+    <button class="dugme tam ara-bosluk" id="vazgec">Vazgeç</button>`, { tam: true });
+  $('#vazgec', p).onclick = () => p.remove();
+  const yaz = async (L, ek) => { try { await taslakYaz(L, ek); return true; } catch (e) { hataPenceresi('Kaydedilemedi', e.message); return false; } };
+  if ($('#geri2', p)) $('#geri2', p).onclick = async () => { if (await yaz(D.islemler.filter((i) => i !== onceki), { dosyaSil: onceki.dosya ? [onceki.dosya] : [] })) { p.remove(); ciz(); } };
+  $('#degistir', p).onclick = () => {
+    const inp = $('#dosya'); inp.value = ''; inp.multiple = false;
+    inp.onchange = async () => {
+      inp.multiple = true; const F = inp.files[0]; if (!F) return;
+      try {
+        const h = await kucult(F);
+        const yol = `/img/yuklenen/sayfalar/${slug(al.ad)}-${new Date().toISOString().slice(0, 19).replace(/[-:T]/g, '')}-${Math.random().toString(36).slice(2, 6)}.jpg`;
+        dosya = [yol, h.blob]; yeni = { ...yeni, src: yol, w: h.w, h: h.h };
+        D.onizleme[yol] = URL.createObjectURL(h.blob); $('#oz', p).src = D.onizleme[yol];
+      } catch (e) { hataPenceresi('Fotoğraf eklenemedi', e.message); }
+    };
+    inp.click();
+  };
+  $('#kaydet', p).onclick = async () => {
+    yeni.alt = $('#alt', p).value.trim().replace(/[<>]/g, '');
+    if (!yeni.alt) { $('#uy', p).innerHTML = '<div class="hata-kutu bosluksuz">Fotoğrafın kısa açıklamasını yazın.</div>'; return; }
+    const eski = { src: gAsil.src, alt: gAsil.alt };
+    const kalan = D.islemler.filter((i) => i !== onceki);
+    const degismedi = yeni.src === eski.src && yeni.alt === eski.alt;
+    const op = { tur: 'html', album: al.id, anahtar, eski, yeni, ...(dosya ? { dosya: dosya[0] } : onceki && onceki.dosya && onceki.yeni.src === yeni.src ? { dosya: onceki.dosya } : {}) };
+    if (!(await yaz(degismedi ? kalan : [...kalan, op], { dosyaEkle: dosya ? [dosya] : [], dosyaSil: onceki && onceki.dosya && onceki.dosya !== op.dosya ? [onceki.dosya] : [] }))) return;
+    p.remove(); bildir('Telefona kaydedildi — henüz sitede değil.', 3000); ciz();
+  };
+}
 function htmlDegisikligiOzeti(i) {
+  if (/^g\d+$/.test(i.anahtar)) return `Fotoğraf${i.yeni.src !== i.eski.src ? `: yeni fotoğraf <img class="ozet-kucuk" src="${kacir(resimAdresi(i.yeni.src))}" alt="">` : ': açıklama değişti'}`;
   const al = D.albumler.find((a) => a.id === i.album);
   let ad = META[i.anahtar] ? META[i.anahtar].ad : 'Yazı';
   if (!META[i.anahtar] && al && al.veri) { const o = htmlOge(al.veri.kaynak, i.anahtar); if (o) ad = HTML_ETIKET_AD[o.etiket]; }
@@ -1132,6 +1253,127 @@ function topluFiyat() {
   ciz2();
 }
 
+// ---------- yeni vaka çalışması ----------
+function yeniVakaEkrani() {
+  let kapak = null;
+  const p = perde(`<h2>Yeni vaka çalışması</h2>
+    <div class="aciklama-not perde-not2">Mevcut vaka sayfasıyla aynı tasarımda yeni bir sayfa oluşur. Şimdi temel bilgileri girin; diğer yazıları ve kareleri sonra ekleyebilirsiniz. Yayınlayana kadar sitede bir şey değişmez.</div>
+    <label class="alan"><span>Firma adı</span><input class="duz" id="v1" maxlength="80"></label>
+    <label class="alan"><span>Sayfa başlığı (örn. “Firma: cephe tabela uygulaması”)</span><input class="duz" id="v2" maxlength="120"></label>
+    <label class="alan"><span>Sayfa adresi</span><input class="duz" id="v3" maxlength="60" inputmode="url" autocapitalize="off"></label>
+    <div class="aciklama-not" id="v3g"></div>
+    <img class="onizleme yok" id="voz" alt="">
+    <button class="dugme tam" id="vfoto">Kapak fotoğrafı seç</button>
+    <label class="alan"><span>Kapak fotoğrafında ne var?</span><input class="duz" id="v4" maxlength="160"></label>
+    <div id="vuy"></div>
+    <button class="dugme ana tam" id="volustur">Oluştur</button><button class="dugme tam ara-bosluk" id="vvz">Vazgeç</button>`, { tam: true });
+  const adres = () => { const v = $('#v3', p).value; $('#v3g', p).textContent = 'istanbulprintlab.com/projeler/' + (v || '…') + '/'; };
+  let elle = false;
+  $('#v1', p).oninput = () => { if (!elle) { $('#v3', p).value = slug($('#v1', p).value).replace(/^foto$/, ''); adres(); } };
+  $('#v3', p).oninput = () => { elle = true; $('#v3', p).value = $('#v3', p).value.toLocaleLowerCase('tr').replace(/[^a-z0-9-]/g, ''); adres(); };
+  adres();
+  $('#vvz', p).onclick = () => p.remove();
+  $('#vfoto', p).onclick = () => {
+    const inp = $('#dosya'); inp.value = ''; inp.multiple = false;
+    inp.onchange = async () => {
+      inp.multiple = true; const F = inp.files[0]; if (!F) return;
+      try { const h = await kucult(F); kapak = h; const im = $('#voz', p); im.src = URL.createObjectURL(h.blob); im.classList.remove('yok'); $('#vfoto', p).textContent = 'Kapak fotoğrafını değiştir'; }
+      catch (e) { hataPenceresi('Fotoğraf eklenemedi', e.message); }
+    };
+    inp.click();
+  };
+  $('#volustur', p).onclick = async () => {
+    const firma = $('#v1', p).value.trim().replace(/[<>]/g, ''), baslik = $('#v2', p).value.trim().replace(/[<>]/g, ''), sl = $('#v3', p).value.trim(), alt = $('#v4', p).value.trim().replace(/[<>]/g, '');
+    const hata = !firma ? 'Firma adını yazın.' : !baslik ? 'Sayfa başlığını yazın.' : !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(sl) ? 'Sayfa adresi yalnızca küçük harf, rakam ve tire içerebilir.'
+      : D.albumler.some((a) => a.tur === 'vaka' && a.sayfa === '/projeler/' + sl + '/') ? 'Bu adreste zaten bir vaka çalışması var.' : !kapak ? 'Kapak fotoğrafı seçin.' : !alt ? 'Kapak fotoğrafında ne olduğunu kısaca yazın.' : '';
+    if (hata) { $('#vuy', p).innerHTML = `<div class="hata-kutu bosluksuz">${kacir(hata)}</div>`; return; }
+    const yol = `/img/yuklenen/vakalar/${sl}-kapak-${Date.now().toString(36)}.jpg`;
+    const veri = { slug: sl, seo_baslik: '', seo_aciklama: '', firma, etiket: '', baslik, kapak: yol, kapak_aciklama: alt, ihtiyac: '', zorluk: '', cozum: [], bilgiler: [{ ad: 'Müşteri', deger: firma }], kareler: [] };
+    const id = 'content/vakalar/' + sl + '.json';
+    try { await taslakYaz([...D.islemler, { tur: 'yeniVaka', album: id, veri, dosya: yol }], { dosyaEkle: [[yol, kapak.blob]] }); }
+    catch (e) { return hataPenceresi('Kaydedilemedi', e.message); }
+    D.onizleme[yol] = URL.createObjectURL(kapak.blob);
+    if (!D.albumler.some((a) => a.id === id)) D.albumler.push({ id, tur: 'vaka', yeni: true, ad: firma, aciklama: 'Yeni vaka çalışması — henüz sitede değil', yol: id, alan: 'kareler', klasor: 'vakalar', sayfa: '/projeler/' + sl + '/', oid: null, veri: kopya(veri) });
+    p.remove(); bildir('Vaka oluşturuldu — şimdi yazılarını ve karelerini ekleyin.', 3500); git({ ad: 'album', id, sekme: 'metin' });
+  };
+}
+
+// ---------- satış bağlantıları kontrolü (yalnızca okur, hiçbir şeyi değiştirmez) ----------
+async function baglantiKontrolu() {
+  const p = perde(`<h2>Satış bağlantıları</h2><div class="ilerleme"><i id="bi"></i></div><div class="aciklama-not perde-not" id="bm">Site haritası okunuyor…</div><div id="bs"></div>
+    <button class="dugme tam ara-bosluk" id="bk">Kapat</button>`, { tam: true });
+  let dur = false; $('#bk', p).onclick = () => { dur = true; p.remove(); };
+  const il = D.albumler.find((a) => a.tur === 'iletisim')?.veri || {};
+  const tel = String(il.telefon || '').replace(/\D/g, ''), ep = String(il.eposta || '').toLowerCase();
+  try {
+    const sm = await fetch('/sitemap.xml', { cache: 'no-store' }).then((r) => { if (!r.ok) throw new Error('Site haritası okunamadı.'); return r.text(); });
+    const yollar = [...new Set([...sm.matchAll(/<loc>https:\/\/www\.istanbulprintlab\.com(\/[^<]*)<\/loc>/g)].map((m) => m[1]))];
+    const S = []; let n = 0;
+    const tek = async (y) => {
+      let h = null; try { const r = await fetch(y, { cache: 'no-store' }); if (r.ok) h = await r.text(); else S.push({ y, s: `Sayfa açılmıyor (${r.status})` }); } catch (_) { S.push({ y, s: 'Sayfa açılamadı' }); }
+      if (h) {
+        const wa = [...h.matchAll(/href="https:\/\/(?:wa\.me\/|api\.whatsapp\.com\/send\?phone=)(\d+)/g)].map((m) => m[1]);
+        const tl2 = [...h.matchAll(/href="tel:([^"]*)"/g)].map((m) => m[1].replace(/\D/g, ''));
+        const ml = [...h.matchAll(/href="mailto:([^"?]*)/g)].map((m) => m[1].toLowerCase());
+        const yanlis = [...wa.filter((x) => x !== tel).map((x) => 'WhatsApp numarası farklı: ' + x), ...tl2.filter((x) => x !== tel).map((x) => 'Telefon numarası farklı: ' + x), ...ml.filter((x) => x !== ep).map((x) => 'E-posta farklı: ' + x)];
+        if (!wa.length && !tl2.length) yanlis.push('Sayfada WhatsApp ya da telefon bağlantısı yok');
+        for (const m of h.matchAll(/<form\b[^>]*>/g)) if (/method="post"/i.test(m[0]) && !/data-netlify="true"/.test(m[0])) yanlis.push('Teklif formu gelen kutusuna bağlı görünmüyor');
+        for (const x of [...new Set(yanlis)]) S.push({ y, s: x });
+      }
+      n++; if (!dur) { $('#bi', p).style.width = Math.round((n / yollar.length) * 100) + '%'; $('#bm', p).textContent = `${n} / ${yollar.length} sayfa kontrol edildi`; }
+    };
+    for (let k = 0; k < yollar.length && !dur; k += 4) await Promise.all(yollar.slice(k, k + 4).map(tek));
+    if (dur) return;
+    $('#bm', p).textContent = `${yollar.length} sayfa kontrol edildi. Doğru numara: ${il.telefon || '?'}, e-posta: ${il.eposta || '?'}.`;
+    $('#bs', p).innerHTML = S.length ? `<div class="hata-kutu bosluksuz">${S.length} sorun bulundu</div><ul class="ozet">${S.map((x) => `<li><a href="${kacir(siteYolu(x.y))}" target="_blank" rel="noopener">${kacir(x.y)}</a>: ${kacir(x.s)}</li>`).join('')}</ul>`
+      : '<div class="durum iyi">✓ Bütün sayfalarda WhatsApp, telefon ve e-posta bağlantıları doğru numara/adrese gidiyor; teklif formları gelen kutusuna bağlı. (Bağlantıların biçimi kontrol edildi; deneme mesajı gönderilmedi.)</div>';
+  } catch (e) { if (!dur) $('#bs', p).innerHTML = `<div class="hata-kutu bosluksuz">${kacir(e.message)}</div>`; }
+}
+
+// ---------- yayın öncesi bütünlük kontrolü (siteyi değiştirmez) ----------
+async function butunlukKontrolu() {
+  const U = []; const adres = new Set();
+  const varMi = async (y) => { if (D.onizleme[y]) return true; try { const r = await fetch(y, { method: 'HEAD', cache: 'no-store' }); return r.ok; } catch (_) { return null; } };
+  for (const id of new Set(D.islemler.map((i) => i.album))) {
+    const al = D.albumler.find((a) => a.id === id); if (!al) { U.push({ ad: id, s: 'Sayfa bulunamadı', agir: true }); continue; }
+    if (al.tur === 'html') {
+      for (const i of D.islemler.filter((x) => x.album === id && x.tur === 'html')) {
+        if (/^g\d+$/.test(i.anahtar)) { if (!i.yeni.alt) U.push({ id, ad: al.ad, s: 'Fotoğraf açıklaması boş', agir: true }); if (!i.dosya) adres.add(JSON.stringify([id, al.ad, i.yeni.src])); continue; }
+        const v = META[i.anahtar] ? i.yeni : htmlDenMetin(i.yeni);
+        if (!String(v || '').trim()) U.push({ id, ad: al.ad, s: 'Boş yazı kalıyor', agir: true });
+        for (const m of String(i.yeni || '').matchAll(/href="(\/[^"#?]*)/g)) adres.add(JSON.stringify([id, al.ad, m[1]]));
+      }
+      continue;
+    }
+    if (al.tur === 'fiyatlar' || al.tur === 'iletisim') continue;
+    const g = gorunenAlbum(al);
+    const S = SEMA[al.tur];
+    for (const d of (S ? S.metin : [])) if (d.zorunlu && !String(yolAl(g.veri, d.yol) ?? '').trim()) U.push({ id, ad: al.ad, s: d.ad + ' boş', agir: true });
+    if (al.yeni) { for (const [k, ad] of [['ihtiyac', 'Müşterinin ihtiyacı'], ['zorluk', 'İşin zorluğu']]) if (!String(g.veri[k] || '').trim()) U.push({ id, ad: al.ad, s: ad + ' yazılmamış (sayfada başlığı boş görünür)' }); if (!(g.veri.cozum || []).length) U.push({ id, ad: al.ad, s: 'Çözüm maddeleri yazılmamış (sayfada başlığı boş görünür)' }); if (!(g.veri.kareler || []).length) U.push({ id, ad: al.ad, s: 'Uygulamadan kare eklenmemiş' }); }
+    if (al.alan) for (const x of liste(g)) if (x.gorsel) adres.add(JSON.stringify([id, al.ad, x.gorsel]));
+    if (al.tur === 'vaka' && g.veri.kapak) adres.add(JSON.stringify([id, al.ad, g.veri.kapak]));
+    for (const m of JSON.stringify(g.veri).matchAll(/\]\((\/[^)#?\s]*)/g)) adres.add(JSON.stringify([id, al.ad, m[1]]));
+  }
+  const yeniSayfalar = new Set(D.albumler.filter((a) => a.yeni).map((a) => a.sayfa));
+  const L = [...adres].map((x) => JSON.parse(x)).filter(([, , y]) => !yeniSayfalar.has(y));
+  for (let k = 0; k < L.length; k += 6) await Promise.all(L.slice(k, k + 6).map(async ([id, ad, y]) => {
+    const v = await varMi(y); const foto = /\.(webp|jpe?g|png)$/i.test(y);
+    if (v === false) U.push({ id, ad, s: (foto ? 'Fotoğraf sitede bulunamadı: ' : 'Bağlantı açılmıyor: ') + y, agir: foto });
+    if (v === null) U.push({ id, ad, s: 'Kontrol edilemedi (internet): ' + y });
+  }));
+  return U;
+}
+function etkilenenSayfalar() {
+  const S = new Map();
+  for (const i of D.islemler) {
+    if (i.album === 'iletisim') { S.set('*', 'Bütün sayfalar (iletişim bilgisi)'); continue; }
+    if (i.album === 'fiyatlar') { S.set('*f', 'Fiyat geçen bütün sayfalar'); continue; }
+    const al = D.albumler.find((a) => a.id === i.album); if (!al) continue;
+    if (al.tur === 'projeler' || al.tur === 'anasayfa') S.set('/', 'Anasayfa'); else S.set(al.sayfa, al.ad);
+  }
+  return [...S].map(([yol, ad]) => ({ yol: yol.startsWith('*') ? null : yol, ad }));
+}
+
 // ---------- yayınlama ----------
 function ozet() {
   const say = {};
@@ -1139,6 +1381,9 @@ function ozet() {
     if (i.album === 'fiyatlar' || i.album === 'iletisim') continue; // ayrı kutuda gösterilir
     const al = D.albumler.find((a) => a.id === i.album); const k = al ? al.ad : i.album;
     say[k] = say[k] || { ekle: [], diger: 0, metin: [] };
+    if (i.tur === 'yeniVaka') { say[k].metin.push('Yeni vaka çalışması sayfası oluşturulacak: ' + kacir(SITE.replace('https://', '') + '/projeler/' + i.veri.slug + '/')); continue; }
+    if (i.tur === 'ekle' && i.tasindi) { say[k].metin.push('Başka sayfadan taşınan fotoğraf'); continue; }
+    if (i.tur === 'kaldir' && i.tasiHedef) { const h = D.albumler.find((a) => a.id === i.tasiHedef); say[k].metin.push('Fotoğraf taşınıyor → ' + kacir(h ? h.ad : 'başka sayfa')); continue; }
     if (i.tur === 'ekle') say[k].ekle.push(i.gorsel); else if (i.tur === 'html') say[k].metin.push(htmlDegisikligiOzeti(i)); else if (i.tur === 'alan' || i.tur === 'liste') say[k].metin.push(metinDegisikligiOzeti(i)); else say[k].diger++;
   }
   return Object.entries(say).map(([k, v]) => `<li><b>${kacir(k)}</b>${v.ekle.length || v.diger ? ': ' + [v.ekle.length ? v.ekle.length + ' yeni fotoğraf' : '', v.diger ? v.diger + ' fotoğraf düzenlemesi' : ''].filter(Boolean).join(', ') : ''}
@@ -1160,10 +1405,25 @@ function fiyatKutusu(F) {
 function yayinOnay() {
   const fo = fiyatOzeti();
   const p = perde(`<h2>Siteye yayınlansın mı?</h2>${fo}<ul class="ozet">${ozet()}</ul>
+    <div id="kontrol"><div class="aciklama-not perde-not2">Kontrol ediliyor: boş yazı, eksik fotoğraf, açılmayan bağlantı…</div></div>
     <div class="aciklama-not perde-not2">Hepsi tek seferde gönderilir. Site 1–2 dakika içinde güncellenir.</div>
-    <button class="dugme ana tam" id="evet">Yayınla</button><button class="dugme tam ara-bosluk" id="hayir">Henüz değil</button>`);
+    <button class="dugme ana tam" id="evet" disabled>Yayınla</button><button class="dugme tam ara-bosluk" id="hayir">Henüz değil</button>`);
+  let agir = false, uyari = false;
   $('#hayir', p).onclick = () => p.remove();
-  $('#evet', p).onclick = () => { if (fo && !$('#fkontrol', p).checked) { bildir('Önce fiyat değişikliklerini kontrol edip kutuyu işaretleyin.'); return; } p.remove(); yayinla(); };
+  butunlukKontrolu().then((U) => {
+    agir = U.some((x) => x.agir); uyari = U.length > 0 && !agir;
+    $('#kontrol', p).innerHTML = !U.length ? '<div class="durum iyi">✓ Kontrol tamam: boş zorunlu yazı yok; yeni fotoğraflar telefonda hazır, mevcut fotoğraf ve bağlantılar sitede bulundu.</div>'
+      : `<div class="${agir ? 'hata-kutu' : 'uyari'} bosluksuz"><b>${agir ? 'Yayından önce düzeltilmesi gerekenler' : 'Kontrol uyarıları'}</b><ul>${U.map((x) => `<li>${x.id ? `<button class="bag-dugme" data-git="${kacir(x.id)}">${kacir(x.ad)} ›</button>` : kacir(x.ad)}: ${kacir(x.s)}</li>`).join('')}</ul></div>
+         ${agir ? '' : '<label class="anahtar"><input type="checkbox" id="ukontrol"><span>Uyarıları gördüm, yine de yayınla</span></label>'}`;
+    $('#evet', p).disabled = agir;
+    p.querySelectorAll('[data-git]').forEach((b) => b.onclick = () => { p.remove(); git({ ad: 'album', id: b.dataset.git }); });
+  }).catch(() => { uyari = true; $('#kontrol', p).innerHTML = '<div class="uyari bosluksuz">Kontrol tamamlanamadı (internet bağlantısı). Fotoğraf ve bağlantılar doğrulanmadı.</div><label class="anahtar"><input type="checkbox" id="ukontrol"><span>Kontrol yapılamadığını biliyorum, yine de yayınla</span></label>'; $('#evet', p).disabled = false; });
+  $('#evet', p).onclick = () => {
+    if (agir) return;
+    if (fo && !$('#fkontrol', p).checked) { bildir('Önce fiyat değişikliklerini kontrol edip kutuyu işaretleyin.'); return; }
+    if (uyari && !$('#ukontrol', p).checked) { bildir('Önce uyarıları okuyup kutuyu işaretleyin.'); return; }
+    p.remove(); yayinla();
+  };
 }
 
 const BEKLEYEN = 'ipl_bekleyen_yayin';
@@ -1175,9 +1435,11 @@ async function daldaMi(sha) {
 
 // Commit dalda doğrulandıktan sonra çağrılır. "Bekleyen yayın" kaydı, telefondaki taslak gerçekten temizlenene kadar silinmez;
 // temizlik olmazsa uygulama her açılışta yeniden dener ve bu sırada aynı değişiklikler ikinci kez gönderilemez.
-async function yayinBasarili(sha) {
-  localStorage.setItem(BEKLEYEN, JSON.stringify({ sha, zaman: Date.now(), kaydedildi: true }));
-  D.sonYayin = { sha, zaman: Date.now(), durum: 'hazirlaniyor' };
+async function yayinBasarili(sha, sayfalar) {
+  if (!sayfalar) { try { sayfalar = JSON.parse(localStorage.getItem(BEKLEYEN) || 'null')?.sayfalar; } catch (_) {} }
+  sayfalar = sayfalar || etkilenenSayfalar();
+  localStorage.setItem(BEKLEYEN, JSON.stringify({ sha, zaman: Date.now(), kaydedildi: true, sayfalar }));
+  D.sonYayin = { sha, zaman: Date.now(), durum: 'hazirlaniyor', sayfalar };
   localStorage.setItem('ipl_son_yayin', JSON.stringify(D.sonYayin));
   const yerel = { ...D.onizleme };
   try { await taslakYaz([], { dosyaTemizle: true }); localStorage.removeItem(BEKLEYEN); }
@@ -1228,7 +1490,7 @@ async function yayinla(onaylananlar = []) {
         if (!al) { sorunlu.push({ i, neden: 'Sayfa bulunamadı.' }); continue; }
         try { islemUygula(al, i, true); etkilenen.add(al); } catch (e) { sorunlu.push({ i, neden: e.message, cakisma: !!e.cakisma, mevcut: e.mevcut }); }
       }
-      const yeniler = D.islemler.filter((i) => i.tur === 'ekle' || i.dosya);
+      const yeniler = D.islemler.filter((i) => (i.tur === 'ekle' && !i.tasindi) || i.dosya);
       const bloblar = [];
       for (const y of yeniler) { const yol = y.tur === 'ekle' ? y.gorsel : y.dosya; const b = await DB.al('dosya', yol); if (!b) sorunlu.push({ i: y, neden: 'Fotoğraf dosyası telefonda bulunamadı.' }); else bloblar.push([yol, b]); }
       if (sorunlu.length) { p.remove(); yayinSuruyor = false; D.albumler = albumleriKur(dosyalar); D.sha = sha; return sorunluGoster(sorunlu); }
@@ -1250,7 +1512,7 @@ async function yayinla(onaylananlar = []) {
       const tree = await gh(`/repos/${REPO}/git/trees`, 'POST', { base_tree: temel.tree.sha, tree: agac });
       const c = await gh(`/repos/${REPO}/git/commits`, 'POST', { message: `Yönetim uygulaması: ${D.islemler.length} değişiklik`, tree: tree.sha, parents: [sha] });
       commitSha = c.sha;
-      localStorage.setItem(BEKLEYEN, JSON.stringify({ sha: c.sha, zaman: Date.now() }));
+      localStorage.setItem(BEKLEYEN, JSON.stringify({ sha: c.sha, zaman: Date.now(), sayfalar: etkilenenSayfalar() }));
       adim(95, 'Kaydediliyor');
       try {
         await gh(`/repos/${REPO}/git/refs/heads/${DAL}`, 'PATCH', { sha: c.sha, force: false });
@@ -1268,7 +1530,7 @@ async function yayinla(onaylananlar = []) {
         if (sonuc === false) { localStorage.removeItem(BEKLEYEN); throw e; }
         if (sonuc === null) { D.sonYayin = { sha: c.sha, zaman: Date.now(), durum: 'belirsiz' }; p.remove(); hataPenceresi('Sonuç doğrulanamadı', 'Bağlantı koptuğu için yayının gerçekleşip gerçekleşmediği anlaşılamadı. Değişiklikleriniz telefonda duruyor; uygulama internet gelince kendisi kontrol edecek. Lütfen tekrar “Yayınla”ya basmayın.'); return ciz(); }
       }
-      await yayinBasarili(c.sha);
+      await yayinBasarili(c.sha, etkilenenSayfalar());
       p.remove(); ciz(); yayinIzle();
       return;
     }
@@ -1293,7 +1555,7 @@ function sorunluGoster(sorunlu) {
   const al = (i) => D.albumler.find((a) => a.id === i.album);
   const ad = (i) => al(i)?.ad || i.album;
   const bolum = (i) => { if (i.tur === 'html') return ' › ' + (META[i.anahtar] ? META[i.anahtar].ad : 'Yazı'); if (al(i)?.tur === 'fiyatlar' && i.yol) { const f = fiyatKalemi(i.yol[0]); return f ? ' › ' + f.ad : ''; } const d = al(i) && i.yol ? alanBul(al(i).tur, i.yol) : null; return d ? ' › ' + d.ad : ''; };
-  const goster = (v, i) => { if (i && i.tur === 'html' && !META[i.anahtar]) v = htmlDenMetin(v); if (typeof v === 'number') return kacir(tl(v)); const t = sade(metinleri(v).join(' · ')); return kacir(t.length > 140 ? t.slice(0, 140) + '…' : (t || 'boş')); };
+  const goster = (v, i) => { if (i && i.tur === 'html' && /^g\d+$/.test(i.anahtar)) v = (v && v.alt) || v; else if (i && i.tur === 'html' && !META[i.anahtar]) v = htmlDenMetin(v); if (typeof v === 'number') return kacir(tl(v)); const t = sade(metinleri(v).join(' · ')); return kacir(t.length > 140 ? t.slice(0, 140) + '…' : (t || 'boş')); };
   const cakisan = sorunlu.filter((x) => x.cakisma), diger = sorunlu.filter((x) => !x.cakisma);
   const p = perde(`<h2>Yayın durduruldu</h2>
     <div class="aciklama-not perde-not2">Sitede hiçbir şey değiştirilmedi. Aşağıdakileri gözden geçirin.</div>
@@ -1355,7 +1617,7 @@ async function yayinIzle() {
     if (y.durum === 'hazirlaniyor') y.durum = 'bilinmiyor';
     if (y.durum === 'yayinda') D.onizleme = {};
     localStorage.setItem('ipl_son_yayin', JSON.stringify(y));
-    if (y.durum === 'yayinda') bildir('Siteniz güncellendi ✓', 4000);
+    if (y.durum === 'yayinda') bildir(`Siteniz güncellendi ✓ (${(y.sayfalar || []).length} sayfa)`, 4000);
     if (!document.querySelector('.perde')) ciz();
   } finally { izleniyor = false; }
 }
@@ -1381,7 +1643,7 @@ async function basla() {
   try {
     D.islemler = (await DB.al('kv', 'islemler')) || [];
     D.sonKullanilan = (await DB.al('kv', 'sonKullanilan')) || [];
-    for (const i of D.islemler) if (i.tur === 'ekle') { const b = await DB.al('dosya', i.gorsel); if (b) D.onizleme[i.gorsel] = URL.createObjectURL(b); }
+    for (const i of D.islemler) { const k = i.tur === 'ekle' ? i.gorsel : i.dosya; if (!k || (i.tur === 'ekle' && i.tasindi)) continue; const b = await DB.al('dosya', k); if (b) D.onizleme[k] = URL.createObjectURL(b); }
   } catch (_) { D.kayitHatasi = true; }
   try { D.sonYayin = JSON.parse(localStorage.getItem('ipl_son_yayin') || 'null'); } catch (_) {}
   if (D.sonYayin && D.sonYayin.durum !== 'hazirlaniyor') D.sonYayin = null;
