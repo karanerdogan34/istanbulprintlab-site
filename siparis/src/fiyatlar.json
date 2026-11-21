@@ -766,7 +766,9 @@
      "b": "Hangi işler teklifle?",
      "m": "Daha kalın kağıt, kabartma, lak, yaldız ve özel kesim gibi özel kartvizitler teklifle fiyatlandırılır. WhatsApp'tan (+90 532 523 73 64) yazın."
     }
-   ]
+   ],
+   "kargo_hep_ucretsiz": true,
+   "kargo_metni": "Kartvizit siparişlerinde kargo ücretsizdir. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz."
   },
   "soguk-dtf-baski": {
    "ad": "Soğuk DTF Baskı",

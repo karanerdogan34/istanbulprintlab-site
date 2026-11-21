@@ -159,7 +159,7 @@
     return {durum: 'tamam', uyarilar: [],
       kalemler: {paket: satir.adet, yon: yon, birim: birim, kopya: kopya, baski: baski, asgariFarki: tamamlama, adetBasi: yuvarla(birim / satir.adet)},
       araToplam: araToplam, kdv: kdv, toplam: yuvarla(araToplam + kdv),
-      kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik, kargoAyrica: false};
+      kargoUcretsiz: !!cfg.kargo_hep_ucretsiz || araToplam >= genel.kargo_ucretsiz_esik, kargoAyrica: false}; // kartvizitte kargo her zaman ücretsiz
   }
 
 
