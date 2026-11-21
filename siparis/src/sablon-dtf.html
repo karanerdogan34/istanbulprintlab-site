@@ -131,8 +131,8 @@ function dosyaDurum(){
 }
 function zeminMesaj(){
   if (!dosya) return '';
-  if (dosya.tur==='jpg'||dosya.tur==='jpeg') return 'JPG dosyalarında şeffaflık yoktur: tasarımın arka planı da dikdörtgen olarak basılır. Zeminsiz görünüm istiyorsanız arka planı şeffaf PNG veya PDF yükleyin. Dosyanız operatör kontrolüne alınır.';
-  if (dosya.tur==='png' && dosya.seffaf===false) return 'Bu PNG dosyasında şeffaf alan yok: arka plan da dikdörtgen olarak basılır. Zeminsiz görünüm istiyorsanız arka planı silinmiş (şeffaf) bir PNG yükleyin. Dosyanız operatör kontrolüne alınır.';
+  if (dosya.tur==='jpg'||dosya.tur==='jpeg') return 'JPG dosyalarında şeffaflık yoktur: tasarımın arka planı da dikdörtgen olarak basılır. Yalnızca tasarımınızın basılması için arka planı şeffaf PNG veya PDF yükleyin. Dosyanız operatör kontrolüne alınır.';
+  if (dosya.tur==='png' && dosya.seffaf===false) return 'Bu PNG dosyasında şeffaf alan yok: arka plan da dikdörtgen olarak basılır. Yalnızca tasarımınızın basılması için arka planı silinmiş (şeffaf) bir PNG yükleyin. Dosyanız operatör kontrolüne alınır.';
   return '';
 }
 
