@@ -28,6 +28,11 @@
   },
   "sss": [
     {
+      "soru": "Nasıl sipariş veririm?",
+      "cevap": "Yukarıdaki düğmelerden ürününüzü seçin, ölçünüzü girin ya da hazır şablonla tasarlayın; fiyatınız anında hesaplanır. \"WhatsApp'tan sipariş talebi gönder\" düğmesine bastığınızda seçimleriniz ve ön fiyat hazır mesaj olarak açılır; dosyanızı ekleyip gönderin. Dosyanızı kontrol edip kesin fiyatı onayınıza sunarız.",
+      "acik": true
+    },
+    {
       "soru": "Siparişim ne zaman hazır olur?",
       "cevap": "Standart baskı işleri dosya ve ödeme onayından sonra 1–2 iş gününde hazırlanır. Büyük adetli, montajlı veya özel işlerde süre teklifte yazılır.",
       "acik": true

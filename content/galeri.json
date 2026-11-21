@@ -1,0 +1,127 @@
+{
+  "aciklama": "Projeler galerisi: kategoriler ve her kategorideki fotoğraf/videolar. Yeni iş eklemek için ilgili kategorinin 'isler' listesine görsel ekleyin (görseller /img/ altında).",
+  "referanslar": [
+    "Özakkaya",
+    "Birgen İnşaat",
+    "Ray Mimarlık",
+    "Antre Gourmet",
+    "Otorey"
+  ],
+  "kategoriler": [
+    {
+      "slug": "cam-vitrin-ve-folyo",
+      "baslik": "Cam, vitrin ve folyo",
+      "giris": "AVM cepheleri, mağaza vitrinleri ve cam yüzeylerde baskılı folyo, kesim yazı ve kaplama uygulamalarımız.",
+      "isler": [
+        {
+          "gorsel": "/img/gercek-folyo-olivium.webp",
+          "aciklama": "Olivium AVM: kartonet üzerine vinil baskı ve montaj"
+        },
+        {
+          "gorsel": "/img/gercek-folyo-avm-cephe.webp",
+          "aciklama": "AVM cephesinde baskılı folyo kaplama"
+        },
+        {
+          "gorsel": "/img/gercek-folyo-baydoner.webp",
+          "aciklama": "AVM içinde mağaza açılış giydirmesi"
+        },
+        {
+          "gorsel": "/img/gercek-cam-magaza.webp",
+          "aciklama": "Mağaza camında logo ve yazı uygulaması"
+        }
+      ]
+    },
+    {
+      "slug": "branda-ve-santiye",
+      "baslik": "Branda ve şantiye giydirme",
+      "giris": "İnşaat çevre paravanları, cephe brandaları ve büyük ölçekli branda baskılarımız.",
+      "isler": [
+        {
+          "gorsel": "/img/gercek-branda-birgen.webp",
+          "aciklama": "Birgen İnşaat şantiye çevre brandası"
+        },
+        {
+          "gorsel": "/img/proje-birgen.webp",
+          "aciklama": "Birgen İnşaat: cadde boyunca logolu çevre brandası"
+        },
+        {
+          "gorsel": "/img/proje-ray.webp",
+          "aciklama": "Ray Mimarlık şantiye çevre brandası"
+        },
+        {
+          "gorsel": "/img/gercek-branda-renev.webp",
+          "aciklama": "Şantiye çevresine montajı yapılmış proje görselli branda"
+        },
+        {
+          "gorsel": "/img/gercek-branda-ozakkaya.webp",
+          "aciklama": "Özakkaya cephe uygulaması"
+        },
+        {
+          "gorsel": "/img/gercek-branda-rulo.webp",
+          "aciklama": "Atölyemizde basılmış rulo branda"
+        }
+      ]
+    },
+    {
+      "slug": "fotoblok-ve-dekupe",
+      "baslik": "Fotoblok ve dekupe figür",
+      "giris": "AVM ve mağazalar için ayaklı fotoblok panolar, dekupe figürler ve sezon süslemeleri.",
+      "isler": [
+        {
+          "gorsel": "/img/gercek-fotoblok-avm.webp",
+          "aciklama": "AVM girişinde dekupe kesim fotoblok figür"
+        },
+        {
+          "gorsel": "/img/gercek-fotoblok-avm2.webp",
+          "aciklama": "AVM koridorunda yılbaşı mesajlı ayaklı fotoblok figür"
+        },
+        {
+          "gorsel": "/img/gercek-fotoblok-atolye.webp",
+          "aciklama": "Atölyede baskısı ve kesimi tamamlanmış fotoblok figür"
+        }
+      ]
+    },
+    {
+      "slug": "tabela-ve-kabartma-harf",
+      "baslik": "Tabela ve kabartma harf",
+      "giris": "Butik mağaza cepheleri için kabartma harf, amblem ve tabela uygulamalarımız.",
+      "isler": [
+        {
+          "gorsel": "/img/proje-antre.webp",
+          "aciklama": "Antre Gourmet: altın kabartma harf ve logo"
+        },
+        {
+          "gorsel": "/img/antre-2.webp",
+          "aciklama": "Antre Gourmet amblem uygulaması"
+        },
+        {
+          "gorsel": "/img/antre-3.webp",
+          "aciklama": "Kabartma harf detayı"
+        },
+        {
+          "gorsel": "/img/antre-4.webp",
+          "aciklama": "Kabartma harf üretim aşaması"
+        },
+        {
+          "gorsel": "/img/antre-5.webp",
+          "aciklama": "Antre Gourmet cephe detayı"
+        }
+      ]
+    },
+    {
+      "slug": "afis-ve-poster",
+      "baslik": "Afiş ve poster",
+      "giris": "Kampanya afişleri, kişiye özel poster baskı ve çerçeveleme işlerimiz.",
+      "isler": [
+        {
+          "gorsel": "/img/gercek-afis-istasyon24.webp",
+          "aciklama": "Proje tanıtım afişi"
+        },
+        {
+          "gorsel": "/img/yuklenen/projeler/50x70-kisiye-ozel-tasarim-baski-20261120104916-0oc4.jpg",
+          "aciklama": "50×70 kişiye özel tasarım: 240 gr saten poster baskı ve çerçeveleme"
+        }
+      ]
+    }
+  ]
+}

@@ -90,6 +90,72 @@ def urun_dugmeleri_html():
     return '\n' + '\n'.join(out) + '\n'
 
 
+# ---------- projeler galerisi (content/galeri.json) ----------
+GALERI_STIL = ('<style>.gk{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.galeri{columns:3 300px;column-gap:16px;margin-top:32px}'
+               '.galeri figure{break-inside:avoid;margin:0 0 16px}.galeri img,.galeri video{width:100%;height:auto;border-radius:6px;display:block;cursor:zoom-in;background:var(--stone)}'
+               '.galeri figcaption{font-size:14px;color:var(--mute);margin-top:6px}.buyut{position:fixed;inset:0;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;z-index:200;padding:20px;cursor:zoom-out}'
+               '.buyut img{max-width:100%;max-height:100%;border-radius:4px}.refs{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--soft);font-size:16px;margin-top:10px}</style>')
+BUYUT_JS = ("<script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-buyut]');if(!a)return;e.preventDefault();"
+            "var d=document.createElement('div');d.className='buyut';d.innerHTML='<img alt=\"\">';d.firstChild.src=a.href;d.firstChild.alt=a.dataset.alt||'';"
+            "d.addEventListener('click',function(){d.remove()});document.addEventListener('keydown',function k(ev){if(ev.key==='Escape'){d.remove();document.removeEventListener('keydown',k)}});document.body.appendChild(d)});</script>")
+
+
+def kabuk(sablon, yol, baslik, aciklama, ad, ana):
+    """Afiş sayfasının iskeletiyle (başlık, menü, teklif formu, alt bilgi) yeni sayfa üretir."""
+    s = sablon
+    t0 = re.search(r'<title>(.*?)</title>', s).group(1)
+    d0 = re.search(r'<meta name="description" content="([^"]*)">', s).group(1)
+    s = s.replace('<title>%s</title>' % t0, '<title>%s</title>' % E(baslik, quote=False))
+    s = s.replace('content="%s"' % t0, 'content="%s"' % E(baslik)).replace('content="%s"' % d0, 'content="%s"' % E(aciklama))
+    s = re.sub(r'<link rel="alternate" hreflang="[^"]*" href="[^"]*">\n', '', s)
+    s = s.replace('https://www.istanbulprintlab.com/afis-baski/', 'https://www.istanbulprintlab.com%s' % yol)
+    s = re.sub(r'<script type="application/ld\+json">\{"@context": "https://schema.org", "@type": "FAQPage".*?</script>\n', '', s, flags=re.S)
+    s = s.replace('"name": "Afiş baskı"', '"name": %s' % json.dumps(ad, ensure_ascii=False))
+    a, b = s.index('<main id="icerik">'), s.index('</main>')
+    s = s[:a] + '<main id="icerik">\n' + ana + '\n' + s[b:]
+    return s.replace(' data-en="en-poster-printing"', '').replace('href="/en/poster-printing/"', 'href="/en/"')
+
+
+def galeri():
+    G = js('content/galeri.json')
+    sablon = oku('site/afis-baski/index.html')
+    kats = G.get('kategoriler', [])
+    refs = ''.join('<span>%s</span>' % E(r) for r in G.get('referanslar', []))
+    def kapak(k):
+        return next((x['gorsel'] for x in k.get('isler', []) if x.get('gorsel') and not x['gorsel'].endswith('.mp4')), '')
+    kartlar = ''.join('<a href="/galeri/%s/"><div class="clip"><img class="ph" src="%s" alt="%s" loading="lazy"></div><div><span class="tag">%d iş</span><h3>%s</h3><p>%s</p></div></a>\n' % (
+        k['slug'], S.gorsel(kapak(k)), E(k['baslik']), len(k.get('isler', [])), E(k['baslik']), E(k.get('giris', ''))) for k in kats if kapak(k))
+    sm = oku('%s/sitemap.xml' % DIST)
+    for k in kats:
+        if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', k['slug']):
+            raise S.IcerikHatasi('Galeri kategori adresi geçersiz: %r' % k['slug'])
+        diger = ''.join('<a class="chip" href="/galeri/%s/"%s>%s</a>' % (x['slug'], ' style="background:var(--ink);color:#fff;border-color:var(--ink)" aria-current="page"' if x is k else '', E(x['baslik'])) for x in kats)
+        isler = []
+        for x in k.get('isler', []):
+            g = x.get('gorsel', '')
+            if g.endswith('.mp4'):
+                isler.append('<figure><video src="%s" controls preload="none" playsinline%s></video><figcaption>%s</figcaption></figure>' % (E(g), (' poster="%s"' % S.gorsel(x['kapak'])) if x.get('kapak') else '', E(x.get('aciklama', ''))))
+            else:
+                isler.append('<figure><a href="%s" data-buyut data-alt="%s"><img src="%s" alt="%s" loading="lazy"></a><figcaption>%s</figcaption></figure>' % (S.gorsel(g), E(x.get('aciklama', '')), S.gorsel(g), E(x.get('aciklama', '')), E(x.get('aciklama', ''))))
+        ana = ('<div class="wrap crumbs"><a href="/">Ana sayfa</a> / <a href="/galeri/">Projeler</a> / %s</div>\n%s\n<section class="wrap" style="padding-top:20px;padding-bottom:88px">\n'
+               '<h1>%s</h1>\n<p class="lead" style="margin-top:10px;max-width:760px">%s</p>\n<div class="gk">%s</div>\n<div class="galeri">\n%s\n</div>\n'
+               '<p class="lead" style="margin-top:28px">Benzer bir iş mi düşünüyorsunuz? <a class="link" href="#teklif">Teklif alın →</a></p>\n</section>\n%s'
+               % (E(k['baslik']), GALERI_STIL, E(k['baslik']), E(k.get('giris', '')), diger, '\n'.join(isler), BUYUT_JS))
+        yaz('%s/galeri/%s/index.html' % (DIST, k['slug']), kabuk(sablon, '/galeri/%s/' % k['slug'], '%s — Projelerimiz | IstanbulPrintLab' % k['baslik'], k.get('giris', ''), k['baslik'], ana))
+        if '/galeri/%s/<' % k['slug'] not in sm:
+            sm = sm.replace('</urlset>', '  <url><loc>https://www.istanbulprintlab.com/galeri/%s/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>\n</urlset>' % k['slug'])
+    ana = ('<div class="wrap crumbs"><a href="/">Ana sayfa</a> / Projeler</div>\n%s\n<section class="wrap" style="padding-top:20px">\n<h1>Projelerimiz ve referanslarımız</h1>\n'
+           '<p class="lead" style="margin-top:10px;max-width:760px">Kadıköy\'deki atölyemizde ürettiğimiz ve uyguladığımız işlerden seçmeler. Kategoriye tıklayın, fotoğrafları görün.</p>\n'
+           '<div class="grid g3 svc" style="margin-top:32px">\n%s</div>\n<h2 class="h2" style="font-size:32px;margin-top:64px">Son projeler ve vaka çalışmaları</h2>\n<div class="grid g3 svc" style="margin-top:24px">%s</div>\n'
+           '<h2 class="h2" style="font-size:32px;margin-top:64px">Referanslarımızdan bazıları</h2>\n<div class="refs">%s</div>\n</section>\n<div style="height:88px"></div>'
+           % (GALERI_STIL, kartlar, projeler_html(), refs))
+    yaz('%s/galeri/index.html' % DIST, kabuk(sablon, '/galeri/', 'Projelerimiz ve Referanslarımız | IstanbulPrintLab', 'IstanbulPrintLab projeleri: folyo, branda, fotoblok, tabela ve afiş işlerimizden fotoğraflar ve referanslarımız.', 'Projeler', ana))
+    if '/galeri/<' not in sm:
+        sm = sm.replace('</urlset>', '  <url><loc>https://www.istanbulprintlab.com/galeri/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>\n</urlset>')
+    yaz('%s/sitemap.xml' % DIST, sm)
+    return kartlar, refs
+
+
 # ---------- fiyatlar ----------
 TOK = re.compile(r'\{\{([a-z0-9_]+)(?:\*([\d.]+))?(\+kdv|:ham)?\}\}')
 HER_TOK = re.compile(r'\{\{[^{}]{0,40}\}\}')
@@ -276,6 +342,9 @@ def main():
     p = '%s/index.html' % DIST
     s = S.uygula_ana(oku(p), js('content/anasayfa.json'))
     s = re.sub(r'<!--PROJELER-->.*?<!--/PROJELER-->', lambda m: '<!--PROJELER-->' + projeler_html() + '<!--/PROJELER-->', s, flags=re.S)
+    gk, grefs = galeri()
+    s = re.sub(r'<!--GALERI_KARTLARI-->.*?<!--/GALERI_KARTLARI-->', lambda m: '<!--GALERI_KARTLARI-->\n' + gk + '<!--/GALERI_KARTLARI-->', s, flags=re.S)
+    s = re.sub(r'<!--REFERANSLAR-->.*?<!--/REFERANSLAR-->', lambda m: '<!--REFERANSLAR-->' + grefs + '<!--/REFERANSLAR-->', s, flags=re.S)
     s = re.sub(r'<!--URUN_DUGMELERI-->.*?<!--/URUN_DUGMELERI-->', lambda m: '<!--URUN_DUGMELERI-->' + urun_dugmeleri_html() + '<!--/URUN_DUGMELERI-->', s, flags=re.S)
     yaz(p, s)
     vakalar()

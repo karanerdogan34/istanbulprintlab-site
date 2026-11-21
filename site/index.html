@@ -36,7 +36,7 @@ iplLoadGTM();
 {"@type":"Organization","@id":"https://www.istanbulprintlab.com/#kurum","name":"IstanbulPrintLab","url":"https://www.istanbulprintlab.com/","email":"info@istanbulprintlab.com","telephone":"+90 532 523 73 64","sameAs":["https://www.instagram.com/istanbulprintlab"]}
 ]}
 </script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "tr", "mainEntity": [{"@type": "Question", "name": "Hangi dosya formatlarını kabul ediyorsunuz?", "acceptedAnswer": {"@type": "Answer", "text": "PDF, AI, EPS ve SVG tercih ederiz. Yazılar eğriye çevrilmiş, kesim çizgisi ayrı katmanda olmalı. PNG, JPG ve TIFF gerçek ölçüde en az 150 dpi olmalı. Ürün sayfasında dosyanızı yüklediğinizde bunlar otomatik kontrol edilir."}}, {"@type": "Question", "name": "Sticker ve baskılar dış mekanda ne kadar dayanır?", "acceptedAnswer": {"@type": "Answer", "text": "Dış mekân folyosuyla basılan sticker ve kesim folyolar uzun yıllar rengini korur. Güneşe, yağmura ve dış mekân koşullarına dayanıklı mürekkeple basıyoruz."}}, {"@type": "Question", "name": "Baskıda hata olursa ne olur?", "acceptedAnswer": {"@type": "Answer", "text": "Baskı hatası, onaylanan ölçüden farklı üretim veya kargoda hasar gibi bizden kaynaklanan sorunlarda ürünü ücretsiz yeniden üretip gönderiyoruz. Ürünü teslim aldıktan sonra fotoğraflarıyla bize yazmanız yeterli. Kişiye özel ürünlerde cayma ve iade yoktur."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "tr", "mainEntity": [{"@type": "Question", "name": "Siparişim ne zaman hazır olur?", "acceptedAnswer": {"@type": "Answer", "text": "Standart baskı işleri dosya ve ödeme onayından sonra 1–2 iş gününde hazırlanır. Büyük adetli, montajlı veya özel işlerde süre teklifte yazılır."}}, {"@type": "Question", "name": "Fiyat hesaplayıcıdaki fiyat kesin mi?", "acceptedAnswer": {"@type": "Answer", "text": "Hesaplayıcı seçtiğiniz ölçü, adet ve malzemeye göre m² üzerinden fiyat verir. Dosya kontrolünde ölçü veya kesim değişirse size yeni fiyatı onaya sunarız; onayınız olmadan üretime geçmeyiz."}}, {"@type": "Question", "name": "Hangi ödeme yöntemleri var?", "acceptedAnswer": {"@type": "Answer", "text": "Havale/EFT ile ödeme alıyoruz; kartla ödeme yakında. Kişiye özel üretim nedeniyle kapıda ödeme yoktur."}}, {"@type": "Question", "name": "Hangi dosya formatlarını kabul ediyorsunuz?", "acceptedAnswer": {"@type": "Answer", "text": "PDF, AI, EPS ve SVG tercih ederiz. Yazılar eğriye çevrilmiş, kesim çizgisi ayrı katmanda olmalı. PNG, JPG ve TIFF gerçek ölçüde en az 150 dpi olmalı. Ürün sayfasında dosyanızı yüklediğinizde bunlar otomatik kontrol edilir."}}, {"@type": "Question", "name": "Sticker ve baskılar dış mekanda ne kadar dayanır?", "acceptedAnswer": {"@type": "Answer", "text": "Dış mekân folyosuyla basılan sticker ve kesim folyolar uzun yıllar rengini korur. Güneşe, yağmura ve dış mekân koşullarına dayanıklı mürekkeple basıyoruz."}}, {"@type": "Question", "name": "Baskıda hata olursa ne olur?", "acceptedAnswer": {"@type": "Answer", "text": "Baskı hatası, onaylanan ölçüden farklı üretim veya kargoda hasar gibi bizden kaynaklanan sorunlarda ürünü ücretsiz yeniden üretip gönderiyoruz. Ürünü teslim aldıktan sonra fotoğraflarıyla bize yazmanız yeterli. Kişiye özel ürünlerde cayma ve iade yoktur."}}]}</script>
 <style>
 :root{--ink:#0B0B0B;--paper:#FFFFFF;--stone:#F4F3F1;--line:#E4E2DE;--mute:#5E5B57;--soft:#3A3835;--dline:#3A3835;--dmute:#CFCCC7;--ok:#1E6B3A;--warn:#8A5A00;--bad:#A3271B}
 *{box-sizing:border-box}
@@ -373,6 +373,7 @@ main{counter-reset:sec}
 @media (max-width:760px){.pbtns{gap:8px}.pbtn{padding:12px 10px 10px;border-radius:8px}.pbtn b{font-size:14.5px}.pbtn small{font-size:11.5px}.hero .heroimg{display:none}.hero{padding-bottom:24px}}
 .nyp .clip img{height:240px}.nyp h3{font-size:21px}
 @media (max-width:760px){.nyp{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}.nyp .clip img{height:130px}.nyp h3{font-size:16px!important}.nyp p{display:none}.nyp .tag{font-size:10px}}
+.prj .clip img{height:240px}.prj h3{font-size:21px}@media (max-width:760px){.prj{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}.prj .clip img{height:130px}.prj h3{font-size:16px!important}.prj p{display:none}}
 </style>
 </head>
 <body>
@@ -523,15 +524,10 @@ main{counter-reset:sec}
 
 
 <section id="projeler" class="wrap sec">
-<div class="shead"><h2 class="h2">Yaptığımız işler</h2><p class="lead">Her proje: ihtiyaç, uygulanan çözüm ve sonuç. Benzer bir iş için tek tıkla teklif isteyin.</p></div>
-<div class="grid g3 svc">
-<!--PROJELER-->
-<a href="/projeler/antre-gourmet/"><div class="clip"><img class="ph" src="/img/proje-antre.webp" alt="Antre Gourmet altın kabartma harf ve logo" loading="lazy" style="height:420px"></div><div><span class="tag">Perakende · Cephe</span><h3>Antre Gourmet</h3><p>Lacivert ahşap cepheye altın kabartma harf ve amblem. <b>Vaka çalışmasını oku →</b></p></div></a>
-<a href="#teklif"><div class="clip"><img class="ph" src="/img/proje-ray.webp" alt="Ray Mimarlık şantiye çevre brandası" loading="lazy" style="height:420px"></div><div><span class="tag">İnşaat · Büyük format</span><h3>Ray Mimarlık</h3><p>Şantiye çevresini markanın reklam alanına dönüştüren branda.</p></div></a>
-<a href="#teklif"><div class="clip"><img class="ph" src="/img/proje-birgen.webp" alt="Birgen İnşaat şantiye çevre brandası" loading="lazy" style="height:420px"></div><div><span class="tag">İnşaat · Büyük format</span><h3>Birgen İnşaat</h3><p>Cadde boyunca uzanan, logolu şantiye çevre brandası.</p></div></a>
-<!--/PROJELER-->
-</div>
-<p class="lead" style="margin-top:28px">AVM ve perakende, otel, hastane, inşaat, fuar ve kurumsal firmalar için üretiyoruz. <a class="link" href="/hakkimizda/">Atölyemiz ve hizmet verdiğimiz sektörler →</a></p>
+<div class="shead"><h2 class="h2">Projelerimiz ve referanslarımız</h2><p class="lead">Ürettiğimiz ve uyguladığımız işlerden seçmeler. Bir başlığa tıklayın, o işe ait fotoğrafları görün.</p></div>
+<div class="grid g3 svc prj"><!--GALERI_KARTLARI--><!--/GALERI_KARTLARI--><a href="/galeri/"><div class="clip"><img class="ph" src="/img/gercek-branda-ozakkaya.webp" alt="Tüm projelerimiz" loading="lazy"></div><div><span class="tag">Galeri</span><h3>Tüm projeler →</h3><p>Son eklenen projeler ve vaka çalışmaları.</p></div></a></div>
+<p class="note" style="margin-top:28px;font-size:14px;letter-spacing:.06em;text-transform:uppercase">Referanslarımızdan bazıları</p>
+<div class="refs" style="display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--soft);font-size:17px;margin-top:8px"><!--REFERANSLAR--><!--/REFERANSLAR--></div>
 </section>
 
 
@@ -551,6 +547,12 @@ main{counter-reset:sec}
 </div>
 </main>
 <!-- ============ TEKLİF (her sayfada) ============ -->
+<section class="wrap" id="hakkimizda-kisa" style="padding-bottom:96px"><div class="grid g2" style="align-items:start">
+<h2 class="h2">Hakkımızda</h2>
+<div><p class="lead">IstanbulPrintLab, 2012'den beri reklam ve baskı sektöründe çalışan ekibin Kadıköy Fikirtepe'deki baskı atölyesidir. Sıfır Mimaki CJV200-160B makinemizde, GREENGUARD Gold sertifikalı orijinal Mimaki mürekkeplerle basıp kesiyoruz; Türkiye'nin her yerine ve dünyaya gönderiyoruz.</p>
+<p style="margin-top:16px"><a class="link" href="/hakkimizda/">Atölyemiz ve hizmet verdiğimiz sektörler →</a></p></div>
+</div></section>
+
 <section id="teklif" class="dark" data-hide-en><div class="wrap sec grid g2">
 <div style="display:flex;flex-direction:column;gap:20px">
 <h2 class="h2" style="font-size:64px;line-height:1.02">Projenizi birlikte üretelim.</h2>
