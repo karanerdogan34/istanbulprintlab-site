@@ -230,6 +230,123 @@
           "m": "Dosyayı camın ölçüsünde hazırlayın; yazıları kontura çevirin. Görsellerde baskı ölçüsünde en az 100 PPI önerilir. PDF ve TIFF dosyaları operatörümüz tarafından kontrol edilir."
         }
       ]
+    },
+    "folyo-yazi-kesim": {
+      "ad": "Folyo Yazı Kesim ve Transfer",
+      "tur": "yazi",
+      "max_en": 124,
+      "kademeler": [
+        {
+          "ad": "Harfler 10 cm ve üzeri",
+          "min_harf": 10,
+          "m2": 1800
+        },
+        {
+          "ad": "Harfler 5–10 cm",
+          "min_harf": 5,
+          "m2": 3600
+        }
+      ],
+      "renkler": [
+        {
+          "kod": "siyah",
+          "ad": "Siyah",
+          "hex": "#111111"
+        },
+        {
+          "kod": "beyaz",
+          "ad": "Beyaz",
+          "hex": "#FFFFFF"
+        },
+        {
+          "kod": "kirmizi",
+          "ad": "Kırmızı",
+          "hex": "#C8102E"
+        },
+        {
+          "kod": "lacivert",
+          "ad": "Lacivert",
+          "hex": "#1B2A57"
+        },
+        {
+          "kod": "mavi",
+          "ad": "Mavi",
+          "hex": "#0057B8"
+        },
+        {
+          "kod": "sari",
+          "ad": "Sarı",
+          "hex": "#FFD100"
+        },
+        {
+          "kod": "yesil",
+          "ad": "Yeşil",
+          "hex": "#00843D"
+        },
+        {
+          "kod": "turuncu",
+          "ad": "Turuncu",
+          "hex": "#FF6A13"
+        },
+        {
+          "kod": "gri",
+          "ad": "Gri",
+          "hex": "#8A8D8F"
+        },
+        {
+          "kod": "diger",
+          "ad": "Diğer renk (WhatsApp'tan belirtin)",
+          "hex": "conic"
+        },
+        {
+          "kod": "gold",
+          "ad": "Gold",
+          "hex": "#C9A54C",
+          "teklif": true
+        },
+        {
+          "kod": "gumus",
+          "ad": "Gümüş",
+          "hex": "#B9BCBF",
+          "teklif": true
+        }
+      ],
+      "fontlar": [
+        "Montserrat",
+        "Roboto",
+        "Open Sans",
+        "Oswald",
+        "Bebas Neue",
+        "Anton",
+        "Poppins",
+        "Raleway",
+        "Archivo Black",
+        "Playfair Display"
+      ],
+      "aciklama": "Vitrin, cam, kapı, araç ve tabela yazıları için renkli kesim folyosundan yazı ve düz logo kesimi. Transfer bandı dahil, uygulamaya hazır teslim. Yazınızı sitede yazın ya da kesim dosyanızı yükleyin.",
+      "chips": [
+        "Transfer bandı dahil",
+        "Renkli kesim folyosu",
+        "Uygulamaya hazır"
+      ],
+      "bilgi": [
+        {
+          "b": "Transfer bandı dahil",
+          "m": "Yazılar ayıklanmış ve transfer bandına alınmış olarak teslim edilir; harfler doğru aralıkla tek seferde yüzeye uygulanır."
+        },
+        {
+          "b": "Hangi işler teklifle?",
+          "m": "5 cm'den küçük harfler, el yazısı ve ince bağlı hatlar, girift logolar, gold ve gümüş gibi özel renkler ile 124 cm'yi aşan (baskes olması gereken) işler teklifle fiyatlandırılır."
+        },
+        {
+          "b": "Logo ve amblem",
+          "m": "Düz hatlı logo ve amblemler de kesilir; en küçük parça en az 10 cm olmalıdır. Kesim dosyanızı vektörel olarak (PDF, AI, EPS, SVG veya DXF) yükleyin."
+        },
+        {
+          "b": "Ölçü nasıl alınır?",
+          "m": "Toplam genişlik, yazının en solundan en sağına; toplam yükseklik, en üstünden en altına ölçülür. Harf yüksekliği için en küçük büyük harfi ölçün."
+        }
+      ]
     }
   }
 }

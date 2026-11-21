@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>__BASLIK__ — Sipariş | IstanbulPrintLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Mono:wght@400;500&family=Jost:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto:wght@500&family=Open+Sans:wght@600&family=Oswald:wght@500&family=Bebas+Neue&family=Anton&family=Poppins:wght@600&family=Raleway:wght@600&family=Archivo+Black&family=Playfair+Display:wght@600&display=swap">
+<style>
+__CSS__
+.fonts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.fonts .opt b{font-size:20px;font-weight:inherit}
+.renkler{display:flex;flex-wrap:wrap;gap:10px}
+.sw{position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;width:86px;font-size:13px;color:var(--soft);text-align:center}
+.sw input{position:absolute;opacity:0;pointer-events:none}
+.sw i{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);display:block}
+.sw:has(input:checked) i{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--ink)}
+.sw:has(input:focus-visible) i{outline:2px solid var(--ink);outline-offset:4px}
+textarea.yazi{font:inherit;font-size:18px;width:100%;min-height:90px;border:1px solid var(--line);border-radius:8px;padding:12px 14px;resize:vertical}
+textarea.yazi:focus{outline:none;border-color:var(--ink)}
+.onz{border:1px solid var(--line);border-radius:10px;padding:14px;margin-top:14px;overflow:hidden}
+.onz canvas{width:100%;height:auto;display:block;border-radius:6px}
+.olcu{display:flex;gap:18px;flex-wrap:wrap;font-size:14px;color:var(--soft);margin-top:10px}
+.olcu b{font-family:'IBM Plex Mono',monospace;font-weight:500;color:var(--ink)}
+.f.full{grid-column:1/-1}
+</style>
+</head>
+<body>
+<div class="testbar">Test ortamı — bu sayfa henüz yayında değil. Ödeme ve dosya gönderimi kapalıdır.</div>
+<header class="site"><div class="wrap"><a class="logo" href="#">IstanbulPrintLab®</a><span class="small" style="margin:0">Kadıköy, İstanbul</span></div></header>
+
+<main class="wrap">
+ <div class="crumb"><a href="#">Ürünler</a> / __BASLIK__</div>
+ <section class="hero">
+  <h1>__BASLIK__</h1>
+  <p class="lead">__ACIKLAMA__</p>
+  <div class="chips" id="chips"></div>
+ </section>
+
+ <div class="layout">
+  <form id="f" novalidate>
+   <section class="step">
+    <h2><span class="n">01</span>Yazınızı nasıl ileteceksiniz?</h2>
+    <div class="opts">
+     <label class="opt"><input type="radio" name="mod" value="yaz" checked><b>Sitede yazacağım</b><small>Yazı, font ve harf yüksekliğini seçin</small></label>
+     <label class="opt"><input type="radio" name="mod" value="dosya"><b>Kesim dosyamı yükleyeceğim</b><small>Vektörel dosya: PDF, AI, EPS, SVG, DXF</small></label>
+    </div>
+   </section>
+
+   <section class="step" id="s-yaz">
+    <h2><span class="n">02</span>Yazı ve font</h2>
+    <label class="f full">Yazınız (her satır ayrı yazılır)<textarea class="yazi" id="metin" placeholder="ör. AHMET NAKLİYAT&#10;0532 000 00 00"></textarea></label>
+    <div class="fonts" id="fontlar" style="margin-top:14px"></div>
+    <div class="fields" style="grid-template-columns:1fr 1fr;margin-top:14px">
+     <label class="f">Büyük harf yüksekliği (cm)<input id="harfYaz" inputmode="decimal" autocomplete="off" placeholder="ör. 12"></label>
+    </div>
+    <div class="err" id="yazErr"></div>
+    <div class="onz" id="onz" style="display:none"><canvas id="cv" width="1200" height="400"></canvas>
+     <div class="olcu"><span>Toplam genişlik: <b id="oEn">—</b></span><span>Toplam yükseklik: <b id="oBoy">—</b></span><span>En küçük harf: <b id="oHarf">—</b></span></div>
+    </div>
+    <p class="hint">Ölçüler seçtiğiniz font ve harf yüksekliğine göre otomatik hesaplanır. Küçük harf kullanırsanız en küçük harf yüksekliği küçük harfe göre belirlenir.</p>
+   </section>
+
+   <section class="step" id="s-dosya" style="display:none">
+    <h2><span class="n">02</span>Kesim dosyası ve ölçü</h2>
+    <label class="drop" id="drop"><input type="file" id="dosya" accept=".pdf,.ai,.eps,.svg,.dxf"><b>Kesim dosyanızı seçin veya buraya sürükleyin</b><span class="small">PDF, AI, EPS, SVG veya DXF. Yazılar kontura çevrilmiş, vektörel olmalı.</span></label>
+    <div id="dosyaSonuc"></div>
+    <div class="fields" style="margin-top:14px">
+     <label class="f">Toplam genişlik (cm)<input id="en" inputmode="decimal" autocomplete="off" placeholder="ör. 120"></label>
+     <label class="f">Toplam yükseklik (cm)<input id="boy" inputmode="decimal" autocomplete="off" placeholder="ör. 30"></label>
+     <label class="f">En küçük harf (cm)<input id="harf" inputmode="decimal" autocomplete="off" placeholder="ör. 10"></label>
+    </div>
+    <div class="err" id="olcuErr"></div>
+    <div class="opts" style="margin-top:14px">
+     <label class="opt"><input type="radio" name="stil" value="duz" checked><b>Düz yazı / düz logo</b><small>Kalın, düz hatlar</small></label>
+     <label class="opt"><input type="radio" name="stil" value="el"><b>El yazısı / ince hatlar</b><small>Teklifle fiyatlandırılır</small></label>
+    </div>
+   </section>
+
+   <section class="step">
+    <h2><span class="n">03</span>Renk</h2>
+    <div class="renkler" id="renkler"></div>
+   </section>
+
+   <section class="step">
+    <h2><span class="n">04</span>Adet</h2>
+    <div class="fields" style="grid-template-columns:160px"><label class="f">Adet<input id="adet" inputmode="numeric" autocomplete="off" value="1"></label></div>
+    <p class="hint">Aynı yazıdan kaç tane istediğinizi girin.</p>
+   </section>
+
+   <section class="step">
+    <h2><span class="n">05</span>Onay</h2>
+    <label class="chk"><input type="checkbox" id="onay"><span>Yazının içeriğini, yazımını, ölçülerini ve rengini kontrol edip onaylıyorum. Ekran ile folyo rengi arasında minimal farklılıklar olabileceğini biliyorum.</span></label>
+   </section>
+  </form>
+
+  <aside class="sum" id="ozet" aria-live="polite">
+   <h3>Sipariş özeti</h3>
+   <div id="ozetIc"></div>
+   <button class="btn" id="devam" type="button" disabled>Ödemeye geç</button>
+   <p class="small" id="devamNot"></p>
+   <p class="small">Fiyatlara transfer bandı dahildir; uygulama (montaj) dahil değildir. __KARGO_METNI__</p>
+  </aside>
+ </div>
+</main>
+
+<section class="info"><div class="wrap grid" id="bilgi"></div></section>
+<footer><div class="wrap">IstanbulPrintLab · Kadıköy'deki atölyemizde kesim ve transfer.</div></footer>
+<div class="mbar"><div><span class="small" style="margin:0;display:block">KDV dahil</span><b id="mTop">—</b></div><a href="#ozet">Özete git ↓</a></div>
+
+<script>
+__MOTOR__
+</script>
+<script>
+(function(){
+'use strict';
+var F = __FIYATLAR__;
+var KOD = '__URUN__';
+var C = F.urunler[KOD], G = F.genel;
+var WA = 'https://wa.me/905325237364?text=';
+var $ = function(id){return document.getElementById(id);};
+var tl = function(x){return x.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})+' ₺';};
+var tl0 = function(x){return x.toLocaleString('tr-TR')+' ₺';};
+var esc = function(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
+var r1 = function(x){return Math.round(x*10)/10;};
+var sy = function(x){return (typeof x==='number'?x:IPLMotor.sayi(x)).toLocaleString('tr-TR');};
+
+$('chips').innerHTML = [{t: tl0(C.kademeler[0].m2)+' + KDV / m²', ink:true}].concat((C.chips||[]).map(function(t){return {t:t};}))
+  .map(function(c){return '<span class="chip'+(c.ink?' ink':'')+'">'+esc(c.t)+'</span>';}).join('');
+$('fontlar').innerHTML = C.fontlar.map(function(f,i){
+  return '<label class="opt"><input type="radio" name="font" value="'+esc(f)+'"'+(i===0?' checked':'')+'><b style="font-family:\''+esc(f)+'\'">Abc 123</b><small>'+esc(f)+'</small></label>';
+}).join('');
+$('renkler').innerHTML = C.renkler.map(function(r,i){
+  var bg = r.hex==='conic' ? 'conic-gradient(#C8102E,#FFD100,#00843D,#0057B8,#C8102E)' : r.hex;
+  return '<label class="sw"><input type="radio" name="renk" value="'+r.kod+'"'+(i===0?' checked':'')+'><i style="background:'+bg+'"></i>'+esc(r.ad)+(r.teklif?'<br><span style="color:var(--mute)">teklifle</span>':'')+'</label>';
+}).join('');
+$('bilgi').innerHTML = (C.bilgi||[]).map(function(b){return '<div><h3>'+esc(b.b)+'</h3><p>'+b.m+'</p></div>';}).join('');
+
+var dosya = null;
+function mod(){ return document.querySelector('input[name=mod]:checked').value; }
+function renk(){ var r=document.querySelector('input[name=renk]:checked'); return C.renkler.filter(function(x){return x.kod===r.value;})[0]; }
+
+// Sitede yazılan metnin ölçüsünü fonttan hesapla
+function olcYaz(){
+  var metin = $('metin').value.replace(/\s+$/,''), harf = IPLMotor.sayi($('harfYaz').value);
+  var font = document.querySelector('input[name=font]:checked').value;
+  if (!metin.trim() || !(harf>0)) return null;
+  var satirlar = metin.split('\n').filter(function(s){return s.trim()!=='';});
+  var cv = document.createElement('canvas').getContext('2d'), fs = 200;
+  cv.font = fs+'px "'+font+'"';
+  var cap = cv.measureText('H').actualBoundingBoxAscent, xh = cv.measureText('x').actualBoundingBoxAscent;
+  var cmPx = harf / cap, lh = fs*1.25;
+  var gen = 0, ust = 0, alt = 0;
+  satirlar.forEach(function(s,i){
+    var m = cv.measureText(s);
+    gen = Math.max(gen, m.actualBoundingBoxLeft + m.actualBoundingBoxRight);
+    if (i===0) ust = m.actualBoundingBoxAscent;
+    if (i===satirlar.length-1) alt = m.actualBoundingBoxDescent;
+  });
+  var yukPx = ust + (satirlar.length-1)*lh + alt;
+  var kucuk = /[a-zçğıöşü]/.test(metin);
+  return {en: r1(gen*cmPx), boy: r1(yukPx*cmPx), harf: r1(kucuk ? harf*xh/cap : harf), satirlar: satirlar, font: font, fs: fs, cap: cap, lh: lh};
+}
+
+function onizle(o){
+  if (!o) { $('onz').style.display='none'; return; }
+  $('onz').style.display='';
+  var cvs = $('cv'), x = cvs.getContext('2d'), rk = renk();
+  var W = 1200, pad = 40, fs = o.fs;
+  x.font = fs+'px "'+o.font+'"';
+  var gen = 0; o.satirlar.forEach(function(s){ var m=x.measureText(s); gen=Math.max(gen,m.actualBoundingBoxLeft+m.actualBoundingBoxRight); });
+  var yuk = o.cap + (o.satirlar.length-1)*o.lh + fs*0.3;
+  var sc = Math.min((W-2*pad)/gen, 1.6);
+  var H = Math.round(yuk*sc + 2*pad);
+  cvs.height = H;
+  var acik = rk.kod==='beyaz' || rk.kod==='sari' || rk.kod==='gold' || rk.kod==='gumus';
+  x.fillStyle = acik ? '#2A2826' : '#F4F3F1'; x.fillRect(0,0,W,H);
+  x.fillStyle = rk.hex==='conic' ? '#0B0B0B' : rk.hex;
+  x.font = (fs*sc)+'px "'+o.font+'"'; x.textBaseline = 'alphabetic';
+  o.satirlar.forEach(function(s,i){ x.fillText(s, pad, pad + o.cap*sc + i*o.lh*sc); });
+}
+
+function girdi(){
+  var g = {renk: renk().kod, adet: $('adet').value};
+  if (mod()==='yaz') {
+    var o = olcYaz(); g._o = o; g.stil = 'duz';
+    if (o) { g.en = o.en; g.boy = o.boy; g.harf = o.harf; } else { g.en=''; g.boy=''; g.harf=''; }
+  } else {
+    g.en = $('en').value; g.boy = $('boy').value; g.harf = $('harf').value;
+    g.stil = document.querySelector('input[name=stil]:checked').value;
+  }
+  return g;
+}
+
+function ciz(){
+  var m = mod();
+  $('s-yaz').style.display = m==='yaz' ? '' : 'none';
+  $('s-dosya').style.display = m==='dosya' ? '' : 'none';
+  var g = girdi(), r = IPLMotor.hesapla(F, KOD, g), h = '';
+  ['en','boy','harf','harfYaz','adet'].forEach(function(a){$(a).removeAttribute('aria-invalid');});
+  $('olcuErr').textContent=''; $('yazErr').textContent='';
+  if (m==='yaz') {
+    onizle(g._o);
+    if (g._o) { $('oEn').textContent=sy(g._o.en)+' cm'; $('oBoy').textContent=sy(g._o.boy)+' cm'; $('oHarf').textContent=sy(g._o.harf)+' cm'; }
+  }
+  var dolu = m==='yaz' ? !!g._o : ($('en').value+$('boy').value+$('harf').value).trim()!=='';
+  if (r.durum==='hata') {
+    if (dolu) {
+      r.hatalar.forEach(function(e){ if ($(e.alan)) $(e.alan).setAttribute('aria-invalid','true'); });
+      (m==='yaz' ? $('yazErr') : $('olcuErr')).textContent = r.hatalar.map(function(e){return e.mesaj;}).join(' ');
+    }
+    h = '<p class="small" style="margin:0">'+(m==='yaz'?'Yazınızı ve harf yüksekliğini girdiğinizde fiyat burada görünür.':'Ölçüleri girdiğinizde fiyat burada görünür.')+'</p>';
+    $('mTop').textContent='—';
+  } else if (r.durum==='teklif') {
+    var ozet = (m==='yaz' && g._o ? '"'+g._o.satirlar.join(' / ')+'", '+g._o.font+', ' : '')+g.en+' × '+g.boy+' cm, en küçük harf '+g.harf+' cm, '+renk().ad+', '+g.adet+' adet';
+    h = '<div class="msg warn" style="margin-top:0">'+esc(r.mesaj)+'</div><a class="btn ghost" href="'+WA+encodeURIComponent('Merhaba, folyo yazı kesim için teklif almak istiyorum: '+ozet+'.')+'" target="_blank" rel="noopener">WhatsApp ile teklif iste</a><p class="small">WhatsApp: +90 532 523 73 64</p>';
+    $('mTop').textContent='Teklif';
+  } else {
+    var k = r.kalemler;
+    h += '<div class="line"><span>Ölçü</span><span>'+sy(g.en)+' × '+sy(g.boy)+' cm</span></div>';
+    h += '<div class="line"><span>Renk</span><span style="font-family:inherit">'+esc(k.renk)+'</span></div>';
+    h += '<div class="line"><span>Alan</span><span>'+k.m2.toLocaleString('tr-TR')+' m²</span></div>';
+    h += '<div class="line"><span>Kesim + transfer ('+tl0(k.birimM2)+' / m²)</span><span>'+tl(k.baski)+'</span></div>';
+    if (k.asgariFarki>0) h += '<div class="line"><span>Asgari tutar farkı</span><span>'+tl(k.asgariFarki)+'</span></div>';
+    h += '<div class="line total"><span>Ara toplam (KDV hariç)</span><span>'+tl(r.araToplam)+'</span></div>';
+    h += '<div class="line"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
+    h += '<div class="line big"><span>Toplam</span><span>'+tl(r.toplam)+'</span></div>';
+    h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+(r.kargoUcretsiz?'Ücretsiz':'Alıcı ödemeli')+'</span></div>';
+    h += '<p class="small">'+esc(k.kademe)+' fiyatı uygulandı. Alan, yazının toplam genişliği × yüksekliği üzerinden hesaplanır.'+(k.asgariFarki>0?' Asgari sipariş tutarı '+tl0(G.asgari_baski)+' + KDV\'dir.':'')+'</p>';
+    $('mTop').textContent = tl(r.toplam);
+  }
+  $('ozetIc').innerHTML = h;
+  if (m==='dosya') $('dosyaSonuc').innerHTML = dosya ? '<div class="msg warn">'+esc(dosya)+' alındı. Kesim dosyaları operatörümüz tarafından kontrol edilir; ölçü ve harf yüksekliği dosyayla uyuşmazsa sizinle iletişime geçilir.</div>' : '';
+  var hazir = r.durum==='tamam' && (m==='yaz' || dosya) && $('onay').checked;
+  $('devam').disabled = !hazir;
+  $('devam').style.display = r.durum==='teklif' ? 'none' : '';
+  $('devamNot').style.display = r.durum==='teklif' ? 'none' : '';
+  $('devamNot').textContent = hazir ? 'Yazınız ve seçimleriniz siparişe sabitlenir.' : (r.durum!=='tamam' ? (m==='yaz'?'Yazınızı ve harf yüksekliğini girin.':'Ölçüleri girin.') : (m==='dosya' && !dosya ? 'Kesim dosyanızı yükleyin.' : 'Onay kutusunu işaretleyin.'));
+}
+
+function dosyaAl(file){
+  if (!file) return;
+  var uz = (file.name.split('.').pop()||'').toLowerCase();
+  if (['pdf','ai','eps','svg','dxf'].indexOf(uz)<0) { $('dosyaSonuc').innerHTML='<div class="msg bad">Bu dosya türü kabul edilmiyor. Vektörel dosya yükleyin: PDF, AI, EPS, SVG veya DXF.</div>'; return; }
+  dosya = file.name; ciz();
+}
+$('f').addEventListener('input', ciz);
+$('f').addEventListener('change', ciz);
+$('dosya').addEventListener('change', function(e){ dosyaAl(e.target.files[0]); });
+var drop=$('drop');
+['dragenter','dragover'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.add('on');});});
+['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('on');});});
+drop.addEventListener('drop', function(e){ dosyaAl(e.dataTransfer.files[0]); });
+$('devam').addEventListener('click', function(){ $('devamNot').textContent='Test ortamı: ödeme adımı henüz bağlı değil.'; });
+if (document.fonts && document.fonts.ready) {
+  Promise.all(C.fontlar.map(function(f){ return document.fonts.load('200px "'+f+'"'); })).then(ciz, ciz);
+}
+ciz();
+})();
+</script>
+</body>
+</html>

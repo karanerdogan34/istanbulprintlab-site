@@ -93,11 +93,45 @@
     return r;
   }
 
+  // Folyo yazı kesim ve transfer: m² × harf yüksekliği kademesi
+  function yaziHesapla(cfg, genel, g) {
+    var hatalar = [];
+    var en = sayi(g.en), boy = sayi(g.boy), adet = sayi(g.adet), harf = sayi(g.harf);
+    if (!(en > 0)) hatalar.push({alan: 'en', mesaj: 'Yazının toplam genişliğini santimetre olarak girin.'});
+    if (!(boy > 0)) hatalar.push({alan: 'boy', mesaj: 'Yazının toplam yüksekliğini santimetre olarak girin.'});
+    if (!(harf > 0)) hatalar.push({alan: 'harf', mesaj: 'En küçük harfin yüksekliğini santimetre olarak girin.'});
+    if (!(adet >= 1) || Math.floor(adet) !== adet) hatalar.push({alan: 'adet', mesaj: 'Adet 1 veya daha büyük bir tam sayı olmalı.'});
+    var renk = null;
+    for (var i = 0; i < cfg.renkler.length; i++) if (cfg.renkler[i].kod === g.renk) renk = cfg.renkler[i];
+    if (!renk) hatalar.push({alan: 'renk', mesaj: 'Renk seçin.'});
+    if (hatalar.length) return {durum: 'hata', hatalar: hatalar};
+    if (harf > boy) return {durum: 'hata', hatalar: [{alan: 'harf', mesaj: 'Harf yüksekliği yazının toplam yüksekliğinden büyük olamaz.'}]};
+    if (renk.teklif) return {durum: 'teklif', mesaj: renk.ad + ' kesim folyosu standart fiyatlandırmanın dışındadır. Bu iş için teklif alın.', uyarilar: []};
+    if (g.stil === 'el') return {durum: 'teklif', mesaj: 'El yazısı, ince ve birbirine bağlı hatlar ile girift logolar ayrıca fiyatlandırılır. Bu iş için teklif alın.', uyarilar: []};
+    var kisa = Math.min(en, boy), uzun = Math.max(en, boy);
+    if (kisa > cfg.max_en) return {durum: 'teklif', mesaj: cfg.max_en + ' cm\'yi aşan işler renkli kesim folyosuyla tek parça üretilemez; bu iş baskes (baskı + kesim) olmak zorundadır. Bu iş için teklif alın.', uyarilar: []};
+    if (uzun > genel.tek_parca_max_boy) return {durum: 'teklif', mesaj: 'Tek parça en fazla ' + (genel.tek_parca_max_boy / 100) + ' metre üretilir. Daha uzun işler için teklif alın.', uyarilar: []};
+    var kademe = null;
+    for (var k = 0; k < cfg.kademeler.length; k++) if (harf >= cfg.kademeler[k].min_harf) { kademe = cfg.kademeler[k]; break; }
+    if (!kademe) return {durum: 'teklif', mesaj: cfg.kademeler[cfg.kademeler.length - 1].min_harf + ' cm\'den küçük harfler standart fiyatlandırmanın dışındadır. Bu iş için teklif alın.', uyarilar: []};
+    var m2 = en * boy / 10000 * adet;
+    var baski = m2 * kademe.m2;
+    var tamamlama = baski < genel.asgari_baski ? genel.asgari_baski - baski : 0;
+    var araToplam = baski + tamamlama, kdv = araToplam * genel.kdv_orani;
+    return {
+      durum: 'tamam', uyarilar: [],
+      kalemler: {m2: yuvarla(m2), birimM2: kademe.m2, kademe: kademe.ad, baski: yuvarla(baski), asgariFarki: yuvarla(tamamlama), laminasyon: 0, kusgozu: 0, renk: renk.ad},
+      araToplam: yuvarla(araToplam), kdv: yuvarla(kdv), toplam: yuvarla(araToplam + kdv),
+      kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik, kargoAyrica: false
+    };
+  }
+
   function hesapla(fiyatlar, urunKod, girdi) {
     var cfg = fiyatlar.urunler[urunKod];
     if (!cfg) return {durum: 'hata', hatalar: [{alan: 'urun', mesaj: 'Ürün bulunamadı.'}]};
     if (cfg.tur === 'rulo' && cfg.kesim) return kesimHesapla(cfg, fiyatlar.genel, girdi);
     if (cfg.tur === 'rulo') return ruloHesapla(cfg, fiyatlar.genel, girdi);
+    if (cfg.tur === 'yazi') return yaziHesapla(cfg, fiyatlar.genel, girdi);
     return {durum: 'hata', hatalar: [{alan: 'urun', mesaj: 'Bu ürün türü henüz tanımlı değil.'}]};
   }
 
