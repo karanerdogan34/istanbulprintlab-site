@@ -215,6 +215,11 @@ def ic_baglanti_kontrol():
 def main():
     shutil.rmtree(DIST, ignore_errors=True)
     shutil.copytree('site', DIST)
+    # web-to-print sipariş sayfaları (siparis/): /siparis/<ürün>/ altına derlenir, ürün sayfalarına çerçeveyle gömülür
+    import subprocess
+    r = subprocess.run([sys.executable, os.path.join('siparis', 'build.py')], env=dict(os.environ, YAYIN='1', CIKTI=os.path.abspath(os.path.join(DIST, 'siparis'))), capture_output=True, text=True)
+    if r.returncode != 0:
+        raise S.IcerikHatasi('Sipariş sayfaları derlenemedi: %s' % (r.stderr.strip().splitlines() or ['bilinmeyen hata'])[-1])
     # ürün sayfaları
     for f in glob.glob('content/sayfalar/*.json'):
         d = js(f)
@@ -239,12 +244,13 @@ def main():
     for kok, _, dosyalar in os.walk(DIST):
         if kok.startswith(os.path.join(DIST, 'admin')) or kok.startswith(os.path.join(DIST, 'yonetim')):
             continue
+        siparis = kok.startswith(os.path.join(DIST, 'siparis'))
         for f in dosyalar:
             if not f.endswith('.html'):
                 continue
             yol = os.path.join(kok, f)
             s = oku(yol)
-            s2 = fiyat_isle(s, P, yol)
+            s2 = s if siparis else fiyat_isle(s, P, yol)  # sipariş sayfaları fiyatlarını kendi fiyat dosyasından alır
             for a, b in cift:
                 s2 = s2.replace(a, b)
             s2 = cerez_ekle(s2)

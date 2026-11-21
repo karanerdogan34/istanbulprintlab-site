@@ -407,7 +407,7 @@ main{counter-reset:sec}
 <!-- ============ PDP: Baskılı folyo ============ -->
 <div class="view" data-view="folyo-baski" data-en="en-printed-vinyl">
 <div class="wrap crumbs"><a href="/">Ana sayfa</a> / <a href="/#hizmetler">Baskı hizmetleri</a> / Baskılı folyo</div>
-<section class="wrap pdp">
+<section class="wrap pdp" data-siparisli>
 <div>
 <div class="crop"><i class="cm" aria-hidden="true"></i><img class="gal-main ph" src="/img/gercek-folyo-olivium.webp" alt="Olivium AVM: kartonet üzerine vinil baskı ve montaj" loading="lazy"></div>
 <div class="thumbs" role="group" aria-label="Gerçek işlerimizden">
@@ -425,42 +425,19 @@ main{counter-reset:sec}
 </ul>
 </div>
 </div>
-<form class="conf mcalc" data-price="{{folyo:ham}}" data-name="Baskılı folyo" data-mina="1" novalidate>
+<div class="conf">
 <div><span class="tag">Folyo ve cam</span>
 <h1 style="margin-top:8px">Baskılı folyo</h1>
 <p class="lead" style="margin-top:10px">Duvar, vitrin, kapı ve düz yüzeyler için baskılı yapışkanlı folyo.</p></div>
-<div class="cgroup"><b>Laminasyon</b><div class="opts" role="radiogroup">
-<label class="opt"><input type="radio" name="var" value="laminasyonsuz" data-p="{{folyo:ham}}" checked><span>Laminasyonsuz · {{folyo+kdv}} ₺/m² KDV dahil · {{folyo}} ₺ + KDV</span></label>
-<label class="opt"><input type="radio" name="var" value="laminasyonlu" data-p="{{folyo_lam:ham}}"><span>Laminasyonlu · {{folyo_lam+kdv}} ₺/m² KDV dahil · {{folyo_lam}} ₺ + KDV</span></label>
-</div></div>
-<div class="cgroup"><b>Ölçü ve adet</b>
-<div class="dims">
-<label class="f">Genişlik (cm)<input class="inp" name="w" type="number" inputmode="decimal" min="1" step="1" value="200"></label>
-<label class="f">Yükseklik (cm)<input class="inp" name="h" type="number" inputmode="decimal" min="1" step="1" value="100"></label>
-<label class="f">Adet<input class="inp" name="q" type="number" inputmode="numeric" min="1" step="1" value="1"></label>
-</div>
-<p class="note mErr" role="alert" style="color:var(--bad)"></p>
-</div>
-<div class="sum" aria-live="polite">
-<div class="line"><span>Hesaplanan alan</span><span class="mArea">—</span></div>
-<div class="line"><span>Birim fiyat</span><span class="mRate">—</span></div>
-<div class="line"><span>Ara toplam <small class="muted">KDV hariç</small></span><span class="mNet">—</span></div>
-<div class="line" style="align-items:baseline;border-top:1px solid var(--line);padding-top:10px;margin-top:4px"><span>Toplam <small class="muted">KDV dahil · ön fiyat</small></span><span class="total mTotal">—</span></div>
-<div class="line"><span>Kargo</span><span class="mShip">—</span></div>
-<div class="line"><span>Tasarım ve montaj</span><span>Teklifle fiyatlandırılır</span></div>
-<p class="note mWarn" role="status" style="color:var(--bad)"></p>
-</div>
+<style>.pdp[data-siparisli]{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr)}@media (max-width:900px){.pdp[data-siparisli]{grid-template-columns:1fr}}.sp-cerceve{margin-top:22px}.sp-cerceve iframe{width:100%;border:0;display:block;height:900px;background:transparent}</style>
+<div class="sp-cerceve"><iframe data-sp src="/siparis/folyo-baski/?gomulu=1" title="Fiyat hesapla ve sipariş ver"></iframe><noscript><p><a class="btn" href="/siparis/folyo-baski/">Fiyat hesapla ve sipariş ver</a></p></noscript></div>
 <table class="spec"><tbody>
 <tr><th scope="row">Malzeme</th><td>Baskılı yapışkanlı folyo</td></tr>
 <tr><th scope="row">Baskı</th><td>Mimaki CJV200-160B · Mimaki CS250 mürekkep</td></tr>
 <tr><th scope="row">Kullanım</th><td>Düz ve temiz yüzeylere uygulanır.</td></tr>
 <tr><th scope="row">Montaj</th><td>İstanbul içinde kendi ekibimizle yerinde montaj; diğer şehirlere ölçüsünde üretip kargoluyoruz.</td></tr>
 </tbody></table>
-<div class="row"><a class="btn" href="#teklif" style="flex:1">Bu ölçüyle teklif al</a><a class="btn ghost mWa" href="https://wa.me/905325237364">WhatsApp ile sor</a></div>
-<p class="note">Oracal folyo: mat, parlak, şeffaf mat ve şeffaf parlak. Asgari 1 m²; 1 m² altındaki işler 1 m² üzerinden hesaplanır. Kontur kesim ve uygulama (montaj) teklifle belirlenir.</p>
-<p class="note">Hesaplanan tutar ön fiyattır; bu form kesin sipariş değil, teklif talebidir. Dosyanızı kontrol ettikten sonra kesin fiyatı ve onayı biz iletiriz; onayınız ve ödemenizden sonra üretim başlar. Fiyatlara tasarım, montaj ve kargo dahil değildir; tasarım ve montaj hizmetimiz yalnızca teklif yoluyla fiyatlandırılır. Kargo ücreti alıcıya aittir ({{kargo_esik}} ₺ + KDV üzeri siparişlerde kargo bizden; roll-up, foreks ve fotoblok hariç); dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz. Teklifler 7 gün geçerlidir.</p>
-<p class="note">Sıfır Mimaki CJV200-160B makinemizde orijinal Mimaki mürekkep, Oracal ve Avrupa ithal malzemeyle basıyoruz: doğru renk, keskin baskı ve uzun ömür. Piyasadaki eski makine ve muadil mürekkeple yapılan baskılarla aynı iş değildir.</p>
-</form>
+</div>
 </section>
 <section class="wrap" style="padding-bottom:96px;max-width:900px"><h2 class="h2" style="margin-bottom:24px">Baskılı folyo hakkında</h2><details><summary>Hangi yüzeylere uygulanır?<span class="plus" aria-hidden="true">+</span></summary><p>Duvar, kapı, vitrin, dolap ve düz, temiz yüzeylere. Pürüzlü, tozlu veya yeni boyanmış yüzeylerde yapışma zayıf olabilir; uygulama yerini bize yazın.</p></details><details><summary>Mat mı parlak mı seçmeliyim?<span class="plus" aria-hidden="true">+</span></summary><p>Parlak folyo renkleri daha canlı gösterir. Mat folyo ışığı yansıtmaz; ışıklı mekanlarda ve fotoğraf çekilen alanlarda daha rahat okunur.</p></details><details><summary>Şekilli kesim yapılabilir mi?<span class="plus" aria-hidden="true">+</span></summary><p>Evet. Baskı ve kontur kesim aynı makinede yapılır; logo veya figür şeklinde kesebiliriz. Küçük ölçülü işler için <a href="/sticker-baski/">sticker baskı</a> sayfasına bakın.</p></details><details><summary>Montaj yapıyor musunuz?<span class="plus" aria-hidden="true">+</span></summary><p>İstanbul içinde kendi ekibimizle yerinde montaj; diğer şehirlere ölçüsünde üretip kargoluyoruz.</p></details></section>
 </div>
@@ -595,160 +572,6 @@ tabs.forEach(function(t,i){
 });
 function sel(i){tabs.forEach(function(t,j){t.setAttribute('aria-selected',String(i===j));t.tabIndex=i===j?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=i!==j})}
 
-// price calculator (fiyatlar KDV hariç; KDV ayrıca eklenir)
-var PRICE={{sticker:ham}},KDV=0.2,MINNET={{asgari:ham}},FREESHIP={{kargo_esik:ham}},ROLL=130,ROLLMAX=152,GAP=0.4;
-// Yerleşim: fiyat 130 cm rulo üzerinden; 130 cm'ye sığmayan (152 cm'ye kadar) işler 130 cm rulo üzerinden
-function layout(w,h,q){var R,ww,hh,rot;
-  if(w<=ROLL){R=ROLL;ww=w;hh=h;rot=false}else if(h<=ROLL){R=ROLL;ww=h;hh=w;rot=true}
-  else if(Math.min(w,h)<=ROLLMAX){R=ROLLMAX;rot=h<w;ww=Math.min(w,h);hh=Math.max(w,h)}else return null;
-  var per=Math.max(1,Math.floor((R+GAP)/(ww+GAP))),rows=Math.ceil(q/per);return {R:R,ww:ww,hh:hh,per:per,rows:rows,len:rows*(hh+GAP),rot:rot}}
-var fmt=function(n){return n.toLocaleString('tr-TR',{maximumFractionDigits:0})+' ₺'};
-var pvImg=null;
-function animTotal(el,to){var from=+el.dataset.v||0,id=el.__a=(el.__a||0)+1;el.dataset.v=to;if(reduce||!from||from===to){el.textContent=fmt(to);return}
-  el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');var t0=performance.now();
-  (function step(t){if(el.__a!==id)return;var k=Math.min(1,(t-t0)/450),e=1-Math.pow(1-k,3);el.textContent=fmt(Math.round(from+(to-from)*e));if(k<1)requestAnimationFrame(step)})(t0)}
-function clr(){['#sLay','#sArea','#sUnit','#sTotal','#sShip','#sNet','#sRate'].forEach(function(k){var e=$(k);if(e)e.textContent='—'});$('#sTotal').dataset.v=0;var sw=$('#sWarn');if(sw)sw.textContent=''}
-function calc(){
-  var w=+$('#cW').value,h=+$('#cH').value,q=Math.round(+$('#cQ').value),err=$('#cErr');
-  err.textContent='';
-  if(!(w>0&&h>0&&q>0)){err.textContent='Genişlik, yükseklik ve adet girin.';clr();draw(null);return null}
-  var best=layout(w,h,q);if(best){best.q=q;best.w=w;best.h=h}
-  if(!best){err.textContent='Tek parça en fazla 152 cm genişlikte olabilir. Daha büyük işler için teklif alın.';clr();draw(null);return null}
-  var f=FD($('#calc')),lam=f.get('lam')||'yok',cut=f.get('cut'),rate=PRICE*(lam==='yok'?1:2);
-  var area=Math.ceil(best.R*best.len/10000*100)/100,net=Math.ceil(area*rate),minUsed=net<MINNET;if(minUsed)net=MINNET;
-  var total=Math.round(net*(1+KDV));
-  $('#sLay').textContent=best.per+' adet/sıra · '+best.rows+' sıra'+(best.rot?' · döndürülmüş':'');
-  $('#sArea').textContent=area.toLocaleString('tr-TR')+' m²';
-  var sr=$('#sRate');if(sr)sr.textContent=fmt(Math.round(rate*(1+KDV)))+' / m² · '+fmt(rate)+' + KDV';
-  $('#sUnit').textContent=(net/q).toLocaleString('tr-TR',{maximumFractionDigits:2})+' ₺ + KDV';
-  var sn=$('#sNet');if(sn)sn.textContent=fmt(net)+' + KDV';
-  animTotal($('#sTotal'),total);
-  $('#sShip').textContent=net>=FREESHIP?'Ücretsiz ({{kargo_esik}} ₺ + KDV üzeri)':'Alıcıya ait · atölyeden teslim alınabilir';
-  var wn=[];if(minUsed)wn.push('Asgari sipariş tutarı {{asgari}} ₺ + KDV uygulandı.');
-  if(Math.min(w,h)<4||cut==='kontur'||q>250)wn.push('Bu iş için kesin fiyat dosya kontrolünden sonra teklifle belirlenir (4 cm altı kesim detayı, kontur kesim veya 250 adetten fazla parça).');
-  var sw=$('#sWarn');if(sw)sw.textContent=wn.join(' ');
-  $('#waLink').href='https://wa.me/905325237364?text='+encodeURIComponent('Merhaba, sticker baskı için teklif almak istiyorum: '+w+'×'+h+' cm, '+q+' adet, '+f.get('mat')+', laminasyon: '+lam+', '+f.get('cut')+' kesim. Ön fiyat: '+fmt(net)+' + KDV');
-  draw(best);
-  return {w:w,h:h,q:q,total:total,net:net,lam:lam};
-}
-var CUTN={kontur:'kontur kesim',dikdortgen:'kare/dikdörtgen kesim',daire:'daire/oval/elips kesim'};
-function shape(x,c,X,Y,W,H){x.beginPath();
-  if(c==='daire'){x.ellipse(X+W/2,Y+H/2,W/2,H/2,0,0,Math.PI*2)}
-  else{var r=c==='kontur'?Math.min(W,H)*.18:Math.min(W,H)*.02;x.moveTo(X+r,Y);x.arcTo(X+W,Y,X+W,Y+H,r);x.arcTo(X+W,Y+H,X,Y+H,r);x.arcTo(X,Y+H,X,Y,r);x.arcTo(X,Y,X+W,Y,r);x.closePath()}}
-function draw(b){
-  var cv=$('#pvCut'),lv=$('#pvLay');if(!cv||!cv.getContext)return;
-  var x=cv.getContext('2d'),y=lv.getContext('2d');x.clearRect(0,0,cv.width,cv.height);y.clearRect(0,0,lv.width,lv.height);
-  if(!b){$('#pvDim').textContent='';$('#pvRoll').textContent='';return}
-  var cut=FD($('#calc')).get('cut'),mat=FD($('#calc')).get('mat');
-  var mw=cv.width-140,mh=cv.height-100,k=Math.min(mw/b.w,mh/b.h),W=b.w*k,H=b.h*k,X=(cv.width-W)/2+10,Y=(cv.height-H)/2+8;
-  x.save();shape(x,cut,X,Y,W,H);x.clip();
-  if(pvImg){var ir=pvImg.naturalWidth/pvImg.naturalHeight,dw=W,dh=W/ir;if(dh<H){dh=H;dw=H*ir}x.drawImage(pvImg,X+(W-dw)/2,Y+(H-dh)/2,dw,dh)}
-  else{x.fillStyle=String(mat).indexOf('seffaf')===0?'rgba(255,255,255,.55)':'#fff';x.fillRect(X,Y,W,H);x.strokeStyle='#E4E2DE';x.lineWidth=1;for(var t=-H;t<W;t+=14){x.beginPath();x.moveTo(X+t,Y+H);x.lineTo(X+t+H,Y);x.stroke()}
-    x.fillStyle='#5E5B57';x.font='500 15px Jost,sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('Tasarımınız',X+W/2,Y+H/2)}
-  x.restore();
-  x.save();x.setLineDash([7,5]);x.strokeStyle='#E5007E';x.lineWidth=1.6;shape(x,cut,X-5,Y-5,W+10,H+10);x.stroke();x.restore();
-  x.strokeStyle='#5E5B57';x.fillStyle='#5E5B57';x.lineWidth=1;x.font='500 12px "IBM Plex Mono",monospace';x.textAlign='center';x.textBaseline='alphabetic';
-  x.beginPath();x.moveTo(X-5,Y-20);x.lineTo(X+W+5,Y-20);x.moveTo(X-5,Y-25);x.lineTo(X-5,Y-15);x.moveTo(X+W+5,Y-25);x.lineTo(X+W+5,Y-15);x.stroke();
-  x.fillText(String(b.w).replace('.',',')+' cm',X+W/2,Y-27);
-  x.beginPath();x.moveTo(X-20,Y-5);x.lineTo(X-20,Y+H+5);x.moveTo(X-25,Y-5);x.lineTo(X-15,Y-5);x.moveTo(X-25,Y+H+5);x.lineTo(X-15,Y+H+5);x.stroke();
-  x.save();x.translate(X-27,Y+H/2);x.rotate(-Math.PI/2);x.fillText(String(b.h).replace('.',',')+' cm',0,0);x.restore();
-  $('#pvDim').textContent=String(b.w).replace('.',',')+' × '+String(b.h).replace('.',',')+' cm · '+CUTN[cut];
-  // roll
-  var L=46,T=14,RH=lv.height-44,s=RH/b.R,VW=lv.width-L-10,vis=Math.min(b.len,VW/s);
-  y.fillStyle='#ECEAE6';y.fillRect(L,T,VW,RH);y.fillStyle='#D9D6D1';y.fillRect(L,T,vis*s,RH);
-  y.fillStyle='#fff';var n=0,cap=4000;
-  for(var r=0;r<b.rows&&n<b.q&&n<cap;r++){var px=L+(r*(b.hh+GAP)+GAP/2)*s;if(px>L+VW)break;
-    for(var c=0;c<b.per&&n<b.q;c++,n++){var py=T+(c*(b.ww+GAP)+GAP/2)*s;y.fillRect(px,py,Math.max(1,b.hh*s),Math.max(1,b.ww*s))}}
-  if(b.len*s>VW){var g=y.createLinearGradient(L+VW-60,0,L+VW,0);g.addColorStop(0,'rgba(255,255,255,0)');g.addColorStop(1,'#F4F3F1');y.fillStyle=g;y.fillRect(L+VW-60,T,60,RH)}
-  y.strokeStyle='#5E5B57';y.fillStyle='#5E5B57';y.lineWidth=1;y.beginPath();y.moveTo(L-14,T);y.lineTo(L-14,T+RH);y.moveTo(L-19,T);y.lineTo(L-9,T);y.moveTo(L-19,T+RH);y.lineTo(L-9,T+RH);y.stroke();
-  y.save();y.translate(L-20,T+RH/2);y.rotate(-Math.PI/2);y.font='500 12px "IBM Plex Mono",monospace';y.textAlign='center';y.fillText(b.R+' cm',0,0);y.restore();
-  y.font='500 12px "IBM Plex Mono",monospace';y.textAlign='left';y.fillText(b.len*s>VW?'ilk '+Math.round(vis)+' cm gösteriliyor →':'',L,lv.height-10);
-  $('#pvRoll').textContent='Rulo uzunluğu ≈ '+(b.len/100).toLocaleString('tr-TR',{maximumFractionDigits:2})+' m';
-}
-['#cW','#cH','#cQ'].forEach(function(s){$(s).addEventListener('input',function(){calc();if(lastFile)check(lastFile)})});
-$('#calc').addEventListener('change',calc);
-$$('[data-q]').forEach(function(b){b.addEventListener('click',function(){$('#cQ').value=b.dataset.q;calc();if(lastFile)check(lastFile)})});
-calc();
-
-// preflight
-var lastFile=null,drop=$('#drop'),fin=$('#file');
-drop.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();fin.click()}});
-['dragenter','dragover'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.add('over')})});
-['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('over')})});
-drop.addEventListener('drop',function(e){if(e.dataTransfer.files[0]){check(e.dataTransfer.files[0]);try{ev('file_upload',{form_name:'sticker-siparis'})}catch(x){}}});
-fin.addEventListener('change',function(){if(fin.files[0])check(fin.files[0])});
-function li(cls,txt){var l=document.createElement('li');l.className=cls;var d=document.createElement('span');d.className='dot';d.textContent=cls==='ok'?'✓':(cls==='warn'?'!':'×');var s=document.createElement('span');s.textContent=txt;l.append(d,s);return l}
-function render(name,items){
-  var box=$('#pre');box.innerHTML='';
-  var st=items.some(function(i){return i[0]==='bad'})?'bad':(items.some(function(i){return i[0]==='warn'})?'warn':'ok');
-  var T={ok:'Baskıya uygun',warn:'İnceleme gerekli',bad:'Düzeltme gerekli'},K={ok:'Uygun',warn:'İnceleme gerekli',bad:'Düzeltme gerekli'},O={bad:0,warn:1,ok:2};
-  var pf=document.createElement('div');pf.className='pf';
-  var top=document.createElement('div');top.className='top s-'+st;var tt=document.createElement('span');tt.textContent='Dosya kontrolü: '+T[st];var sm=document.createElement('small');sm.textContent=name;top.append(tt,sm);
-  var ul=document.createElement('ul');
-  items.slice().sort(function(a,b){return O[a[0]]-O[b[0]]}).forEach(function(i){var l=document.createElement('li');l.className=i[0];var d=document.createElement('span');d.className='dot';d.textContent=i[0]==='ok'?'✓':(i[0]==='warn'?'!':'×');var t=document.createElement('div');var k=document.createElement('span');k.className='k';k.textContent=K[i[0]];var tx=document.createElement('span');tx.textContent=i[1];t.append(k,tx);l.append(d,t);ul.appendChild(l)});
-  var n=document.createElement('div');n.className='foot';n.textContent='Otomatik kontrol ön değerlendirmedir; ekibimiz dosyanızı üretimden önce ayrıca kontrol eder ve dijital prova gönderir.';
-  pf.append(top,ul,n);box.appendChild(pf);
-}
-function check(file){
-  lastFile=file;pvImg=null;
-  var c=calc()||{w:+$('#cW').value,h:+$('#cH').value};
-  var ext=(file.name.split('.').pop()||'').toLowerCase(),items=[];
-  var okExt=['pdf','ai','eps','svg','png','jpg','jpeg','tif','tiff'];
-  if(okExt.indexOf(ext)<0){render(file.name,[['bad','Bu dosya türü kabul edilmiyor. PDF, AI, EPS, SVG, PNG, JPG veya TIFF yükleyin.']]);return}
-  items.push(['ok','Dosya türü uygun ('+ext.toUpperCase()+')']);
-  var mb=file.size/1048576;
-  if(mb>100){items.push(['bad','Dosya '+mb.toFixed(1)+' MB; sınır 100 MB. Daha küçük kaydedin veya e-postayla gönderin.']);render(file.name,items);return}
-  items.push(['ok','Boyut '+(mb<1?Math.round(file.size/1024)+' KB':mb.toFixed(1)+' MB')]);
-  if(['png','jpg','jpeg'].indexOf(ext)>=0){
-    var img=new Image(),u=URL.createObjectURL(file);
-    img.onload=function(){
-      var dpi=Math.min(img.naturalWidth/(c.w/2.54),img.naturalHeight/(c.h/2.54));
-      if(dpi>=150)items.push(['ok','Çözünürlük '+img.naturalWidth+'×'+img.naturalHeight+' px → seçtiğiniz ölçüde yaklaşık '+Math.round(dpi)+' dpi']);
-      else if(dpi>=100)items.push(['warn','Seçtiğiniz ölçüde yaklaşık '+Math.round(dpi)+' dpi. Baskı kabul edilebilir ama yakından bakınca yumuşak görünebilir; 150 dpi önerilir.']);
-      else items.push(['bad','Seçtiğiniz ölçüde yalnızca '+Math.round(dpi)+' dpi. Baskıda bulanık çıkar; daha büyük bir görsel veya vektör dosya yükleyin.']);
-      var ar=img.naturalWidth/img.naturalHeight,cr=c.w/c.h;
-      if(Math.abs(ar-cr)/cr>0.03)items.push(['warn','Görselin oranı ('+ar.toFixed(2)+') seçtiğiniz ölçü oranından ('+cr.toFixed(2)+') farklı; kenarlardan kırpma veya boşluk olabilir.']);
-      else items.push(['ok','Görsel oranı seçtiğiniz ölçüye uyuyor']);
-      items.push(['warn','Piksel görselde kontur kesim çizgisi yoktur; kontur kesim için vektör kesim çizgisi gerekir. Yoksa ekibimiz sizinle iletişime geçer.']);
-      pvImg=img;calc();render(file.name,items);
-    };
-    img.onerror=function(){items.push(['bad','Görsel açılamadı; dosya bozuk olabilir.']);render(file.name,items)};
-    img.src=u;return;
-  }
-  if(ext==='svg'){
-    var si=new Image();si.onload=function(){pvImg=si;calc()};si.src=URL.createObjectURL(file);
-    file.text().then(function(t){
-      var d=new DOMParser().parseFromString(t,'image/svg+xml');
-      var tx=d.querySelectorAll('text').length;
-      items.push(tx?['bad',tx+' adet yazı nesnesi eğriye çevrilmemiş. Yazıları outline yapın; aksi hâlde küçük ve bozuk basılabilir.']:['ok','Yazılar eğriye çevrilmiş']);
-      var pts=0;d.querySelectorAll('path').forEach(function(p){pts+=((p.getAttribute('d')||'').match(/[0-9.]+[ ,]+-?[0-9.]+/g)||[]).length});
-      items.push(pts>20000?['warn','Çizimde yaklaşık '+pts.toLocaleString('tr-TR')+' nokta var. Kesim çizgisini sadeleştirin; çok noktalı hatlar kesimi yavaşlatır.']:['ok','Vektör nokta sayısı makul ('+pts.toLocaleString('tr-TR')+')']);
-      var im=d.querySelectorAll('image').length;if(im)items.push(['warn',im+' gömülü piksel görsel var; gerçek ölçüde en az 150 dpi olduğundan emin olun.']);
-      var vb=(d.documentElement.getAttribute('viewBox')||'').split(/[ ,]+/).map(Number),wA=d.documentElement.getAttribute('width')||'';
-      if(/mm|cm/.test(wA)){var wm=parseFloat(wA)*(/cm/.test(wA)?10:1);items.push(Math.abs(wm-c.w*10)<=c.w*10*0.05+3?['ok','Belge genişliği ('+Math.round(wm)+' mm) seçtiğiniz ölçüye uyuyor']:['warn','Belge genişliği '+Math.round(wm)+' mm; seçtiğiniz ölçü '+(c.w*10)+' mm. Ölçeklendirilerek basılır.'])}
-      render(file.name,items);
-    });return;
-  }
-  if(ext==='pdf'||ext==='ai'){
-    file.slice(0,Math.min(file.size,8*1048576)).arrayBuffer().then(function(buf){
-      var s=new TextDecoder('latin1').decode(new Uint8Array(buf));
-      if(ext==='pdf'&&s.slice(0,5)!=='%PDF-'){items.push(['bad','Dosya geçerli bir PDF değil.']);render(file.name,items);return}
-      var fonts=(s.match(/\/Type\s*\/Font\b/g)||[]).length;
-      items.push(fonts?['warn','Dosyada '+fonts+' yazı tipi tanımı var. Yazıları eğriye çevirmeniz en güvenlisi.']:['ok','Gömülü yazı tipi bulunmadı; yazılar eğriye çevrilmiş görünüyor']);
-      var m=s.match(/\/(TrimBox|MediaBox)\s*\[\s*([-\d.]+)\s+([-\d.]+)\s+([-\d.]+)\s+([-\d.]+)\s*\]/);
-      if(m){var wmm=(m[4]-m[2])*25.4/72,hmm=(m[5]-m[3])*25.4/72,tw=c.w*10,th=c.h*10;
-        var fit=(Math.abs(wmm-tw)<=8&&Math.abs(hmm-th)<=8)||(Math.abs(wmm-th)<=8&&Math.abs(hmm-tw)<=8);
-        items.push(fit?['ok','Sayfa ölçüsü '+Math.round(wmm)+'×'+Math.round(hmm)+' mm; seçtiğiniz ölçüye uyuyor']:['warn','Sayfa ölçüsü '+Math.round(wmm)+'×'+Math.round(hmm)+' mm; seçtiğiniz ölçü '+tw+'×'+th+' mm. Tek tasarımsa ölçüyü kontrol edin.'])}
-      if(/\/DeviceRGB|\/ICCBased/.test(s)&&!/\/DeviceCMYK/.test(s))items.push(['warn','Renkler RGB görünüyor; baskıda CMYK\'ya çevrilir, canlı tonlarda fark olabilir.']);
-      else if(/\/DeviceCMYK/.test(s))items.push(['ok','CMYK renk tanımı var']);
-      items.push(['warn','Kesim çizgisinin ayrı katmanda olduğunu ekibimiz kontrol edecek.']);
-      render(file.name,items);
-    });return;
-  }
-  items.push(['warn',ext.toUpperCase()+' dosyası alındı; ayrıntılı kontrolü ekibimiz yapacak.']);
-  render(file.name,items);
-}
-
 // two-step quote
 $('#qNext').addEventListener('click',function(){$('#q1').hidden=true;$('#q2').hidden=false;$('#st1').className='';$('#st2').className='on';$('#q2 input').focus()});
 $('#qBack').addEventListener('click',function(){$('#q2').hidden=true;$('#q1').hidden=false;$('#st2').className='';$('#st1').className='on'});
@@ -846,5 +669,6 @@ if(!reduce&&!navigator.webdriver&&'IntersectionObserver' in window){
 }
 })();
 </script>
+<script>(function(){var fs=function(){return document.querySelectorAll('iframe[data-sp]')};addEventListener('message',function(e){if(e.origin!==location.origin||!e.data||e.data.ipl!=='yukseklik')return;fs().forEach(function(f){if(f.contentWindow===e.source)f.style.height=e.data.h+'px'})});var bekle=0;function konum(){bekle=0;fs().forEach(function(f){try{var hd=document.querySelector('header.site');f.contentWindow.postMessage({ipl:'konum',top:f.getBoundingClientRect().top,ust:hd?Math.max(0,hd.getBoundingClientRect().bottom):0,vh:innerHeight},location.origin)}catch(x){}})}addEventListener('scroll',function(){if(!bekle){bekle=1;requestAnimationFrame(konum)}},{passive:true});addEventListener('resize',konum)})();</script>
 </body>
 </html>

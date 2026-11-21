@@ -11,7 +11,9 @@ kpdf = oku('src/kartvizit-pdf.js')
 qr = oku('src/qrcode.min.js')
 wa = oku('src/siparis-wa.js')
 import re
-YAYIN = bool(os.environ.get('YAYIN'))  # YAYIN=1 python3 build.py → test bandı kaldırılır
+YAYIN = bool(os.environ.get('YAYIN'))
+CIKTI = os.environ.get('CIKTI') or os.path.join(K, 'dist')  # site derlemesi dist/siparis klasörüne yazdırır
+# YAYIN=1 python3 build.py → test bandı kaldırılır
 for kod, u in F['urunler'].items():
     s = oku('src/sablon-%s.html' % u['tur'])
     esik = F['genel']['kargo_ucretsiz_esik']
@@ -20,8 +22,8 @@ for kod, u in F['urunler'].items():
                  ('__BASLIK__', u['ad']), ('__ACIKLAMA__', u.get('aciklama', '')), ('__KARGO_METNI__', kargo), ('__KPDF__', kpdf), ('__QR__', qr), ('__WA__', wa)]:
         s = s.replace(a, b)
     if YAYIN: s = re.sub(r'<div class="testbar">.*?</div>\n?', '', s)
-    os.makedirs(os.path.join(K, 'dist', kod), exist_ok=True)
-    open(os.path.join(K, 'dist', kod, 'index.html'), 'w', encoding='utf-8').write(s)
+    os.makedirs(os.path.join(CIKTI, kod), exist_ok=True)
+    open(os.path.join(CIKTI, kod, 'index.html'), 'w', encoding='utf-8').write(s)
     if u['tur'] in ('kartvizit', 'davetiye'):  # baskı PDF'i için fontlar ve yazı motoru
-        shutil.copytree(os.path.join(K, 'src', 'fontlar'), os.path.join(K, 'dist', kod, 'fontlar'), dirs_exist_ok=True)
+        shutil.copytree(os.path.join(K, 'src', 'fontlar'), os.path.join(CIKTI, kod, 'fontlar'), dirs_exist_ok=True)
     print('derlendi:', kod)

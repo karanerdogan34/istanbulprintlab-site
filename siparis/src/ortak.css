@@ -75,3 +75,9 @@ footer{padding:28px 0;font-size:14px;color:var(--mute);border-top:1px solid var(
  .mbar a{font-size:15px;font-weight:500}
  body{padding-bottom:70px}
 }
+/* Sitenin ürün sayfasına gömülü kullanım (?gomulu=1): sayfanın kendi başlığı ve alt bilgisi gizlenir */
+.gomulu body{background:transparent}
+.gomulu header.site,.gomulu .testbar,.gomulu .crumb,.gomulu .hero h1,.gomulu .hero .lead,.gomulu footer,.gomulu .mbar{display:none!important}
+.gomulu main.wrap,.gomulu .info .wrap{padding-left:0;padding-right:0}
+.gomulu .hero{padding:0 0 18px}
+.gomulu .info{background:transparent;border-top:0;padding-top:8px}

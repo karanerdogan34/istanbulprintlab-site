@@ -55,7 +55,7 @@
     },
     {
      "b": "Kesimli iş mi istiyorsunuz?",
-     "m": "Folyo baskı kesimsiz teslim edilir. Kare, dikdörtgen veya yuvarlak kesimli işler için <a href=\"#\">Sticker / Etiket Baskı</a> sayfasını kullanın."
+     "m": "Folyo baskı kesimsiz teslim edilir. Kare, dikdörtgen veya yuvarlak kesimli işler için <a href=\"/sticker-baski/\">Sticker / Etiket Baskı</a> sayfasını kullanın."
     },
     {
      "b": "Gold, gümüş, ultra clear",
@@ -180,7 +180,7 @@
     },
     {
      "b": "Kesimsiz baskı mı istiyorsunuz?",
-     "m": "Kesim gerekmeyen düz baskılar için <a href=\"#\">Folyo Baskı</a> sayfasını kullanın; m² fiyatı daha uygundur."
+     "m": "Kesim gerekmeyen düz baskılar için <a href=\"/folyo-baski/\">Folyo Baskı</a> sayfasını kullanın; m² fiyatı daha uygundur."
     },
     {
      "b": "Dosya nasıl hazırlanır?",
@@ -794,7 +794,7 @@
     },
     {
      "b": "Nerelere uygulanır?",
-     "m": "Cam, metal, seramik, akrilik ve sert plastik gibi temiz, kuru ve pürüzsüz yüzeylere. Ham ahşap, kumaş, silikon, pürüzlü ve sürekli esneyen yüzeyler için uygun değildir; özel yüzeylerde önce küçük bir deneme yapmanızı öneririz. Kumaş ürünler için <a href=\"#\">Sıcak DTF Baskı</a> sayfasını kullanın."
+     "m": "Cam, metal, seramik, akrilik ve sert plastik gibi temiz, kuru ve pürüzsüz yüzeylere. Ham ahşap, kumaş, silikon, pürüzlü ve sürekli esneyen yüzeyler için uygun değildir; özel yüzeylerde önce küçük bir deneme yapmanızı öneririz. Kumaş ürünler için <a href=\"/sicak-dtf-baski/\">Sıcak DTF Baskı</a> sayfasını kullanın."
     },
     {
      "b": "Nasıl uygulanır?",
@@ -833,7 +833,7 @@
     },
     {
      "b": "Nerelere uygulanır?",
-     "m": "Tişört, sweatshirt, hırka, bez çanta, şapka ve benzeri kumaş ürünlere. Cam, metal, plastik gibi sert yüzeyler için <a href=\"#\">Soğuk DTF Baskı</a> sayfasını kullanın."
+     "m": "Tişört, sweatshirt, hırka, bez çanta, şapka ve benzeri kumaş ürünlere. Cam, metal, plastik gibi sert yüzeyler için <a href=\"/soguk-dtf-baski/\">Soğuk DTF Baskı</a> sayfasını kullanın."
     },
     {
      "b": "Nasıl uygulanır?",

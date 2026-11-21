@@ -90,4 +90,23 @@
     document.body.appendChild(a); a.click(); a.remove();
   });
   window.IPLSiparisMesaji = mesaj; // test için
+
+  // Sitenin ürün sayfasına gömülüyken yüksekliği üst sayfaya bildir (çerçeve kaydırma çubuğu olmadan uzar)
+  if (document.documentElement.classList.contains('gomulu') && window.parent !== window) {
+    var son = 0;
+    var bildir = function () { var h = Math.ceil(document.body.getBoundingClientRect().height) + 4; if (Math.abs(h - son) > 2) { son = h; window.parent.postMessage({ ipl: 'yukseklik', h: h, yol: location.pathname }, location.origin); } };
+    if (window.ResizeObserver) new ResizeObserver(bildir).observe(document.body);
+    window.addEventListener('load', bildir); setInterval(bildir, 1500); bildir();
+    // Üst sayfa kaydırıldıkça sipariş özeti görünür alanda kalır (masaüstünde iki sütunlu düzende)
+    var ozet = document.getElementById('ozet'), duzen = ozet && ozet.parentElement;
+    window.addEventListener('message', function (e) {
+      if (e.origin !== location.origin || !e.data || e.data.ipl !== 'konum' || !ozet) return;
+      var ikiSutun = ozet.getBoundingClientRect().left > form.getBoundingClientRect().left + 40;
+      if (!ikiSutun) { ozet.style.transform = ''; return; }
+      ozet.style.transform = '';
+      var ust = ozet.getBoundingClientRect().top + window.scrollY, alt = duzen.getBoundingClientRect().bottom + window.scrollY;
+      var kayma = Math.max(0, Math.min(-e.data.top + (e.data.ust || 0) + 16 - ust, alt - ust - ozet.offsetHeight));
+      ozet.style.transform = kayma ? 'translateY(' + Math.round(kayma) + 'px)' : '';
+    });
+  }
 })();
