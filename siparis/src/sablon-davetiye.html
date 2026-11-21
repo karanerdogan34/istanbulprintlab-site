@@ -85,8 +85,9 @@ label.f textarea:focus,label.f select:focus{outline:none;border-color:var(--ink)
     <div class="fontsec opts" id="metinFontlar"></div>
     <p class="hint" style="margin:16px 0 8px">Zemin rengi</p>
     <div class="renkler" id="zeminler"></div>
-    <p class="hint" style="margin:16px 0 8px">Vurgu rengi</p>
+    <p class="hint" style="margin:16px 0 8px">Şerit ve vurgu rengi</p>
     <div class="renkler" id="renkler"></div>
+    <p class="small" style="margin-top:8px">Bantlar, çerçeveler, çizgiler ve başlık bu renkte basılır. Listede olmayan bir renk için son kutudan dilediğiniz rengi seçin. Altın varaklı (yaldızlı) davetiye isterseniz <a id="varakWa" target="_blank" rel="noopener">WhatsApp'tan teklif alın</a>; buradaki renkler baskı rengidir, metalik parlaklık vermez.</p>
     <p class="hint" id="renkNot" style="color:var(--warn)"></p>
     <div class="bilgiler" style="margin-top:16px">
      <label class="f">Davet türü<select id="d_tur"></select></label>
@@ -185,16 +186,20 @@ $('bilgi').innerHTML = C.bilgi.map(function(b){return '<div><h3>'+esc(b.b)+'</h3
 
 // ---------- renkler ----------
 var ZEMIN = [['#FFFFFF','Beyaz'],['#F4F1EA','Krem'],['#ECECEC','Açık gri'],['#2E2E2E','Antrasit'],['#1B2A57','Lacivert'],['#0B0B0B','Siyah']];
-var RENK = [['#B08A3E','Hardal'],['#7A1F2B','Bordo'],['#1E5B45','Yeşil'],['#1B2A57','Lacivert'],['#2F6FB0','Mavi'],['#0B0B0B','Siyah']];
+var RENK = [['#B08A3E','Altın (hardal)'],['#C9A24A','Altın sarısı'],['#9A9DA1','Gümüş gri'],['#D9A5A0','Pudra'],['#B5656B','Gül kurusu'],['#7A1F2B','Bordo'],['#D9772B','Turuncu'],['#5B3A7A','Mor'],['#1E5B45','Yeşil'],['#2F6FB0','Mavi'],['#1B2A57','Lacivert'],['#0B0B0B','Siyah']];
 $('zeminler').innerHTML = ZEMIN.map(function(r,i){return '<label class="sw" title="'+r[1]+'"><input type="radio" name="zemin" value="'+r[0]+'"'+(i===0?' checked':'')+' aria-label="'+r[1]+'"><i style="background:'+r[0]+'"></i></label>';}).join('');
-$('renkler').innerHTML = RENK.map(function(r,i){return '<label class="sw" title="'+r[1]+'"><input type="radio" name="renk" value="'+r[0]+'"'+(i===0?' checked':'')+' aria-label="'+r[1]+'"><i style="background:'+r[0]+'"></i></label>';}).join('');
+$('renkler').innerHTML = RENK.map(function(r,i){return '<label class="sw" title="'+r[1]+'"><input type="radio" name="renk" value="'+r[0]+'"'+(i===0?' checked':'')+' aria-label="'+r[1]+'"><i style="background:'+r[0]+'"></i></label>';}).join('')
+  + '<label class="sw" title="Özel renk"><input type="radio" name="renk" value="ozel" id="renkOzelR" aria-label="Özel renk"><i id="renkOzelI" style="background:conic-gradient(#d33,#eb3,#3b6,#39d,#a3d,#d33)"></i></label>'
+  + '<input type="color" id="renkOzel" value="#C9A24A" aria-label="Özel renk seçin" style="width:44px;height:36px;border:1px solid var(--line);border-radius:8px;padding:2px;background:#fff;cursor:pointer">';
+$('varakWa').href = WA + encodeURIComponent('Merhaba, altın varaklı (yaldızlı) davetiye için teklif almak istiyorum.');
+$('renkOzel').addEventListener('input', function(){ $('renkOzelR').checked = true; $('renkOzelI').style.background = this.value; tplCiz(); ciz(); });
 var Z='#FFFFFF', M='#0B0B0B', MU='#3A3835', CR='#B08A3E';
 function lum(h){ var c=h.replace('#',''); var r=parseInt(c.substr(0,2),16)/255,g=parseInt(c.substr(2,2),16)/255,b=parseInt(c.substr(4,2),16)/255; var f=function(x){return x<=0.03928?x/12.92:Math.pow((x+0.055)/1.055,2.4);}; return 0.2126*f(r)+0.7152*f(g)+0.0722*f(b); }
 function kontrast(a,b){ var x=lum(a), y=lum(b); return (Math.max(x,y)+0.05)/(Math.min(x,y)+0.05); }
 function renkAyarla(){
   Z = document.querySelector('input[name=zemin]:checked').value;
   var koyu = lum(Z) < 0.3; M = koyu ? '#FFFFFF' : '#0B0B0B'; MU = koyu ? '#D8D6D2' : '#3A3835';
-  var c = document.querySelector('input[name=renk]:checked').value; CR = c;
+  var c = document.querySelector('input[name=renk]:checked').value; if (c==='ozel') c = $('renkOzel').value.toUpperCase(); CR = c;
   var dusuk = kontrast(c, Z) < 2.2;
   $('renkNot').textContent = dusuk ? 'Seçtiğiniz vurgu rengi bu zeminde yeterince görünmez; vurgular '+(koyu?'beyaz':'siyah')+' basılır. Farklı bir vurgu rengi seçebilirsiniz.' : '';
   return dusuk ? M : c;
