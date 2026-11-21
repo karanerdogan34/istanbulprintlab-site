@@ -347,6 +347,150 @@
           "m": "Toplam genişlik, yazının en solundan en sağına; toplam yükseklik, en üstünden en altına ölçülür. Harf yüksekliği için en küçük büyük harfi ölçün."
         }
       ]
+    },
+    "foreks-baski": {
+      "tur": "rulo",
+      "net_en": 150,
+      "max_boy": 300,
+      "malzemeler": [
+        {
+          "kod": "3mm",
+          "ad": "3 mm",
+          "m2": 999
+        },
+        {
+          "kod": "5mm",
+          "ad": "5 mm",
+          "m2": 1599
+        },
+        {
+          "kod": "8mm",
+          "ad": "8 mm",
+          "m2": 3199
+        },
+        {
+          "kod": "10mm",
+          "ad": "10 mm",
+          "m2": 5999
+        }
+      ],
+      "malzeme_baslik": "Kalınlık",
+      "laminasyon": {
+        "secenekler": [
+          "yok",
+          "mat",
+          "parlak"
+        ],
+        "carpan": 1.75
+      },
+      "sekiller": [
+        "dikdortgen",
+        "ozel"
+      ],
+      "ozel_mesaj": "Kare ve dikdörtgen dışındaki şekiller CNC ile özel kesilir ve ayrıca fiyatlandırılır. Dosyanızı WhatsApp'tan gönderin, fiyatı size iletelim.",
+      "teslimat": true,
+      "ppi": {
+        "uygun": 100,
+        "uyari": 72
+      },
+      "kargo_metni": "Bu ürün kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz; özel teslimat bedeli ayrıca bildirilir. Fiyatlara ayak ve askı aparatı dahil değildir.",
+      "ad": "Foreks Baskı",
+      "aciklama": "Mağaza, ofis, fuar ve etkinlik için baskılı foreks levha. Kalınlığı ve ölçüyü seçin, dosyanızı yükleyin; fiyat anında ekranda.",
+      "chips": [
+        "Kare ve dikdörtgen kesim",
+        "Tek parça en fazla 150 × 300 cm",
+        "GREENGUARD Gold sertifikalı orijinal mürekkep"
+      ],
+      "bilgi": [
+        {
+          "b": "Orijinal mürekkep, sertifikalı üretim",
+          "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
+        },
+        {
+          "b": "Kalınlık seçimi",
+          "m": "3 mm hafif ve duvara uygulamaya uygundur. 5 mm en çok tercih edilen kalınlıktır. 8 ve 10 mm büyük ölçülerde ve ayaklı kullanımda daha sağlam durur."
+        },
+        {
+          "b": "Özel şekil (CNC)",
+          "m": "Kare ve dikdörtgen dışındaki şekiller, figürler ve harf kesimleri CNC ile yapılır ve teklifle fiyatlandırılır."
+        },
+        {
+          "b": "Teslimat",
+          "m": "Foreks levhalar kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz."
+        }
+      ]
+    },
+    "fotoblok-baski": {
+      "tur": "rulo",
+      "net_en": 150,
+      "max_boy": 300,
+      "malzemeler": [
+        {
+          "kod": "3mm",
+          "ad": "3 mm",
+          "m2": 999
+        },
+        {
+          "kod": "5mm",
+          "ad": "5 mm",
+          "m2": 1599
+        },
+        {
+          "kod": "8mm",
+          "ad": "8 mm",
+          "m2": 3199
+        },
+        {
+          "kod": "10mm",
+          "ad": "10 mm",
+          "m2": 5999
+        }
+      ],
+      "malzeme_baslik": "Kalınlık",
+      "laminasyon": {
+        "secenekler": [
+          "yok",
+          "mat",
+          "parlak"
+        ],
+        "carpan": 1.75
+      },
+      "sekiller": [
+        "dikdortgen",
+        "ozel"
+      ],
+      "ozel_mesaj": "Kare ve dikdörtgen dışındaki şekiller CNC ile özel kesilir ve ayrıca fiyatlandırılır. Dosyanızı WhatsApp'tan gönderin, fiyatı size iletelim.",
+      "teslimat": true,
+      "ppi": {
+        "uygun": 100,
+        "uyari": 72
+      },
+      "kargo_metni": "Bu ürün kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz; özel teslimat bedeli ayrıca bildirilir. Fiyatlara ayak ve askı aparatı dahil değildir.",
+      "ad": "Fotoblok Baskı",
+      "aciklama": "Fotoğraf, tablo, kampanya ve dekorasyon için baskılı fotoblok. Kalınlığı ve ölçüyü seçin, dosyanızı yükleyin; fiyat anında ekranda.",
+      "chips": [
+        "Kare ve dikdörtgen kesim",
+        "Tek parça en fazla 150 × 300 cm",
+        "GREENGUARD Gold sertifikalı orijinal mürekkep"
+      ],
+      "bilgi": [
+        {
+          "b": "Orijinal mürekkep, sertifikalı üretim",
+          "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
+        },
+        {
+          "b": "Kalınlık seçimi",
+          "m": "3 mm hafif ve duvara uygulamaya uygundur. 5 mm en çok tercih edilen kalınlıktır. 8 ve 10 mm büyük ölçülerde ve ayaklı kullanımda daha sağlam durur."
+        },
+        {
+          "b": "Özel şekil (CNC)",
+          "m": "Kare ve dikdörtgen dışındaki şekiller, figürler ve dekupe kesimler CNC ile yapılır ve teklifle fiyatlandırılır."
+        },
+        {
+          "b": "Teslimat",
+          "m": "Fotobloklar kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz."
+        }
+      ]
     }
   }
 }

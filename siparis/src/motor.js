@@ -27,8 +27,11 @@
     if (cfg.laminasyon && cfg.laminasyon.secenekler.indexOf(lam) < 0) hatalar.push({alan: 'laminasyon', mesaj: 'Laminasyon seçin.'});
     if (hatalar.length) return {durum: 'hata', hatalar: hatalar};
 
+    if (cfg.sekiller && g.sekil === 'ozel') return {durum: 'teklif', mesaj: cfg.ozel_mesaj, uyarilar: []};
     var kisa = Math.min(en, boy), uzun = Math.max(en, boy);
-    if (kisa > cfg.net_en) {
+    if (cfg.max_boy && (kisa > cfg.net_en || uzun > cfg.max_boy)) {
+      teklif = 'Tek parça en fazla ' + cfg.net_en + ' × ' + cfg.max_boy + ' cm üretilir. Daha büyük işler birden fazla parçadan oluşur; bunun için teklif alın.';
+    } else if (kisa > cfg.net_en) {
       teklif = 'Bu ölçü tek parça üretilemez: iki kenar da ' + cfg.net_en + ' cm\'yi aşıyor. Kenarlardan en az biri en fazla ' + cfg.net_en + ' cm olmalı. Daha büyük işler parçalı üretilir; bunun için teklif alın.';
     } else if (uzun > genel.tek_parca_max_boy) {
       teklif = 'Tek parça en fazla ' + (genel.tek_parca_max_boy / 100) + ' metre üretilir. Daha uzun işler parçalı üretilir; bunun için teklif alın.';
