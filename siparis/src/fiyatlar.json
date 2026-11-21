@@ -820,11 +820,11 @@
     "uygun": 100,
     "uyari": 72
    },
-   "aciklama": "Tişört, sweatshirt, çanta ve kumaş ürünlere ütüyle uygulanan, zeminsiz DTF transfer baskı. Tasarım ölçünüzü ve adedi girin; yerleşim ve fiyat anında ekranda.",
+   "aciklama": "Tişört, sweatshirt, çanta ve kumaş ürünlere ütüyle yapıştırılan DTF transfer baskı. Tasarım ölçünüzü ve adedi girin; yerleşim ve fiyat anında ekranda.",
    "chips": [
     "30 × 60 cm tabaka",
-    "Zeminsiz, arka planı olmayan baskı",
-    "Tişört, sweatshirt, kumaş"
+    "Kumaşa ütüyle yapıştırılır",
+    "Tişört, sweatshirt, çanta"
    ],
    "bilgi": [
     {
@@ -837,7 +837,7 @@
     },
     {
      "b": "Nasıl uygulanır?",
-     "m": "Transfer, ütü veya transfer presiyle kumaşa uygulanır. Uygulama sıcaklığı, süresi ve filmin soyulma şekli siparişinizle birlikte iletilir."
+     "m": "Transfer, kumaşa ütüyle yapıştırılır; transfer presiyle de uygulanabilir. Uygulama sıcaklığı, süresi ve filmin soyulma şekli siparişinizle birlikte iletilir."
     },
     {
      "b": "Dosya nasıl hazırlanır?",
