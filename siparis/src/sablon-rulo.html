@@ -191,7 +191,7 @@ $('malzemeler').innerHTML = C.malzemeler.map(function(m,i){
   return '<label class="opt"><input type="radio" name="malzeme" value="'+m.kod+'"'+(i===0?' checked':'')+'><b>'+esc(m.ad)+'</b><small>'+tl0(m.m2)+' + KDV / m²</small></label>';
 }).join('');
 // laminasyon
-var LAD = {yok:'Laminasyonsuz', mat:'Mat laminasyon', parlak:'Parlak laminasyon'};
+var LAD = {yok:'Laminasyonsuz', mat:'Mat laminasyon', parlak:'Parlak laminasyon', seffaf:'Şeffaf laminasyon'};
 if (C.laminasyon) {
   $('lamlar').innerHTML = C.laminasyon.secenekler.map(function(l,i){
     var alt = l==='yok' ? 'Ek ücret yok' : '+ '+tl0(Math.round(minM2*(C.laminasyon.carpan-1)*100)/100)+' + KDV / m²';
@@ -276,7 +276,7 @@ function dosyaDurum(){
   else t = 'Baskıya uygun değil: bu ölçüde çözünürlük yalnızca '+k.ppi+' PPI. Daha yüksek çözünürlüklü bir dosya yükleyin ya da ölçüyü küçültün.';
   var sonuc = k.sonuc;
   if (k.dondur) t += ' Dosyanızın yönü girdiğiniz ölçüyle uyuşmuyor (biri yatay, diğeri dikey). Genişlik ve yüksekliği kontrol edin.';
-  if (k.oranSapma > 2) { t += ' Dosyanın en-boy oranı girdiğiniz ölçüden %'+k.oranSapma+' farklı. Dosyayı ölçüye uygun hazırlayın ya da ölçüyü düzeltin; aksi halde dosyanız operatör incelemesine alınır.'; if (sonuc==='uygun') sonuc='inceleme'; }
+  if (k.oranSapma > 2) { t += ' Dosyanın en-boy oranı girdiğiniz ölçüden %'+k.oranSapma+' farklı. Dosyayı ölçüye uygun hazırlayın ya da ölçüyü düzeltin'+(sonuc==='uygun-degil'?'.':'; aksi halde dosyanız operatör incelemesine alınır.'); if (sonuc==='uygun') sonuc='inceleme'; }
   if (k.dondur && sonuc==='uygun') sonuc='inceleme';
   return {sonuc:sonuc, metin:t};
 }

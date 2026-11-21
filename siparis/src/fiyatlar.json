@@ -182,6 +182,54 @@
           "m": "Dosyayı tek bir sticker ölçüsünde hazırlayın; yazıları kontura çevirin. Yazı ve önemli görselleri kesim çizgisinden en az 3 mm içeride tutun; kenara kadar uzanan tasarımlarda taşma payı bırakın. Görsellerde baskı ölçüsünde en az 100 PPI önerilir."
         }
       ]
+    },
+    "one-way-vision-baski": {
+      "ad": "One Way Vision Baskı",
+      "tur": "rulo",
+      "net_en": 150,
+      "malzemeler": [
+        {
+          "kod": "oracal-owv",
+          "ad": "Oracal one way vision",
+          "m2": 600
+        }
+      ],
+      "laminasyon": {
+        "secenekler": [
+          "yok",
+          "seffaf"
+        ],
+        "carpan": 2
+      },
+      "lamNot": "Şeffaf laminasyon baskıyı çizilmeye, neme ve UV ışığına karşı korur. Laminasyonlu işlerde mürekkebin kuruması beklendiği için teslim süresi uzar.",
+      "ppi": {
+        "uygun": 100,
+        "uyari": 72
+      },
+      "aciklama": "Vitrin, ofis ve araç camları için delikli cam folyosu: dışarıdan baskılı görsel görünür, içeriden dışarısı görünmeye devam eder. Ölçünüzü girin, dosyanızı yükleyin; fiyat anında ekranda.",
+      "chips": [
+        "Oracal",
+        "Dışarıdan görsel, içeriden görüş",
+        "GREENGUARD Gold sertifikalı orijinal mürekkep"
+      ],
+      "bilgi": [
+        {
+          "b": "Orijinal mürekkep, sertifikalı üretim",
+          "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
+        },
+        {
+          "b": "Nasıl çalışır?",
+          "m": "Delikli folyonun dış yüzü baskılıdır, iç yüzü siyahtır. Gündüz dışarıdan görsel görünür, içeriden dışarısı izlenebilir. Akşam içerisi aydınlatıldığında dışarıdan içerisi görünebilir."
+        },
+        {
+          "b": "Tasarım önerisi",
+          "m": "Delikler nedeniyle ince yazılar ve küçük ayrıntılar uzaktan zor okunur. Büyük yazılar, kalın hatlar ve canlı renkler daha iyi sonuç verir."
+        },
+        {
+          "b": "Dosya nasıl hazırlanır?",
+          "m": "Dosyayı camın ölçüsünde hazırlayın; yazıları kontura çevirin. Görsellerde baskı ölçüsünde en az 100 PPI önerilir. PDF ve TIFF dosyaları operatörümüz tarafından kontrol edilir."
+        }
+      ]
     }
   }
 }
