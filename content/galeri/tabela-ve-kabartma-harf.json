@@ -1,0 +1,28 @@
+{
+  "slug": "tabela-ve-kabartma-harf",
+  "sira": 4,
+  "baslik": "Tabela ve kabartma harf",
+  "giris": "Butik mağaza cepheleri için kabartma harf, amblem ve tabela uygulamalarımız.",
+  "isler": [
+    {
+      "gorsel": "/img/proje-antre.webp",
+      "aciklama": "Antre Gourmet: altın kabartma harf ve logo"
+    },
+    {
+      "gorsel": "/img/antre-2.webp",
+      "aciklama": "Antre Gourmet amblem uygulaması"
+    },
+    {
+      "gorsel": "/img/antre-3.webp",
+      "aciklama": "Kabartma harf detayı"
+    },
+    {
+      "gorsel": "/img/antre-4.webp",
+      "aciklama": "Kabartma harf üretim aşaması"
+    },
+    {
+      "gorsel": "/img/antre-5.webp",
+      "aciklama": "Antre Gourmet cephe detayı"
+    }
+  ]
+}

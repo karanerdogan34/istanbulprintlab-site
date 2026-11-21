@@ -1,0 +1,32 @@
+{
+  "slug": "branda-ve-santiye",
+  "sira": 2,
+  "baslik": "Branda ve şantiye giydirme",
+  "giris": "İnşaat çevre paravanları, cephe brandaları ve büyük ölçekli branda baskılarımız.",
+  "isler": [
+    {
+      "gorsel": "/img/gercek-branda-birgen.webp",
+      "aciklama": "Birgen İnşaat şantiye çevre brandası"
+    },
+    {
+      "gorsel": "/img/proje-birgen.webp",
+      "aciklama": "Birgen İnşaat: cadde boyunca logolu çevre brandası"
+    },
+    {
+      "gorsel": "/img/proje-ray.webp",
+      "aciklama": "Ray Mimarlık şantiye çevre brandası"
+    },
+    {
+      "gorsel": "/img/gercek-branda-renev.webp",
+      "aciklama": "Şantiye çevresine montajı yapılmış proje görselli branda"
+    },
+    {
+      "gorsel": "/img/gercek-branda-ozakkaya.webp",
+      "aciklama": "Özakkaya cephe uygulaması"
+    },
+    {
+      "gorsel": "/img/gercek-branda-rulo.webp",
+      "aciklama": "Atölyemizde basılmış rulo branda"
+    }
+  ]
+}

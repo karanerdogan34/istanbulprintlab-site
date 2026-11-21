@@ -1,0 +1,20 @@
+{
+  "slug": "fotoblok-ve-dekupe",
+  "sira": 3,
+  "baslik": "Fotoblok ve dekupe figür",
+  "giris": "AVM ve mağazalar için ayaklı fotoblok panolar, dekupe figürler ve sezon süslemeleri.",
+  "isler": [
+    {
+      "gorsel": "/img/gercek-fotoblok-avm.webp",
+      "aciklama": "AVM girişinde dekupe kesim fotoblok figür"
+    },
+    {
+      "gorsel": "/img/gercek-fotoblok-avm2.webp",
+      "aciklama": "AVM koridorunda yılbaşı mesajlı ayaklı fotoblok figür"
+    },
+    {
+      "gorsel": "/img/gercek-fotoblok-atolye.webp",
+      "aciklama": "Atölyede baskısı ve kesimi tamamlanmış fotoblok figür"
+    }
+  ]
+}

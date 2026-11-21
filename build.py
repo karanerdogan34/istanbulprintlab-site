@@ -82,11 +82,38 @@ def baslangic_fiyati(u):
     return ''
 
 
-def urun_dugmeleri_html():
+def urun_dugmeleri_html(A):
     F = js('siparis/src/fiyatlar.json')['urunler']
+    liste = A.get('urun_dugmeleri') or [dict(kod=k, yol=y, ad=a, goster=True) for k, y, a in DUGMELER]
     out = []
-    for kod, yol, ad in DUGMELER:
-        out.append('<a class="pbtn" href="%s"><b>%s</b><small>%s</small></a>' % (yol, E(ad), E(baslangic_fiyati(F[kod]))))
+    for d in liste:
+        if d.get('goster') is False or d.get('kod') not in F:
+            continue
+        out.append('<a class="pbtn" href="%s"><b>%s</b><small>%s</small></a>' % (S.guvenli_url(d['yol']), E(d.get('ad', '')), E(baslangic_fiyati(F[d['kod']]))))
+    return '\n' + '\n'.join(out) + '\n'
+
+
+def one_cikanlar_html(A):
+    out = []
+    for d in A.get('one_cikanlar') or []:
+        if d.get('goster') is False:
+            continue
+        out.append('<article class="card"><img src="%s" alt="%s" loading="lazy" style="height:220px;object-fit:cover;width:100%%"><div class="in">%s<h3 style="font-size:19px">%s</h3><p class="muted" style="font-size:15px">%s</p>%s<a href="%s" class="btn sm">%s</a></div></article>' % (
+            S.gorsel(d.get('gorsel')), S.attr(d.get('gorsel_aciklama') or d.get('baslik')), ('<span class="tag">%s</span>' % S.m2h(d['ust_yazi'])) if d.get('ust_yazi') else '',
+            S.m2h(d.get('baslik')), S.m2h(d.get('aciklama')), ('<p class="price" style="margin-top:auto">%s</p>' % S.m2h(d['fiyat'])) if d.get('fiyat') else '<p style="margin-top:auto"></p>',
+            S.guvenli_url(d.get('baglanti') or '#teklif'), S.m2h(d.get('dugme') or 'İncele')))
+    return '\n' + '\n'.join(out) + '\n'
+
+
+def ne_yapiyoruz_html(A):
+    out = []
+    for d in A.get('ne_yapiyoruz') or []:
+        if d.get('goster') is False:
+            continue
+        h = d.get('baglanti') or '#teklif'
+        out.append('<a href="%s"%s><div class="clip"><img class="ph" src="%s" alt="%s" loading="lazy"></div><div><span class="tag">%s</span><h3>%s</h3><p>%s</p></div></a>' % (
+            S.guvenli_url(h), ' target="_blank" rel="noopener"' if h.startswith('http') else '', S.gorsel(d.get('gorsel')), S.attr(d.get('gorsel_aciklama') or d.get('baslik')),
+            S.m2h(d.get('etiket') or 'Teklif ile'), S.m2h(d.get('baslik')), S.m2h(d.get('aciklama'))))
     return '\n' + '\n'.join(out) + '\n'
 
 
@@ -117,7 +144,7 @@ def kabuk(sablon, yol, baslik, aciklama, ad, ana):
 
 
 def galeri():
-    G = js('content/galeri.json')
+    G = {'kategoriler': sorted((js(f) for f in glob.glob('content/galeri/*.json')), key=lambda k: (k.get('sira', 999), k.get('baslik', ''))), 'referanslar': js('content/anasayfa.json').get('referanslar', [])}
     sablon = oku('site/afis-baski/index.html')
     kats = G.get('kategoriler', [])
     refs = ''.join('<span>%s</span>' % E(r) for r in G.get('referanslar', []))
@@ -345,7 +372,10 @@ def main():
     gk, grefs = galeri()
     s = re.sub(r'<!--GALERI_KARTLARI-->.*?<!--/GALERI_KARTLARI-->', lambda m: '<!--GALERI_KARTLARI-->\n' + gk + '<!--/GALERI_KARTLARI-->', s, flags=re.S)
     s = re.sub(r'<!--REFERANSLAR-->.*?<!--/REFERANSLAR-->', lambda m: '<!--REFERANSLAR-->' + grefs + '<!--/REFERANSLAR-->', s, flags=re.S)
-    s = re.sub(r'<!--URUN_DUGMELERI-->.*?<!--/URUN_DUGMELERI-->', lambda m: '<!--URUN_DUGMELERI-->' + urun_dugmeleri_html() + '<!--/URUN_DUGMELERI-->', s, flags=re.S)
+    A = js('content/anasayfa.json')
+    for isim, html_ in (('URUN_DUGMELERI', urun_dugmeleri_html(A)), ('ONE_CIKANLAR', one_cikanlar_html(A)), ('NE_YAPIYORUZ', ne_yapiyoruz_html(A)),
+                        ('HAKKIMIZDA_KISA', S.m2h(A.get('hakkimizda_kisa') or ''))):
+        s = re.sub(r'<!--%s-->.*?<!--/%s-->' % (isim, isim), lambda m, h=html_, i=isim: '<!--%s-->%s<!--/%s-->' % (i, h, i), s, flags=re.S)
     yaz(p, s)
     vakalar()
     # fiyat ve iletişim — bütün sayfalara

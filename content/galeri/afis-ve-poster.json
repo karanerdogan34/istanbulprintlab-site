@@ -1,0 +1,16 @@
+{
+  "slug": "afis-ve-poster",
+  "sira": 5,
+  "baslik": "Afiş ve poster",
+  "giris": "Kampanya afişleri, kişiye özel poster baskı ve çerçeveleme işlerimiz.",
+  "isler": [
+    {
+      "gorsel": "/img/gercek-afis-istasyon24.webp",
+      "aciklama": "Proje tanıtım afişi"
+    },
+    {
+      "gorsel": "/img/yuklenen/projeler/50x70-kisiye-ozel-tasarim-baski-20261120104916-0oc4.jpg",
+      "aciklama": "50×70 kişiye özel tasarım: 240 gr saten poster baskı ve çerçeveleme"
+    }
+  ]
+}

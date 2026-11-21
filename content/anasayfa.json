@@ -62,5 +62,241 @@
       "cevap": "Baskı hatası, onaylanan ölçüden farklı üretim veya kargoda hasar gibi bizden kaynaklanan sorunlarda ürünü ücretsiz yeniden üretip gönderiyoruz. Ürünü teslim aldıktan sonra fotoğraflarıyla bize yazmanız yeterli. Kişiye özel ürünlerde cayma ve iade yoktur.",
       "acik": false
     }
-  ]
+  ],
+  "referanslar": [
+    "Özakkaya",
+    "Birgen İnşaat",
+    "Ray Mimarlık",
+    "Antre Gourmet",
+    "Otorey",
+    "Olivium AVM",
+    "Baydöner"
+  ],
+  "urun_dugmeleri": [
+    {
+      "ad": "Folyo baskı",
+      "kod": "folyo-baski",
+      "yol": "/folyo-baski/",
+      "goster": true
+    },
+    {
+      "ad": "Branda baskı",
+      "kod": "branda-baski",
+      "yol": "/branda-baski/",
+      "goster": true
+    },
+    {
+      "ad": "Sticker / etiket",
+      "kod": "sticker-etiket-baski",
+      "yol": "/sticker-baski/",
+      "goster": true
+    },
+    {
+      "ad": "One way vision",
+      "kod": "one-way-vision-baski",
+      "yol": "/one-way-vision/",
+      "goster": true
+    },
+    {
+      "ad": "Folyo yazı kesim",
+      "kod": "folyo-yazi-kesim",
+      "yol": "/folyo-yazi-kesim/",
+      "goster": true
+    },
+    {
+      "ad": "Foreks baskı",
+      "kod": "foreks-baski",
+      "yol": "/foreks-baski/",
+      "goster": true
+    },
+    {
+      "ad": "Fotoblok baskı",
+      "kod": "fotoblok-baski",
+      "yol": "/fotoblok-baski/",
+      "goster": true
+    },
+    {
+      "ad": "Afiş baskı",
+      "kod": "afis-baski",
+      "yol": "/afis-baski/",
+      "goster": true
+    },
+    {
+      "ad": "Kartvizit",
+      "kod": "kartvizit-baski",
+      "yol": "/kartvizit-baski/",
+      "goster": true
+    },
+    {
+      "ad": "Poster baskı",
+      "kod": "poster-baski",
+      "yol": "/poster-baski/",
+      "goster": true
+    },
+    {
+      "ad": "Mesh baskı",
+      "kod": "mesh-baski",
+      "yol": "/mesh-branda/",
+      "goster": true
+    },
+    {
+      "ad": "Soğuk DTF",
+      "kod": "soguk-dtf-baski",
+      "yol": "/soguk-dtf-baski/",
+      "goster": true
+    },
+    {
+      "ad": "Sıcak DTF",
+      "kod": "sicak-dtf-baski",
+      "yol": "/sicak-dtf-baski/",
+      "goster": true
+    },
+    {
+      "ad": "Duvar kağıdı",
+      "kod": "duvar-kagidi-baski",
+      "yol": "/duvar-kagidi-baski/",
+      "goster": true
+    },
+    {
+      "ad": "Davetiye",
+      "kod": "davetiye-baski",
+      "yol": "/davetiye-baski/",
+      "goster": true
+    }
+  ],
+  "one_cikanlar": [
+    {
+      "ust_yazi": "Sezon ürünü",
+      "baslik": "2027 ajanda takvim poster",
+      "aciklama": "70×100 cm · 12 renk · çerçeveli seçenek 61×91 cm",
+      "fiyat": "Poster {{takvim}} ₺ · Çerçeveli {{takvim_cerceveli}} ₺ · KDV dahil",
+      "baglanti": "/2027-ajanda-takvim/",
+      "dugme": "İncele ve sipariş ver",
+      "gorsel": "/img/takvim-cerceve.webp",
+      "gorsel_aciklama": "Çerçeveli 2027 ajanda takvim",
+      "goster": true
+    },
+    {
+      "ust_yazi": "Hazır ürün",
+      "baslik": "Roll-up banner",
+      "aciklama": "85×200 cm · 400 gr Avrupa dökme branda baskı, mekanizma ve taşıma çantası dahil",
+      "fiyat": "{{rollup+kdv}} ₺ · KDV dahil ({{rollup}} ₺ + KDV)",
+      "baglanti": "/roll-up-baski/",
+      "dugme": "Sipariş talebi oluştur",
+      "gorsel": "/img/rollup-urun.webp",
+      "gorsel_aciklama": "85×200 cm roll-up banner",
+      "goster": true
+    }
+  ],
+  "ne_yapiyoruz": [
+    {
+      "baslik": "Cam filmi ve kumlama",
+      "aciklama": "Ofis bölmeleri, vitrin ve pencere camlarına mahremiyet ve kurumsal görünüm.",
+      "etiket": "Teklif ile",
+      "baglanti": "/ofis-cam-filmi/",
+      "gorsel": "/img/gercek-cam-magaza.webp",
+      "gorsel_aciklama": "Mağaza camında buzlu cam ve logo uygulaması",
+      "goster": true
+    },
+    {
+      "baslik": "Folyo kaplama",
+      "aciklama": "Duvar, kapı, mobilya ve vitrin yüzeylerine baskılı veya renkli folyo.",
+      "etiket": "Teklif ile",
+      "baglanti": "/folyo-kaplama/",
+      "gorsel": "/img/gercek-folyo-avm-cephe.webp",
+      "gorsel_aciklama": "AVM cephesinde baskılı folyo kaplama",
+      "goster": true
+    },
+    {
+      "baslik": "Cam yazısı uygulama",
+      "aciklama": "Marka adı, logo ve çalışma saatleri; kesim ve yerinde uygulama.",
+      "etiket": "Teklif ile",
+      "baglanti": "/cam-yazisi-uygulama/",
+      "gorsel": "/img/folyo-vitrin.webp",
+      "gorsel_aciklama": "Vitrin camında folyo kesim yazı",
+      "goster": true
+    },
+    {
+      "baslik": "Mağaza vitrin giydirme",
+      "aciklama": "Kampanya, sezon ve açılış vitrinleri; AVM'de mesai dışı uygulama.",
+      "etiket": "Teklif ile",
+      "baglanti": "/vitrin-giydirme/",
+      "gorsel": "/img/gercek-folyo-baydoner.webp",
+      "gorsel_aciklama": "AVM içinde giydirilmiş mağaza vitrini",
+      "goster": true
+    },
+    {
+      "baslik": "Yılbaşı ve özel gün süslemeleri",
+      "aciklama": "Ayaklı figürler, vitrin ve mağaza süslemeleri; zincir mağazalara toplu üretim.",
+      "etiket": "Teklif ile",
+      "baglanti": "/yilbasi-ayakli-fotoblok/",
+      "gorsel": "/img/gercek-fotoblok-avm2.webp",
+      "gorsel_aciklama": "AVM koridorunda yılbaşı ayaklı fotoblok figür",
+      "goster": true
+    },
+    {
+      "baslik": "Fuar projeleri",
+      "aciklama": "Stant panosu, fotoblok, roll-up, branda ve yönlendirme baskıları.",
+      "etiket": "Teklif ile",
+      "baglanti": "/fuar-projeleri/",
+      "gorsel": "/img/gercek-folyo-olivium.webp",
+      "gorsel_aciklama": "Büyük ölçekli baskı ve montaj",
+      "goster": true
+    },
+    {
+      "baslik": "Şantiye paravanı giydirme",
+      "aciklama": "İnşaat çevre paravanlarına proje görselli branda, mesh ve folyo.",
+      "etiket": "Teklif ile",
+      "baglanti": "/santiye-paravani-giydirme/",
+      "gorsel": "/img/gercek-branda-renev.webp",
+      "gorsel_aciklama": "Şantiye çevre paravanına baskılı branda",
+      "goster": true
+    },
+    {
+      "baslik": "Butik pirinç tabela",
+      "aciklama": "Ofis, klinik ve butik mağazalar için kapı ve isim tabelaları.",
+      "etiket": "Teklif ile",
+      "baglanti": "/pirinc-tabela/",
+      "gorsel": "/img/antre-2.webp",
+      "gorsel_aciklama": "Butik logo tabela",
+      "goster": true
+    },
+    {
+      "baslik": "Yönlendirme tabelaları",
+      "aciklama": "Kat, oda, WC, otopark ve acil çıkış; foreks, kompozit, akrilik.",
+      "etiket": "Teklif ile",
+      "baglanti": "/yonlendirme-tabelalari/",
+      "gorsel": "/img/proje-ray.webp",
+      "gorsel_aciklama": "Kurumsal bilgilendirme tabelası",
+      "goster": true
+    },
+    {
+      "baslik": "Ayaklı hazır panolar",
+      "aciklama": "Mağaza girişi, otel lobisi ve etkinlikler için karşılama panoları.",
+      "etiket": "Teklif ile",
+      "baglanti": "/ayakli-panolar/",
+      "gorsel": "/img/gercek-fotoblok-atolye.webp",
+      "gorsel_aciklama": "Ayaklı fotoblok pano",
+      "goster": true
+    },
+    {
+      "baslik": "Dekupe figür",
+      "aciklama": "Karakter, maskot ve ürün şeklinde özel kesim figürler.",
+      "etiket": "Teklif ile",
+      "baglanti": "/dekupe-figur/",
+      "gorsel": "/img/gercek-fotoblok-avm.webp",
+      "gorsel_aciklama": "Dekupe kesim fotoblok figür",
+      "goster": true
+    },
+    {
+      "baslik": "Büyük cephe ve tabela projeleri",
+      "aciklama": "Cephe kaplama, ışıklı tabela ve büyük ölçekli projeler için Reklamİstanbul.",
+      "etiket": "Reklamİstanbul →",
+      "baglanti": "https://www.reklamistanbul.com.tr/",
+      "gorsel": "/img/gercek-branda-ozakkaya.webp",
+      "gorsel_aciklama": "Büyük ölçekli cephe uygulaması",
+      "goster": true
+    }
+  ],
+  "hakkimizda_kisa": "IstanbulPrintLab, 2012'den beri reklam ve baskı sektöründe çalışan ekibin Kadıköy Fikirtepe'deki baskı atölyesidir. Sıfır Mimaki CJV200-160B makinemizde, GREENGUARD Gold sertifikalı orijinal Mimaki mürekkeplerle basıp kesiyoruz; Türkiye'nin her yerine ve dünyaya gönderiyoruz."
 }

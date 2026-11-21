@@ -1,0 +1,24 @@
+{
+  "slug": "cam-vitrin-ve-folyo",
+  "sira": 1,
+  "baslik": "Cam, vitrin ve folyo",
+  "giris": "AVM cepheleri, mağaza vitrinleri ve cam yüzeylerde baskılı folyo, kesim yazı ve kaplama uygulamalarımız.",
+  "isler": [
+    {
+      "gorsel": "/img/gercek-folyo-olivium.webp",
+      "aciklama": "Olivium AVM: kartonet üzerine vinil baskı ve montaj"
+    },
+    {
+      "gorsel": "/img/gercek-folyo-avm-cephe.webp",
+      "aciklama": "AVM cephesinde baskılı folyo kaplama"
+    },
+    {
+      "gorsel": "/img/gercek-folyo-baydoner.webp",
+      "aciklama": "AVM içinde mağaza açılış giydirmesi"
+    },
+    {
+      "gorsel": "/img/gercek-cam-magaza.webp",
+      "aciklama": "Mağaza camında logo ve yazı uygulaması"
+    }
+  ]
+}
