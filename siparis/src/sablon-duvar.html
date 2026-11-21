@@ -172,7 +172,7 @@ function ciz(){
   var d = dosyaDurum(), dh = '';
   if (dosya) {
     dh = '<div class="filecard">'+(dosya.url?'<img alt="" src="'+dosya.url+'">':'')+'<div><b style="font-weight:500">'+esc(dosya.ad)+'</b><div class="small" style="margin:0">'+(dosya.px?dosya.px.w+' × '+dosya.px.h+' piksel':dosya.tur.toUpperCase()+' dosyası')+'</div></div></div>';
-    dh += '<div class="msg '+({uygun:'ok', inceleme:'warn', 'uygun-degil':'bad', bekle:'warn'}[d.sonuc])+'">'+esc(d.metin)+'</div>';
+    dh += '<div class="msg '+({uygun:'ok', inceleme:'warn', 'uygun-degil':'bad', bekle:'warn'}[d.sonuc])+'">'+esc(d.metin)+(d.sonuc==='uygun-degil' ? ' Yüksek çözünürlüklü dosyanız yoksa <a href="'+WA+encodeURIComponent('Merhaba, duvar kağıdı için dosyam baskıya uygun çıkmadı. Dosyamın hazırlanması konusunda bilgi almak istiyorum.')+'" target="_blank" rel="noopener">WhatsApp\'tan</a> ya da +90 532 523 73 64 numaralı telefondan bize ulaşın.' : '')+'</div>';
   }
   $('dosyaSonuc').innerHTML = dh;
   var hazir = r.durum==='tamam' && dosya && d && (d.sonuc==='uygun' || d.sonuc==='inceleme') && $('onay').checked;
