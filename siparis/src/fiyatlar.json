@@ -919,7 +919,7 @@
     "uygun": 72,
     "uyari": 50
    },
-   "aciklama": "Ev, ofis, mağaza, otel ve çocuk odaları için duvarınızın ölçüsüne özel baskılı duvar kağıdı. Duvar ölçünüzü girin, malzemeyi seçin; şerit planı ve fiyat anında ekranda.",
+   "aciklama": "Otel odaları, ofisler, çocuk odaları, hastane odaları, okul sınıfları, mağaza ve restoranlar için duvarınızın ölçüsüne özel baskılı duvar kağıdı. Duvar ölçünüzü girin, malzemeyi seçin; şerit planı ve fiyat anında ekranda.",
    "chips": [
     "Duvarınıza özel ölçü",
     "GREENGUARD Gold sertifikalı orijinal mürekkep",
@@ -929,6 +929,10 @@
     {
      "b": "Nasıl hesaplanır?",
      "m": "Duvar ölçünüzün her kenarına 5 cm kesim payı eklenir ve fiyat bu üretim ölçüsünün m²'si üzerinden hesaplanır. Baskı, seçtiğiniz malzemenin rulo enine göre eşit genişlikte şeritlere bölünür; şerit sayısı ekranda görünür."
+    },
+    {
+     "b": "Nerelerde kullanılır?",
+     "m": "Otel odaları ve lobiler, ofisler ve toplantı odaları, çocuk odaları ve kreşler, hastane ve klinik odaları, okul sınıfları ve koridorlar, mağaza, kafe ve restoranlar, ev ve salon duvarları. Kurumsal projeler (otel, hastane, okul) için yangın sınıfı belgesi gerekiyorsa sipariş öncesinde bize yazın; malzemeyi buna göre birlikte belirleyelim."
     },
     {
      "b": "Orijinal mürekkep, çocuk odasına uygun",
