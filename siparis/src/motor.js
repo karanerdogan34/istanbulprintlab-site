@@ -89,7 +89,8 @@
     var ppi = Math.min(pw / enIn, ph / boyIn);
     var oranDosya = pw / ph, oranBaski = enCm / boyCm;
     var sapma = Math.abs(oranDosya - oranBaski) / oranBaski;
-    var sonuc = ppi >= cfg.ppi.uygun ? 'uygun' : (ppi >= cfg.ppi.uyari ? 'inceleme' : 'uygun-degil');
+    var esik = (cfg.ppi_kucuk && Math.max(enCm, boyCm) < cfg.ppi_kucuk.sinir_cm) ? cfg.ppi_kucuk : cfg.ppi;
+    var sonuc = ppi >= esik.uygun ? 'uygun' : (ppi >= esik.uyari ? 'inceleme' : 'uygun-degil');
     return {ppi: Math.round(ppi), sonuc: sonuc, oranSapma: Math.round(sapma * 100), dondur: !dikey};
   }
 

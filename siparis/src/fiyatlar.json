@@ -113,11 +113,16 @@
         },
         {
           "b": "Dosya nasıl hazırlanır?",
-          "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan brandalarda baskı ölçüsünde en az 72 PPI yeterlidir. Kuşgözü gelecek kenarlardan 3 cm içeriye yazı ve önemli öğe koymayın."
+          "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan brandalarda baskı ölçüsünde en az 72 PPI yeterlidir; 1 metreden küçük, yakından bakılan işlerde en az 100 PPI önerilir. Kuşgözü gelecek kenarlardan 3 cm içeriye yazı ve önemli öğe koymayın."
         }
       ],
       "kargo_max_m2": 16,
-      "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz, kargo bedeli ayrıca hesaplanır. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz."
+      "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz.",
+      "ppi_kucuk": {
+        "sinir_cm": 100,
+        "uygun": 100,
+        "uyari": 72
+      }
     },
     "sticker-etiket-baski": {
       "ad": "Sticker / Etiket Baskı",
@@ -503,7 +508,7 @@
           "ad": "Branda (400 gr)",
           "m2": 369,
           "kargo_max_m2": 16,
-          "not": "Uzun süreli iç ve dış mekan kullanımı için dayanıklı Avrupa dökme branda."
+          "not": "Uzun süreli iç ve dış mekan kullanımı için dayanıklı Avrupa dökme branda. Afişler kesilmiş olarak teslim edilir; kuşgözü dahil değildir. Kuşgözlü branda için Branda Baskı sayfasını kullanın."
         },
         {
           "kod": "blueback",
@@ -545,9 +550,15 @@
         },
         {
           "b": "Dosya nasıl hazırlanır?",
-          "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan afişlerde baskı ölçüsünde en az 72 PPI yeterlidir."
+          "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan afişlerde baskı ölçüsünde en az 72 PPI yeterlidir; 1 metreden küçük, yakından bakılan işlerde en az 100 PPI önerilir."
         }
-      ]
+      ],
+      "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz.",
+      "ppi_kucuk": {
+        "sinir_cm": 100,
+        "uygun": 100,
+        "uyari": 72
+      }
     },
     "mesh-baski": {
       "ad": "Mesh Baskı",
@@ -571,7 +582,7 @@
         "uygun": 72,
         "uyari": 50
       },
-      "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz, kargo bedeli ayrıca hesaplanır. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz.",
+      "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz.",
       "aciklama": "İskele, şantiye, bina cephesi ve rüzgâr alan yüzeyler için delikli mesh baskı. Ölçünüzü ve kuşgözü adedini girin, dosyanızı yükleyin; fiyat anında ekranda.",
       "chips": [
         "Rüzgâr geçiren delikli yapı",
@@ -593,9 +604,14 @@
         },
         {
           "b": "Dosya nasıl hazırlanır?",
-          "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan mesh baskılarda baskı ölçüsünde en az 72 PPI yeterlidir. Delikli yapı nedeniyle ince yazılar yakından zor okunur; büyük yazı ve kalın hatlar tercih edin."
+          "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan mesh baskılarda baskı ölçüsünde en az 72 PPI yeterlidir; 1 metreden küçük, yakından bakılan işlerde en az 100 PPI önerilir. Delikli yapı nedeniyle ince yazılar yakından zor okunur; büyük yazı ve kalın hatlar tercih edin."
         }
-      ]
+      ],
+      "ppi_kucuk": {
+        "sinir_cm": 100,
+        "uygun": 100,
+        "uyari": 72
+      }
     },
     "poster-baski": {
       "ad": "Poster Baskı",
