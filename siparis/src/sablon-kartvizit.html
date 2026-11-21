@@ -300,7 +300,12 @@ function pdfUret(){
   }, function(e){ $('pdfDurum').innerHTML = '<div class="msg bad">Baskı dosyası hazırlanamadı: '+esc(e.message)+' Sayfayı yenileyip tekrar deneyin.</div>'; return null; });
 }
 function dosyaAdi(){ var a = (veri(false).ad||'kartvizit').toLocaleLowerCase('tr-TR').replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); return 'kartvizit-'+(a||'baski')+'.pdf'; }
-$('pdfIndir').addEventListener('click', function(){ pdfUret().then(function(b){ if(!b) return; var u=URL.createObjectURL(b), a=document.createElement('a'); a.href=u; a.download=dosyaAdi(); document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(u);},4000); }); });
+// indirme: önizleme ortamında platformun indirme izni, sitede normal bağlantı kullanılır
+var indirici = null;
+if (window.claude && window.claude.use) window.claude.use('downloads').then(function(d){ indirici = d; }, function(){});
+function indir(b){ if (indirici) return indirici.save({filename: dosyaAdi(), data: b}).catch(function(){});
+  var u=URL.createObjectURL(b), a=document.createElement('a'); a.href=u; a.download=dosyaAdi(); document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(u);},4000); }
+$('pdfIndir').addEventListener('click', function(){ pdfUret().then(function(b){ if(b) indir(b); }); });
 $('devam').addEventListener('click', function(){
   if (mod()==='sablon') { pdfUret().then(function(b){ if (b) $('devamNot').textContent='Baskı dosyanız hazırlandı ('+Math.round(b.size/1024)+' KB). Test ortamı: ödeme adımı henüz bağlı değil.'; }); }
   else $('devamNot').textContent='Test ortamı: ödeme adımı henüz bağlı değil.';
