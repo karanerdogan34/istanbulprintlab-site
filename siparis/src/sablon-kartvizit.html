@@ -7,6 +7,7 @@
 <title>__BASLIK__ — Sipariş | IstanbulPrintLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Mono:wght@400;500&family=Jost:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Oswald:wght@400;700&family=Josefin+Sans:wght@400;700&family=Playfair+Display:wght@400;700&family=Lora:wght@400;700&family=Merriweather:wght@400;700&display=swap">
 <style>
 __CSS__
 .tpls{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
@@ -64,6 +65,8 @@ __CSS__
    <section class="step" id="s-sablon">
     <h2><span class="n">03</span>Şablon ve bilgiler</h2>
     <div class="tpls" id="tpls"></div>
+    <p class="hint" style="margin:16px 0 8px">Yazı fontu</p>
+    <div class="opts" id="fontlar" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))"></div>
     <p class="hint" style="margin:16px 0 8px">Zemin rengi</p>
     <div class="renkler" id="zeminler"></div>
     <p class="hint" style="margin:16px 0 8px">Vurgu rengi</p>
@@ -83,7 +86,7 @@ __CSS__
     <div class="err" id="sErr"></div>
     <p class="hint" style="margin:18px 0 8px">Önizleme (85 × 55 mm)</p>
     <div class="onz" id="onz"></div>
-    <p class="hint" id="arkaNot">Çift yönde arka yüze logonuz (yoksa firma adınız) ve web adresiniz vurgu rengi zemin üzerine otomatik yerleşir.</p>
+    <p class="hint" id="arkaNot">Çift yönde arka yüze, seçtiğiniz zemin renginde logonuz (yoksa firma adınız) ve web adresiniz otomatik yerleşir.</p>
    </section>
 
    <section class="step" id="s-pdf" style="display:none">
@@ -168,8 +171,10 @@ function veri(ornek){
   if (ornek && doluMu()) ornek = false;
   var d = {}; Object.keys(ORNEK).forEach(function(k){ var v = $('k_'+k).value.trim(); d[k] = v || (ornek ? ORNEK[k] : ''); }); return d;
 }
-var FF = "font-family:Jost,'Helvetica Neue',Arial,sans-serif";
-var FA = "font-family:Archivo,'Helvetica Neue',Arial,sans-serif;font-stretch:110%";
+var FONTLAR = ["Montserrat", "Poppins", "Raleway", "Roboto", "Open Sans", "Oswald", "Josefin Sans", "Playfair Display", "Lora", "Merriweather"];
+var FF = '', FA = '';
+function fontAyarla(){ var f = document.querySelector('input[name=font]:checked').value; FF = "font-family:'"+f+"',Arial,sans-serif"; FA = FF; return f; }
+$('fontlar').innerHTML = FONTLAR.map(function(f,i){ return '<label class="opt"><input type="radio" name="font" value="'+f+'"'+(i===0?' checked':'')+'><b style="font-family:\''+f+'\';font-weight:700;font-size:19px">Ayşe Yılmaz</b><small>'+f+'</small></label>'; }).join('');
 function t(x,y,s,txt,ek){ return txt ? '<text x="'+x+'" y="'+y+'" style="'+FF+';font-size:'+s+'px;'+(ek||'')+'">'+esc(txt)+'</text>' : ''; }
 function ta(x,y,s,txt,ek){ return txt ? '<text x="'+x+'" y="'+y+'" style="'+FA+';font-size:'+s+'px;font-weight:700;'+(ek||'')+'">'+esc(txt)+'</text>' : ''; }
 function logo(x,y,w,h){ return logoURL ? '<image href="'+logoURL+'" x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" preserveAspectRatio="xMidYMid meet"/>' : ''; }
@@ -189,11 +194,11 @@ var TPL = [
  {ad:'Köşe', on:function(d,c){ return '<rect width="850" height="550" fill="'+Z+'"/><path d="M850 0 L850 220 L630 0 Z" fill="'+c+'"/><path d="M0 550 L0 400 L150 550 Z" fill="'+c+'" opacity=".25"/>'+logo(60,50,160,70)+ta(60,280,46,d.ad,'fill:'+M+'')+t(60,322,26,d.unvan,'fill:'+c)+iletisim(d,790,390,20,MU,'end'); }},
  {ad:'Büyük isim', on:function(d,c){ return '<rect width="850" height="550" fill="'+Z+'"/>'+ta(60,160,64,(d.ad||'').split(' ')[0],'fill:'+M+'')+ta(60,230,64,(d.ad||'').split(' ').slice(1).join(' '),'fill:'+c)+t(60,285,24,d.unvan+(d.firma?' · '+d.firma:''),'fill:'+MU+'')+iletisim(d,60,370,20,MU)+logo(650,410,160,90); }}
 ];
-function arka(d,c){ return '<rect width="850" height="550" fill="'+c+'"/>'+(logoURL ? logo(275,175,300,140) : ta(425,295,52,d.firma||d.ad,'fill:#fff;text-anchor:middle'))+t(425,440,22,d.web,'fill:#fff;opacity:.85;text-anchor:middle'); }
+function arka(d,c){ return '<rect width="850" height="550" fill="'+Z+'"/>'+(logoURL ? logo(275,165,300,140) : ta(425,290,52,d.firma||d.ad,'fill:'+M+';text-anchor:middle'))+'<rect x="385" y="345" width="80" height="4" fill="'+c+'"/>'+t(425,420,22,d.web,'fill:'+MU+';text-anchor:middle'); }
 function svg(ic){ return '<svg viewBox="0 0 850 550" xmlns="http://www.w3.org/2000/svg" role="img">'+ic+'</svg>'; }
 
 function tplCiz(){
-  var c = renkAyarla(), d = veri(true);
+  fontAyarla(); var c = renkAyarla(), d = veri(true);
   var sec = document.querySelector('input[name=tpl]:checked'), sv = sec ? sec.value : '0';
   $('tpls').innerHTML = TPL.map(function(p,i){ return '<label class="tpl"><input type="radio" name="tpl" value="'+i+'"'+(String(i)===sv?' checked':'')+'>'+svg(p.on(d,c))+'<small>'+(i+1)+'. '+p.ad+'</small></label>'; }).join('');
 }
@@ -207,7 +212,7 @@ function ciz(){
   $('s-sablon').style.display = m==='sablon' ? '' : 'none';
   $('s-pdf').style.display = m==='pdf' ? '' : 'none';
   document.querySelectorAll('.pk').forEach(function(el){ var p = C.paketler.filter(function(x){return String(x.adet)===el.dataset.a;})[0]; el.textContent = tl0(p[yon])+' + KDV · adet başı '+(p[yon]/p.adet).toLocaleString('tr-TR',{maximumFractionDigits:2})+' ₺'; });
-  var c = renkAyarla();
+  var fontAdi = fontAyarla(); var c = renkAyarla();
   var eksik = [];
   if (m==='sablon') {
     var ti = parseInt(document.querySelector('input[name=tpl]:checked').value,10), d = veri(false), dOn = veri(true);
@@ -228,6 +233,7 @@ function ciz(){
   h += '<div class="line"><span>Kartvizit</span><span style="font-family:inherit">'+k.paket.toLocaleString('tr-TR')+' adet, '+(yon==='cift'?'çift yön':'tek yön')+'</span></div>';
   var sel = document.querySelector('input[name=selefon]:checked').value==='parlak' ? 'parlak' : 'mat';
   h += '<div class="line"><span>Kağıt</span><span style="font-family:inherit">350 gr mat kuşe, '+sel+' selefon</span></div>';
+  if (m==='sablon') h += '<div class="line"><span>Font</span><span style="font-family:inherit">'+esc(document.querySelector('input[name=font]:checked').value)+'</span></div>';
   if (m==='sablon') h += '<div class="line"><span>Şablon</span><span style="font-family:inherit">'+(parseInt(document.querySelector('input[name=tpl]:checked').value,10)+1)+'. '+TPL[parseInt(document.querySelector('input[name=tpl]:checked').value,10)].ad+'</span></div>';
   h += '<div class="line total"><span>Ara toplam (KDV hariç)</span><span>'+tl(r.araToplam)+'</span></div>';
   h += '<div class="line"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
@@ -241,7 +247,7 @@ function ciz(){
   $('devamNot').textContent = hazir ? (m==='sablon' ? 'Kartvizitiniz önizlemedeki haliyle baskı dosyasına dönüştürülür ve siparişe sabitlenir.' : 'Dosyanız ve seçimleriniz siparişe sabitlenir.') : (!dosyaTamam ? (m==='sablon' ? 'Ad soyad ve en az bir iletişim bilgisi girin.' : 'PDF dosyanızı yükleyin.') : 'Onay kutusunu işaretleyin.');
 }
 $('f').addEventListener('input', function(e){ if (e.target.id && e.target.id.indexOf('k_')===0) tplCiz(); ciz(); });
-$('f').addEventListener('change', function(e){ if (e.target.name==='renk' || e.target.name==='zemin') tplCiz(); ciz(); });
+$('f').addEventListener('change', function(e){ if (e.target.name==='renk' || e.target.name==='zemin' || e.target.name==='font') tplCiz(); ciz(); });
 $('logo').addEventListener('change', function(e){ var f=e.target.files[0]; if(!f) return; var rd=new FileReader(); rd.onload=function(){ var im=new Image(); im.onload=function(){ logoPx=Math.max(im.naturalWidth, im.naturalHeight); logoURL=rd.result; tplCiz(); ciz(); }; im.src=rd.result; }; rd.readAsDataURL(f); });
 function pdfAl(f){ if(!f) return; if(!/\.pdf$/i.test(f.name)){ $('pdfSonuc').innerHTML='<div class="msg bad">Yalnızca PDF dosyası yükleyin.</div>'; return; } pdfAd=f.name; ciz(); }
 $('pdf').addEventListener('change', function(e){ pdfAl(e.target.files[0]); });
@@ -251,7 +257,7 @@ var drop=$('drop');
 drop.addEventListener('drop', function(e){ pdfAl(e.dataTransfer.files[0]); });
 $('devam').addEventListener('click', function(){ $('devamNot').textContent='Test ortamı: ödeme adımı henüz bağlı değil.'; });
 tplCiz(); ciz();
-if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ tplCiz(); ciz(); });
+if (document.fonts && document.fonts.load) Promise.all(FONTLAR.map(function(f){ return Promise.all([document.fonts.load('400 20px "'+f+'"'), document.fonts.load('700 20px "'+f+'"')]); })).then(function(){ tplCiz(); ciz(); }, function(){ tplCiz(); ciz(); });
 })();
 </script>
 </body>
