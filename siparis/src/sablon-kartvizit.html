@@ -7,7 +7,29 @@
 <title>__BASLIK__ — Sipariş | IstanbulPrintLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Mono:wght@400;500&family=Jost:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Oswald:wght@400;700&family=Josefin+Sans:wght@400;700&family=Playfair+Display:wght@400;700&family=Lora:wght@400;700&family=Merriweather:wght@400;700&display=swap">
+<style>
+/* kartvizit fontları: önizleme ve baskı PDF'i aynı dosyaları kullanır */
+@font-face{font-family:'Montserrat';font-weight:400;font-display:swap;src:url('fontlar/Montserrat-400.woff') format('woff')}
+@font-face{font-family:'Montserrat';font-weight:700;font-display:swap;src:url('fontlar/Montserrat-700.woff') format('woff')}
+@font-face{font-family:'Poppins';font-weight:400;font-display:swap;src:url('fontlar/Poppins-400.woff') format('woff')}
+@font-face{font-family:'Poppins';font-weight:700;font-display:swap;src:url('fontlar/Poppins-700.woff') format('woff')}
+@font-face{font-family:'Raleway';font-weight:400;font-display:swap;src:url('fontlar/Raleway-400.woff') format('woff')}
+@font-face{font-family:'Raleway';font-weight:700;font-display:swap;src:url('fontlar/Raleway-700.woff') format('woff')}
+@font-face{font-family:'Roboto';font-weight:400;font-display:swap;src:url('fontlar/Roboto-400.woff') format('woff')}
+@font-face{font-family:'Roboto';font-weight:700;font-display:swap;src:url('fontlar/Roboto-700.woff') format('woff')}
+@font-face{font-family:'Open Sans';font-weight:400;font-display:swap;src:url('fontlar/OpenSans-400.woff') format('woff')}
+@font-face{font-family:'Open Sans';font-weight:700;font-display:swap;src:url('fontlar/OpenSans-700.woff') format('woff')}
+@font-face{font-family:'Oswald';font-weight:400;font-display:swap;src:url('fontlar/Oswald-400.woff') format('woff')}
+@font-face{font-family:'Oswald';font-weight:700;font-display:swap;src:url('fontlar/Oswald-700.woff') format('woff')}
+@font-face{font-family:'Josefin Sans';font-weight:400;font-display:swap;src:url('fontlar/JosefinSans-400.woff') format('woff')}
+@font-face{font-family:'Josefin Sans';font-weight:700;font-display:swap;src:url('fontlar/JosefinSans-700.woff') format('woff')}
+@font-face{font-family:'Playfair Display';font-weight:400;font-display:swap;src:url('fontlar/PlayfairDisplay-400.woff') format('woff')}
+@font-face{font-family:'Playfair Display';font-weight:700;font-display:swap;src:url('fontlar/PlayfairDisplay-700.woff') format('woff')}
+@font-face{font-family:'Lora';font-weight:400;font-display:swap;src:url('fontlar/Lora-400.woff') format('woff')}
+@font-face{font-family:'Lora';font-weight:700;font-display:swap;src:url('fontlar/Lora-700.woff') format('woff')}
+@font-face{font-family:'Merriweather';font-weight:400;font-display:swap;src:url('fontlar/Merriweather-400.woff') format('woff')}
+@font-face{font-family:'Merriweather';font-weight:700;font-display:swap;src:url('fontlar/Merriweather-700.woff') format('woff')}
+</style>
 <style>
 __CSS__
 .tpls{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
@@ -118,6 +140,8 @@ __CSS__
    <h3>Sipariş özeti</h3>
    <div id="ozetIc"></div>
    <button class="btn" id="devam" type="button" disabled>Ödemeye geç</button>
+   <button class="btn ghost" id="pdfIndir" type="button" style="display:none">Baskı dosyasını indir (PDF)</button>
+   <div id="pdfDurum"></div>
    <p class="small" id="devamNot"></p>
    <p class="small">Fiyata 350 gr mat kuşe ve selefon dahildir. Özel kartvizitler (kalın kağıt, kabartma, lak, yaldız, özel kesim) teklifle fiyatlandırılır. __KARGO_METNI__</p>
   </aside>
@@ -130,6 +154,9 @@ __CSS__
 
 <script>
 __MOTOR__
+</script>
+<script>
+__KPDF__
 </script>
 <script>
 (function(){
@@ -151,7 +178,7 @@ var RENK = [['#0B0B0B','Siyah'],['#1B2A57','Lacivert'],['#7A1F2B','Bordo'],['#1E
 $('zeminler').innerHTML = ZEMIN.map(function(r,i){return '<label class="sw" title="'+r[1]+'"><input type="radio" name="zemin" value="'+r[0]+'"'+(i===0?' checked':'')+' aria-label="'+r[1]+'"><i style="background:'+r[0]+'"></i></label>';}).join('');
 $('renkler').innerHTML = RENK.map(function(r,i){return '<label class="sw" title="'+r[1]+'"><input type="radio" name="renk" value="'+r[0]+'"'+(i===0?' checked':'')+' aria-label="'+r[1]+'"><i style="background:'+r[0]+'"></i></label>';}).join('');
 
-var Z='#FFFFFF', M='#0B0B0B', MU='#3A3835';
+var Z='#FFFFFF', M='#0B0B0B', MU='#3A3835', CR='#0B0B0B';
 function lum(h){ var c=h.replace('#',''); var r=parseInt(c.substr(0,2),16)/255,g=parseInt(c.substr(2,2),16)/255,b=parseInt(c.substr(4,2),16)/255; var f=function(x){return x<=0.03928?x/12.92:Math.pow((x+0.055)/1.055,2.4);}; return 0.2126*f(r)+0.7152*f(g)+0.0722*f(b); }
 function kontrast(a,b){ var x=lum(a), y=lum(b); return (Math.max(x,y)+0.05)/(Math.min(x,y)+0.05); }
 // zemin ve vurgu rengine göre okunur metin renklerini ayarla; vurgu zeminde kaybolursa metin rengine döner
@@ -159,8 +186,9 @@ function renkAyarla(){
   Z = document.querySelector('input[name=zemin]:checked').value;
   var koyu = lum(Z) < 0.3;
   M = koyu ? '#FFFFFF' : '#0B0B0B'; MU = koyu ? '#D8D6D2' : '#3A3835';
-  var c = document.querySelector('input[name=renk]:checked').value;
+  var c = document.querySelector('input[name=renk]:checked').value; CR = c; // Renkli şablonda zemin vurgu rengidir, olduğu gibi kullanılır
   var dusuk = kontrast(c, Z) < 2.2;
+  var tsec = document.querySelector('input[name=tpl]:checked'); if (tsec && tsec.value==='2') dusuk = false;
   $('renkNot').textContent = dusuk ? 'Seçtiğiniz vurgu rengi bu zeminde yeterince görünmez; vurgular '+(koyu?'beyaz':'siyah')+' basılır. Farklı bir vurgu rengi seçebilirsiniz.' : '';
   return dusuk ? M : c;
 }
@@ -178,23 +206,27 @@ $('fontlar').innerHTML = FONTLAR.map(function(f,i){ return '<label class="opt"><
 function t(x,y,s,txt,ek){ return txt ? '<text x="'+x+'" y="'+y+'" style="'+FF+';font-size:'+s+'px;'+(ek||'')+'">'+esc(txt)+'</text>' : ''; }
 function ta(x,y,s,txt,ek){ return txt ? '<text x="'+x+'" y="'+y+'" style="'+FA+';font-size:'+s+'px;font-weight:700;'+(ek||'')+'">'+esc(txt)+'</text>' : ''; }
 function logo(x,y,w,h){ return logoURL ? '<image href="'+logoURL+'" x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" preserveAspectRatio="xMidYMid meet"/>' : ''; }
-function iletisim(d,x,y,s,renk,anchor){ var a=anchor?'text-anchor:'+anchor+';':''; var out='', yy=y; [d.tel,d.eposta,d.web,d.adres].forEach(function(v){ if(v){ out+=t(x,yy,s,v,'fill:'+renk+';'+a); yy+=s*1.55; } }); return out; }
+// sar: dar sütunlarda uzun adres, kelime sınırından iki satıra bölünür
+function sat(v,sar){ if(!sar||!v||v.length<=sar) return [v]; var i=v.lastIndexOf(' ',sar); if(i<1) i=v.indexOf(' '); return i<1?[v]:[v.slice(0,i),v.slice(i+1)]; }
+function iletisim(d,x,y,s,renk,anchor,sar){ var a=anchor?'text-anchor:'+anchor+';':''; var out='', yy=y; [d.tel,d.eposta,d.web].concat(sat(d.adres,sar)).forEach(function(v){ if(v){ out+=t(x,yy,s,v,'fill:'+renk+';'+a); yy+=s*1.55; } }); return out; }
 function ini(ad){ return (ad||'').split(/\s+/).filter(Boolean).slice(0,2).map(function(w){return w.charAt(0).toLocaleUpperCase('tr-TR');}).join(''); }
 
+// zemin ve kenara dayanan şekiller 3 mm (30 birim) taşma payına uzar; önizlemede kesim dışı görünmez
+function BG(r){ return '<rect x="-30" y="-30" width="910" height="610" fill="'+r+'"/>'; }
 // 10 şablon: ön yüz (850 × 550 birim = 85 × 55 mm)
 var TPL = [
- {ad:'Sade', on:function(d,c){ return '<rect width="850" height="550" fill="'+Z+'"/>'+logo(60,50,160,70)+ta(60,300,46,d.ad,'fill:'+M+'')+t(60,345,26,d.unvan,'fill:'+c)+t(60,385,24,d.firma,'fill:'+MU+'')+iletisim(d,790,300,21,MU,'end'); }},
- {ad:'Ortalı', on:function(d,c){ return '<rect width="850" height="550" fill="'+Z+'"/>'+logo(345,40,160,70)+ta(425,230,48,d.ad,'fill:'+M+';text-anchor:middle')+t(425,272,26,d.unvan,'fill:'+c+';text-anchor:middle')+'<rect x="385" y="300" width="80" height="3" fill="'+c+'"/>'+iletisim(d,425,350,21,MU,'middle'); }},
- {ad:'Renkli', on:function(d,c){ return '<rect width="850" height="550" fill="'+c+'"/>'+logo(60,50,160,70)+ta(60,300,46,d.ad,'fill:#fff')+t(60,345,26,d.unvan,'fill:#fff;opacity:.8')+t(60,385,24,d.firma,'fill:#fff;opacity:.8')+iletisim(d,790,300,21,'#fff','end'); }},
- {ad:'Yan şerit', on:function(d,c){ return '<rect width="850" height="550" fill="'+Z+'"/><rect width="70" height="550" fill="'+c+'"/>'+logo(650,40,160,70)+ta(120,200,46,d.ad,'fill:'+M+'')+t(120,245,26,d.unvan,'fill:'+c)+t(120,285,24,d.firma,'fill:'+MU+'')+iletisim(d,120,370,21,MU); }},
- {ad:'Üst bant', on:function(d,c){ return '<rect width="850" height="550" fill="'+Z+'"/><rect width="850" height="130" fill="'+c+'"/>'+t(60,82,30,d.firma,'fill:#fff;font-weight:600')+logo(630,30,180,70)+ta(60,250,44,d.ad,'fill:'+M+'')+t(60,292,25,d.unvan,'fill:'+c)+iletisim(d,60,360,21,MU); }},
- {ad:'Monogram', on:function(d,c){ return '<rect width="850" height="550" fill="'+Z+'"/><circle cx="170" cy="275" r="105" fill="none" stroke="'+c+'" stroke-width="4"/>'+ta(170,305,80,ini(d.ad),'fill:'+c+';text-anchor:middle')+ta(330,230,40,d.ad,'fill:'+M+'')+t(330,270,24,d.unvan,'fill:'+c)+iletisim(d,330,330,20,MU); }},
- {ad:'İki sütun', on:function(d,c){ return '<rect width="850" height="550" fill="'+Z+'"/><rect x="424" y="70" width="2" height="410" fill="'+c+'"/>'+logo(80,90,280,110)+ta(80,330,38,d.ad,'fill:'+M+'')+t(80,368,23,d.unvan,'fill:'+c)+t(80,404,22,d.firma,'fill:'+MU+'')+iletisim(d,470,230,21,MU); }},
- {ad:'Alt çizgi', on:function(d,c){ return '<rect width="850" height="550" fill="'+Z+'"/><rect y="500" width="850" height="50" fill="'+c+'"/>'+logo(60,50,160,70)+ta(60,250,48,d.ad,'fill:'+M+'')+t(60,292,26,d.unvan,'fill:'+c)+iletisim(d,60,360,20,MU)+t(790,532,20,d.firma,'fill:#fff;text-anchor:end;font-weight:600'); }},
- {ad:'Köşe', on:function(d,c){ return '<rect width="850" height="550" fill="'+Z+'"/><path d="M850 0 L850 220 L630 0 Z" fill="'+c+'"/><path d="M0 550 L0 400 L150 550 Z" fill="'+c+'" opacity=".25"/>'+logo(60,50,160,70)+ta(60,280,46,d.ad,'fill:'+M+'')+t(60,322,26,d.unvan,'fill:'+c)+iletisim(d,790,390,20,MU,'end'); }},
- {ad:'Büyük isim', on:function(d,c){ return '<rect width="850" height="550" fill="'+Z+'"/>'+ta(60,160,64,(d.ad||'').split(' ')[0],'fill:'+M+'')+ta(60,230,64,(d.ad||'').split(' ').slice(1).join(' '),'fill:'+c)+t(60,285,24,d.unvan+(d.firma?' · '+d.firma:''),'fill:'+MU+'')+iletisim(d,60,370,20,MU)+logo(650,410,160,90); }}
+ {ad:'Sade', on:function(d,c){ return ''+BG(Z)+''+logo(60,50,160,70)+ta(60,300,46,d.ad,'fill:'+M+'')+t(60,345,26,d.unvan,'fill:'+c)+t(60,385,24,d.firma,'fill:'+MU+'')+iletisim(d,790,300,21,MU,'end'); }},
+ {ad:'Ortalı', on:function(d,c){ return ''+BG(Z)+''+logo(345,40,160,70)+ta(425,230,48,d.ad,'fill:'+M+';text-anchor:middle')+t(425,272,26,d.unvan,'fill:'+c+';text-anchor:middle')+'<rect x="385" y="300" width="80" height="3" fill="'+c+'"/>'+iletisim(d,425,350,21,MU,'middle'); }},
+ {ad:'Renkli', on:function(d,c){ return ''+BG(CR)+''+logo(60,50,160,70)+ta(60,300,46,d.ad,'fill:#fff')+t(60,345,26,d.unvan,'fill:#fff;opacity:.8')+t(60,385,24,d.firma,'fill:#fff;opacity:.8')+iletisim(d,790,300,21,'#fff','end'); }},
+ {ad:'Yan şerit', on:function(d,c){ return ''+BG(Z)+'<rect x="-30" y="-30" width="100" height="610" fill="'+c+'"/>'+logo(650,40,160,70)+ta(120,200,46,d.ad,'fill:'+M+'')+t(120,245,26,d.unvan,'fill:'+c)+t(120,285,24,d.firma,'fill:'+MU+'')+iletisim(d,120,370,21,MU); }},
+ {ad:'Üst bant', on:function(d,c){ return ''+BG(Z)+'<rect x="-30" y="-30" width="910" height="160" fill="'+c+'"/>'+t(60,82,30,d.firma,'fill:#fff;font-weight:600')+logo(630,30,180,70)+ta(60,250,44,d.ad,'fill:'+M+'')+t(60,292,25,d.unvan,'fill:'+c)+iletisim(d,60,360,21,MU); }},
+ {ad:'Monogram', on:function(d,c){ return ''+BG(Z)+'<circle cx="170" cy="275" r="105" fill="none" stroke="'+c+'" stroke-width="4"/>'+ta(170,305,80,ini(d.ad),'fill:'+c+';text-anchor:middle')+ta(330,230,40,d.ad,'fill:'+M+'')+t(330,270,24,d.unvan,'fill:'+c)+iletisim(d,330,330,20,MU); }},
+ {ad:'İki sütun', on:function(d,c){ return ''+BG(Z)+'<rect x="424" y="70" width="2" height="410" fill="'+c+'"/>'+logo(80,90,280,110)+ta(80,330,38,d.ad,'fill:'+M+'')+t(80,368,23,d.unvan,'fill:'+c)+t(80,404,22,d.firma,'fill:'+MU+'')+iletisim(d,470,230,21,MU,null,26); }},
+ {ad:'Alt çizgi', on:function(d,c){ return ''+BG(Z)+'<rect x="-30" y="475" width="910" height="105" fill="'+c+'"/>'+logo(60,50,160,70)+ta(60,250,48,d.ad,'fill:'+M+'')+t(60,292,26,d.unvan,'fill:'+c)+iletisim(d,60,360,20,MU)+t(790,512,20,d.firma,'fill:#fff;text-anchor:end;font-weight:600'); }},
+ {ad:'Köşe', on:function(d,c){ return ''+BG(Z)+'<path d="M880 -30 L880 250 L600 -30 Z" fill="'+c+'"/><path d="M-30 580 L-30 370 L180 580 Z" fill="'+c+'" opacity=".25"/>'+logo(60,50,160,70)+ta(60,280,46,d.ad,'fill:'+M+'')+t(60,322,26,d.unvan,'fill:'+c)+iletisim(d,790,390,20,MU,'end'); }},
+ {ad:'Büyük isim', on:function(d,c){ return ''+BG(Z)+''+ta(60,160,64,(d.ad||'').split(' ')[0],'fill:'+M+'')+ta(60,230,64,(d.ad||'').split(' ').slice(1).join(' '),'fill:'+c)+t(60,285,24,d.unvan+(d.firma?' · '+d.firma:''),'fill:'+MU+'')+iletisim(d,60,370,20,MU)+logo(650,410,160,90); }}
 ];
-function arka(d,c){ return '<rect width="850" height="550" fill="'+Z+'"/>'+(logoURL ? logo(275,165,300,140) : ta(425,290,52,d.firma||d.ad,'fill:'+M+';text-anchor:middle'))+'<rect x="385" y="345" width="80" height="4" fill="'+c+'"/>'+t(425,420,22,d.web,'fill:'+MU+';text-anchor:middle'); }
+function arka(d,c){ return ''+BG(Z)+''+(logoURL ? logo(275,165,300,140) : ta(425,290,52,d.firma||d.ad,'fill:'+M+';text-anchor:middle'))+'<rect x="385" y="345" width="80" height="4" fill="'+c+'"/>'+t(425,420,22,d.web,'fill:'+MU+';text-anchor:middle'); }
 function svg(ic){ return '<svg viewBox="0 0 850 550" xmlns="http://www.w3.org/2000/svg" role="img">'+ic+'</svg>'; }
 
 function tplCiz(){
@@ -222,7 +254,7 @@ function ciz(){
     if (d.eposta && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.eposta)) eksik.push('geçerli e-posta');
     // metin taşma kontrolü: her yazı kesim çizgisinden en az 3 mm (30 birim) içeride olmalı
     var tasan = false;
-    document.querySelectorAll('#onz svg').forEach(function(sv){ sv.querySelectorAll('text').forEach(function(tx){ try { var bb = tx.getBBox(); if (bb.width && (bb.x < 30 || bb.x + bb.width > 820 || bb.y < 20 || bb.y + bb.height > 530)) { tasan = true; tx.setAttribute('fill', '#A3271B'); } } catch(e){} }); });
+    document.querySelectorAll('#onz svg').forEach(function(sv){ sv.querySelectorAll('text').forEach(function(tx){ try { var bb = tx.getBBox(); if (bb.width && (bb.x < 30 || bb.x + bb.width > 820 || bb.y < 20 || bb.y + bb.height > 530)) { tasan = true; tx.style.fill = '#A3271B'; tx.style.opacity = '1'; } } catch(e){} }); });
     if (tasan && doluMu()) eksik.push('kırmızı görünen yazılar kartvizite sığmıyor; metni kısaltın veya başka bir şablon seçin');
     var msgs = [];
     if (eksik.length && doluMu()) msgs.push('Eksik veya hatalı: '+eksik.join(', ')+'.');
@@ -242,6 +274,7 @@ function ciz(){
   $('ozetIc').innerHTML = h; $('mTop').textContent = tl(r.toplam);
   $('pdfSonuc').innerHTML = pdfAd ? '<div class="msg warn">'+esc(pdfAd)+' alındı. PDF dosyaları operatörümüz tarafından ölçü, taşma payı ve yazı kontrolünden geçirilir; sorun varsa üretimden önce sizinle iletişime geçilir.</div>' : '';
   var dosyaTamam = m==='sablon' ? eksik.length===0 : !!pdfAd;
+  $('pdfIndir').style.display = (m==='sablon' && dosyaTamam) ? '' : 'none';
   var hazir = dosyaTamam && $('onay').checked;
   $('devam').disabled = !hazir;
   $('devamNot').textContent = hazir ? (m==='sablon' ? 'Kartvizitiniz önizlemedeki haliyle baskı dosyasına dönüştürülür ve siparişe sabitlenir.' : 'Dosyanız ve seçimleriniz siparişe sabitlenir.') : (!dosyaTamam ? (m==='sablon' ? 'Ad soyad ve en az bir iletişim bilgisi girin.' : 'PDF dosyanızı yükleyin.') : 'Onay kutusunu işaretleyin.');
@@ -255,7 +288,23 @@ var drop=$('drop');
 ['dragenter','dragover'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.add('on');});});
 ['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('on');});});
 drop.addEventListener('drop', function(e){ pdfAl(e.dataTransfer.files[0]); });
-$('devam').addEventListener('click', function(){ $('devamNot').textContent='Test ortamı: ödeme adımı henüz bağlı değil.'; });
+// Baskı PDF'i: önizlemedeki kartvizit, yazılar konturlu, 91 × 61 mm (3 mm taşma) olarak üretilir
+var baskiPDF = null;
+function pdfUret(){
+  var ti = parseInt(document.querySelector('input[name=tpl]:checked').value,10), d = veri(false), c = renkAyarla(); fontAyarla();
+  var yuzler = [svg(TPL[ti].on(d,c))]; if (girdi().yon==='cift') yuzler.push(svg(arka(d,c)));
+  $('pdfDurum').innerHTML = '<p class="small">Baskı dosyası hazırlanıyor…</p>';
+  return IPLKartvizitPDF.olustur({yuzler: yuzler, font: document.querySelector('input[name=font]:checked').value, yol: 'fontlar/', logo: logoURL}).then(function(r){
+    if (!r.blob) { $('pdfDurum').innerHTML = '<div class="msg bad">Seçtiğiniz fontta şu karakter'+(r.eksik.length>1?'ler':'')+' yok: '+esc(r.eksik.join(' '))+'. Bu karakteri değiştirin ya da başka bir font seçin.</div>'; return null; }
+    $('pdfDurum').innerHTML = ''; baskiPDF = r.blob; return r.blob;
+  }, function(e){ $('pdfDurum').innerHTML = '<div class="msg bad">Baskı dosyası hazırlanamadı: '+esc(e.message)+' Sayfayı yenileyip tekrar deneyin.</div>'; return null; });
+}
+function dosyaAdi(){ var a = (veri(false).ad||'kartvizit').toLocaleLowerCase('tr-TR').replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); return 'kartvizit-'+(a||'baski')+'.pdf'; }
+$('pdfIndir').addEventListener('click', function(){ pdfUret().then(function(b){ if(!b) return; var u=URL.createObjectURL(b), a=document.createElement('a'); a.href=u; a.download=dosyaAdi(); document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(u);},4000); }); });
+$('devam').addEventListener('click', function(){
+  if (mod()==='sablon') { pdfUret().then(function(b){ if (b) $('devamNot').textContent='Baskı dosyanız hazırlandı ('+Math.round(b.size/1024)+' KB). Test ortamı: ödeme adımı henüz bağlı değil.'; }); }
+  else $('devamNot').textContent='Test ortamı: ödeme adımı henüz bağlı değil.';
+});
 tplCiz(); ciz();
 if (document.fonts && document.fonts.load) Promise.all(FONTLAR.map(function(f){ return Promise.all([document.fonts.load('400 20px "'+f+'"'), document.fonts.load('700 20px "'+f+'"')]); })).then(function(){ tplCiz(); ciz(); }, function(){ tplCiz(); ciz(); });
 })();
