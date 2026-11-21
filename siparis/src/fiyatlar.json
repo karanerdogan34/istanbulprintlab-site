@@ -492,6 +492,62 @@
           "m": "Fotobloklar kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz."
         }
       ]
+    },
+    "afis-baski": {
+      "ad": "Afiş Baskı",
+      "tur": "rulo",
+      "net_en": 160,
+      "malzemeler": [
+        {
+          "kod": "branda",
+          "ad": "Branda (400 gr)",
+          "m2": 369,
+          "kargo_max_m2": 16,
+          "not": "Uzun süreli iç ve dış mekan kullanımı için dayanıklı Avrupa dökme branda."
+        },
+        {
+          "kod": "blueback",
+          "ad": "Blueback afiş kağıdı",
+          "m2": 249,
+          "kargo_max_m2": 16,
+          "uyari": "Blueback, kısa süreli (yaklaşık 4–6 hafta) dış mekan kampanyaları için uygundur. Uzun süreli kullanım için branda seçin."
+        },
+        {
+          "kod": "saten-240",
+          "ad": "Saten kağıt (240 gr)",
+          "m2": 599,
+          "net_en": 102,
+          "uyari": "Saten kağıt yalnızca iç mekan içindir; dış mekanda yağmur ve güneşe dayanmaz."
+        }
+      ],
+      "ppi": {
+        "uygun": 72,
+        "uyari": 50
+      },
+      "aciklama": "Kampanya, duyuru, etkinlik ve vitrin için afiş. Malzemeyi seçin, kendi ölçünüzü girin, dosyanızı yükleyin; fiyat anında ekranda.",
+      "chips": [
+        "Branda, blueback, saten",
+        "Kendi ölçünüz",
+        "GREENGUARD Gold sertifikalı orijinal mürekkep"
+      ],
+      "bilgi": [
+        {
+          "b": "Orijinal mürekkep, sertifikalı üretim",
+          "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
+        },
+        {
+          "b": "Hangi malzemeyi seçmeliyim?",
+          "m": "<b>Branda:</b> uzun süreli iç ve dış mekan. <b>Blueback:</b> kısa süreli (yaklaşık 4–6 hafta) dış mekan kampanyaları, en ekonomik seçenek. <b>Saten kağıt:</b> yalnızca iç mekan; mağaza, ofis ve etkinlik alanları."
+        },
+        {
+          "b": "Daha ince kağıt mı arıyorsunuz?",
+          "m": "240 gr'dan ince kağıtlar standart fiyatlandırmanın dışındadır. Ölçünüzü ve adedinizi WhatsApp'tan (+90 532 523 73 64) gönderin, fiyatı size iletelim."
+        },
+        {
+          "b": "Dosya nasıl hazırlanır?",
+          "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan afişlerde baskı ölçüsünde en az 72 PPI yeterlidir."
+        }
+      ]
     }
   }
 }

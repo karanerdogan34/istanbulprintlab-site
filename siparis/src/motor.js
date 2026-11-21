@@ -29,10 +29,11 @@
 
     if (cfg.sekiller && g.sekil === 'ozel') return {durum: 'teklif', mesaj: cfg.ozel_mesaj, uyarilar: []};
     var kisa = Math.min(en, boy), uzun = Math.max(en, boy);
+    var netEn = (malz && malz.net_en) || cfg.net_en;
     if (cfg.max_boy && (kisa > cfg.net_en || uzun > cfg.max_boy)) {
       teklif = 'Tek parça en fazla ' + cfg.net_en + ' × ' + cfg.max_boy + ' cm üretilir. Daha büyük işler birden fazla parçadan oluşur; bunun için teklif alın.';
-    } else if (kisa > cfg.net_en) {
-      teklif = 'Bu ölçü tek parça üretilemez: iki kenar da ' + cfg.net_en + ' cm\'yi aşıyor. Kenarlardan en az biri en fazla ' + cfg.net_en + ' cm olmalı. Daha büyük işler parçalı üretilir; bunun için teklif alın.';
+    } else if (kisa > netEn) {
+      teklif = 'Bu ölçü tek parça üretilemez: iki kenar da ' + netEn + ' cm\'yi aşıyor. Kenarlardan en az biri en fazla ' + netEn + ' cm olmalı. Daha büyük işler parçalı üretilir; bunun için teklif alın.';
     } else if (uzun > genel.tek_parca_max_boy) {
       teklif = 'Tek parça en fazla ' + (genel.tek_parca_max_boy / 100) + ' metre üretilir. Daha uzun işler parçalı üretilir; bunun için teklif alın.';
     }
@@ -52,6 +53,7 @@
       kgBedel = kgAdet * adet * cfg.kusgozu.fiyat;
     }
     var araToplam = baski + tamamlama + lamBedel + kgBedel;
+    var kmax = ('kargo_max_m2' in malz) ? malz.kargo_max_m2 : cfg.kargo_max_m2;
     var kdv = araToplam * genel.kdv_orani;
     return {
       durum: 'tamam',
@@ -62,8 +64,8 @@
         kusgozuAdet: kgAdet * adet, kusgozu: yuvarla(kgBedel)
       },
       araToplam: yuvarla(araToplam), kdv: yuvarla(kdv), toplam: yuvarla(araToplam + kdv),
-      kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik && !(cfg.kargo_max_m2 && m2 > cfg.kargo_max_m2),
-      kargoAyrica: !!(cfg.kargo_max_m2 && m2 > cfg.kargo_max_m2)
+      kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik && !(kmax && m2 > kmax),
+      kargoAyrica: !!(kmax && m2 > kmax), kargoMaxM2: kmax || null
     };
   }
 

@@ -186,7 +186,9 @@ function kgCiz(){
 }
 if (C.kusgozu) { $('s-kg').style.display=''; $('kgOner').addEventListener('click', function(){ var en=IPLMotor.sayi($('en').value), boy=IPLMotor.sayi($('boy').value); if (en>0&&boy>0){ $('kusgozu').value=kgOneri(en,boy); ciz(); } }); }
 numarala();
-$('olcuNot').textContent = C.max_boy ? ('Tek parça en fazla '+C.net_en+' × '+C.max_boy+' cm üretilir. Daha büyük işler birden fazla parçadan oluşur; bunlar için teklif alınır.') : C.kesim ? ('Tek bir sticker\'ın ölçüsünü girin. Her sticker en az '+C.kesim.min_cm+' cm olmalı; en fazla '+C.kesim.max_adet+' adet sipariş verilebilir. Daha küçük ölçüler ve daha fazla adet için teklif alın.') : 'Kenarlardan biri en fazla '+C.net_en+' cm, diğeri en fazla '+(G.tek_parca_max_boy/100)+' metre olabilir. Daha büyük ve daha uzun işler parçalı üretilir; bunlar için teklif alınır.';
+function olcuNotYaz(){ var mz=document.querySelector('input[name=malzeme]:checked'); var m=C.malzemeler.filter(function(x){return mz&&x.kod===mz.value;})[0]; var ne=(m&&m.net_en)||C.net_en;
+$('olcuNot').textContent = C.max_boy ? ('Tek parça en fazla '+C.net_en+' × '+C.max_boy+' cm üretilir. Daha büyük işler birden fazla parçadan oluşur; bunlar için teklif alınır.') : C.kesim ? ('Tek bir sticker\'ın ölçüsünü girin. Her sticker en az '+C.kesim.min_cm+' cm olmalı; en fazla '+C.kesim.max_adet+' adet sipariş verilebilir. Daha küçük ölçüler ve daha fazla adet için teklif alın.') : 'Kenarlardan biri en fazla '+ne+' cm, diğeri en fazla '+(G.tek_parca_max_boy/100)+' metre olabilir. Daha büyük ve daha uzun işler parçalı üretilir; bunlar için teklif alınır.'; }
+olcuNotYaz(); $('malzemeler').addEventListener('change', olcuNotYaz);
 
 // bilgi kartları
 $('bilgi').innerHTML = (C.bilgi||[]).map(function(b){return '<div><h3>'+esc(b.b)+'</h3><p>'+b.m+'</p></div>';}).join('');
@@ -261,7 +263,7 @@ function ciz(){
     h += '<div class="line big"><span>Toplam</span><span>'+tl(r.toplam)+'</span></div>';
     if (C.teslimat) { var ts = document.querySelector('input[name=teslim]:checked').value; h += '<div class="line"><span>Teslimat</span><span style="font-family:inherit">'+(ts==='ozel'?'Özel teslimat (bedeli ayrıca)':'Atölyeden teslim')+'</span></div>'; } else
     h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+(r.kargoAyrica?'Ayrıca hesaplanır':(r.kargoUcretsiz?'Ücretsiz':'Alıcı ödemeli'))+'</span></div>';
-    if (r.kargoAyrica) h += '<p class="small">'+k.m2.toLocaleString('tr-TR')+' m² ile '+C.kargo_max_m2+' m² sınırının üzerinde olduğu için ücretsiz kargo uygulanmaz; kargo bedeli ayrıca hesaplanır. Dilerseniz Kadıköy\'deki atölyemizden teslim alabilirsiniz.</p>';
+    if (r.kargoAyrica) h += '<p class="small">'+k.m2.toLocaleString('tr-TR')+' m² ile '+r.kargoMaxM2+' m² sınırının üzerinde olduğu için ücretsiz kargo uygulanmaz; kargo bedeli ayrıca hesaplanır. Dilerseniz Kadıköy\'deki atölyemizden teslim alabilirsiniz.</p>';
     h += alanNot;
     if (k.asgariFarki > 0) h += '<p class="small">Asgari baskı tutarı '+tl0(G.asgari_baski)+' + KDV\'dir; laminasyon bu tutarın üzerine eklenir.</p>';
     $('mTop').textContent = tl(r.toplam);
