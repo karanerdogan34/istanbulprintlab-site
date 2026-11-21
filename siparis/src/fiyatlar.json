@@ -855,42 +855,48 @@
      "ad": "Non-woven, dokulu vinil (240 gr)",
      "m2": 605,
      "serit_en": 105,
-     "not": "Kum veya keten dokulu vinil yüzey, non-woven taban. Tutkalla uygulanır; tutkal duvara sürülür."
+     "not": "Kum veya keten dokulu vinil yüzey, non-woven taban. Tutkalla uygulanır; tutkal duvara sürülür.",
+     "uygulama": "tutkalli"
     },
     {
      "kod": "nonwoven-premium",
      "ad": "Non-woven premium, sedir dokulu (280 gr)",
      "m2": 912,
      "serit_en": 104,
-     "not": "Daha kalın, belirgin dokulu vinil yüzey, non-woven taban. Tutkalla uygulanır."
+     "not": "Daha kalın, belirgin dokulu vinil yüzey, non-woven taban. Tutkalla uygulanır.",
+     "uygulama": "tutkalli"
     },
     {
      "kod": "tekstil",
      "ad": "Tekstil tabanlı (400 gr)",
      "m2": 1584,
      "serit_en": 138,
-     "not": "Kumaş dokulu, yırtılmaya dayanıklı kalın yüzey. Tutkalla uygulanır; geniş rulo sayesinde daha az ek yeri."
+     "not": "Kumaş dokulu, yırtılmaya dayanıklı kalın yüzey. Tutkalla uygulanır; geniş rulo sayesinde daha az ek yeri.",
+     "uygulama": "tutkalli_agir"
     },
     {
      "kod": "yapiskanli-duz",
      "ad": "Kendinden yapışkanlı, PVC içermeyen",
      "m2": 1262,
      "serit_en": 135,
-     "not": "Tutkal gerekmez; arka kağıdı soyularak düz ve temiz duvara yapıştırılır."
+     "not": "Tutkal gerekmez; arka kağıdı soyularak düz ve temiz duvara yapıştırılır.",
+     "uygulama": "yapiskanli"
     },
     {
      "kod": "yapiskanli-kumas",
      "ad": "Kendinden yapışkanlı kumaş (350 gr)",
      "m2": 1757,
      "serit_en": 128,
-     "not": "Kumaş dokulu yüzey; tutkal gerekmez."
+     "not": "Kumaş dokulu yüzey; tutkal gerekmez.",
+     "uygulama": "yapiskanli"
     },
     {
      "kod": "yapiskanli-dokulu",
      "ad": "Kendinden yapışkanlı premium dokulu",
      "m2": 3048,
      "serit_en": 135,
-     "not": "Dokulu premium yüzey; tutkal gerekmez."
+     "not": "Dokulu premium yüzey; tutkal gerekmez.",
+     "uygulama": "yapiskanli"
     },
     {
      "kod": "kagit",
@@ -930,13 +936,44 @@
     },
     {
      "b": "Uygulama",
-     "m": "Duvar yüzeyi kuru, temiz, sağlam ve düz olmalı. Yeni boyanmış, nemli, tozuyan, boyası dökülen veya pürüzlü yüzeylerde yapışma sorunları oluşabilir; uygulamadan önce yüzeyi kontrol edin. Tutkallı malzemelerde tutkal duvara sürülür ve şeritler ek yerlerinden birleştirilerek yerleştirilir. Kendinden yapışkanlı malzemeler tutkalsız uygulanır. Fiyatlara tutkal ve montaj dahil değildir."
+     "m": "Her malzemenin adım adım uygulama talimatı, malzemeyi seçtiğinizde hemen altında görünür. Şeritler sıra numaralı gönderilir. Fiyatlara tutkal ve montaj dahil değildir."
     },
     {
      "b": "Dosya nasıl hazırlanır?",
      "m": "Görselinizi duvarın tamamı için tek parça hazırlayın; şeritlere bölme işini biz yaparız. Önemli öğeleri (yazı, yüz, logo) kenarlardan en az 10 cm içeride tutun. Duvar kağıdı uzaktan izlendiği için baskı ölçüsünde 72 PPI ve üzeri yeterlidir."
     }
-   ]
+   ],
+   "uygulamalar": {
+    "tutkalli": [
+     "Duvarı hazırlayın: yüzey kuru, temiz, tozsuz, sağlam ve düz olmalı. Eski duvar kağıdını sökün, çatlak ve pürüzleri macunlayıp zımparalayın; gerekiyorsa duvar kağıdı astarı uygulayın.",
+     "Şeritleri üzerlerindeki sıra numarasına göre yere dizin; görselin doğru sırada birleştiğini kontrol edin.",
+     "İlk şeridin geleceği yere su terazisi veya şakül ile dik bir kurşun kalem çizgisi çizin.",
+     "Non-woven duvar kağıdı tutkalını, üreticisinin tarifine göre hazırlayıp rulo ile yalnızca duvara, şerit eninden 10–15 cm daha geniş sürün. Duvar kağıdının arkasına tutkal sürmeyin.",
+     "İlk şeridi kuru halde, çizgiye hizalayarak ıslak tutkalın üzerine yerleştirin. Duvar kağıdı fırçası veya plastik spatula ile ortadan kenarlara doğru bastırarak havasını alın.",
+     "Sonraki şeritleri üst üste bindirmeden, görseli hizalayarak uç uca yerleştirin. Ek yerlerini ek yeri silindiri ile hafifçe bastırın.",
+     "Tavan ve süpürgelikte kalan 5 cm kesim payını spatula ile bastırıp maket bıçağıyla düzgünce kesin. Ek yerlerinden taşan tutkalı nemli süngerle hemen silin.",
+     "Kuruma süresince odada cereyan yapmayın, ortamı aşırı ısıtmayın ve kurumayı hızlandırmaya çalışmayın."
+    ],
+    "tutkalli_agir": [
+     "Duvarı hazırlayın: yüzey kuru, temiz, tozsuz, sağlam ve düz olmalı. Eski duvar kağıdını sökün, çatlak ve pürüzleri macunlayıp zımparalayın; gerekiyorsa duvar kağıdı astarı uygulayın.",
+     "Şeritleri üzerlerindeki sıra numarasına göre yere dizin; görselin doğru sırada birleştiğini kontrol edin.",
+     "İlk şeridin geleceği yere su terazisi veya şakül ile dik bir kurşun kalem çizgisi çizin.",
+     "Ağır duvar kaplamaları için uygun, güçlü bir duvar kağıdı tutkalını rulo ile duvara, şerit eninden 10–15 cm daha geniş sürün.",
+     "Şeridi çizgiye hizalayarak yerleştirin; spatula ile ortadan kenarlara doğru bastırarak havasını alın.",
+     "Sonraki şeritleri görseli hizalayarak uç uca yerleştirin ve ek yerlerini silindirle bastırın.",
+     "Tavan ve süpürgelikteki 5 cm kesim payını maket bıçağıyla kesin; taşan tutkalı nemli süngerle hemen silin.",
+     "Malzeme kalın ve ağır olduğu için uygulamanın deneyimli bir duvar kağıdı ustası tarafından yapılmasını öneririz."
+    ],
+    "yapiskanli": [
+     "Duvarı hazırlayın: yüzey kuru, temiz, tozsuz ve pürüzsüz olmalı. Yeni boyanmış duvarlarda boyanın tamamen kürlenmesini bekleyin. Pürüzlü, nemli, tozuyan veya boyası dökülen duvarlarda yapışkan tutmayabilir.",
+     "Şeritleri üzerlerindeki sıra numarasına göre yere dizin; ilk şeridin geleceği yere su terazisi ile dik bir kurşun kalem çizgisi çizin.",
+     "Arka kağıdı şeridin üst kısmından 10–15 cm soyun, şeridi üst kenardan çizgiye hizalayarak duvara yapıştırın.",
+     "Arka kağıdı küçük parçalar halinde aşağı doğru çekerken, keçeli rakle ile ortadan kenarlara doğru bastırın; hava kabarcığı bırakmayın. Arka kağıdı tek seferde tamamen çıkarmayın.",
+     "Sonraki şeridi görseli hizalayarak ek yerinden birleştirin ve ek yerlerini silindir veya rakle ile sıkıca bastırın.",
+     "Tavan ve süpürgelikte kalan 5 cm kesim payını maket bıçağıyla düzgünce kesin.",
+     "Tutkal gerekmez. Uygulamayı iki kişi yapmak hizalamayı kolaylaştırır."
+    ]
+   }
   }
  }
 }

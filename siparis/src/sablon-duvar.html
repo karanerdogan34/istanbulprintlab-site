@@ -11,6 +11,10 @@
 __CSS__
 .yer{margin-top:16px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
 .yer svg{display:block;background:var(--stone);border:1px solid var(--line);border-radius:4px}
+.uyg{margin-top:12px;border:1px solid var(--line);border-radius:8px;padding:12px 16px;background:#fff}
+.uyg summary{cursor:pointer;font-weight:500}
+.uyg ol{margin:10px 0 0;padding-left:20px;font-size:15px;color:var(--soft)}
+.uyg li{margin:6px 0}
 .yer .small{margin:0}
 @media (max-width:900px){ .yer{grid-template-columns:1fr} }
 </style>
@@ -132,7 +136,9 @@ function dosyaDurum(){
 function ciz(){
   var g = girdi(), r = IPLMotor.hesapla(F, KOD, g);
   var mz = C.malzemeler.filter(function(m){return m.kod===g.malzeme;})[0];
-  $('malzNot').innerHTML = mz && mz.not ? '<p class="hint">'+esc(mz.not)+'</p>' : '';
+  var uyg = mz && mz.uygulama && C.uygulamalar[mz.uygulama];
+  $('malzNot').innerHTML = (mz && mz.not ? '<p class="hint">'+esc(mz.not)+'</p>' : '')
+    + (uyg ? '<details class="uyg" open><summary>Nasıl uygulanır?</summary><ol>'+uyg.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ol></details>' : (mz && mz.teklif ? '<p class="hint">Uygulama bilgisi teklifle birlikte iletilir.</p>' : ''));
   ['en','boy'].forEach(function(a){$(a).removeAttribute('aria-invalid');});
   $('olcuErr').textContent = '';
   var dolu = g.en.trim()!=='' || g.boy.trim()!=='', h = '';
