@@ -805,6 +805,45 @@
      "m": "Arka planı şeffaf PNG veya PDF kullanın: şeffaf alanlar baskısız kalır. JPG dosyalarda arka plan da basılır. Görsellerde baskı ölçüsünde en az 100 PPI önerilir; yazıları kontura çevirin. Kendi yerleşiminizi yaptıysanız sayfanın tamamının ölçüsünü girin (genişlik en fazla 40 cm)."
     }
    ]
+  },
+  "sicak-dtf-baski": {
+   "ad": "Sıcak DTF Baskı",
+   "tur": "dtf",
+   "tabaka": {
+    "en": 30,
+    "boy": 60,
+    "fiyat": 499
+   },
+   "aralik_cm": 1,
+   "min_cm": 2,
+   "ppi": {
+    "uygun": 100,
+    "uyari": 72
+   },
+   "aciklama": "Tişört, sweatshirt, çanta ve kumaş ürünlere ütüyle uygulanan, zeminsiz DTF transfer baskı. Tasarım ölçünüzü ve adedi girin; yerleşim ve fiyat anında ekranda.",
+   "chips": [
+    "30 × 60 cm tabaka",
+    "Zeminsiz, arka planı olmayan baskı",
+    "Tişört, sweatshirt, kumaş"
+   ],
+   "bilgi": [
+    {
+     "b": "Tabaka ile fiyat",
+     "m": "Sıcak DTF 30 × 60 cm tabakalara basılır; her tabaka 499 ₺ + KDV. Tasarımlarınız tabakaya, aralarında 1 cm boşluk kalacak şekilde otomatik yerleştirilir; kaç tabaka gerektiği ekranda görünür. Tek parça tasarım en fazla 30 × 60 cm olabilir."
+    },
+    {
+     "b": "Nerelere uygulanır?",
+     "m": "Tişört, sweatshirt, hırka, bez çanta, şapka ve benzeri kumaş ürünlere. Cam, metal, plastik gibi sert yüzeyler için <a href=\"#\">Soğuk DTF Baskı</a> sayfasını kullanın."
+    },
+    {
+     "b": "Nasıl uygulanır?",
+     "m": "Transfer, ütü veya transfer presiyle kumaşa uygulanır. Uygulama sıcaklığı, süresi ve filmin soyulma şekli siparişinizle birlikte iletilir."
+    },
+    {
+     "b": "Dosya nasıl hazırlanır?",
+     "m": "Arka planı şeffaf PNG veya PDF kullanın: şeffaf alanlar baskısız kalır. JPG dosyalarda arka plan da basılır. Görsellerde baskı ölçüsünde en az 100 PPI önerilir; yazıları kontura çevirin. Kendi yerleşiminizi yaptıysanız tabakanın tamamının ölçüsünü girin (en fazla 30 × 60 cm)."
+    }
+   ]
   }
  }
 }

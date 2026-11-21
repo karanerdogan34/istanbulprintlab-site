@@ -181,6 +181,21 @@
     if (!(adet >= 1) || Math.floor(adet) !== adet) hatalar.push({alan: 'adet', mesaj: 'Adet 1 veya daha büyük bir tam sayı olmalı.'});
     if (hatalar.length) return {durum: 'hata', hatalar: hatalar};
     if (Math.min(en, boy) < cfg.min_cm) return {durum: 'teklif', mesaj: cfg.min_cm + ' cm\'den küçük tasarımlar standart fiyatlandırmanın dışındadır. Bu iş için teklif alın.', uyarilar: []};
+    if (cfg.tabaka) { // sıcak DTF: sabit ölçülü tabaka, tabaka başına fiyat
+      var T = cfg.tabaka, a = cfg.aralik_cm, en2 = null;
+      [[en, boy, false], [boy, en, true]].forEach(function (o) {
+        if (o[0] > T.en || o[1] > T.boy) return;
+        var sut = Math.floor((T.en + a) / (o[0] + a)), sir = Math.floor((T.boy + a) / (o[1] + a)), kap = sut * sir;
+        if (!en2 || kap > en2.kap) en2 = {sutun: sut, sira: sir, kap: kap, pw: o[0], ph: o[1], dondu: o[2]};
+      });
+      if (!en2) return {durum: 'teklif', mesaj: 'Sıcak DTF\'de tek parça en fazla ' + T.en + ' × ' + T.boy + ' cm olabilir. Daha büyük tasarımlar için teklif alın.', uyarilar: []};
+      var tabaka = Math.ceil(adet / en2.kap);
+      var bs = yuvarla(tabaka * T.fiyat), tm = bs < genel.asgari_baski ? yuvarla(genel.asgari_baski - bs) : 0;
+      var at = yuvarla(bs + tm), kd = yuvarla(at * genel.kdv_orani);
+      return {durum: 'tamam', uyarilar: [],
+        kalemler: {tabaka: tabaka, tabakaEn: T.en, tabakaBoy: T.boy, birimTabaka: T.fiyat, kapasite: en2.kap, sutun: en2.sutun, sira: en2.sira, dondu: en2.dondu, pw: en2.pw, ph: en2.ph, baski: bs, asgariFarki: tm},
+        araToplam: at, kdv: kd, toplam: yuvarla(at + kd), kargoUcretsiz: at >= genel.kargo_ucretsiz_esik, kargoAyrica: false};
+    }
     if (Math.min(en, boy) > cfg.rulo_en) return {durum: 'teklif', mesaj: 'Soğuk DTF en fazla ' + cfg.rulo_en + ' cm enindeki ruloya basılır; tasarımın kenarlarından en az biri ' + cfg.rulo_en + ' cm veya daha kısa olmalı. Daha büyük işler için teklif alın.', uyarilar: []};
     var y = dtfYerlesim(cfg.rulo_en, cfg.aralik_cm, en, boy, adet);
     var uzunluk = Math.ceil(y.uzunluk - 1e-9); // tam santimetreye yukarı

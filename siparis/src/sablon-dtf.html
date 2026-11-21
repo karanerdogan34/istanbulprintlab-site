@@ -83,10 +83,11 @@ var tl0 = function(x){return x.toLocaleString('tr-TR')+' ₺';};
 var esc = function(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
 var metre = function(cm){ return (cm/100).toLocaleString('tr-TR',{maximumFractionDigits:2})+' metre'; };
 
-var chips = [{t: tl0(C.metre_fiyat)+' + KDV / metre', ink:true}].concat((C.chips||[]).map(function(t){return {t:t};}));
+var TAB = C.tabaka || null;
+var chips = [{t: TAB ? tl0(TAB.fiyat)+' + KDV / tabaka' : tl0(C.metre_fiyat)+' + KDV / metre', ink:true}].concat((C.chips||[]).map(function(t){return {t:t};}));
 $('chips').innerHTML = chips.map(function(c){return '<span class="chip'+(c.ink?' ink':'')+'">'+esc(c.t)+'</span>';}).join('');
 $('bilgi').innerHTML = (C.bilgi||[]).map(function(b){return '<div><h3>'+esc(b.b)+'</h3><p>'+b.m+'</p></div>';}).join('');
-$('olcuNot').textContent = 'Tek bir tasarımın ölçüsünü ve kaç adet istediğinizi girin. Tasarımlar '+C.rulo_en+' cm enindeki ruloya aralarında '+C.aralik_cm+' cm boşlukla otomatik yerleştirilir; kullanılan uzunluk kadar ödersiniz. Tasarımın kenarlarından biri en fazla '+C.rulo_en+' cm olmalı; en küçük kenar '+C.min_cm+' cm\'dir. Kendi yerleşiminizi yaptıysanız sayfanın tamamının ölçüsünü girip adedi 1 bırakın.';
+$('olcuNot').textContent = TAB ? ('Tek bir tasarımın ölçüsünü ve kaç adet istediğinizi girin. Tasarımlar '+TAB.en+' × '+TAB.boy+' cm tabakalara aralarında '+C.aralik_cm+' cm boşlukla otomatik yerleştirilir; gereken tabaka sayısı kadar ödersiniz. Tek parça tasarım en fazla '+TAB.en+' × '+TAB.boy+' cm, en küçük kenar '+C.min_cm+' cm\'dir. Kendi yerleşiminizi yaptıysanız tabakanın tamamının ölçüsünü girip adedi 1 bırakın.') : 'Tek bir tasarımın ölçüsünü ve kaç adet istediğinizi girin. Tasarımlar '+C.rulo_en+' cm enindeki ruloya aralarında '+C.aralik_cm+' cm boşlukla otomatik yerleştirilir; kullanılan uzunluk kadar ödersiniz. Tasarımın kenarlarından biri en fazla '+C.rulo_en+' cm olmalı; en küçük kenar '+C.min_cm+' cm\'dir. Kendi yerleşiminizi yaptıysanız sayfanın tamamının ölçüsünü girip adedi 1 bırakın.';
 
 var dosya = null; // {ad, tur, px, url, seffaf}
 
@@ -95,8 +96,8 @@ function girdi(){ return {en: $('en').value, boy: $('boy').value, adet: $('adet'
 // rulo yerleşim önizlemesi (ilk 120 cm çizilir)
 function yerlesimCiz(r){
   if (!r || r.durum!=='tamam') { $('yer').innerHTML=''; return; }
-  var k = r.kalemler, E = k.ruloEn, a = C.aralik_cm, gosterL = Math.min(k.uzunluk, 120), sc = 200/E, W = E*sc, H = gosterL*sc;
-  var g = '', n = 0, adet = IPLMotor.sayi($('adet').value);
+  var k = r.kalemler, a = C.aralik_cm, E = TAB ? TAB.en : k.ruloEn, gosterL = TAB ? TAB.boy : Math.min(k.uzunluk, 120), sc = (TAB?160:200)/E, W = E*sc, H = gosterL*sc;
+  var g = '', n = 0, adet = IPLMotor.sayi($('adet').value); if (TAB) adet = Math.min(adet, k.kapasite);
   var solPay = (E - (k.sutun*k.pw + (k.sutun-1)*a))/2;
   for (var s=0; s<k.sira; s++) { var y = s*(k.ph+a); if (y >= gosterL) break;
     for (var c=0; c<k.sutun && n<adet; c++, n++) { var x = solPay + c*(k.pw+a);
@@ -104,6 +105,9 @@ function yerlesimCiz(r){
       if (dosya && dosya.url) g += '<image href="'+dosya.url+'" x="'+(cx-iw/2)+'" y="'+(cy-ih/2)+'" width="'+iw+'" height="'+ih+'" preserveAspectRatio="none"'+(k.dondu?' transform="rotate(90 '+cx+' '+cy+')"':'')+'/>';
       g += '<rect x="'+(x*sc)+'" y="'+(y*sc)+'" width="'+(k.pw*sc)+'" height="'+(k.ph*sc)+'" fill="'+(dosya&&dosya.url?'none':'#0B0B0B')+'" fill-opacity=".14" stroke="#0B0B0B" stroke-width="1"/>'; } }
   var kes = k.uzunluk > gosterL ? '<line x1="0" y1="'+(H-1)+'" x2="'+W+'" y2="'+(H-1)+'" stroke="#8A5A00" stroke-dasharray="5 4"/>' : '';
+  if (TAB) { $('yer').innerHTML = '<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" role="img" aria-label="Tabaka yerleşimi">'+g+'</svg>'
+     + '<div><p class="small"><b style="font-weight:500;color:var(--ink)">Yerleşim:</b> bir tabakaya '+k.kapasite+' adet sığar ('+k.sutun+' × '+k.sira+')'+(k.dondu?'; tasarım tabakaya yan çevrilerek yerleştirildi, uygulamayı etkilemez':'')+'.</p>'
+     + '<p class="small" style="margin-top:6px">Gereken: '+k.tabaka+' tabaka ('+TAB.en+' × '+TAB.boy+' cm).</p><p class="small" style="margin-top:6px">Önizleme ilk tabakayı gösterir.</p></div>'; return; }
   $('yer').innerHTML = '<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" role="img" aria-label="Rulo yerleşimi">'+g+kes+'</svg>'
    + '<div><p class="small"><b style="font-weight:500;color:var(--ink)">Yerleşim:</b> yan yana '+k.sutun+' adet, '+k.sira+' sıra'+(k.dondu?' (tasarım ruloya yan çevrilerek yerleştirildi; uygulamayı etkilemez)':'')+'.</p>'
    + '<p class="small" style="margin-top:6px">Kullanılan rulo: '+E+' cm × '+metre(k.uzunluk)+'.</p>'
@@ -146,8 +150,10 @@ function ciz(){
   } else {
     var k = r.kalemler;
     h += '<div class="line"><span>Tasarım</span><span>'+esc(g.en)+' × '+esc(g.boy)+' cm × '+esc(g.adet)+' adet</span></div>';
-    h += '<div class="line"><span>Rulo uzunluğu ('+k.ruloEn+' cm en)</span><span>'+metre(k.uzunluk)+'</span></div>';
-    h += '<div class="line"><span>Baskı ('+tl0(k.birimMetre)+' / metre)</span><span>'+tl(k.baski)+'</span></div>';
+    if (TAB) { h += '<div class="line"><span>Tabaka ('+TAB.en+' × '+TAB.boy+' cm)</span><span>'+k.tabaka+' adet</span></div>';
+      h += '<div class="line"><span>Baskı ('+tl0(k.birimTabaka)+' / tabaka)</span><span>'+tl(k.baski)+'</span></div>'; }
+    else { h += '<div class="line"><span>Rulo uzunluğu ('+k.ruloEn+' cm en)</span><span>'+metre(k.uzunluk)+'</span></div>';
+      h += '<div class="line"><span>Baskı ('+tl0(k.birimMetre)+' / metre)</span><span>'+tl(k.baski)+'</span></div>'; }
     if (k.asgariFarki > 0) h += '<div class="line"><span>Asgari baskı tutarı farkı</span><span>'+tl(k.asgariFarki)+'</span></div>';
     h += '<div class="line total"><span>Ara toplam (KDV hariç)</span><span>'+tl(r.araToplam)+'</span></div>';
     h += '<div class="line"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
