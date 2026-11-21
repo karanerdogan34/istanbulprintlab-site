@@ -89,7 +89,8 @@ def urun_dugmeleri_html(A):
     for d in liste:
         if d.get('goster') is False or d.get('kod') not in F:
             continue
-        out.append('<a class="pbtn" href="%s"><b>%s</b><small>%s</small></a>' % (S.guvenli_url(d['yol']), E(d.get('ad', '')), E(baslangic_fiyati(F[d['kod']]))))
+        fy = baslangic_fiyati(F[d['kod']]).split(' + ', 1)
+        out.append('<a class="pbtn" href="%s"><b>%s</b><small>%s</small></a>' % (S.guvenli_url(d['yol']), E(d.get('ad', '')), ' '.join('<span>%s</span>' % E(x) for x in [fy[0]] + (['+ ' + fy[1]] if len(fy) > 1 else []))))
     return '\n' + '\n'.join(out) + '\n'
 
 
@@ -98,7 +99,7 @@ def one_cikanlar_html(A):
     for d in A.get('one_cikanlar') or []:
         if d.get('goster') is False:
             continue
-        out.append('<article class="card"><img src="%s" alt="%s" loading="lazy" style="height:220px;object-fit:cover;width:100%%"><div class="in">%s<h3 style="font-size:19px">%s</h3><p class="muted" style="font-size:15px">%s</p>%s<a href="%s" class="btn sm">%s</a></div></article>' % (
+        out.append('<article class="card"><img class="oc-img" src="%s" alt="%s" loading="lazy"><div class="in">%s<h3 style="font-size:19px">%s</h3><p class="muted" style="font-size:15px">%s</p>%s<a href="%s" class="btn sm">%s</a></div></article>' % (
             S.gorsel(d.get('gorsel')), S.attr(d.get('gorsel_aciklama') or d.get('baslik')), ('<span class="tag">%s</span>' % S.m2h(d['ust_yazi'])) if d.get('ust_yazi') else '',
             S.m2h(d.get('baslik')), S.m2h(d.get('aciklama')), ('<p class="price" style="margin-top:auto">%s</p>' % S.m2h(d['fiyat'])) if d.get('fiyat') else '<p style="margin-top:auto"></p>',
             S.guvenli_url(d.get('baglanti') or '#teklif'), S.m2h(d.get('dugme') or 'İncele')))
