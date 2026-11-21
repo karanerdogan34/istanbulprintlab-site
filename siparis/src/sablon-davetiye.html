@@ -130,7 +130,7 @@ label.f textarea:focus,label.f select:focus{outline:none;border-color:var(--ink)
 
    <section class="step">
     <h2><span class="n">07</span>Onay</h2>
-    <label class="chk"><input type="checkbox" id="onay"><span>Davetiye üzerindeki isimleri, tarihi, saati, mekanı ve adresi tek tek kontrol ettim; yazımlarını onaylıyorum. Ekran ile baskı arasında minimal renk farklılıkları olabileceğini biliyorum.</span></label>
+    <label class="chk"><input type="checkbox" id="onay"><span>Davetiyemin ön ve arka yüzünü inceledim. İsimleri, tarihi, saati, mekanı, adresi ve davet metnini tek tek kontrol ederek baskıya onay veriyorum. Onaydan sonra baskı bu haliyle yapılır. Ekran ile baskı arasında minimal renk farklılıkları olabileceğini biliyorum.</span></label>
    </section>
   </form>
 
@@ -247,7 +247,9 @@ var GUN = ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartes
 function tarihOku(){ var v = $('d_tarih').value; if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) return null; var p = v.split('-').map(Number); return new Date(p[0], p[1]-1, p[2]); }
 function tarihYazi(){ var t = tarihOku(); if (!t) return ''; return t.getDate()+' '+AY[t.getMonth()]+' '+t.getFullYear()+' '+GUN[t.getDay()]; }
 function saatYazi(){ var s = $('d_saat').value; return s ? 'Saat '+s.replace(':','.') : ''; }
-function isGunuEkle(d, n){ var x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); while (n > 0) { x.setDate(x.getDate()+1); if (x.getDay()!==0 && x.getDay()!==6) n--; } return x; }
+var TATIL = C.tatiller || [];
+function gunAnahtar(x){ return x.getFullYear()+'-'+('0'+(x.getMonth()+1)).slice(-2)+'-'+('0'+x.getDate()).slice(-2); }
+function isGunuEkle(d, n){ var x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); while (n > 0) { x.setDate(x.getDate()+1); if (x.getDay()!==0 && x.getDay()!==6 && TATIL.indexOf(gunAnahtar(x))<0) n--; } return x; }
 function tarihKontrol(){
   var t = tarihOku(), bugun = new Date(); bugun = new Date(bugun.getFullYear(), bugun.getMonth(), bugun.getDate());
   if (!t) return {durum:'yok', mesaj:'Etkinlik tarihini seçin.'};
@@ -305,7 +307,7 @@ function ortala(d, c, o, ust, alt){
   var o2 = {}; for (var k in o) o2[k] = o[k];
   o2.is = o2.is || (scriptMi() ? 200 : 124); o2.ms = o2.ms || 42;
   // sığmazsa isimler ve metin birlikte küçülür (en çok 6 adım)
-  for (var i = 0; i < 7; i++) { o2.y = 0; blok(d, c, o2); if (blok.sonY <= alt - ust) break; o2.is = Math.round(o2.is * 0.9); o2.ms = Math.max(30, o2.ms - 2); }
+  for (var i = 0; i < 7; i++) { o2.y = 0; blok(d, c, o2); if (blok.sonY <= alt - ust) break; o2.is = Math.round(o2.is * 0.9); o2.ms = Math.max(32, o2.ms - 2); }
   var hgt = blok.sonY; o2.y = ust + Math.max(0, (alt - ust - hgt) / 2); return blok(d, c, o2);
 }
 function ini(d){ return ((d.isim1||'').charAt(0)+(d.isim2?(d.isim2||'').charAt(0):'')).toLocaleUpperCase('tr-TR'); }
@@ -337,7 +339,7 @@ var TPL = [
 function qrSvg(link, x, y, boyut, renk){
   if (!link || typeof qrcode === 'undefined') return '';
   try { qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8']; var q = qrcode(0,'M'); q.addData(link); q.make(); } catch(e){ return ''; }
-  var n = q.getModuleCount(), m = boyut/n, out = '<rect x="'+(x-40)+'" y="'+(y-40)+'" width="'+(boyut+80)+'" height="'+(boyut+80)+'" fill="#FFFFFF"/>';
+  var n = q.getModuleCount(), m = boyut/n, qz = Math.max(40, 4*m), out = '<rect x="'+(x-qz)+'" y="'+(y-qz)+'" width="'+(boyut+2*qz)+'" height="'+(boyut+2*qz)+'" fill="#FFFFFF"/>';
   for (var r=0;r<n;r++){ var c=0; while(c<n){ if(q.isDark(r,c)){ var s=c; while(c<n && q.isDark(r,c)) c++; out += '<rect x="'+(x+s*m).toFixed(2)+'" y="'+(y+r*m).toFixed(2)+'" width="'+((c-s)*m+0.3).toFixed(2)+'" height="'+(m+0.3).toFixed(2)+'" fill="#0B0B0B"/>'; } else c++; } }
   return out;
 }
@@ -354,8 +356,8 @@ function arkaIc(d, c, yon, y0, k){
 }
 function arka(d, c, yon){
   var w = yon==='y' ? DH : DW, h = yon==='y' ? DW : DH, ust = 140, alt = h - 120, k = 1;
-  // sığmazsa QR ve yazılar birlikte küçülür; QR en az 240 birim (≈24 mm) kalır
-  for (var i = 0; i < 6; i++) { arkaIc(d, c, yon, 0, k); if (arkaIc.sonY <= alt - ust) break; k = Math.max(0.6, k * 0.92); }
+  // sığmazsa QR ve yazılar birlikte en çok %15 küçülür; QR en az 24 mm kalır, yine sığmazsa taşma uyarısı siparişi durdurur
+  for (var i = 0; i < 4; i++) { arkaIc(d, c, yon, 0, k); if (arkaIc.sonY <= alt - ust) break; k = Math.max(0.85, k * 0.95); }
   var hgt = arkaIc.sonY;
   return BG(w,h,Z) + arkaIc(d, c, yon, ust + Math.max(0, (alt - ust - hgt) / 2), k);
 }
@@ -400,7 +402,11 @@ function ciz(){
   h += '<div class="line"><span>Kağıt</span><span style="font-family:inherit">350 gr mat kuşe, '+sel+' selefon</span></div>';
   h += '<div class="line"><span>Zarf</span><span style="font-family:inherit">'+k.paket+' adet, dahil</span></div>';
   if (m==='sablon') h += '<div class="line"><span>Şablon</span><span style="font-family:inherit">'+(secili()+1)+'. '+TPL[secili()].ad+'</span></div>';
-  if (tarihYazi()) h += '<div class="line"><span>Etkinlik</span><span style="font-family:inherit">'+esc(tarihYazi())+'</span></div>';
+  if (tarihYazi()) h += '<div class="line"><span>Etkinlik</span><span style="font-family:inherit">'+esc(tarihYazi())+(saatYazi()?', '+esc(saatYazi()):'')+'</span></div>';
+  if (m==='sablon') { var dz = veri(false), kk = [['İsimler',[dz.isim1,dz.isim2].filter(Boolean).join(' & ')],['Mekan',dz.mekan],['Adres',dz.adres]];
+    if (yon==='cift' && dz.konum) kk.push(['QR bağlantısı',dz.konum]);
+    var kh = kk.filter(function(x){return x[1];}).map(function(x){ return '<div class="line"><span>'+x[0]+'</span><span style="font-family:inherit;text-align:right;word-break:break-word;max-width:62%">'+esc(x[1])+'</span></div>'; }).join('');
+    if (kh) h += '<div class="small" style="margin:12px 0 4px">Yazım kontrolü</div>'+kh; }
   h += '<div class="line total"><span>Ara toplam (KDV hariç)</span><span>'+tl(r.araToplam)+'</span></div>';
   h += '<div class="line"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
   h += '<div class="line big"><span>Toplam</span><span>'+tl(r.toplam)+'</span></div>';
@@ -438,8 +444,9 @@ $('devam').addEventListener('click', function(){
 });
 
 // ---------- olaylar ----------
-$('f').addEventListener('input', function(e){ if (e.target.id && e.target.id.indexOf('d_')===0) tplCiz(); ciz(); });
-$('f').addEventListener('change', function(e){ if (e.target.id==='d_tur') { turUygula(); } if (['renk','zemin','ifont','mfont'].indexOf(e.target.name)>=0 || e.target.id==='d_tur' || e.target.id==='d_tarih') tplCiz(); ciz(); });
+function onaySifirla(e){ if (e.target.id!=='onay' && $('onay').checked) $('onay').checked = false; }
+$('f').addEventListener('input', function(e){ onaySifirla(e); if (e.target.id && e.target.id.indexOf('d_')===0) tplCiz(); ciz(); });
+$('f').addEventListener('change', function(e){ onaySifirla(e); if (e.target.id==='d_tur') { turUygula(); } if (['renk','zemin','ifont','mfont'].indexOf(e.target.name)>=0 || e.target.id==='d_tur' || e.target.id==='d_tarih') tplCiz(); ciz(); });
 function pdfAl(f){ if(!f) return; if(!/\.pdf$/i.test(f.name)){ $('pdfSonuc').innerHTML='<div class="msg bad">Yalnızca PDF dosyası yükleyin.</div>'; return; } pdfAd=f.name; ciz(); }
 $('pdf').addEventListener('change', function(e){ pdfAl(e.target.files[0]); });
 var drop=$('drop');
