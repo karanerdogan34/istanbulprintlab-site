@@ -762,7 +762,7 @@
         },
         {
           "b": "Kurumsal tasarımınız varsa",
-          "m": "Hazır kurumsal kartvizitinizi 85 × 55 mm ölçüsünde, her kenarda 2 mm taşma payıyla PDF olarak yükleyin; yazıları kontura çevirin. Çift yön için iki sayfalı PDF yükleyin."
+          "m": "Hazır kurumsal kartvizitinizi PDF olarak yükleyin: dosya ölçüsü 89 × 59 mm (85 × 55 mm + her kenarda 2 mm taşma), önemli yazılar kesim çizgisinden en az 3 mm içeride, yazılar konturda. Çift yönde 1. sayfa ön yüz, 2. sayfa arka yüz olmalıdır."
         },
         {
           "b": "Hangi işler teklifle?",
