@@ -126,7 +126,7 @@ footer{padding:28px 0;font-size:14px;color:var(--mute);border-top:1px solid var(
 
    <section class="step">
     <h2><span class="n">04</span>Baskı dosyası</h2>
-    <label class="drop" id="drop"><input type="file" id="dosya" accept=".pdf,.jpg,.jpeg,.png,.tif,.tiff,.webp"><b>Dosyanızı seçin veya buraya sürükleyin</b><span class="small">PDF, JPG, PNG veya TIFF. Yazılar kontura çevrilmiş olmalı.</span></label>
+    <label class="drop" id="drop"><input type="file" id="dosya" accept=".pdf,.jpg,.jpeg,.png,.tif,.tiff"><b>Dosyanızı seçin veya buraya sürükleyin</b><span class="small">PDF, JPG, PNG veya TIFF. Yazılar kontura çevrilmiş olmalı. PNG'deki şeffaf alanlar baskısız kalır.</span></label>
     <div id="dosyaSonuc"></div>
    </section>
 
@@ -147,7 +147,7 @@ footer{padding:28px 0;font-size:14px;color:var(--mute);border-top:1px solid var(
 </main>
 
 <section class="info"><div class="wrap grid" id="bilgi"></div></section>
-<footer><div class="wrap">IstanbulPrintLab · Kadıköy'deki atölyemizde Mimaki CJV200 ve GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkeplerle üretim.</div></footer>
+<footer><div class="wrap">IstanbulPrintLab · Kadıköy'deki atölyemizde Mimaki CJV200 ile, GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkeplerle üretim.</div></footer>
 <div class="mbar"><div><span class="small" style="margin:0;display:block">KDV dahil</span><b id="mTop">—</b></div><a href="#ozet">Özete git ↓</a></div>
 
 <script>
@@ -178,7 +178,7 @@ $('malzemeler').innerHTML = C.malzemeler.map(function(m,i){
 var LAD = {yok:'Laminasyonsuz', mat:'Mat laminasyon', parlak:'Parlak laminasyon'};
 if (C.laminasyon) {
   $('lamlar').innerHTML = C.laminasyon.secenekler.map(function(l,i){
-    var alt = l==='yok' ? 'Ek ücret yok' : 'm² fiyatının %'+Math.round((C.laminasyon.carpan-1)*100)+' fazlası';
+    var alt = l==='yok' ? 'Ek ücret yok' : '+ '+tl0(Math.round(minM2*(C.laminasyon.carpan-1)*100)/100)+' + KDV / m²';
     return '<label class="opt"><input type="radio" name="lam" value="'+l+'"'+(i===0?' checked':'')+'><b>'+LAD[l]+'</b><small>'+alt+'</small></label>';
   }).join('');
   $('lamNot').textContent = C.lamNot || 'Laminasyon baskıyı çizilmeye, neme ve UV ışığına karşı korur. Laminasyonlu işlerde mürekkebin kuruması beklendiği için teslim süresi uzar.';
@@ -201,16 +201,18 @@ function girdi(){
 function dosyaDurum(){
   if (!dosya) return null;
   var g = girdi(), en = IPLMotor.sayi(g.en), boy = IPLMotor.sayi(g.boy);
-  if (!dosya.px) return {sonuc:'inceleme', metin:'Bu dosya türünü operatörümüz kontrol edecek. Kontrol tamamlanmadan üretim başlamaz.'};
+  if (!dosya.px) return {sonuc:'inceleme', metin:'Bu dosya türü için otomatik çözünürlük ve ölçü kontrolü yapılmıyor; dosyanızı operatörümüz inceleyecek. Kontrol tamamlanmadan üretim başlamaz.'};
   if (!(en>0 && boy>0)) return {sonuc:'bekle', metin:'Dosyanın uygunluğunu görmek için ölçüyü girin.'};
   var k = IPLMotor.dosyaKontrol(C, dosya.px, en, boy);
   var t;
-  if (k.sonuc==='uygun') t = 'Baskıya uygun. '+en+' × '+boy+' cm ölçüde çözünürlük yaklaşık '+k.ppi+' PPI.';
+  if (k.sonuc==='uygun') t = 'Çözünürlük ön kontrolünden geçti: '+en+' × '+boy+' cm ölçüde yaklaşık '+k.ppi+' PPI. Son kontrol üretim öncesinde yapılır.';
   else if (k.sonuc==='inceleme') t = 'Çözünürlük sınırda: bu ölçüde yaklaşık '+k.ppi+' PPI. Yakından bakıldığında netlik azalabilir; dosyanızı operatörümüz kontrol edecek.';
   else t = 'Baskıya uygun değil: bu ölçüde çözünürlük yalnızca '+k.ppi+' PPI. Daha yüksek çözünürlüklü bir dosya yükleyin ya da ölçüyü küçültün.';
-  if (k.oranSapma > 2) t += ' Dosyanın en-boy oranı girdiğiniz ölçüden %'+k.oranSapma+' farklı; baskıda kenarlarda boşluk ya da kırpma olabilir.';
-  if (k.dondur) t += ' Dosyanız girdiğiniz ölçüye göre yan duruyor; baskıda 90° çevrilerek yerleştirilir.';
-  return {sonuc:k.sonuc, metin:t};
+  var sonuc = k.sonuc;
+  if (k.dondur) t += ' Dosyanızın yönü girdiğiniz ölçüyle uyuşmuyor (biri yatay, diğeri dikey). Genişlik ve yüksekliği kontrol edin.';
+  if (k.oranSapma > 2) { t += ' Dosyanın en-boy oranı girdiğiniz ölçüden %'+k.oranSapma+' farklı. Dosyayı ölçüye uygun hazırlayın ya da ölçüyü düzeltin; aksi halde dosyanız operatör incelemesine alınır.'; if (sonuc==='uygun') sonuc='inceleme'; }
+  if (k.dondur && sonuc==='uygun') sonuc='inceleme';
+  return {sonuc:sonuc, metin:t};
 }
 
 function ciz(){
@@ -240,7 +242,7 @@ function ciz(){
     h += '<div class="line"><span>Alan</span><span>'+k.m2.toLocaleString('tr-TR')+' m²</span></div>';
     h += '<div class="line"><span>Baskı ('+tl0(k.birimM2)+' / m²)</span><span>'+tl(k.baski)+'</span></div>';
     if (k.asgariFarki > 0) h += '<div class="line"><span>Asgari baskı tutarı farkı</span><span>'+tl(k.asgariFarki)+'</span></div>';
-    if (k.laminasyon > 0) h += '<div class="line"><span>Laminasyon</span><span>'+tl(k.laminasyon)+'</span></div>';
+    if (k.laminasyon > 0) h += '<div class="line"><span>Laminasyon ('+tl0(Math.round(k.birimM2*(C.laminasyon.carpan-1)*100)/100)+' / m²)</span><span>'+tl(k.laminasyon)+'</span></div>';
     h += '<div class="line total"><span>Ara toplam (KDV hariç)</span><span>'+tl(r.araToplam)+'</span></div>';
     h += '<div class="line"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
     h += '<div class="line big"><span>Toplam</span><span>'+tl(r.toplam)+'</span></div>';
@@ -272,12 +274,12 @@ function ciz(){
 function dosyaAl(file){
   if (!file) return;
   var ad = file.name, uz = (ad.split('.').pop()||'').toLowerCase();
-  if (['pdf','jpg','jpeg','png','tif','tiff','webp'].indexOf(uz) < 0) {
+  if (['pdf','jpg','jpeg','png','tif','tiff'].indexOf(uz) < 0) {
     $('dosyaSonuc').innerHTML = '<div class="msg bad">Bu dosya türü kabul edilmiyor. PDF, JPG, PNG veya TIFF yükleyin.</div>'; return;
   }
   if (dosya && dosya.url) URL.revokeObjectURL(dosya.url);
   dosya = {ad: ad, tur: uz, px: null, url: null};
-  if (['jpg','jpeg','png','webp'].indexOf(uz) >= 0) {
+  if (['jpg','jpeg','png'].indexOf(uz) >= 0) {
     var url = URL.createObjectURL(file), im = new Image();
     im.onload = function(){ dosya.px = {w: im.naturalWidth, h: im.naturalHeight}; dosya.url = url; ciz(); };
     im.onerror = function(){ dosya.url = null; ciz(); };
