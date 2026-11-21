@@ -36,6 +36,20 @@ __CSS__</style>
     <p class="hint" id="lamNot"></p>
    </section>
 
+   <section class="step" id="s-cer" style="display:none">
+    <h2><span class="n">00</span>Çerçeve</h2>
+    <div class="opts">
+     <label class="opt"><input type="radio" name="cerVar" value="yok" checked><b>Çerçeve istemiyorum</b><small>Kendi ölçünüzü girin</small></label>
+     <label class="opt"><input type="radio" name="cerVar" value="var"><b>Çerçeve istiyorum</b><small>5 standart ölçü, 3 renk</small></label>
+    </div>
+    <div id="cerSec" style="display:none;margin-top:16px">
+     <p class="hint" style="margin:0 0 10px">Çerçeve rengi</p>
+     <div class="opts" id="cerRenk"></div>
+     <p class="hint" style="margin:16px 0 10px">Çerçeve ölçüsü (poster bu ölçüde basılır)</p>
+     <div class="opts" id="cerOlcu"></div>
+    </div>
+   </section>
+
    <section class="step" id="s-sekil" style="display:none">
     <h2><span class="n">00</span>Kesim şekli</h2>
     <div class="opts" id="sekiller"></div>
@@ -155,6 +169,19 @@ if (C.sekiller && !C.kesim) {
   $('sekiller').innerHTML = C.sekiller.map(function(k,i){
     return '<label class="opt"><input type="radio" name="sekil" value="'+k+'"'+(i===0?' checked':'')+'><b>'+SAD[k]+'</b><small>'+SAL[k]+'</small></label>'; }).join('');
 }
+if (C.cerceve) {
+  $('s-cer').style.display = '';
+  $('cerRenk').innerHTML = C.cerceve.renkler.map(function(r,i){ return '<label class="opt"><input type="radio" name="cerRenk" value="'+r.kod+'"'+(i===0?' checked':'')+'><b><span style="display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid #CFCCC7;background:'+r.hex+';vertical-align:-2px;margin-right:8px"></span>'+r.ad.charAt(0).toUpperCase()+r.ad.slice(1)+'</b></label>'; }).join('');
+  function cerOlcuCiz(){
+    var cr = document.querySelector('input[name=cerRenk]:checked'), grp = C.cerceve.renkler.filter(function(x){return x.kod===cr.value;})[0].grup;
+    var sec = document.querySelector('input[name=cerOlcu]:checked'), sv = sec ? sec.value : C.cerceve.olculer[3].kod;
+    $('cerOlcu').innerHTML = C.cerceve.olculer.map(function(o){ return '<label class="opt"><input type="radio" name="cerOlcu" value="'+o.kod+'"'+(o.kod===sv?' checked':'')+'><b>'+o.ad+'</b><small>Çerçeve '+tl0(o.fiyat[grp])+' + KDV</small></label>'; }).join('');
+  }
+  cerOlcuCiz();
+  $('cerRenk').addEventListener('change', function(){ cerOlcuCiz(); ciz(); });
+  var cerToggle = function(){ var v = document.querySelector('input[name=cerVar]:checked').value==='var'; $('cerSec').style.display = v?'':'none'; $('lEn').style.display = v?'none':''; $('lBoy').style.display = v?'none':''; $('olcuNot').style.display = v?'none':''; };
+  $('s-cer').addEventListener('change', cerToggle); cerToggle();
+}
 if (C.malzeme_baslik) $('malzBaslik').textContent = C.malzeme_baslik;
 if (C.teslimat) $('s-teslim').style.display = '';
 // adım numaraları
@@ -202,7 +229,14 @@ function girdi(){
   var sk = document.querySelector('input[name=sekil]:checked');
   var sekil = sk ? sk.value : null;
   var boyV = (sekil==='yuvarlak'||sekil==='kare') ? $('en').value : $('boy').value;
-  return {malzeme: mz && mz.value, laminasyon: lm ? lm.value : 'yok', sekil: sekil, en: $('en').value, boy: boyV, adet: $('adet').value, kusgozu: $('kusgozu').value};
+  var gg = {malzeme: mz && mz.value, laminasyon: lm ? lm.value : 'yok', sekil: sekil, en: $('en').value, boy: boyV, adet: $('adet').value, kusgozu: $('kusgozu').value};
+  if (C.cerceve && document.querySelector('input[name=cerVar]:checked').value==='var') {
+    var co = document.querySelector('input[name=cerOlcu]:checked'), cr = document.querySelector('input[name=cerRenk]:checked');
+    gg.cerceve = co ? co.value : ''; gg.cerceveRenk = cr ? cr.value : '';
+    var oo = C.cerceve.olculer.filter(function(x){return co && x.kod===co.value;})[0];
+    if (oo) { gg.en = String(oo.en); gg.boy = String(oo.boy); }
+  }
+  return gg;
 }
 
 function dosyaDurum(){
@@ -256,6 +290,7 @@ function ciz(){
     h += '<div class="line"><span>Alan</span><span>'+k.m2.toLocaleString('tr-TR')+' m²</span></div>';
     h += '<div class="line"><span>Baskı ('+tl0(k.birimM2)+' / m²)</span><span>'+tl(k.baski)+'</span></div>';
     if (k.asgariFarki > 0) h += '<div class="line"><span>Asgari baskı tutarı farkı</span><span>'+tl(k.asgariFarki)+'</span></div>';
+    if (k.cerceve > 0) h += '<div class="line"><span>Çerçeve ('+esc(k.cerceveAd)+(g.adet>1?' × '+g.adet:'')+')</span><span>'+tl(k.cerceve)+'</span></div>';
     if (k.kusgozu > 0) h += '<div class="line"><span>Kuşgözü ('+k.kusgozuAdet+' × '+tl0(C.kusgozu.fiyat)+')</span><span>'+tl(k.kusgozu)+'</span></div>';
     if (k.laminasyon > 0) h += '<div class="line"><span>Laminasyon ('+tl0(Math.round(k.birimM2*(C.laminasyon.carpan-1)*100)/100)+' / m²)</span><span>'+tl(k.laminasyon)+'</span></div>';
     h += '<div class="line total"><span>Ara toplam (KDV hariç)</span><span>'+tl(r.araToplam)+'</span></div>';
@@ -265,7 +300,8 @@ function ciz(){
     h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+(r.kargoAyrica?'Ayrıca hesaplanır':(r.kargoUcretsiz?'Ücretsiz':'Alıcı ödemeli'))+'</span></div>';
     if (r.kargoAyrica) h += '<p class="small">'+k.m2.toLocaleString('tr-TR')+' m² ile '+r.kargoMaxM2+' m² sınırının üzerinde olduğu için ücretsiz kargo uygulanmaz; kargo bedeli ayrıca hesaplanır. Dilerseniz Kadıköy\'deki atölyemizden teslim alabilirsiniz.</p>';
     h += alanNot;
-    if (k.asgariFarki > 0) h += '<p class="small">Asgari baskı tutarı '+tl0(G.asgari_baski)+' + KDV\'dir; laminasyon bu tutarın üzerine eklenir.</p>';
+    if (k.asgariFarki > 0) { var ek=[]; if (C.laminasyon) ek.push('laminasyon'); if (C.kusgozu) ek.push('kuşgözü'); if (C.cerceve) ek.push('çerçeve');
+      h += '<p class="small">Asgari baskı tutarı '+tl0(G.asgari_baski)+' + KDV\'dir'+(ek.length?'; '+ek.join(' ve ')+' bedeli bu tutarın üzerine eklenir':'')+'.</p>'; }
     $('mTop').textContent = tl(r.toplam);
   }
   $('ozetIc').innerHTML = h;

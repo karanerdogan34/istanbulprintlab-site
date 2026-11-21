@@ -596,6 +596,120 @@
           "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan mesh baskılarda baskı ölçüsünde en az 72 PPI yeterlidir. Delikli yapı nedeniyle ince yazılar yakından zor okunur; büyük yazı ve kalın hatlar tercih edin."
         }
       ]
+    },
+    "poster-baski": {
+      "ad": "Poster Baskı",
+      "tur": "rulo",
+      "net_en": 102,
+      "malzemeler": [
+        {
+          "kod": "saten-240",
+          "ad": "Saten kağıt (240 gr)",
+          "m2": 599
+        }
+      ],
+      "cerceve": {
+        "olculer": [
+          {
+            "kod": "21x30",
+            "ad": "21 × 30 cm",
+            "en": 21,
+            "boy": 30,
+            "fiyat": {
+              "siyah-beyaz": 899,
+              "mese": 999
+            }
+          },
+          {
+            "kod": "30x40",
+            "ad": "30 × 40 cm",
+            "en": 30,
+            "boy": 40,
+            "fiyat": {
+              "siyah-beyaz": 1199,
+              "mese": 1299
+            }
+          },
+          {
+            "kod": "40x50",
+            "ad": "40 × 50 cm",
+            "en": 40,
+            "boy": 50,
+            "fiyat": {
+              "siyah-beyaz": 1899,
+              "mese": 1999
+            }
+          },
+          {
+            "kod": "50x70",
+            "ad": "50 × 70 cm",
+            "en": 50,
+            "boy": 70,
+            "fiyat": {
+              "siyah-beyaz": 2999,
+              "mese": 3299
+            }
+          },
+          {
+            "kod": "61x91",
+            "ad": "61 × 91 cm",
+            "en": 61,
+            "boy": 91,
+            "fiyat": {
+              "siyah-beyaz": 3999,
+              "mese": 4299
+            }
+          }
+        ],
+        "renkler": [
+          {
+            "kod": "siyah",
+            "ad": "siyah",
+            "grup": "siyah-beyaz",
+            "hex": "#111111"
+          },
+          {
+            "kod": "beyaz",
+            "ad": "beyaz",
+            "grup": "siyah-beyaz",
+            "hex": "#FFFFFF"
+          },
+          {
+            "kod": "mese",
+            "ad": "meşe",
+            "grup": "mese",
+            "hex": "#C69C6D"
+          }
+        ]
+      },
+      "ppi": {
+        "uygun": 100,
+        "uyari": 72
+      },
+      "aciklama": "Ev, ofis, mağaza ve etkinlik için 240 gr saten kağıda poster. Kendi ölçünüzü girin ya da çerçeveli sipariş verin; dosyanızı yükleyin, fiyat anında ekranda.",
+      "chips": [
+        "240 gr saten kağıt",
+        "Çerçeve seçeneği",
+        "GREENGUARD Gold sertifikalı orijinal mürekkep"
+      ],
+      "bilgi": [
+        {
+          "b": "Orijinal mürekkep, sertifikalı üretim",
+          "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
+        },
+        {
+          "b": "Çerçeveli poster",
+          "m": "Çerçeveli posterler 21 × 30, 30 × 40, 40 × 50, 50 × 70 ve 61 × 91 cm ölçülerinde; siyah, beyaz veya meşe renk çerçeveyle hazırlanır. Poster seçtiğiniz çerçeve ölçüsünde basılır; çerçeve bedeli baskıya ek olarak hesaplanır."
+        },
+        {
+          "b": "Kendi ölçünüz",
+          "m": "Çerçevesiz posterlerde kenarlardan biri en fazla 102 cm, diğeri en fazla 49 metre olabilir."
+        },
+        {
+          "b": "Dosya nasıl hazırlanır?",
+          "m": "Dosyayı poster ölçüsünde hazırlayın; yazıları kontura çevirin. Görsellerde baskı ölçüsünde en az 100 PPI önerilir."
+        }
+      ]
     }
   }
 }

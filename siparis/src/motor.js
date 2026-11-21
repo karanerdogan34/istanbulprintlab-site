@@ -16,6 +16,16 @@
   // Rulo ürünler: folyo, branda, sticker, one way vision, mesh, afiş, poster
   function ruloHesapla(cfg, genel, g) {
     var hatalar = [], teklif = null, uyarilar = [];
+    var cer = null;
+    if (cfg.cerceve && g.cerceve && g.cerceve !== 'yok') {
+      var olc = null, rnk = null;
+      for (var a = 0; a < cfg.cerceve.olculer.length; a++) if (cfg.cerceve.olculer[a].kod === g.cerceve) olc = cfg.cerceve.olculer[a];
+      for (var b = 0; b < cfg.cerceve.renkler.length; b++) if (cfg.cerceve.renkler[b].kod === g.cerceveRenk) rnk = cfg.cerceve.renkler[b];
+      if (!olc) return {durum: 'hata', hatalar: [{alan: 'cerceve', mesaj: 'Çerçeve ölçüsü seçin.'}]};
+      if (!rnk) return {durum: 'hata', hatalar: [{alan: 'cerceve', mesaj: 'Çerçeve rengi seçin.'}]};
+      cer = {ad: olc.ad + ' ' + rnk.ad, fiyat: olc.fiyat[rnk.grup]};
+      g = {malzeme: g.malzeme, laminasyon: g.laminasyon, en: olc.en, boy: olc.boy, adet: g.adet};
+    }
     var en = sayi(g.en), boy = sayi(g.boy), adet = sayi(g.adet);
     if (!(en > 0)) hatalar.push({alan: 'en', mesaj: 'Genişliği santimetre olarak girin (ör. 120).'});
     if (!(boy > 0)) hatalar.push({alan: 'boy', mesaj: 'Yüksekliği santimetre olarak girin (ör. 80).'});
@@ -52,7 +62,8 @@
       if (kgAdet > 0 && kgAdet < 4) return {durum: 'hata', hatalar: [{alan: 'kusgozu', mesaj: 'Kuşgözü en az 4 adet olmalı (her köşeye bir tane), ya da 0 yazın.'}]};
       kgBedel = kgAdet * adet * cfg.kusgozu.fiyat;
     }
-    var araToplam = yuvarla(baski + tamamlama + lamBedel + kgBedel);
+    var cerBedel = cer ? yuvarla(cer.fiyat * adet) : 0;
+    var araToplam = yuvarla(baski + tamamlama + lamBedel + kgBedel + cerBedel);
     var kmax = ('kargo_max_m2' in malz) ? malz.kargo_max_m2 : cfg.kargo_max_m2;
     var kdv = yuvarla(araToplam * genel.kdv_orani);
     return {
@@ -61,7 +72,8 @@
       kalemler: {
         m2: yuvarla(m2), m2Parca: yuvarla(m2Parca), birimM2: malz.m2,
         baski: yuvarla(baski), asgariFarki: yuvarla(tamamlama), laminasyon: yuvarla(lamBedel),
-        kusgozuAdet: kgAdet * adet, kusgozu: yuvarla(kgBedel)
+        kusgozuAdet: kgAdet * adet, kusgozu: yuvarla(kgBedel),
+        cerceve: cerBedel, cerceveAd: cer ? cer.ad : null, cerceveBirim: cer ? cer.fiyat : 0
       },
       araToplam: yuvarla(araToplam), kdv: yuvarla(kdv), toplam: yuvarla(araToplam + kdv),
       kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik && !(kmax && m2 > kmax),
