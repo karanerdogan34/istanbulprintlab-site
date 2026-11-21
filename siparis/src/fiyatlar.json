@@ -548,6 +548,54 @@
           "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan afişlerde baskı ölçüsünde en az 72 PPI yeterlidir."
         }
       ]
+    },
+    "mesh-baski": {
+      "ad": "Mesh Baskı",
+      "tur": "rulo",
+      "net_en": 160,
+      "kargo_max_m2": 16,
+      "malzemeler": [
+        {
+          "kod": "mesh",
+          "ad": "Mesh (file) branda",
+          "m2": 699,
+          "not": "Delikli yapısı sayesinde rüzgârı geçirir; iskele, şantiye çevresi ve rüzgâr alan cepheler için uygundur."
+        }
+      ],
+      "kusgozu": {
+        "fiyat": 20,
+        "oneri_aralik": 50,
+        "guvenli_cm": 3
+      },
+      "ppi": {
+        "uygun": 72,
+        "uyari": 50
+      },
+      "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz, kargo bedeli ayrıca hesaplanır. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz.",
+      "aciklama": "İskele, şantiye, bina cephesi ve rüzgâr alan yüzeyler için delikli mesh baskı. Ölçünüzü ve kuşgözü adedini girin, dosyanızı yükleyin; fiyat anında ekranda.",
+      "chips": [
+        "Rüzgâr geçiren delikli yapı",
+        "Kuşgözü seçeneği",
+        "GREENGUARD Gold sertifikalı orijinal mürekkep"
+      ],
+      "bilgi": [
+        {
+          "b": "Orijinal mürekkep, sertifikalı üretim",
+          "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
+        },
+        {
+          "b": "Kuşgözü",
+          "m": "Her kuşgözü, arkasına ek takviyeyle çakılır. Kuşgözleri köşelerden başlayarak kenarlara eşit aralıkla yerleştirilir. Kuşgözü istemiyorsanız 0 yazın."
+        },
+        {
+          "b": "Dikiş ve kaynak",
+          "m": "Kenar dikişi ve cephe giydirmelerde parça birleştirme (kaynak) teklifle fiyatlandırılır. Ölçünüzü WhatsApp'tan (+90 532 523 73 64) gönderin."
+        },
+        {
+          "b": "Dosya nasıl hazırlanır?",
+          "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan mesh baskılarda baskı ölçüsünde en az 72 PPI yeterlidir. Delikli yapı nedeniyle ince yazılar yakından zor okunur; büyük yazı ve kalın hatlar tercih edin."
+        }
+      ]
     }
   }
 }
