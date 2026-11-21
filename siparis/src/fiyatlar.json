@@ -570,7 +570,7 @@
           "kod": "mesh",
           "ad": "Mesh (file) branda",
           "m2": 699,
-          "not": "Delikli yapısı sayesinde rüzgârı geçirir; iskele, şantiye çevresi ve rüzgâr alan cepheler için uygundur."
+          "not": "Delikli yapısı sayesinde rüzgâr geçişine izin verir ve rüzgâr yükünü azaltmaya yardımcı olur; iskele, şantiye çevresi ve cepheler için tercih edilir."
         }
       ],
       "kusgozu": {
@@ -715,7 +715,7 @@
         },
         {
           "b": "Çerçeveli poster",
-          "m": "Çerçeveli posterler 21 × 30, 30 × 40, 40 × 50, 50 × 70 ve 61 × 91 cm ölçülerinde; siyah, beyaz veya meşe renk çerçeveyle hazırlanır. Poster seçtiğiniz çerçeve ölçüsünde basılır; çerçeve bedeli baskıya ek olarak hesaplanır."
+          "m": "Çerçeveli posterler 21 × 30, 30 × 40, 40 × 50, 50 × 70 ve 61 × 91 cm ölçülerinde; siyah, beyaz veya meşe renk çerçeveyle hazırlanır. Çerçeve pleksi ön yüz, arkalık ve askı aparatıyla, korumalı ambalajda gönderilir. Poster seçtiğiniz çerçeve ölçüsünde basılır; çerçeve kenarı görselin her kenarından birkaç milimetreyi kapatır, önemli öğeleri kenarlara çok yakın koymayın. Çerçeve bedeli baskıya ek olarak hesaplanır."
         },
         {
           "b": "Kendi ölçünüz",
