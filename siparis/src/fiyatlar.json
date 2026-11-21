@@ -1,774 +1,810 @@
 {
-  "_aciklama": "IPL web-to-print merkezi fiyat ve kural yapılandırması. Tüm tutarlar TL, KDV hariç. Ölçüler cm. Fiyat değişikliği yalnızca Karan Bey onayıyla yapılır.",
-  "genel": {
-    "kdv_orani": 0.2,
-    "asgari_baski": 999,
-    "kargo_ucretsiz_esik": 5000,
-    "tek_parca_max_boy": 4900
-  },
-  "urunler": {
-    "folyo-baski": {
-      "ad": "Folyo Baskı",
-      "tur": "rulo",
-      "net_en": 150,
-      "malzemeler": [
-        {
-          "kod": "oracal-beyaz-mat",
-          "ad": "Oracal beyaz mat",
-          "m2": 460
-        },
-        {
-          "kod": "oracal-beyaz-parlak",
-          "ad": "Oracal beyaz parlak",
-          "m2": 460
-        },
-        {
-          "kod": "oracal-seffaf-parlak",
-          "ad": "Oracal şeffaf parlak",
-          "m2": 460,
-          "uyari": "Şeffaf folyoda beyaz mürekkep kullanılmaz; açık renkler ve beyaz alanlar baskıda şeffaf kalır, renkler uygulanan yüzeyin renginden etkilenir."
-        }
-      ],
-      "laminasyon": {
-        "secenekler": [
-          "yok",
-          "mat",
-          "parlak"
-        ],
-        "carpan": 1.75
-      },
-      "ppi": {
-        "uygun": 100,
-        "uyari": 72
-      },
-      "aciklama": "Duvar, vitrin, kapı ve düz yüzeyler için baskılı yapışkanlı folyo. Ölçünüzü girin, dosyanızı yükleyin; fiyat ve dosya kontrolü anında ekranda.",
-      "chips": [
-        "Oracal folyo",
-        "GREENGUARD Gold sertifikalı orijinal mürekkep",
-        "İç ve dış mekan"
-      ],
-      "bilgi": [
-        {
-          "b": "Orijinal mürekkep, sertifikalı üretim",
-          "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz. Mürekkep, sınıf ve ofis ortamları için yapılan emisyon testlerinden geçmiştir."
-        },
-        {
-          "b": "Kesimli iş mi istiyorsunuz?",
-          "m": "Folyo baskı kesimsiz teslim edilir. Kare, dikdörtgen veya yuvarlak kesimli işler için <a href=\"#\">Sticker / Etiket Baskı</a> sayfasını kullanın."
-        },
-        {
-          "b": "Gold, gümüş, ultra clear",
-          "m": "Özel folyolar standart fiyatlandırmanın dışındadır. Ölçünüzü ve dosyanızı WhatsApp'tan (+90 532 523 73 64) gönderin, fiyatı size iletelim."
-        },
-        {
-          "b": "Dosya nasıl hazırlanır?",
-          "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Görsellerde baskı ölçüsünde en az 100 PPI önerilir. PDF ve TIFF dosyaları operatörümüz tarafından kontrol edilir."
-        }
-      ]
+ "_aciklama": "IPL web-to-print merkezi fiyat ve kural yapılandırması. Tüm tutarlar TL, KDV hariç. Ölçüler cm. Fiyat değişikliği yalnızca Karan Bey onayıyla yapılır.",
+ "genel": {
+  "kdv_orani": 0.2,
+  "asgari_baski": 999,
+  "kargo_ucretsiz_esik": 5000,
+  "tek_parca_max_boy": 4900
+ },
+ "urunler": {
+  "folyo-baski": {
+   "ad": "Folyo Baskı",
+   "tur": "rulo",
+   "net_en": 150,
+   "malzemeler": [
+    {
+     "kod": "oracal-beyaz-mat",
+     "ad": "Oracal beyaz mat",
+     "m2": 460
     },
-    "branda-baski": {
-      "ad": "Branda Baskı",
-      "tur": "rulo",
-      "net_en": 160,
-      "malzemeler": [
-        {
-          "kod": "branda-arkasi-beyaz",
-          "ad": "Arkası beyaz branda",
-          "m2": 369
-        },
-        {
-          "kod": "branda-arkasi-siyah",
-          "ad": "Arkası siyah branda",
-          "m2": 369,
-          "not": "Arka taraftan gelen ışığın baskıyı etkilemesini engeller. Tek yüz baskılıdır; ışıklı kutu ve arkadan aydınlatmalı uygulamalar için uygun değildir."
-        }
-      ],
-      "kusgozu": {
-        "fiyat": 20,
-        "oneri_aralik": 50,
-        "guvenli_cm": 3
-      },
-      "ppi": {
-        "uygun": 72,
-        "uyari": 50
-      },
-      "aciklama": "Cephe, iskele, mağaza önü ve etkinlik alanları için 400 gr Avrupa dökme branda. Ölçünüzü ve kuşgözü adedini girin, dosyanızı yükleyin; fiyat anında ekranda.",
-      "chips": [
-        "400 gr Avrupa dökme branda",
-        "GREENGUARD Gold sertifikalı orijinal mürekkep",
-        "Dış mekan"
-      ],
-      "bilgi": [
-        {
-          "b": "Orijinal mürekkep, sertifikalı üretim",
-          "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
-        },
-        {
-          "b": "400 gr Avrupa dökme branda",
-          "m": "Elle yırtılmayan, dayanıklı dökme branda kullanıyoruz. Kenar katlama ve dikiş yapılmaz; branda kesim çizgisinden teslim edilir."
-        },
-        {
-          "b": "Kuşgözü",
-          "m": "Her kuşgözü, arkasına ek branda takviyesiyle çakılır. Kuşgözleri köşelerden başlayarak kenarlara eşit aralıkla yerleştirilir. Kuşgözü istemiyorsanız 0 yazın."
-        },
-        {
-          "b": "Dosya nasıl hazırlanır?",
-          "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan brandalarda baskı ölçüsünde en az 72 PPI yeterlidir; 1 metreden küçük, yakından bakılan işlerde en az 100 PPI önerilir. Kuşgözü gelecek kenarlardan 3 cm içeriye yazı ve önemli öğe koymayın."
-        }
-      ],
-      "kargo_max_m2": 16,
-      "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz.",
-      "ppi_kucuk": {
-        "sinir_cm": 100,
-        "uygun": 100,
-        "uyari": 72
-      }
+    {
+     "kod": "oracal-beyaz-parlak",
+     "ad": "Oracal beyaz parlak",
+     "m2": 460
     },
-    "sticker-etiket-baski": {
-      "ad": "Sticker / Etiket Baskı",
-      "tur": "rulo",
-      "net_en": 150,
-      "malzemeler": [
-        {
-          "kod": "oracal-beyaz-mat",
-          "ad": "Oracal beyaz mat",
-          "m2": 920
-        },
-        {
-          "kod": "oracal-beyaz-parlak",
-          "ad": "Oracal beyaz parlak",
-          "m2": 920
-        },
-        {
-          "kod": "oracal-seffaf-parlak",
-          "ad": "Oracal şeffaf parlak",
-          "m2": 920,
-          "uyari": "Şeffaf folyoda beyaz mürekkep kullanılmaz; açık renkler ve beyaz alanlar baskıda şeffaf kalır, renkler uygulanan yüzeyin renginden etkilenir."
-        }
-      ],
-      "laminasyon": {
-        "secenekler": [
-          "yok",
-          "mat",
-          "parlak"
-        ],
-        "carpan": 1.75
-      },
-      "kesim": {
-        "min_cm": 4,
-        "max_adet": 250,
-        "ozel_mesaj": "Yıldız, logo konturu gibi özel ve girift kesimler ayrıca fiyatlandırılır. Dosyanızı WhatsApp'tan gönderin, fiyatı size iletelim."
-      },
-      "ppi": {
-        "uygun": 100,
-        "uyari": 72
-      },
-      "aciklama": "Ürün, ambalaj, vitrin ve kampanya için kesimli sticker ve etiket. Şekli, ölçüyü ve adedi seçin; dosyanızı yükleyin, fiyat anında ekranda.",
-      "chips": [
-        "Oracal folyo",
-        "Kare, dikdörtgen, yuvarlak kesim",
-        "GREENGUARD Gold sertifikalı orijinal mürekkep"
-      ],
-      "bilgi": [
-        {
-          "b": "Orijinal mürekkep, sertifikalı üretim",
-          "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
-        },
-        {
-          "b": "Hangi işler teklifle?",
-          "m": "4 cm'den küçük kesimler, 250 adetten fazla siparişler, özel ve girift kesimler, rulo etiket, kağıt ve PP sticker ile diğer özel malzemeler teklifle fiyatlandırılır. Ölçünüzü ve dosyanızı WhatsApp'tan (+90 532 523 73 64) gönderin."
-        },
-        {
-          "b": "Kesimsiz baskı mı istiyorsunuz?",
-          "m": "Kesim gerekmeyen düz baskılar için <a href=\"#\">Folyo Baskı</a> sayfasını kullanın; m² fiyatı daha uygundur."
-        },
-        {
-          "b": "Dosya nasıl hazırlanır?",
-          "m": "Dosyayı tek bir sticker ölçüsünde hazırlayın; yazıları kontura çevirin. Yazı ve önemli görselleri kesim çizgisinden en az 3 mm içeride tutun; kenara kadar uzanan tasarımlarda taşma payı bırakın. Görsellerde baskı ölçüsünde en az 100 PPI önerilir."
-        }
-      ]
-    },
-    "one-way-vision-baski": {
-      "ad": "One Way Vision Baskı",
-      "tur": "rulo",
-      "net_en": 150,
-      "malzemeler": [
-        {
-          "kod": "oracal-owv",
-          "ad": "Oracal one way vision",
-          "m2": 600
-        }
-      ],
-      "laminasyon": {
-        "secenekler": [
-          "yok",
-          "seffaf"
-        ],
-        "carpan": 2
-      },
-      "lamNot": "Delikli cam folyosuna uygun şeffaf laminasyon uygulanır; baskıyı çizilmeye, neme ve UV ışığına karşı korur. Laminasyonlu işlerde mürekkebin kuruması beklendiği için teslim süresi uzar.",
-      "ppi": {
-        "uygun": 100,
-        "uyari": 72
-      },
-      "aciklama": "Vitrin, ofis ve araç camları için delikli cam folyosu: dışarıdan baskılı görsel görünür, içeriden dışarısı görünmeye devam eder. Ölçünüzü girin, dosyanızı yükleyin; fiyat anında ekranda.",
-      "chips": [
-        "Oracal",
-        "Dışarıdan görsel, içeriden görüş",
-        "GREENGUARD Gold sertifikalı orijinal mürekkep"
-      ],
-      "bilgi": [
-        {
-          "b": "Orijinal mürekkep, sertifikalı üretim",
-          "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
-        },
-        {
-          "b": "Nasıl çalışır?",
-          "m": "Delikli folyonun dış yüzü baskılıdır, iç yüzü siyahtır ve camın dış yüzeyine uygulanacak şekilde basılır. Gündüz dışarıdan görsel görünür, içeriden dışarısı izlenebilir. Akşam içerisi dışarıdan daha aydınlıksa dışarıdan içerisi görünür. İçeriden uygulama için WhatsApp'tan bilgi alın."
-        },
-        {
-          "b": "Tasarım önerisi",
-          "m": "Delikler nedeniyle ince yazılar ve küçük ayrıntılar uzaktan zor okunur. Büyük yazılar, kalın hatlar ve canlı renkler daha iyi sonuç verir."
-        },
-        {
-          "b": "Dosya nasıl hazırlanır?",
-          "m": "Dosyayı camın ölçüsünde hazırlayın; yazıları kontura çevirin. Görsellerde baskı ölçüsünde en az 100 PPI önerilir. PDF ve TIFF dosyaları operatörümüz tarafından kontrol edilir."
-        }
-      ]
-    },
-    "folyo-yazi-kesim": {
-      "ad": "Folyo Yazı Kesim ve Transfer",
-      "tur": "yazi",
-      "max_en": 124,
-      "kademeler": [
-        {
-          "ad": "Harfler 10 cm ve üzeri",
-          "min_harf": 10,
-          "m2": 1800
-        },
-        {
-          "ad": "Harfler 5–10 cm",
-          "min_harf": 5,
-          "m2": 3600
-        }
-      ],
-      "renkler": [
-        {
-          "kod": "siyah",
-          "ad": "Siyah",
-          "hex": "#111111"
-        },
-        {
-          "kod": "beyaz",
-          "ad": "Beyaz",
-          "hex": "#FFFFFF"
-        },
-        {
-          "kod": "kirmizi",
-          "ad": "Kırmızı",
-          "hex": "#C8102E"
-        },
-        {
-          "kod": "lacivert",
-          "ad": "Lacivert",
-          "hex": "#1B2A57"
-        },
-        {
-          "kod": "mavi",
-          "ad": "Mavi",
-          "hex": "#0057B8"
-        },
-        {
-          "kod": "sari",
-          "ad": "Sarı",
-          "hex": "#FFD100"
-        },
-        {
-          "kod": "yesil",
-          "ad": "Yeşil",
-          "hex": "#00843D"
-        },
-        {
-          "kod": "turuncu",
-          "ad": "Turuncu",
-          "hex": "#FF6A13"
-        },
-        {
-          "kod": "gri",
-          "ad": "Gri",
-          "hex": "#8A8D8F"
-        },
-        {
-          "kod": "diger",
-          "ad": "Diğer renk",
-          "hex": "conic",
-          "teklif": true
-        },
-        {
-          "kod": "gold",
-          "ad": "Gold",
-          "hex": "#C9A54C",
-          "teklif": true
-        },
-        {
-          "kod": "gumus",
-          "ad": "Gümüş",
-          "hex": "#B9BCBF",
-          "teklif": true
-        }
-      ],
-      "fontlar": [
-        "Montserrat",
-        "Roboto",
-        "Open Sans",
-        "Oswald",
-        "Bebas Neue",
-        "Anton",
-        "Poppins",
-        "Raleway",
-        "Archivo Black",
-        "Barlow"
-      ],
-      "aciklama": "Vitrin, cam, kapı, araç ve tabela yazıları için renkli kesim folyosundan yazı ve düz logo kesimi. Transfer bandı dahil, uygulamaya hazır teslim. Yazınızı sitede yazın ya da kesim dosyanızı yükleyin.",
-      "chips": [
-        "Transfer bandı dahil",
-        "Renkli kesim folyosu",
-        "Uygulamaya hazır"
-      ],
-      "bilgi": [
-        {
-          "b": "Transfer bandı dahil",
-          "m": "Yazılar ayıklanmış ve transfer bandına alınmış olarak teslim edilir; harfler doğru aralıkla tek seferde yüzeye uygulanır."
-        },
-        {
-          "b": "Hangi işler teklifle?",
-          "m": "5 cm'den küçük harfler, el yazısı ve ince bağlı hatlar, girift logolar, gold ve gümüş gibi özel renkler ile 124 cm'yi aşan (baskes olması gereken) işler teklifle fiyatlandırılır."
-        },
-        {
-          "b": "Logo ve amblem",
-          "m": "Düz hatlı logo ve amblemler de kesilir; en küçük parça en az 10 cm olmalıdır. Kesim dosyanızı vektörel olarak (PDF, AI, EPS, SVG veya DXF) yükleyin."
-        },
-        {
-          "b": "Ölçü nasıl alınır?",
-          "m": "Toplam genişlik, yazının en solundan en sağına; toplam yükseklik, en üstünden en altına ölçülür. Harf yüksekliği için en küçük büyük harfi ölçün."
-        }
-      ]
-    },
-    "foreks-baski": {
-      "tur": "rulo",
-      "net_en": 150,
-      "max_boy": 300,
-      "malzemeler": [
-        {
-          "kod": "3mm",
-          "ad": "3 mm",
-          "m2": 999
-        },
-        {
-          "kod": "5mm",
-          "ad": "5 mm",
-          "m2": 1599
-        },
-        {
-          "kod": "8mm",
-          "ad": "8 mm",
-          "m2": 3199
-        },
-        {
-          "kod": "10mm",
-          "ad": "10 mm",
-          "m2": 5999
-        }
-      ],
-      "malzeme_baslik": "Kalınlık",
-      "laminasyon": {
-        "secenekler": [
-          "yok",
-          "mat",
-          "parlak"
-        ],
-        "carpan": 1.75
-      },
-      "sekiller": [
-        "dikdortgen",
-        "ozel"
-      ],
-      "ozel_mesaj": "Kare ve dikdörtgen dışındaki şekiller CNC ile özel kesilir ve ayrıca fiyatlandırılır. Dosyanızı WhatsApp'tan gönderin, fiyatı size iletelim.",
-      "teslimat": true,
-      "ppi": {
-        "uygun": 100,
-        "uyari": 72
-      },
-      "kargo_metni": "Bu ürün kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz; özel teslimat bedeli ayrıca bildirilir. Fiyatlara ayak ve askı aparatı dahil değildir.",
-      "ad": "Foreks Baskı",
-      "aciklama": "Mağaza, ofis, fuar ve etkinlik için baskılı foreks levha. Kalınlığı ve ölçüyü seçin, dosyanızı yükleyin; fiyat anında ekranda.",
-      "chips": [
-        "Kare ve dikdörtgen kesim",
-        "Tek parça en fazla 150 × 300 cm",
-        "GREENGUARD Gold sertifikalı orijinal mürekkep"
-      ],
-      "bilgi": [
-        {
-          "b": "Orijinal mürekkep, sertifikalı üretim",
-          "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
-        },
-        {
-          "b": "Kalınlık seçimi",
-          "m": "3 mm hafif ve duvara uygulamaya uygundur. 5 mm en çok tercih edilen kalınlıktır. 8 ve 10 mm levhalar daha sağlam ve düzdür. Ayakta sergileme için ayrıca destek veya ayak gerekir; fiyata dahil değildir."
-        },
-        {
-          "b": "Özel şekil (CNC)",
-          "m": "Kare ve dikdörtgen dışındaki şekiller, figürler ve harf kesimleri CNC ile yapılır ve teklifle fiyatlandırılır."
-        },
-        {
-          "b": "Teslimat",
-          "m": "Foreks levhalar kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz. Levhalar tek parça teslim edilir; atölyeden teslim almadan önce ürünün ölçüsüne uygun bir taşıma aracı ayarlayın."
-        }
-      ]
-    },
-    "fotoblok-baski": {
-      "tur": "rulo",
-      "net_en": 150,
-      "max_boy": 300,
-      "malzemeler": [
-        {
-          "kod": "3mm",
-          "ad": "3 mm",
-          "m2": 999
-        },
-        {
-          "kod": "5mm",
-          "ad": "5 mm",
-          "m2": 1599
-        },
-        {
-          "kod": "8mm",
-          "ad": "8 mm",
-          "m2": 3199
-        },
-        {
-          "kod": "10mm",
-          "ad": "10 mm",
-          "m2": 5999
-        }
-      ],
-      "malzeme_baslik": "Kalınlık",
-      "laminasyon": {
-        "secenekler": [
-          "yok",
-          "mat",
-          "parlak"
-        ],
-        "carpan": 1.75
-      },
-      "sekiller": [
-        "dikdortgen",
-        "ozel"
-      ],
-      "ozel_mesaj": "Kare ve dikdörtgen dışındaki şekiller CNC ile özel kesilir ve ayrıca fiyatlandırılır. Dosyanızı WhatsApp'tan gönderin, fiyatı size iletelim.",
-      "teslimat": true,
-      "ppi": {
-        "uygun": 100,
-        "uyari": 72
-      },
-      "kargo_metni": "Bu ürün kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz; özel teslimat bedeli ayrıca bildirilir. Fiyatlara ayak ve askı aparatı dahil değildir.",
-      "ad": "Fotoblok Baskı",
-      "aciklama": "Fotoğraf, tablo, kampanya ve dekorasyon için baskılı fotoblok. Kalınlığı ve ölçüyü seçin, dosyanızı yükleyin; fiyat anında ekranda.",
-      "chips": [
-        "Kare ve dikdörtgen kesim",
-        "Tek parça en fazla 150 × 300 cm",
-        "GREENGUARD Gold sertifikalı orijinal mürekkep"
-      ],
-      "bilgi": [
-        {
-          "b": "Orijinal mürekkep, sertifikalı üretim",
-          "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
-        },
-        {
-          "b": "Kalınlık seçimi",
-          "m": "3 mm hafif ve duvara uygulamaya uygundur. 5 mm en çok tercih edilen kalınlıktır. 8 ve 10 mm levhalar daha sağlam ve düzdür. Ayakta sergileme için ayrıca destek veya ayak gerekir; fiyata dahil değildir."
-        },
-        {
-          "b": "Özel şekil (CNC)",
-          "m": "Kare ve dikdörtgen dışındaki şekiller, figürler ve dekupe kesimler CNC ile yapılır ve teklifle fiyatlandırılır."
-        },
-        {
-          "b": "Teslimat",
-          "m": "Fotobloklar kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz. Levhalar tek parça teslim edilir; atölyeden teslim almadan önce ürünün ölçüsüne uygun bir taşıma aracı ayarlayın."
-        }
-      ]
-    },
-    "afis-baski": {
-      "ad": "Afiş Baskı",
-      "tur": "rulo",
-      "net_en": 160,
-      "malzemeler": [
-        {
-          "kod": "branda",
-          "ad": "Branda (400 gr)",
-          "m2": 369,
-          "kargo_max_m2": 16,
-          "not": "Uzun süreli iç ve dış mekan kullanımı için dayanıklı Avrupa dökme branda. Afişler kesilmiş olarak teslim edilir; kuşgözü dahil değildir. Kuşgözlü branda için Branda Baskı sayfasını kullanın."
-        },
-        {
-          "kod": "blueback",
-          "ad": "Blueback afiş kağıdı",
-          "m2": 249,
-          "kargo_max_m2": 16,
-          "uyari": "Blueback, kısa süreli (yaklaşık 4–6 hafta) dış mekan kampanyaları için uygundur. Uzun süreli kullanım için branda seçin."
-        },
-        {
-          "kod": "saten-240",
-          "ad": "Saten kağıt (240 gr)",
-          "m2": 599,
-          "net_en": 102,
-          "uyari": "Saten kağıt yalnızca iç mekan içindir; dış mekanda yağmur ve güneşe dayanmaz."
-        }
-      ],
-      "ppi": {
-        "uygun": 72,
-        "uyari": 50
-      },
-      "aciklama": "Kampanya, duyuru, etkinlik ve vitrin için afiş. Malzemeyi seçin, kendi ölçünüzü girin, dosyanızı yükleyin; fiyat anında ekranda.",
-      "chips": [
-        "Branda, blueback, saten",
-        "Kendi ölçünüz",
-        "GREENGUARD Gold sertifikalı orijinal mürekkep"
-      ],
-      "bilgi": [
-        {
-          "b": "Orijinal mürekkep, sertifikalı üretim",
-          "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
-        },
-        {
-          "b": "Hangi malzemeyi seçmeliyim?",
-          "m": "<b>Branda:</b> uzun süreli iç ve dış mekan. <b>Blueback:</b> kısa süreli (yaklaşık 4–6 hafta) dış mekan kampanyaları, en ekonomik seçenek. <b>Saten kağıt:</b> yalnızca iç mekan; mağaza, ofis ve etkinlik alanları."
-        },
-        {
-          "b": "Daha ince kağıt mı arıyorsunuz?",
-          "m": "240 gr'dan ince kağıtlar standart fiyatlandırmanın dışındadır. Ölçünüzü ve adedinizi WhatsApp'tan (+90 532 523 73 64) gönderin, fiyatı size iletelim."
-        },
-        {
-          "b": "Dosya nasıl hazırlanır?",
-          "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan afişlerde baskı ölçüsünde en az 72 PPI yeterlidir; 1 metreden küçük, yakından bakılan işlerde en az 100 PPI önerilir."
-        }
-      ],
-      "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz.",
-      "ppi_kucuk": {
-        "sinir_cm": 100,
-        "uygun": 100,
-        "uyari": 72
-      }
-    },
-    "mesh-baski": {
-      "ad": "Mesh Baskı",
-      "tur": "rulo",
-      "net_en": 160,
-      "kargo_max_m2": 16,
-      "malzemeler": [
-        {
-          "kod": "mesh",
-          "ad": "Mesh (file) branda",
-          "m2": 699,
-          "not": "Delikli yapısı sayesinde rüzgâr geçişine izin verir ve rüzgâr yükünü azaltmaya yardımcı olur; iskele, şantiye çevresi ve cepheler için tercih edilir."
-        }
-      ],
-      "kusgozu": {
-        "fiyat": 20,
-        "oneri_aralik": 50,
-        "guvenli_cm": 3
-      },
-      "ppi": {
-        "uygun": 72,
-        "uyari": 50
-      },
-      "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz.",
-      "aciklama": "İskele, şantiye, bina cephesi ve rüzgâr alan yüzeyler için delikli mesh baskı. Ölçünüzü ve kuşgözü adedini girin, dosyanızı yükleyin; fiyat anında ekranda.",
-      "chips": [
-        "Rüzgâr geçiren delikli yapı",
-        "Kuşgözü seçeneği",
-        "GREENGUARD Gold sertifikalı orijinal mürekkep"
-      ],
-      "bilgi": [
-        {
-          "b": "Orijinal mürekkep, sertifikalı üretim",
-          "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
-        },
-        {
-          "b": "Kuşgözü",
-          "m": "Her kuşgözü, arkasına ek takviyeyle çakılır. Kuşgözleri köşelerden başlayarak kenarlara eşit aralıkla yerleştirilir. Kuşgözü istemiyorsanız 0 yazın."
-        },
-        {
-          "b": "Dikiş ve kaynak",
-          "m": "Kenar dikişi ve cephe giydirmelerde parça birleştirme (kaynak) teklifle fiyatlandırılır. Ölçünüzü WhatsApp'tan (+90 532 523 73 64) gönderin."
-        },
-        {
-          "b": "Dosya nasıl hazırlanır?",
-          "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan mesh baskılarda baskı ölçüsünde en az 72 PPI yeterlidir; 1 metreden küçük, yakından bakılan işlerde en az 100 PPI önerilir. Delikli yapı nedeniyle ince yazılar yakından zor okunur; büyük yazı ve kalın hatlar tercih edin."
-        }
-      ],
-      "ppi_kucuk": {
-        "sinir_cm": 100,
-        "uygun": 100,
-        "uyari": 72
-      }
-    },
-    "poster-baski": {
-      "ad": "Poster Baskı",
-      "tur": "rulo",
-      "net_en": 102,
-      "malzemeler": [
-        {
-          "kod": "saten-240",
-          "ad": "Saten kağıt (240 gr)",
-          "m2": 599
-        }
-      ],
-      "cerceve": {
-        "olculer": [
-          {
-            "kod": "21x30",
-            "ad": "21 × 30 cm",
-            "en": 21,
-            "boy": 30,
-            "fiyat": {
-              "siyah-beyaz": 899,
-              "mese": 999
-            }
-          },
-          {
-            "kod": "30x40",
-            "ad": "30 × 40 cm",
-            "en": 30,
-            "boy": 40,
-            "fiyat": {
-              "siyah-beyaz": 1199,
-              "mese": 1299
-            }
-          },
-          {
-            "kod": "40x50",
-            "ad": "40 × 50 cm",
-            "en": 40,
-            "boy": 50,
-            "fiyat": {
-              "siyah-beyaz": 1899,
-              "mese": 1999
-            }
-          },
-          {
-            "kod": "50x70",
-            "ad": "50 × 70 cm",
-            "en": 50,
-            "boy": 70,
-            "fiyat": {
-              "siyah-beyaz": 2999,
-              "mese": 3299
-            }
-          },
-          {
-            "kod": "61x91",
-            "ad": "61 × 91 cm",
-            "en": 61,
-            "boy": 91,
-            "fiyat": {
-              "siyah-beyaz": 3999,
-              "mese": 4299
-            }
-          }
-        ],
-        "renkler": [
-          {
-            "kod": "siyah",
-            "ad": "siyah",
-            "grup": "siyah-beyaz",
-            "hex": "#111111"
-          },
-          {
-            "kod": "beyaz",
-            "ad": "beyaz",
-            "grup": "siyah-beyaz",
-            "hex": "#FFFFFF"
-          },
-          {
-            "kod": "mese",
-            "ad": "meşe",
-            "grup": "mese",
-            "hex": "#C69C6D"
-          }
-        ]
-      },
-      "ppi": {
-        "uygun": 100,
-        "uyari": 72
-      },
-      "aciklama": "Ev, ofis, mağaza ve etkinlik için 240 gr saten kağıda poster. Kendi ölçünüzü girin ya da çerçeveli sipariş verin; dosyanızı yükleyin, fiyat anında ekranda.",
-      "chips": [
-        "240 gr saten kağıt",
-        "Çerçeve seçeneği",
-        "GREENGUARD Gold sertifikalı orijinal mürekkep"
-      ],
-      "bilgi": [
-        {
-          "b": "Orijinal mürekkep, sertifikalı üretim",
-          "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
-        },
-        {
-          "b": "Çerçeveli poster",
-          "m": "Çerçeveli posterler 21 × 30, 30 × 40, 40 × 50, 50 × 70 ve 61 × 91 cm ölçülerinde; siyah, beyaz veya meşe renk çerçeveyle hazırlanır. Çerçeve pleksi ön yüz, arkalık ve askı aparatıyla, korumalı ambalajda gönderilir. Poster seçtiğiniz çerçeve ölçüsünde basılır; çerçeve kenarı görselin her kenarından birkaç milimetreyi kapatır, önemli öğeleri kenarlara çok yakın koymayın. Çerçeve bedeli baskıya ek olarak hesaplanır; çerçeveli siparişlerde 999 ₺ asgari tutar baskı ve çerçeve toplamına uygulanır."
-        },
-        {
-          "b": "Kendi ölçünüz",
-          "m": "Çerçevesiz posterlerde kenarlardan biri en fazla 102 cm, diğeri en fazla 49 metre olabilir."
-        },
-        {
-          "b": "Dosya nasıl hazırlanır?",
-          "m": "Dosyayı poster ölçüsünde hazırlayın; yazıları kontura çevirin. Görsellerde baskı ölçüsünde en az 100 PPI önerilir."
-        }
-      ]
-    },
-    "kartvizit-baski": {
-      "ad": "Kartvizit Baskı",
-      "tur": "kartvizit",
-      "paketler": [
-        {
-          "adet": 250,
-          "tek": 1199,
-          "cift": 1499
-        },
-        {
-          "adet": 500,
-          "tek": 2199,
-          "cift": 2499
-        },
-        {
-          "adet": 1000,
-          "tek": 2999,
-          "cift": 3299
-        }
-      ],
-      "olcu": "85 × 55 mm",
-      "kagit": "350 gr mat kuşe, mat veya parlak selefonlu",
-      "aciklama": "350 gr mat kuşe, mat veya parlak selefonlu kartvizit. Hazır şablonlardan birini seçip bilgilerinizi yazın ya da kurumsal tasarımınızı PDF olarak yükleyin; fiyat anında ekranda.",
-      "chips": [
-        "350 gr mat kuşe",
-        "Mat veya parlak selefon dahil",
-        "85 × 55 mm"
-      ],
-      "bilgi": [
-        {
-          "b": "Kağıt ve selefon",
-          "m": "Kartvizitler 350 gr mat kuşe kağıda basılır; mat veya parlak selefon (laminasyon) fiyata dahildir. Standart ölçü 85 × 55 mm'dir."
-        },
-        {
-          "b": "Kurumsal tasarımınız varsa",
-          "m": "Hazır kurumsal kartvizitinizi PDF olarak yükleyin: dosya ölçüsü 91 × 61 mm (85 × 55 mm + her kenarda 3 mm taşma), önemli yazılar kesim çizgisinden en az 3 mm içeride, yazılar konturda. Çift yönde 1. sayfa ön yüz, 2. sayfa arka yüz olmalıdır."
-        },
-        {
-          "b": "Hangi işler teklifle?",
-          "m": "Daha kalın kağıt, kabartma, lak, yaldız ve özel kesim gibi özel kartvizitler teklifle fiyatlandırılır. WhatsApp'tan (+90 532 523 73 64) yazın."
-        }
-      ]
+    {
+     "kod": "oracal-seffaf-parlak",
+     "ad": "Oracal şeffaf parlak",
+     "m2": 460,
+     "uyari": "Şeffaf folyoda beyaz mürekkep kullanılmaz; açık renkler ve beyaz alanlar baskıda şeffaf kalır, renkler uygulanan yüzeyin renginden etkilenir."
     }
+   ],
+   "laminasyon": {
+    "secenekler": [
+     "yok",
+     "mat",
+     "parlak"
+    ],
+    "carpan": 1.75
+   },
+   "ppi": {
+    "uygun": 100,
+    "uyari": 72
+   },
+   "aciklama": "Duvar, vitrin, kapı ve düz yüzeyler için baskılı yapışkanlı folyo. Ölçünüzü girin, dosyanızı yükleyin; fiyat ve dosya kontrolü anında ekranda.",
+   "chips": [
+    "Oracal folyo",
+    "GREENGUARD Gold sertifikalı orijinal mürekkep",
+    "İç ve dış mekan"
+   ],
+   "bilgi": [
+    {
+     "b": "Orijinal mürekkep, sertifikalı üretim",
+     "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz. Mürekkep, sınıf ve ofis ortamları için yapılan emisyon testlerinden geçmiştir."
+    },
+    {
+     "b": "Kesimli iş mi istiyorsunuz?",
+     "m": "Folyo baskı kesimsiz teslim edilir. Kare, dikdörtgen veya yuvarlak kesimli işler için <a href=\"#\">Sticker / Etiket Baskı</a> sayfasını kullanın."
+    },
+    {
+     "b": "Gold, gümüş, ultra clear",
+     "m": "Özel folyolar standart fiyatlandırmanın dışındadır. Ölçünüzü ve dosyanızı WhatsApp'tan (+90 532 523 73 64) gönderin, fiyatı size iletelim."
+    },
+    {
+     "b": "Dosya nasıl hazırlanır?",
+     "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Görsellerde baskı ölçüsünde en az 100 PPI önerilir. PDF ve TIFF dosyaları operatörümüz tarafından kontrol edilir."
+    }
+   ]
+  },
+  "branda-baski": {
+   "ad": "Branda Baskı",
+   "tur": "rulo",
+   "net_en": 160,
+   "malzemeler": [
+    {
+     "kod": "branda-arkasi-beyaz",
+     "ad": "Arkası beyaz branda",
+     "m2": 369
+    },
+    {
+     "kod": "branda-arkasi-siyah",
+     "ad": "Arkası siyah branda",
+     "m2": 369,
+     "not": "Arka taraftan gelen ışığın baskıyı etkilemesini engeller. Tek yüz baskılıdır; ışıklı kutu ve arkadan aydınlatmalı uygulamalar için uygun değildir."
+    }
+   ],
+   "kusgozu": {
+    "fiyat": 20,
+    "oneri_aralik": 50,
+    "guvenli_cm": 3
+   },
+   "ppi": {
+    "uygun": 72,
+    "uyari": 50
+   },
+   "aciklama": "Cephe, iskele, mağaza önü ve etkinlik alanları için 400 gr Avrupa dökme branda. Ölçünüzü ve kuşgözü adedini girin, dosyanızı yükleyin; fiyat anında ekranda.",
+   "chips": [
+    "400 gr Avrupa dökme branda",
+    "GREENGUARD Gold sertifikalı orijinal mürekkep",
+    "Dış mekan"
+   ],
+   "bilgi": [
+    {
+     "b": "Orijinal mürekkep, sertifikalı üretim",
+     "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
+    },
+    {
+     "b": "400 gr Avrupa dökme branda",
+     "m": "Elle yırtılmayan, dayanıklı dökme branda kullanıyoruz. Kenar katlama ve dikiş yapılmaz; branda kesim çizgisinden teslim edilir."
+    },
+    {
+     "b": "Kuşgözü",
+     "m": "Her kuşgözü, arkasına ek branda takviyesiyle çakılır. Kuşgözleri köşelerden başlayarak kenarlara eşit aralıkla yerleştirilir. Kuşgözü istemiyorsanız 0 yazın."
+    },
+    {
+     "b": "Dosya nasıl hazırlanır?",
+     "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan brandalarda baskı ölçüsünde en az 72 PPI yeterlidir; 1 metreden küçük, yakından bakılan işlerde en az 100 PPI önerilir. Kuşgözü gelecek kenarlardan 3 cm içeriye yazı ve önemli öğe koymayın."
+    }
+   ],
+   "kargo_max_m2": 16,
+   "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz.",
+   "ppi_kucuk": {
+    "sinir_cm": 100,
+    "uygun": 100,
+    "uyari": 72
+   }
+  },
+  "sticker-etiket-baski": {
+   "ad": "Sticker / Etiket Baskı",
+   "tur": "rulo",
+   "net_en": 150,
+   "malzemeler": [
+    {
+     "kod": "oracal-beyaz-mat",
+     "ad": "Oracal beyaz mat",
+     "m2": 920
+    },
+    {
+     "kod": "oracal-beyaz-parlak",
+     "ad": "Oracal beyaz parlak",
+     "m2": 920
+    },
+    {
+     "kod": "oracal-seffaf-parlak",
+     "ad": "Oracal şeffaf parlak",
+     "m2": 920,
+     "uyari": "Şeffaf folyoda beyaz mürekkep kullanılmaz; açık renkler ve beyaz alanlar baskıda şeffaf kalır, renkler uygulanan yüzeyin renginden etkilenir."
+    }
+   ],
+   "laminasyon": {
+    "secenekler": [
+     "yok",
+     "mat",
+     "parlak"
+    ],
+    "carpan": 1.75
+   },
+   "kesim": {
+    "min_cm": 4,
+    "max_adet": 250,
+    "ozel_mesaj": "Yıldız, logo konturu gibi özel ve girift kesimler ayrıca fiyatlandırılır. Dosyanızı WhatsApp'tan gönderin, fiyatı size iletelim."
+   },
+   "ppi": {
+    "uygun": 100,
+    "uyari": 72
+   },
+   "aciklama": "Ürün, ambalaj, vitrin ve kampanya için kesimli sticker ve etiket. Şekli, ölçüyü ve adedi seçin; dosyanızı yükleyin, fiyat anında ekranda.",
+   "chips": [
+    "Oracal folyo",
+    "Kare, dikdörtgen, yuvarlak kesim",
+    "GREENGUARD Gold sertifikalı orijinal mürekkep"
+   ],
+   "bilgi": [
+    {
+     "b": "Orijinal mürekkep, sertifikalı üretim",
+     "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
+    },
+    {
+     "b": "Hangi işler teklifle?",
+     "m": "4 cm'den küçük kesimler, 250 adetten fazla siparişler, özel ve girift kesimler, rulo etiket, kağıt ve PP sticker ile diğer özel malzemeler teklifle fiyatlandırılır. Ölçünüzü ve dosyanızı WhatsApp'tan (+90 532 523 73 64) gönderin."
+    },
+    {
+     "b": "Kesimsiz baskı mı istiyorsunuz?",
+     "m": "Kesim gerekmeyen düz baskılar için <a href=\"#\">Folyo Baskı</a> sayfasını kullanın; m² fiyatı daha uygundur."
+    },
+    {
+     "b": "Dosya nasıl hazırlanır?",
+     "m": "Dosyayı tek bir sticker ölçüsünde hazırlayın; yazıları kontura çevirin. Yazı ve önemli görselleri kesim çizgisinden en az 3 mm içeride tutun; kenara kadar uzanan tasarımlarda taşma payı bırakın. Görsellerde baskı ölçüsünde en az 100 PPI önerilir."
+    }
+   ]
+  },
+  "one-way-vision-baski": {
+   "ad": "One Way Vision Baskı",
+   "tur": "rulo",
+   "net_en": 150,
+   "malzemeler": [
+    {
+     "kod": "oracal-owv",
+     "ad": "Oracal one way vision",
+     "m2": 600
+    }
+   ],
+   "laminasyon": {
+    "secenekler": [
+     "yok",
+     "seffaf"
+    ],
+    "carpan": 2
+   },
+   "lamNot": "Delikli cam folyosuna uygun şeffaf laminasyon uygulanır; baskıyı çizilmeye, neme ve UV ışığına karşı korur. Laminasyonlu işlerde mürekkebin kuruması beklendiği için teslim süresi uzar.",
+   "ppi": {
+    "uygun": 100,
+    "uyari": 72
+   },
+   "aciklama": "Vitrin, ofis ve araç camları için delikli cam folyosu: dışarıdan baskılı görsel görünür, içeriden dışarısı görünmeye devam eder. Ölçünüzü girin, dosyanızı yükleyin; fiyat anında ekranda.",
+   "chips": [
+    "Oracal",
+    "Dışarıdan görsel, içeriden görüş",
+    "GREENGUARD Gold sertifikalı orijinal mürekkep"
+   ],
+   "bilgi": [
+    {
+     "b": "Orijinal mürekkep, sertifikalı üretim",
+     "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
+    },
+    {
+     "b": "Nasıl çalışır?",
+     "m": "Delikli folyonun dış yüzü baskılıdır, iç yüzü siyahtır ve camın dış yüzeyine uygulanacak şekilde basılır. Gündüz dışarıdan görsel görünür, içeriden dışarısı izlenebilir. Akşam içerisi dışarıdan daha aydınlıksa dışarıdan içerisi görünür. İçeriden uygulama için WhatsApp'tan bilgi alın."
+    },
+    {
+     "b": "Tasarım önerisi",
+     "m": "Delikler nedeniyle ince yazılar ve küçük ayrıntılar uzaktan zor okunur. Büyük yazılar, kalın hatlar ve canlı renkler daha iyi sonuç verir."
+    },
+    {
+     "b": "Dosya nasıl hazırlanır?",
+     "m": "Dosyayı camın ölçüsünde hazırlayın; yazıları kontura çevirin. Görsellerde baskı ölçüsünde en az 100 PPI önerilir. PDF ve TIFF dosyaları operatörümüz tarafından kontrol edilir."
+    }
+   ]
+  },
+  "folyo-yazi-kesim": {
+   "ad": "Folyo Yazı Kesim ve Transfer",
+   "tur": "yazi",
+   "max_en": 124,
+   "kademeler": [
+    {
+     "ad": "Harfler 10 cm ve üzeri",
+     "min_harf": 10,
+     "m2": 1800
+    },
+    {
+     "ad": "Harfler 5–10 cm",
+     "min_harf": 5,
+     "m2": 3600
+    }
+   ],
+   "renkler": [
+    {
+     "kod": "siyah",
+     "ad": "Siyah",
+     "hex": "#111111"
+    },
+    {
+     "kod": "beyaz",
+     "ad": "Beyaz",
+     "hex": "#FFFFFF"
+    },
+    {
+     "kod": "kirmizi",
+     "ad": "Kırmızı",
+     "hex": "#C8102E"
+    },
+    {
+     "kod": "lacivert",
+     "ad": "Lacivert",
+     "hex": "#1B2A57"
+    },
+    {
+     "kod": "mavi",
+     "ad": "Mavi",
+     "hex": "#0057B8"
+    },
+    {
+     "kod": "sari",
+     "ad": "Sarı",
+     "hex": "#FFD100"
+    },
+    {
+     "kod": "yesil",
+     "ad": "Yeşil",
+     "hex": "#00843D"
+    },
+    {
+     "kod": "turuncu",
+     "ad": "Turuncu",
+     "hex": "#FF6A13"
+    },
+    {
+     "kod": "gri",
+     "ad": "Gri",
+     "hex": "#8A8D8F"
+    },
+    {
+     "kod": "diger",
+     "ad": "Diğer renk",
+     "hex": "conic",
+     "teklif": true
+    },
+    {
+     "kod": "gold",
+     "ad": "Gold",
+     "hex": "#C9A54C",
+     "teklif": true
+    },
+    {
+     "kod": "gumus",
+     "ad": "Gümüş",
+     "hex": "#B9BCBF",
+     "teklif": true
+    }
+   ],
+   "fontlar": [
+    "Montserrat",
+    "Roboto",
+    "Open Sans",
+    "Oswald",
+    "Bebas Neue",
+    "Anton",
+    "Poppins",
+    "Raleway",
+    "Archivo Black",
+    "Barlow"
+   ],
+   "aciklama": "Vitrin, cam, kapı, araç ve tabela yazıları için renkli kesim folyosundan yazı ve düz logo kesimi. Transfer bandı dahil, uygulamaya hazır teslim. Yazınızı sitede yazın ya da kesim dosyanızı yükleyin.",
+   "chips": [
+    "Transfer bandı dahil",
+    "Renkli kesim folyosu",
+    "Uygulamaya hazır"
+   ],
+   "bilgi": [
+    {
+     "b": "Transfer bandı dahil",
+     "m": "Yazılar ayıklanmış ve transfer bandına alınmış olarak teslim edilir; harfler doğru aralıkla tek seferde yüzeye uygulanır."
+    },
+    {
+     "b": "Hangi işler teklifle?",
+     "m": "5 cm'den küçük harfler, el yazısı ve ince bağlı hatlar, girift logolar, gold ve gümüş gibi özel renkler ile 124 cm'yi aşan (baskes olması gereken) işler teklifle fiyatlandırılır."
+    },
+    {
+     "b": "Logo ve amblem",
+     "m": "Düz hatlı logo ve amblemler de kesilir; en küçük parça en az 10 cm olmalıdır. Kesim dosyanızı vektörel olarak (PDF, AI, EPS, SVG veya DXF) yükleyin."
+    },
+    {
+     "b": "Ölçü nasıl alınır?",
+     "m": "Toplam genişlik, yazının en solundan en sağına; toplam yükseklik, en üstünden en altına ölçülür. Harf yüksekliği için en küçük büyük harfi ölçün."
+    }
+   ]
+  },
+  "foreks-baski": {
+   "tur": "rulo",
+   "net_en": 150,
+   "max_boy": 300,
+   "malzemeler": [
+    {
+     "kod": "3mm",
+     "ad": "3 mm",
+     "m2": 999
+    },
+    {
+     "kod": "5mm",
+     "ad": "5 mm",
+     "m2": 1599
+    },
+    {
+     "kod": "8mm",
+     "ad": "8 mm",
+     "m2": 3199
+    },
+    {
+     "kod": "10mm",
+     "ad": "10 mm",
+     "m2": 5999
+    }
+   ],
+   "malzeme_baslik": "Kalınlık",
+   "laminasyon": {
+    "secenekler": [
+     "yok",
+     "mat",
+     "parlak"
+    ],
+    "carpan": 1.75
+   },
+   "sekiller": [
+    "dikdortgen",
+    "ozel"
+   ],
+   "ozel_mesaj": "Kare ve dikdörtgen dışındaki şekiller CNC ile özel kesilir ve ayrıca fiyatlandırılır. Dosyanızı WhatsApp'tan gönderin, fiyatı size iletelim.",
+   "teslimat": true,
+   "ppi": {
+    "uygun": 100,
+    "uyari": 72
+   },
+   "kargo_metni": "Bu ürün kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz; özel teslimat bedeli ayrıca bildirilir. Fiyatlara ayak ve askı aparatı dahil değildir.",
+   "ad": "Foreks Baskı",
+   "aciklama": "Mağaza, ofis, fuar ve etkinlik için baskılı foreks levha. Kalınlığı ve ölçüyü seçin, dosyanızı yükleyin; fiyat anında ekranda.",
+   "chips": [
+    "Kare ve dikdörtgen kesim",
+    "Tek parça en fazla 150 × 300 cm",
+    "GREENGUARD Gold sertifikalı orijinal mürekkep"
+   ],
+   "bilgi": [
+    {
+     "b": "Orijinal mürekkep, sertifikalı üretim",
+     "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
+    },
+    {
+     "b": "Kalınlık seçimi",
+     "m": "3 mm hafif ve duvara uygulamaya uygundur. 5 mm en çok tercih edilen kalınlıktır. 8 ve 10 mm levhalar daha sağlam ve düzdür. Ayakta sergileme için ayrıca destek veya ayak gerekir; fiyata dahil değildir."
+    },
+    {
+     "b": "Özel şekil (CNC)",
+     "m": "Kare ve dikdörtgen dışındaki şekiller, figürler ve harf kesimleri CNC ile yapılır ve teklifle fiyatlandırılır."
+    },
+    {
+     "b": "Teslimat",
+     "m": "Foreks levhalar kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz. Levhalar tek parça teslim edilir; atölyeden teslim almadan önce ürünün ölçüsüne uygun bir taşıma aracı ayarlayın."
+    }
+   ]
+  },
+  "fotoblok-baski": {
+   "tur": "rulo",
+   "net_en": 150,
+   "max_boy": 300,
+   "malzemeler": [
+    {
+     "kod": "3mm",
+     "ad": "3 mm",
+     "m2": 999
+    },
+    {
+     "kod": "5mm",
+     "ad": "5 mm",
+     "m2": 1599
+    },
+    {
+     "kod": "8mm",
+     "ad": "8 mm",
+     "m2": 3199
+    },
+    {
+     "kod": "10mm",
+     "ad": "10 mm",
+     "m2": 5999
+    }
+   ],
+   "malzeme_baslik": "Kalınlık",
+   "laminasyon": {
+    "secenekler": [
+     "yok",
+     "mat",
+     "parlak"
+    ],
+    "carpan": 1.75
+   },
+   "sekiller": [
+    "dikdortgen",
+    "ozel"
+   ],
+   "ozel_mesaj": "Kare ve dikdörtgen dışındaki şekiller CNC ile özel kesilir ve ayrıca fiyatlandırılır. Dosyanızı WhatsApp'tan gönderin, fiyatı size iletelim.",
+   "teslimat": true,
+   "ppi": {
+    "uygun": 100,
+    "uyari": 72
+   },
+   "kargo_metni": "Bu ürün kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz; özel teslimat bedeli ayrıca bildirilir. Fiyatlara ayak ve askı aparatı dahil değildir.",
+   "ad": "Fotoblok Baskı",
+   "aciklama": "Fotoğraf, tablo, kampanya ve dekorasyon için baskılı fotoblok. Kalınlığı ve ölçüyü seçin, dosyanızı yükleyin; fiyat anında ekranda.",
+   "chips": [
+    "Kare ve dikdörtgen kesim",
+    "Tek parça en fazla 150 × 300 cm",
+    "GREENGUARD Gold sertifikalı orijinal mürekkep"
+   ],
+   "bilgi": [
+    {
+     "b": "Orijinal mürekkep, sertifikalı üretim",
+     "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
+    },
+    {
+     "b": "Kalınlık seçimi",
+     "m": "3 mm hafif ve duvara uygulamaya uygundur. 5 mm en çok tercih edilen kalınlıktır. 8 ve 10 mm levhalar daha sağlam ve düzdür. Ayakta sergileme için ayrıca destek veya ayak gerekir; fiyata dahil değildir."
+    },
+    {
+     "b": "Özel şekil (CNC)",
+     "m": "Kare ve dikdörtgen dışındaki şekiller, figürler ve dekupe kesimler CNC ile yapılır ve teklifle fiyatlandırılır."
+    },
+    {
+     "b": "Teslimat",
+     "m": "Fotobloklar kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz. Levhalar tek parça teslim edilir; atölyeden teslim almadan önce ürünün ölçüsüne uygun bir taşıma aracı ayarlayın."
+    }
+   ]
+  },
+  "afis-baski": {
+   "ad": "Afiş Baskı",
+   "tur": "rulo",
+   "net_en": 160,
+   "malzemeler": [
+    {
+     "kod": "branda",
+     "ad": "Branda (400 gr)",
+     "m2": 369,
+     "kargo_max_m2": 16,
+     "not": "Uzun süreli iç ve dış mekan kullanımı için dayanıklı Avrupa dökme branda. Afişler kesilmiş olarak teslim edilir; kuşgözü dahil değildir. Kuşgözlü branda için Branda Baskı sayfasını kullanın."
+    },
+    {
+     "kod": "blueback",
+     "ad": "Blueback afiş kağıdı",
+     "m2": 249,
+     "kargo_max_m2": 16,
+     "uyari": "Blueback, kısa süreli (yaklaşık 4–6 hafta) dış mekan kampanyaları için uygundur. Uzun süreli kullanım için branda seçin."
+    },
+    {
+     "kod": "saten-240",
+     "ad": "Saten kağıt (240 gr)",
+     "m2": 599,
+     "net_en": 102,
+     "uyari": "Saten kağıt yalnızca iç mekan içindir; dış mekanda yağmur ve güneşe dayanmaz."
+    }
+   ],
+   "ppi": {
+    "uygun": 72,
+    "uyari": 50
+   },
+   "aciklama": "Kampanya, duyuru, etkinlik ve vitrin için afiş. Malzemeyi seçin, kendi ölçünüzü girin, dosyanızı yükleyin; fiyat anında ekranda.",
+   "chips": [
+    "Branda, blueback, saten",
+    "Kendi ölçünüz",
+    "GREENGUARD Gold sertifikalı orijinal mürekkep"
+   ],
+   "bilgi": [
+    {
+     "b": "Orijinal mürekkep, sertifikalı üretim",
+     "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
+    },
+    {
+     "b": "Hangi malzemeyi seçmeliyim?",
+     "m": "<b>Branda:</b> uzun süreli iç ve dış mekan. <b>Blueback:</b> kısa süreli (yaklaşık 4–6 hafta) dış mekan kampanyaları, en ekonomik seçenek. <b>Saten kağıt:</b> yalnızca iç mekan; mağaza, ofis ve etkinlik alanları."
+    },
+    {
+     "b": "Daha ince kağıt mı arıyorsunuz?",
+     "m": "240 gr'dan ince kağıtlar standart fiyatlandırmanın dışındadır. Ölçünüzü ve adedinizi WhatsApp'tan (+90 532 523 73 64) gönderin, fiyatı size iletelim."
+    },
+    {
+     "b": "Dosya nasıl hazırlanır?",
+     "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan afişlerde baskı ölçüsünde en az 72 PPI yeterlidir; 1 metreden küçük, yakından bakılan işlerde en az 100 PPI önerilir."
+    }
+   ],
+   "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz.",
+   "ppi_kucuk": {
+    "sinir_cm": 100,
+    "uygun": 100,
+    "uyari": 72
+   }
+  },
+  "mesh-baski": {
+   "ad": "Mesh Baskı",
+   "tur": "rulo",
+   "net_en": 160,
+   "kargo_max_m2": 16,
+   "malzemeler": [
+    {
+     "kod": "mesh",
+     "ad": "Mesh (file) branda",
+     "m2": 699,
+     "not": "Delikli yapısı sayesinde rüzgâr geçişine izin verir ve rüzgâr yükünü azaltmaya yardımcı olur; iskele, şantiye çevresi ve cepheler için tercih edilir."
+    }
+   ],
+   "kusgozu": {
+    "fiyat": 20,
+    "oneri_aralik": 50,
+    "guvenli_cm": 3
+   },
+   "ppi": {
+    "uygun": 72,
+    "uyari": 50
+   },
+   "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz.",
+   "aciklama": "İskele, şantiye, bina cephesi ve rüzgâr alan yüzeyler için delikli mesh baskı. Ölçünüzü ve kuşgözü adedini girin, dosyanızı yükleyin; fiyat anında ekranda.",
+   "chips": [
+    "Rüzgâr geçiren delikli yapı",
+    "Kuşgözü seçeneği",
+    "GREENGUARD Gold sertifikalı orijinal mürekkep"
+   ],
+   "bilgi": [
+    {
+     "b": "Orijinal mürekkep, sertifikalı üretim",
+     "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
+    },
+    {
+     "b": "Kuşgözü",
+     "m": "Her kuşgözü, arkasına ek takviyeyle çakılır. Kuşgözleri köşelerden başlayarak kenarlara eşit aralıkla yerleştirilir. Kuşgözü istemiyorsanız 0 yazın."
+    },
+    {
+     "b": "Dikiş ve kaynak",
+     "m": "Kenar dikişi ve cephe giydirmelerde parça birleştirme (kaynak) teklifle fiyatlandırılır. Ölçünüzü WhatsApp'tan (+90 532 523 73 64) gönderin."
+    },
+    {
+     "b": "Dosya nasıl hazırlanır?",
+     "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan mesh baskılarda baskı ölçüsünde en az 72 PPI yeterlidir; 1 metreden küçük, yakından bakılan işlerde en az 100 PPI önerilir. Delikli yapı nedeniyle ince yazılar yakından zor okunur; büyük yazı ve kalın hatlar tercih edin."
+    }
+   ],
+   "ppi_kucuk": {
+    "sinir_cm": 100,
+    "uygun": 100,
+    "uyari": 72
+   }
+  },
+  "poster-baski": {
+   "ad": "Poster Baskı",
+   "tur": "rulo",
+   "net_en": 102,
+   "malzemeler": [
+    {
+     "kod": "saten-240",
+     "ad": "Saten kağıt (240 gr)",
+     "m2": 599
+    }
+   ],
+   "cerceve": {
+    "olculer": [
+     {
+      "kod": "21x30",
+      "ad": "21 × 30 cm",
+      "en": 21,
+      "boy": 30,
+      "fiyat": {
+       "siyah-beyaz": 899,
+       "mese": 999
+      }
+     },
+     {
+      "kod": "30x40",
+      "ad": "30 × 40 cm",
+      "en": 30,
+      "boy": 40,
+      "fiyat": {
+       "siyah-beyaz": 1199,
+       "mese": 1299
+      }
+     },
+     {
+      "kod": "40x50",
+      "ad": "40 × 50 cm",
+      "en": 40,
+      "boy": 50,
+      "fiyat": {
+       "siyah-beyaz": 1899,
+       "mese": 1999
+      }
+     },
+     {
+      "kod": "50x70",
+      "ad": "50 × 70 cm",
+      "en": 50,
+      "boy": 70,
+      "fiyat": {
+       "siyah-beyaz": 2999,
+       "mese": 3299
+      }
+     },
+     {
+      "kod": "61x91",
+      "ad": "61 × 91 cm",
+      "en": 61,
+      "boy": 91,
+      "fiyat": {
+       "siyah-beyaz": 3999,
+       "mese": 4299
+      }
+     }
+    ],
+    "renkler": [
+     {
+      "kod": "siyah",
+      "ad": "siyah",
+      "grup": "siyah-beyaz",
+      "hex": "#111111"
+     },
+     {
+      "kod": "beyaz",
+      "ad": "beyaz",
+      "grup": "siyah-beyaz",
+      "hex": "#FFFFFF"
+     },
+     {
+      "kod": "mese",
+      "ad": "meşe",
+      "grup": "mese",
+      "hex": "#C69C6D"
+     }
+    ]
+   },
+   "ppi": {
+    "uygun": 100,
+    "uyari": 72
+   },
+   "aciklama": "Ev, ofis, mağaza ve etkinlik için 240 gr saten kağıda poster. Kendi ölçünüzü girin ya da çerçeveli sipariş verin; dosyanızı yükleyin, fiyat anında ekranda.",
+   "chips": [
+    "240 gr saten kağıt",
+    "Çerçeve seçeneği",
+    "GREENGUARD Gold sertifikalı orijinal mürekkep"
+   ],
+   "bilgi": [
+    {
+     "b": "Orijinal mürekkep, sertifikalı üretim",
+     "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
+    },
+    {
+     "b": "Çerçeveli poster",
+     "m": "Çerçeveli posterler 21 × 30, 30 × 40, 40 × 50, 50 × 70 ve 61 × 91 cm ölçülerinde; siyah, beyaz veya meşe renk çerçeveyle hazırlanır. Çerçeve pleksi ön yüz, arkalık ve askı aparatıyla, korumalı ambalajda gönderilir. Poster seçtiğiniz çerçeve ölçüsünde basılır; çerçeve kenarı görselin her kenarından birkaç milimetreyi kapatır, önemli öğeleri kenarlara çok yakın koymayın. Çerçeve bedeli baskıya ek olarak hesaplanır; çerçeveli siparişlerde 999 ₺ asgari tutar baskı ve çerçeve toplamına uygulanır."
+    },
+    {
+     "b": "Kendi ölçünüz",
+     "m": "Çerçevesiz posterlerde kenarlardan biri en fazla 102 cm, diğeri en fazla 49 metre olabilir."
+    },
+    {
+     "b": "Dosya nasıl hazırlanır?",
+     "m": "Dosyayı poster ölçüsünde hazırlayın; yazıları kontura çevirin. Görsellerde baskı ölçüsünde en az 100 PPI önerilir."
+    }
+   ]
+  },
+  "kartvizit-baski": {
+   "ad": "Kartvizit Baskı",
+   "tur": "kartvizit",
+   "paketler": [
+    {
+     "adet": 250,
+     "tek": 1199,
+     "cift": 1499
+    },
+    {
+     "adet": 500,
+     "tek": 2199,
+     "cift": 2499
+    },
+    {
+     "adet": 1000,
+     "tek": 2999,
+     "cift": 3299
+    }
+   ],
+   "olcu": "85 × 55 mm",
+   "kagit": "350 gr mat kuşe, mat veya parlak selefonlu",
+   "aciklama": "350 gr mat kuşe, mat veya parlak selefonlu kartvizit. Hazır şablonlardan birini seçip bilgilerinizi yazın ya da kurumsal tasarımınızı PDF olarak yükleyin; fiyat anında ekranda.",
+   "chips": [
+    "350 gr mat kuşe",
+    "Mat veya parlak selefon dahil",
+    "85 × 55 mm"
+   ],
+   "bilgi": [
+    {
+     "b": "Kağıt ve selefon",
+     "m": "Kartvizitler 350 gr mat kuşe kağıda basılır; mat veya parlak selefon (laminasyon) fiyata dahildir. Standart ölçü 85 × 55 mm'dir."
+    },
+    {
+     "b": "Kurumsal tasarımınız varsa",
+     "m": "Hazır kurumsal kartvizitinizi PDF olarak yükleyin: dosya ölçüsü 91 × 61 mm (85 × 55 mm + her kenarda 3 mm taşma), önemli yazılar kesim çizgisinden en az 3 mm içeride, yazılar konturda. Çift yönde 1. sayfa ön yüz, 2. sayfa arka yüz olmalıdır."
+    },
+    {
+     "b": "Hangi işler teklifle?",
+     "m": "Daha kalın kağıt, kabartma, lak, yaldız ve özel kesim gibi özel kartvizitler teklifle fiyatlandırılır. WhatsApp'tan (+90 532 523 73 64) yazın."
+    }
+   ]
+  },
+  "soguk-dtf-baski": {
+   "ad": "Soğuk DTF Baskı",
+   "tur": "dtf",
+   "rulo_en": 40,
+   "metre_fiyat": 920,
+   "aralik_cm": 1,
+   "min_cm": 2,
+   "ppi": {
+    "uygun": 100,
+    "uyari": 72
+   },
+   "aciklama": "Zeminsiz, yapıştırmaya hazır UV DTF transfer baskı. Cam, metal, plastik, ahşap ve ambalaj gibi sert yüzeylere uygulanır. Tasarım ölçünüzü ve adedi girin; yerleşim ve fiyat anında ekranda.",
+   "chips": [
+    "40 cm rulo eni",
+    "Zeminsiz, arka planı olmayan baskı",
+    "Cam, metal, plastik, ahşap"
+   ],
+   "bilgi": [
+    {
+     "b": "Metre ile fiyat",
+     "m": "Soğuk DTF 40 cm enindeki ruloya basılır ve kullanılan rulo uzunluğu kadar ücretlendirilir: 40 × 100 cm = 920 ₺ + KDV. Tasarımlarınız ruloya, aralarında 1 cm boşluk kalacak şekilde otomatik yerleştirilir; ödediğiniz uzunluk ekranda görünür."
+    },
+    {
+     "b": "Nerelere uygulanır?",
+     "m": "Cam, metal, plastik, ahşap, seramik ve ambalaj gibi sert ve pürüzsüz yüzeylere. Kumaş ve tekstil ürünleri için <a href=\"#\">Sıcak DTF Baskı</a> sayfasını kullanın."
+    },
+    {
+     "b": "Nasıl uygulanır?",
+     "m": "Yüzey temiz, kuru ve yağsız olmalı. Tasarımı alt filmden ayırıp yüzeye yerleştirin, üzerine bastırarak ovalayın, ardından üst filmi yavaşça kaldırın."
+    },
+    {
+     "b": "Dosya nasıl hazırlanır?",
+     "m": "Arka planı şeffaf PNG veya PDF kullanın: şeffaf alanlar baskısız kalır. JPG dosyalarda arka plan da basılır. Görsellerde baskı ölçüsünde en az 100 PPI önerilir; yazıları kontura çevirin. Kendi yerleşiminizi yaptıysanız sayfanın tamamının ölçüsünü girin (genişlik en fazla 40 cm)."
+    }
+   ]
   }
+ }
 }

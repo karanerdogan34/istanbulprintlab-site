@@ -162,6 +162,38 @@
       kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik, kargoAyrica: false};
   }
 
+
+  // DTF transfer: tasarımlar rulo enine (aralıklı, gerekirse döndürülerek) dizilir; kullanılan uzunluk metre ile fiyatlanır
+  function dtfYerlesim(E, a, w, h, adet) {
+    var en = null;
+    [[w, h, false], [h, w, true]].forEach(function (o) {
+      if (o[0] > E) return;
+      var sutun = Math.max(1, Math.floor((E + a) / (o[0] + a)));
+      var sira = Math.ceil(adet / sutun), L = sira * o[1] + (sira - 1) * a;
+      if (!en || L < en.uzunluk - 1e-9) en = {sutun: Math.min(sutun, adet), sira: sira, uzunluk: L, pw: o[0], ph: o[1], dondu: o[2]};
+    });
+    return en;
+  }
+  function dtfHesapla(cfg, genel, g) {
+    var en = sayi(g.en), boy = sayi(g.boy), adet = sayi(g.adet), hatalar = [];
+    if (!(en > 0)) hatalar.push({alan: 'en', mesaj: 'Tasarımın genişliğini santimetre olarak girin.'});
+    if (!(boy > 0)) hatalar.push({alan: 'boy', mesaj: 'Tasarımın yüksekliğini santimetre olarak girin.'});
+    if (!(adet >= 1) || Math.floor(adet) !== adet) hatalar.push({alan: 'adet', mesaj: 'Adet 1 veya daha büyük bir tam sayı olmalı.'});
+    if (hatalar.length) return {durum: 'hata', hatalar: hatalar};
+    if (Math.min(en, boy) < cfg.min_cm) return {durum: 'teklif', mesaj: cfg.min_cm + ' cm\'den küçük tasarımlar standart fiyatlandırmanın dışındadır. Bu iş için teklif alın.', uyarilar: []};
+    if (Math.min(en, boy) > cfg.rulo_en) return {durum: 'teklif', mesaj: 'Soğuk DTF en fazla ' + cfg.rulo_en + ' cm enindeki ruloya basılır; tasarımın kenarlarından en az biri ' + cfg.rulo_en + ' cm veya daha kısa olmalı. Daha büyük işler için teklif alın.', uyarilar: []};
+    var y = dtfYerlesim(cfg.rulo_en, cfg.aralik_cm, en, boy, adet);
+    var uzunluk = Math.ceil(y.uzunluk - 1e-9); // tam santimetreye yukarı
+    if (uzunluk > genel.tek_parca_max_boy) return {durum: 'teklif', mesaj: 'Bu sipariş ' + (uzunluk / 100).toLocaleString('tr-TR') + ' metre rulo gerektiriyor. Tek seferde en fazla ' + (genel.tek_parca_max_boy / 100) + ' metre basılır; daha uzun işler için teklif alın.', uyarilar: []};
+    var baski = yuvarla(uzunluk / 100 * cfg.metre_fiyat);
+    var tamamlama = baski < genel.asgari_baski ? yuvarla(genel.asgari_baski - baski) : 0;
+    var araToplam = yuvarla(baski + tamamlama), kdv = yuvarla(araToplam * genel.kdv_orani);
+    return {durum: 'tamam', uyarilar: [],
+      kalemler: {uzunluk: uzunluk, ruloEn: cfg.rulo_en, birimMetre: cfg.metre_fiyat, sutun: y.sutun, sira: y.sira, dondu: y.dondu, pw: y.pw, ph: y.ph, baski: baski, asgariFarki: tamamlama},
+      araToplam: araToplam, kdv: kdv, toplam: yuvarla(araToplam + kdv),
+      kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik, kargoAyrica: false};
+  }
+
   function hesapla(fiyatlar, urunKod, girdi) {
     var cfg = fiyatlar.urunler[urunKod];
     if (!cfg) return {durum: 'hata', hatalar: [{alan: 'urun', mesaj: 'Ürün bulunamadı.'}]};
@@ -169,6 +201,7 @@
     if (cfg.tur === 'rulo') return ruloHesapla(cfg, fiyatlar.genel, girdi);
     if (cfg.tur === 'yazi') return yaziHesapla(cfg, fiyatlar.genel, girdi);
     if (cfg.tur === 'kartvizit') return adetliHesapla(cfg, fiyatlar.genel, girdi);
+    if (cfg.tur === 'dtf') return dtfHesapla(cfg, fiyatlar.genel, girdi);
     return {durum: 'hata', hatalar: [{alan: 'urun', mesaj: 'Bu ürün türü henüz tanımlı değil.'}]};
   }
 

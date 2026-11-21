@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>__BASLIK__ — Sipariş | IstanbulPrintLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Mono:wght@400;500&family=Jost:wght@400;500;600&display=swap">
+<style>
+__CSS__
+.yer{margin-top:16px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
+.yer svg{display:block;background:repeating-conic-gradient(#EDEBE8 0% 25%,#fff 0% 50%) 0 0/12px 12px;border:1px solid var(--line);border-radius:4px}
+.yer .small{margin:0}
+@media (max-width:900px){ .yer{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="testbar">Test ortamı — bu sayfa henüz yayında değil. Ödeme ve dosya gönderimi kapalıdır.</div>
+<header class="site"><div class="wrap"><a class="logo" href="#">IstanbulPrintLab®</a><span class="small" style="margin:0">Kadıköy, İstanbul</span></div></header>
+
+<main class="wrap">
+ <div class="crumb"><a href="#">Ürünler</a> / __BASLIK__</div>
+ <section class="hero">
+  <h1>__BASLIK__</h1>
+  <p class="lead">__ACIKLAMA__</p>
+  <div class="chips" id="chips"></div>
+ </section>
+
+ <div class="layout">
+  <form id="f" novalidate>
+   <section class="step">
+    <h2><span class="n">01</span>Tasarım ölçüsü ve adet</h2>
+    <div class="fields">
+     <label class="f"><span>Genişlik (cm)</span><input id="en" inputmode="decimal" autocomplete="off" placeholder="ör. 10"></label>
+     <label class="f"><span>Yükseklik (cm)</span><input id="boy" inputmode="decimal" autocomplete="off" placeholder="ör. 10"></label>
+     <label class="f"><span>Adet</span><input id="adet" inputmode="numeric" autocomplete="off" value="1"></label>
+    </div>
+    <div class="err" id="olcuErr"></div>
+    <p class="hint" id="olcuNot"></p>
+    <div class="yer" id="yer"></div>
+   </section>
+
+   <section class="step">
+    <h2><span class="n">02</span>Baskı dosyası</h2>
+    <label class="drop" id="drop"><input type="file" id="dosya" accept=".pdf,.png,.jpg,.jpeg,.tif,.tiff"><b>Dosyanızı seçin veya buraya sürükleyin</b><span class="small">Arka planı şeffaf PNG veya PDF önerilir; şeffaf alanlar baskısız kalır. Tek bir tasarımı yükleyin, adede göre çoğaltma bizde.</span></label>
+    <div id="dosyaSonuc"></div>
+   </section>
+
+   <section class="step">
+    <h2><span class="n">03</span>Onay</h2>
+    <label class="chk"><input type="checkbox" id="onay"><span>Seçtiğim ölçüleri, metinleri, görselleri ve yerleşimi kontrol edip onaylıyorum. Ekran ile baskı arasında minimal renk farklılıkları olabileceğini biliyorum.</span></label>
+   </section>
+  </form>
+
+  <aside class="sum" id="ozet" aria-live="polite">
+   <h3>Sipariş özeti</h3>
+   <div id="ozetIc"><p class="small" style="margin:0">Ölçünüzü girdiğinizde fiyat burada görünür.</p></div>
+   <button class="btn" id="devam" type="button" disabled>Ödemeye geç</button>
+   <p class="small" id="devamNot">Dosya kontrolü ve onay tamamlandığında ödeme adımına geçebilirsiniz.</p>
+   <p class="small">Fiyatlara tasarım ve uygulama dahil değildir. __KARGO_METNI__</p>
+  </aside>
+ </div>
+</main>
+
+<section class="info"><div class="wrap grid" id="bilgi"></div></section>
+<footer><div class="wrap">IstanbulPrintLab · Kadıköy, İstanbul</div></footer>
+<div class="mbar"><div><span class="small" style="margin:0;display:block">KDV dahil</span><b id="mTop">—</b></div><a href="#ozet">Özete git ↓</a></div>
+
+<script>
+__MOTOR__
+</script>
+<script>
+(function(){
+'use strict';
+var F = __FIYATLAR__;
+var KOD = '__URUN__';
+var C = F.urunler[KOD], G = F.genel;
+var WA = 'https://wa.me/905325237364?text=';
+var $ = function(id){return document.getElementById(id);};
+var tl = function(x){return x.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})+' ₺';};
+var tl0 = function(x){return x.toLocaleString('tr-TR')+' ₺';};
+var esc = function(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
+var metre = function(cm){ return (cm/100).toLocaleString('tr-TR',{maximumFractionDigits:2})+' metre'; };
+
+var chips = [{t: tl0(C.metre_fiyat)+' + KDV / metre', ink:true}].concat((C.chips||[]).map(function(t){return {t:t};}));
+$('chips').innerHTML = chips.map(function(c){return '<span class="chip'+(c.ink?' ink':'')+'">'+esc(c.t)+'</span>';}).join('');
+$('bilgi').innerHTML = (C.bilgi||[]).map(function(b){return '<div><h3>'+esc(b.b)+'</h3><p>'+b.m+'</p></div>';}).join('');
+$('olcuNot').textContent = 'Tek bir tasarımın ölçüsünü ve kaç adet istediğinizi girin. Tasarımlar '+C.rulo_en+' cm enindeki ruloya aralarında '+C.aralik_cm+' cm boşlukla otomatik yerleştirilir; kullanılan uzunluk kadar ödersiniz. Tasarımın kenarlarından biri en fazla '+C.rulo_en+' cm olmalı; en küçük kenar '+C.min_cm+' cm\'dir. Kendi yerleşiminizi yaptıysanız sayfanın tamamının ölçüsünü girip adedi 1 bırakın.';
+
+var dosya = null; // {ad, tur, px, url, seffaf}
+
+function girdi(){ return {en: $('en').value, boy: $('boy').value, adet: $('adet').value}; }
+
+// rulo yerleşim önizlemesi (ilk 120 cm çizilir)
+function yerlesimCiz(r){
+  if (!r || r.durum!=='tamam') { $('yer').innerHTML=''; return; }
+  var k = r.kalemler, E = k.ruloEn, a = C.aralik_cm, gosterL = Math.min(k.uzunluk, 120), sc = 200/E, W = E*sc, H = gosterL*sc;
+  var g = '', n = 0, adet = IPLMotor.sayi($('adet').value);
+  var solPay = (E - (k.sutun*k.pw + (k.sutun-1)*a))/2;
+  for (var s=0; s<k.sira; s++) { var y = s*(k.ph+a); if (y >= gosterL) break;
+    for (var c=0; c<k.sutun && n<adet; c++, n++) { var x = solPay + c*(k.pw+a);
+      var cx=(x+k.pw/2)*sc, cy=(y+k.ph/2)*sc, iw=(k.dondu?k.ph:k.pw)*sc, ih=(k.dondu?k.pw:k.ph)*sc; // döndürülmüş hücrede görsel 90° çevrilir
+      if (dosya && dosya.url) g += '<image href="'+dosya.url+'" x="'+(cx-iw/2)+'" y="'+(cy-ih/2)+'" width="'+iw+'" height="'+ih+'" preserveAspectRatio="none"'+(k.dondu?' transform="rotate(90 '+cx+' '+cy+')"':'')+'/>';
+      g += '<rect x="'+(x*sc)+'" y="'+(y*sc)+'" width="'+(k.pw*sc)+'" height="'+(k.ph*sc)+'" fill="'+(dosya&&dosya.url?'none':'#0B0B0B')+'" fill-opacity=".14" stroke="#0B0B0B" stroke-width="1"/>'; } }
+  var kes = k.uzunluk > gosterL ? '<line x1="0" y1="'+(H-1)+'" x2="'+W+'" y2="'+(H-1)+'" stroke="#8A5A00" stroke-dasharray="5 4"/>' : '';
+  $('yer').innerHTML = '<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" role="img" aria-label="Rulo yerleşimi">'+g+kes+'</svg>'
+   + '<div><p class="small"><b style="font-weight:500;color:var(--ink)">Yerleşim:</b> yan yana '+k.sutun+' adet, '+k.sira+' sıra'+(k.dondu?' (tasarım ruloya yan çevrilerek yerleştirildi; uygulamayı etkilemez)':'')+'.</p>'
+   + '<p class="small" style="margin-top:6px">Kullanılan rulo: '+E+' cm × '+metre(k.uzunluk)+'.</p>'
+   + (k.uzunluk > gosterL ? '<p class="small" style="margin-top:6px">Önizleme ilk 120 cm\'yi gösterir.</p>' : '') + '</div>';
+}
+
+function dosyaDurum(){
+  if (!dosya) return null;
+  var g = girdi(), en = IPLMotor.sayi(g.en), boy = IPLMotor.sayi(g.boy);
+  if (!dosya.px) return {sonuc:'inceleme', metin:'Bu dosya türü için otomatik çözünürlük ve ölçü kontrolü yapılmıyor; dosyanızı operatörümüz inceleyecek. Kontrol tamamlanmadan üretim başlamaz.'};
+  if (!(en>0 && boy>0)) return {sonuc:'bekle', metin:'Dosyanın uygunluğunu görmek için ölçüyü girin.'};
+  var k = IPLMotor.dosyaKontrol(C, dosya.px, en, boy), t, sonuc = k.sonuc;
+  if (k.sonuc==='uygun') t = 'Çözünürlük ön kontrolünden geçti: '+en+' × '+boy+' cm ölçüde yaklaşık '+k.ppi+' PPI. Son kontrol üretim öncesinde yapılır.';
+  else if (k.sonuc==='inceleme') t = 'Çözünürlük sınırda: bu ölçüde yaklaşık '+k.ppi+' PPI. Yakından bakıldığında netlik azalabilir; dosyanızı operatörümüz kontrol edecek.';
+  else t = 'Baskıya uygun değil: bu ölçüde çözünürlük yalnızca '+k.ppi+' PPI. Daha yüksek çözünürlüklü bir dosya yükleyin ya da ölçüyü küçültün.';
+  if (k.dondur) t += ' Dosyanızın yönü girdiğiniz ölçüyle uyuşmuyor (biri yatay, diğeri dikey). Genişlik ve yüksekliği kontrol edin.';
+  if (k.oranSapma > 2) { t += ' Dosyanın en-boy oranı girdiğiniz ölçüden %'+k.oranSapma+' farklı. Dosyayı ölçüye uygun hazırlayın ya da ölçüyü düzeltin'+(sonuc==='uygun-degil'?'.':'; aksi halde dosyanız operatör incelemesine alınır.'); if (sonuc==='uygun') sonuc='inceleme'; }
+  if (k.dondur && sonuc==='uygun') sonuc='inceleme';
+  return {sonuc:sonuc, metin:t};
+}
+function zeminMesaj(){
+  if (!dosya) return '';
+  if (dosya.tur==='jpg'||dosya.tur==='jpeg') return 'JPG dosyalarında şeffaflık yoktur: tasarımın arka planı da dikdörtgen olarak basılır. Zeminsiz görünüm istiyorsanız arka planı şeffaf PNG veya PDF yükleyin.';
+  if (dosya.tur==='png' && dosya.seffaf===false) return 'Bu PNG dosyasında şeffaf alan yok: arka plan da dikdörtgen olarak basılır. Zeminsiz görünüm istiyorsanız arka planı silinmiş (şeffaf) bir PNG yükleyin.';
+  return '';
+}
+
+function ciz(){
+  var g = girdi(), r = IPLMotor.hesapla(F, KOD, g);
+  ['en','boy','adet'].forEach(function(a){$(a).removeAttribute('aria-invalid');});
+  $('olcuErr').textContent = '';
+  var dolu = g.en.trim()!=='' || g.boy.trim()!=='', h = '';
+  if (r.durum==='hata') {
+    if (dolu) { r.hatalar.forEach(function(e){ if ($(e.alan)) $(e.alan).setAttribute('aria-invalid','true'); }); $('olcuErr').textContent = r.hatalar.map(function(e){return e.mesaj;}).join(' '); }
+    h = '<p class="small" style="margin:0">Ölçünüzü girdiğinizde fiyat burada görünür.</p>'; $('mTop').textContent = '—';
+  } else if (r.durum==='teklif') {
+    var txt = encodeURIComponent('Merhaba, '+C.ad+' için teklif almak istiyorum: '+g.en+' × '+g.boy+' cm, '+g.adet+' adet.');
+    h = '<div class="msg warn" style="margin-top:0">'+esc(r.mesaj)+'</div><a class="btn ghost" href="'+WA+txt+'" target="_blank" rel="noopener">WhatsApp ile teklif iste</a><p class="small">WhatsApp: +90 532 523 73 64</p>';
+    $('mTop').textContent = 'Teklif';
+  } else {
+    var k = r.kalemler;
+    h += '<div class="line"><span>Tasarım</span><span>'+esc(g.en)+' × '+esc(g.boy)+' cm × '+esc(g.adet)+' adet</span></div>';
+    h += '<div class="line"><span>Rulo uzunluğu ('+k.ruloEn+' cm en)</span><span>'+metre(k.uzunluk)+'</span></div>';
+    h += '<div class="line"><span>Baskı ('+tl0(k.birimMetre)+' / metre)</span><span>'+tl(k.baski)+'</span></div>';
+    if (k.asgariFarki > 0) h += '<div class="line"><span>Asgari baskı tutarı farkı</span><span>'+tl(k.asgariFarki)+'</span></div>';
+    h += '<div class="line total"><span>Ara toplam (KDV hariç)</span><span>'+tl(r.araToplam)+'</span></div>';
+    h += '<div class="line"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
+    h += '<div class="line big"><span>Toplam</span><span>'+tl(r.toplam)+'</span></div>';
+    h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+(r.kargoUcretsiz?'Ücretsiz':'Alıcı ödemeli')+'</span></div>';
+    if (k.asgariFarki > 0) h += '<p class="small">Asgari baskı tutarı '+tl0(G.asgari_baski)+' + KDV\'dir.</p>';
+    $('mTop').textContent = tl(r.toplam);
+  }
+  $('ozetIc').innerHTML = h;
+  yerlesimCiz(r);
+
+  var d = dosyaDurum(), dh = '';
+  if (dosya) {
+    dh = '<div class="filecard">'+(dosya.url?'<img alt="" src="'+dosya.url+'" style="background:repeating-conic-gradient(#EDEBE8 0% 25%,#fff 0% 50%) 0 0/12px 12px">':'')+'<div><b style="font-weight:500">'+esc(dosya.ad)+'</b><div class="small" style="margin:0">'+(dosya.px?dosya.px.w+' × '+dosya.px.h+' piksel':dosya.tur.toUpperCase()+' dosyası')+'</div></div></div>';
+    dh += '<div class="msg '+({uygun:'ok', inceleme:'warn', 'uygun-degil':'bad', bekle:'warn'}[d.sonuc])+'">'+esc(d.metin)+'</div>';
+    var zm = zeminMesaj(); if (zm) dh += '<div class="msg warn">'+esc(zm)+'</div>';
+  }
+  $('dosyaSonuc').innerHTML = dh;
+
+  var hazir = r.durum==='tamam' && dosya && d && (d.sonuc==='uygun' || d.sonuc==='inceleme') && $('onay').checked;
+  $('devam').disabled = !hazir;
+  $('devam').style.display = r.durum==='teklif' ? 'none' : '';
+  $('devamNot').style.display = r.durum==='teklif' ? 'none' : '';
+  var neden = r.durum!=='tamam' ? 'Ölçüyü girin.' : !dosya ? 'Baskı dosyanızı yükleyin.' : (d.sonuc==='uygun-degil' ? 'Dosya baskıya uygun değil.' : (!$('onay').checked ? 'Onay kutusunu işaretleyin.' : ''));
+  $('devamNot').textContent = hazir ? (d.sonuc==='inceleme' ? 'Dosyanız operatör kontrolüne alınacak; kontrol tamamlanmadan üretim başlamaz.' : 'Dosyanız ve seçimleriniz siparişe sabitlenir.') : neden;
+}
+
+// PNG'de şeffaf piksel var mı (küçültülmüş örnekle)
+function seffafMi(im){
+  try { var s = Math.min(1, 400/Math.max(im.naturalWidth, im.naturalHeight)), w = Math.max(1,Math.round(im.naturalWidth*s)), h = Math.max(1,Math.round(im.naturalHeight*s));
+    var cv = document.createElement('canvas'); cv.width = w; cv.height = h; var cx = cv.getContext('2d'); cx.drawImage(im,0,0,w,h);
+    var p = cx.getImageData(0,0,w,h).data; for (var i=3;i<p.length;i+=4) if (p[i] < 250) return true; return false; } catch(e){ return null; }
+}
+function dosyaAl(file){
+  if (!file) return;
+  var ad = file.name, uz = (ad.split('.').pop()||'').toLowerCase();
+  if (['pdf','jpg','jpeg','png','tif','tiff'].indexOf(uz) < 0) { $('dosyaSonuc').innerHTML = '<div class="msg bad">Bu dosya türü kabul edilmiyor. PNG, PDF, JPG veya TIFF yükleyin.</div>'; return; }
+  if (dosya && dosya.url) URL.revokeObjectURL(dosya.url);
+  dosya = {ad: ad, tur: uz, px: null, url: null, seffaf: null};
+  if (['jpg','jpeg','png'].indexOf(uz) >= 0) {
+    var url = URL.createObjectURL(file), im = new Image();
+    im.onload = function(){ dosya.px = {w: im.naturalWidth, h: im.naturalHeight}; dosya.url = url; if (uz==='png') dosya.seffaf = seffafMi(im); ciz(); };
+    im.onerror = function(){ ciz(); };
+    im.src = url;
+  }
+  ciz();
+}
+
+$('f').addEventListener('input', ciz);
+$('f').addEventListener('change', ciz);
+$('f').addEventListener('submit', function(e){e.preventDefault();});
+$('dosya').addEventListener('change', function(e){ dosyaAl(e.target.files[0]); });
+var drop = $('drop');
+['dragenter','dragover'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.add('on');});});
+['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('on');});});
+drop.addEventListener('drop', function(e){ dosyaAl(e.dataTransfer.files[0]); });
+$('devam').addEventListener('click', function(){ $('devamNot').textContent = 'Test ortamı: ödeme adımı henüz bağlı değil.'; });
+ciz();
+})();
+</script>
+</body>
+</html>
