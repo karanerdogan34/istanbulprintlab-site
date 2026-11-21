@@ -65,7 +65,7 @@
     }
     var cerBedel = cerOn;
     var araToplam = yuvarla(baski + tamamlama + lamBedel + kgBedel + cerBedel);
-    var kmax = ('kargo_max_m2' in malz) ? malz.kargo_max_m2 : cfg.kargo_max_m2;
+    var kmax = ('kargo_max_m2' in malz) ? malz.kargo_max_m2 : (('kargo_max_m2' in cfg) ? cfg.kargo_max_m2 : genel.kargo_max_m2); // 16 m² üzeri ücretsiz kargo yok
     var kdv = yuvarla(araToplam * genel.kdv_orani);
     return {
       durum: 'tamam',
@@ -141,7 +141,7 @@
       durum: 'tamam', uyarilar: [],
       kalemler: {m2: yuvarla(m2), birimM2: kademe.m2, kademe: kademe.ad, baski: yuvarla(baski), asgariFarki: yuvarla(tamamlama), laminasyon: 0, kusgozu: 0, renk: renk.ad},
       araToplam: yuvarla(araToplam), kdv: yuvarla(kdv), toplam: yuvarla(araToplam + kdv),
-      kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik, kargoAyrica: false
+      kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik && !(m2 > genel.kargo_max_m2), kargoAyrica: m2 > genel.kargo_max_m2, kargoMaxM2: genel.kargo_max_m2
     };
   }
 
@@ -194,7 +194,8 @@
       var at = yuvarla(bs + tm), kd = yuvarla(at * genel.kdv_orani);
       return {durum: 'tamam', uyarilar: [],
         kalemler: {tabaka: tabaka, tabakaEn: T.en, tabakaBoy: T.boy, birimTabaka: T.fiyat, kapasite: en2.kap, sutun: en2.sutun, sira: en2.sira, dondu: en2.dondu, pw: en2.pw, ph: en2.ph, baski: bs, asgariFarki: tm},
-        araToplam: at, kdv: kd, toplam: yuvarla(at + kd), kargoUcretsiz: at >= genel.kargo_ucretsiz_esik, kargoAyrica: false};
+        araToplam: at, kdv: kd, toplam: yuvarla(at + kd), m2: yuvarla(tabaka * T.en * T.boy / 10000),
+        kargoUcretsiz: at >= genel.kargo_ucretsiz_esik && !(tabaka * T.en * T.boy / 10000 > genel.kargo_max_m2), kargoAyrica: tabaka * T.en * T.boy / 10000 > genel.kargo_max_m2, kargoMaxM2: genel.kargo_max_m2};
     }
     if (Math.min(en, boy) > cfg.rulo_en) return {durum: 'teklif', mesaj: 'Soğuk DTF en fazla ' + cfg.rulo_en + ' cm enindeki ruloya basılır; tasarımın kenarlarından en az biri ' + cfg.rulo_en + ' cm veya daha kısa olmalı. Daha büyük işler için teklif alın.', uyarilar: []};
     var y = dtfYerlesim(cfg.rulo_en, cfg.aralik_cm, en, boy, adet);
@@ -205,8 +206,8 @@
     var araToplam = yuvarla(baski + tamamlama), kdv = yuvarla(araToplam * genel.kdv_orani);
     return {durum: 'tamam', uyarilar: [],
       kalemler: {uzunluk: uzunluk, ruloEn: cfg.rulo_en, birimMetre: cfg.metre_fiyat, sutun: y.sutun, sira: y.sira, dondu: y.dondu, pw: y.pw, ph: y.ph, baski: baski, asgariFarki: tamamlama},
-      araToplam: araToplam, kdv: kdv, toplam: yuvarla(araToplam + kdv),
-      kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik, kargoAyrica: false};
+      araToplam: araToplam, kdv: kdv, toplam: yuvarla(araToplam + kdv), m2: yuvarla(cfg.rulo_en * uzunluk / 10000),
+      kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik && !(cfg.rulo_en * uzunluk / 10000 > genel.kargo_max_m2), kargoAyrica: cfg.rulo_en * uzunluk / 10000 > genel.kargo_max_m2, kargoMaxM2: genel.kargo_max_m2};
   }
 
   function hesapla(fiyatlar, urunKod, girdi) {

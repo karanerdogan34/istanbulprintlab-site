@@ -4,7 +4,8 @@
   "kdv_orani": 0.2,
   "asgari_baski": 999,
   "kargo_ucretsiz_esik": 5000,
-  "tek_parca_max_boy": 4900
+  "tek_parca_max_boy": 4900,
+  "kargo_max_m2": 16
  },
  "urunler": {
   "folyo-baski": {
@@ -117,7 +118,6 @@
     }
    ],
    "kargo_max_m2": 16,
-   "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz.",
    "ppi_kucuk": {
     "sinir_cm": 100,
     "uygun": 100,
@@ -553,7 +553,6 @@
      "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan afişlerde baskı ölçüsünde en az 72 PPI yeterlidir; 1 metreden küçük, yakından bakılan işlerde en az 100 PPI önerilir."
     }
    ],
-   "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz.",
    "ppi_kucuk": {
     "sinir_cm": 100,
     "uygun": 100,
@@ -582,7 +581,6 @@
     "uygun": 72,
     "uyari": 50
    },
-   "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz.",
    "aciklama": "İskele, şantiye, bina cephesi ve rüzgâr alan yüzeyler için delikli mesh baskı. Ölçünüzü ve kuşgözü adedini girin, dosyanızı yükleyin; fiyat anında ekranda.",
    "chips": [
     "Rüzgâr geçiren delikli yapı",
