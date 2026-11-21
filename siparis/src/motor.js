@@ -23,7 +23,7 @@
     var malz = null;
     for (var i = 0; i < cfg.malzemeler.length; i++) if (cfg.malzemeler[i].kod === g.malzeme) malz = cfg.malzemeler[i];
     if (!malz) hatalar.push({alan: 'malzeme', mesaj: 'Malzeme seçin.'});
-    var lam = g.laminasyon || 'yok';
+    var lam = cfg.laminasyon ? (g.laminasyon || 'yok') : 'yok';
     if (cfg.laminasyon && cfg.laminasyon.secenekler.indexOf(lam) < 0) hatalar.push({alan: 'laminasyon', mesaj: 'Laminasyon seçin.'});
     if (hatalar.length) return {durum: 'hata', hatalar: hatalar};
 
@@ -40,15 +40,23 @@
     var m2 = m2Parca * adet;
     var baski = m2 * malz.m2;
     var tamamlama = baski < genel.asgari_baski ? genel.asgari_baski - baski : 0;
-    var lamBedel = (lam !== 'yok') ? m2 * malz.m2 * (cfg.laminasyon.carpan - 1) : 0;
-    var araToplam = baski + tamamlama + lamBedel;
+    var lamBedel = (cfg.laminasyon && lam !== 'yok') ? m2 * malz.m2 * (cfg.laminasyon.carpan - 1) : 0;
+    var kgAdet = 0, kgBedel = 0;
+    if (cfg.kusgozu) {
+      kgAdet = sayi(g.kusgozu || 0);
+      if (!(kgAdet >= 0) || Math.floor(kgAdet) !== kgAdet) return {durum: 'hata', hatalar: [{alan: 'kusgozu', mesaj: 'Kuşgözü adedi 0 veya daha büyük bir tam sayı olmalı.'}]};
+      if (kgAdet > 0 && kgAdet < 4) return {durum: 'hata', hatalar: [{alan: 'kusgozu', mesaj: 'Kuşgözü en az 4 adet olmalı (her köşeye bir tane), ya da 0 yazın.'}]};
+      kgBedel = kgAdet * adet * cfg.kusgozu.fiyat;
+    }
+    var araToplam = baski + tamamlama + lamBedel + kgBedel;
     var kdv = araToplam * genel.kdv_orani;
     return {
       durum: 'tamam',
       uyarilar: uyarilar,
       kalemler: {
         m2: yuvarla(m2), m2Parca: yuvarla(m2Parca), birimM2: malz.m2,
-        baski: yuvarla(baski), asgariFarki: yuvarla(tamamlama), laminasyon: yuvarla(lamBedel)
+        baski: yuvarla(baski), asgariFarki: yuvarla(tamamlama), laminasyon: yuvarla(lamBedel),
+        kusgozuAdet: kgAdet * adet, kusgozu: yuvarla(kgBedel)
       },
       araToplam: yuvarla(araToplam), kdv: yuvarla(kdv), toplam: yuvarla(araToplam + kdv),
       kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik

@@ -124,6 +124,17 @@ footer{padding:28px 0;font-size:14px;color:var(--mute);border-top:1px solid var(
     <p class="hint" id="olcuNot"></p>
    </section>
 
+   <section class="step" id="s-kg" style="display:none">
+    <h2><span class="n">00</span>Kuşgözü</h2>
+    <div class="fields" style="grid-template-columns:160px 1fr;align-items:end">
+     <label class="f">Parça başına adet<input id="kusgozu" inputmode="numeric" autocomplete="off" value="0"></label>
+     <div><button type="button" class="btn ghost" id="kgOner" style="margin:0;min-height:52px;width:auto;padding:0 20px">Önerileni yaz</button></div>
+    </div>
+    <div class="err" id="kgErr"></div>
+    <div id="kgOnizleme" style="margin-top:14px"></div>
+    <p class="hint" id="kgNot"></p>
+   </section>
+
    <section class="step">
     <h2><span class="n">04</span>Baskı dosyası</h2>
     <label class="drop" id="drop"><input type="file" id="dosya" accept=".pdf,.jpg,.jpeg,.png,.tif,.tiff"><b>Dosyanızı seçin veya buraya sürükleyin</b><span class="small">PDF, JPG, PNG veya TIFF. Yazılar kontura çevrilmiş olmalı. PNG'deki şeffaf alanlar baskısız kalır.</span></label>
@@ -184,6 +195,31 @@ if (C.laminasyon) {
   $('lamNot').textContent = C.lamNot || 'Laminasyon baskıyı çizilmeye, neme ve UV ışığına karşı korur. Laminasyonlu işlerde mürekkebin kuruması beklendiği için teslim süresi uzar.';
 } else { $('s-lam').style.display='none'; }
 
+// adım numaraları
+function numarala(){ var n=0; document.querySelectorAll('.step').forEach(function(st){ if (st.style.display==='none') return; n++; st.querySelector('.n').textContent=(n<10?'0':'')+n; }); }
+// kuşgözü
+function kgOneri(en, boy){ var a=C.kusgozu.oneri_aralik; var nx=Math.max(1,Math.round(en/a)), ny=Math.max(1,Math.round(boy/a)); return 2*(nx+ny); }
+function kgNoktalar(en, boy, n){
+  // köşelerden başlayarak çevreye eşit aralıkla dağıt
+  var P=2*(en+boy), pts=[], adim=P/n;
+  for (var i=0;i<n;i++){ var d=i*adim, x, y;
+    if (d<=en){x=d;y=0;} else if (d<=en+boy){x=en;y=d-en;} else if (d<=2*en+boy){x=en-(d-en-boy);y=boy;} else {x=0;y=boy-(d-2*en-boy);}
+    pts.push([x,y]); }
+  return pts;
+}
+function kgCiz(){
+  var en=IPLMotor.sayi($('en').value), boy=IPLMotor.sayi($('boy').value), n=IPLMotor.sayi($('kusgozu').value);
+  if (!(en>0&&boy>0)) { $('kgOnizleme').innerHTML=''; $('kgNot').textContent='Ölçüyü girdiğinizde önerilen kuşgözü adedi ve yerleşim burada görünür.'; return; }
+  var on=kgOneri(en,boy);
+  $('kgNot').textContent='Bu ölçü için önerilen: '+on+' adet (yaklaşık her '+C.kusgozu.oneri_aralik+' cm\'de bir). Her kuşgözü '+tl0(C.kusgozu.fiyat)+' + KDV, arkasına branda takviyesi dahil.';
+  if (!(n>=4)) { $('kgOnizleme').innerHTML=''; return; }
+  var W=320, sc=W/Math.max(en,boy), w=en*sc, hh=boy*sc, pad=10, pts=kgNoktalar(en,boy,n);
+  var svg='<svg viewBox="0 0 '+(w+2*pad)+' '+(hh+2*pad)+'" width="'+(w+2*pad)+'" style="max-width:100%;height:auto" role="img" aria-label="Kuşgözü yerleşimi"><rect x="'+pad+'" y="'+pad+'" width="'+w+'" height="'+hh+'" fill="#F4F3F1" stroke="#0B0B0B" stroke-width="1"/>';
+  pts.forEach(function(p){ var cx=pad+Math.min(Math.max(p[0]*sc,4),w-4), cy=pad+Math.min(Math.max(p[1]*sc,4),hh-4); svg+='<circle cx="'+cx+'" cy="'+cy+'" r="3.2" fill="#fff" stroke="#0B0B0B" stroke-width="1.4"/>'; });
+  $('kgOnizleme').innerHTML=svg+'</svg>';
+}
+if (C.kusgozu) { $('s-kg').style.display=''; $('kgOner').addEventListener('click', function(){ var en=IPLMotor.sayi($('en').value), boy=IPLMotor.sayi($('boy').value); if (en>0&&boy>0){ $('kusgozu').value=kgOneri(en,boy); ciz(); } }); }
+numarala();
 $('olcuNot').textContent = 'Kenarlardan biri en fazla '+C.net_en+' cm, diğeri en fazla '+(G.tek_parca_max_boy/100)+' m olabilir. Daha büyük ve daha uzun işler parçalı üretilir; bunlar için teklif alınır.';
 
 // bilgi kartları
@@ -195,7 +231,7 @@ var son = null;
 function girdi(){
   var mz = document.querySelector('input[name=malzeme]:checked');
   var lm = document.querySelector('input[name=lam]:checked');
-  return {malzeme: mz && mz.value, laminasyon: lm ? lm.value : 'yok', en: $('en').value, boy: $('boy').value, adet: $('adet').value};
+  return {malzeme: mz && mz.value, laminasyon: lm ? lm.value : 'yok', en: $('en').value, boy: $('boy').value, adet: $('adet').value, kusgozu: $('kusgozu').value};
 }
 
 function dosyaDurum(){
@@ -221,15 +257,18 @@ function ciz(){
   son = r;
   // malzeme uyarısı
   var mz = C.malzemeler.filter(function(m){return m.kod===g.malzeme;})[0];
-  $('malzUyari').innerHTML = mz && mz.uyari ? '<div class="msg warn">'+esc(mz.uyari)+'</div>' : '';
-  ['en','boy','adet'].forEach(function(a){$(a).removeAttribute('aria-invalid');});
-  $('olcuErr').textContent = '';
+  $('malzUyari').innerHTML = mz && mz.uyari ? '<div class="msg warn">'+esc(mz.uyari)+'</div>' : (mz && mz.not ? '<p class="hint">'+esc(mz.not)+'</p>' : '');
+  ['en','boy','adet','kusgozu'].forEach(function(a){$(a).removeAttribute('aria-invalid');});
+  $('olcuErr').textContent = ''; $('kgErr').textContent = '';
+  if (C.kusgozu) kgCiz();
   var dolu = g.en.trim() !== '' || g.boy.trim() !== '';
   var h = '';
   if (r.durum === 'hata') {
     if (dolu) {
       r.hatalar.forEach(function(e){ if ($(e.alan)) $(e.alan).setAttribute('aria-invalid','true'); });
-      $('olcuErr').textContent = r.hatalar.map(function(e){return e.mesaj;}).join(' ');
+      var kgH = r.hatalar.filter(function(e){return e.alan==='kusgozu';}), dH = r.hatalar.filter(function(e){return e.alan!=='kusgozu';});
+      $('olcuErr').textContent = dH.map(function(e){return e.mesaj;}).join(' ');
+      $('kgErr').textContent = kgH.map(function(e){return e.mesaj;}).join(' ');
     }
     h = '<p class="small" style="margin:0">Ölçünüzü girdiğinizde fiyat burada görünür.</p>';
     $('mTop').textContent = '—';
@@ -242,6 +281,7 @@ function ciz(){
     h += '<div class="line"><span>Alan</span><span>'+k.m2.toLocaleString('tr-TR')+' m²</span></div>';
     h += '<div class="line"><span>Baskı ('+tl0(k.birimM2)+' / m²)</span><span>'+tl(k.baski)+'</span></div>';
     if (k.asgariFarki > 0) h += '<div class="line"><span>Asgari baskı tutarı farkı</span><span>'+tl(k.asgariFarki)+'</span></div>';
+    if (k.kusgozu > 0) h += '<div class="line"><span>Kuşgözü ('+k.kusgozuAdet+' × '+tl0(C.kusgozu.fiyat)+')</span><span>'+tl(k.kusgozu)+'</span></div>';
     if (k.laminasyon > 0) h += '<div class="line"><span>Laminasyon ('+tl0(Math.round(k.birimM2*(C.laminasyon.carpan-1)*100)/100)+' / m²)</span><span>'+tl(k.laminasyon)+'</span></div>';
     h += '<div class="line total"><span>Ara toplam (KDV hariç)</span><span>'+tl(r.araToplam)+'</span></div>';
     h += '<div class="line"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
