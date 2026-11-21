@@ -126,12 +126,13 @@ function dosyaDurum(){
   if (k.dondur) t += ' Dosyanızın yönü girdiğiniz ölçüyle uyuşmuyor (biri yatay, diğeri dikey). Genişlik ve yüksekliği kontrol edin.';
   if (k.oranSapma > 2) { t += ' Dosyanın en-boy oranı girdiğiniz ölçüden %'+k.oranSapma+' farklı. Dosyayı ölçüye uygun hazırlayın ya da ölçüyü düzeltin'+(sonuc==='uygun-degil'?'.':'; aksi halde dosyanız operatör incelemesine alınır.'); if (sonuc==='uygun') sonuc='inceleme'; }
   if (k.dondur && sonuc==='uygun') sonuc='inceleme';
+  if (zeminMesaj() && sonuc==='uygun') sonuc='inceleme';
   return {sonuc:sonuc, metin:t};
 }
 function zeminMesaj(){
   if (!dosya) return '';
-  if (dosya.tur==='jpg'||dosya.tur==='jpeg') return 'JPG dosyalarında şeffaflık yoktur: tasarımın arka planı da dikdörtgen olarak basılır. Zeminsiz görünüm istiyorsanız arka planı şeffaf PNG veya PDF yükleyin.';
-  if (dosya.tur==='png' && dosya.seffaf===false) return 'Bu PNG dosyasında şeffaf alan yok: arka plan da dikdörtgen olarak basılır. Zeminsiz görünüm istiyorsanız arka planı silinmiş (şeffaf) bir PNG yükleyin.';
+  if (dosya.tur==='jpg'||dosya.tur==='jpeg') return 'JPG dosyalarında şeffaflık yoktur: tasarımın arka planı da dikdörtgen olarak basılır. Zeminsiz görünüm istiyorsanız arka planı şeffaf PNG veya PDF yükleyin. Dosyanız operatör kontrolüne alınır.';
+  if (dosya.tur==='png' && dosya.seffaf===false) return 'Bu PNG dosyasında şeffaf alan yok: arka plan da dikdörtgen olarak basılır. Zeminsiz görünüm istiyorsanız arka planı silinmiş (şeffaf) bir PNG yükleyin. Dosyanız operatör kontrolüne alınır.';
   return '';
 }
 

@@ -781,11 +781,11 @@
     "uygun": 100,
     "uyari": 72
    },
-   "aciklama": "Zeminsiz, yapıştırmaya hazır UV DTF transfer baskı. Cam, metal, plastik, ahşap ve ambalaj gibi sert yüzeylere uygulanır. Tasarım ölçünüzü ve adedi girin; yerleşim ve fiyat anında ekranda.",
+   "aciklama": "Zeminsiz, yapıştırmaya hazır UV DTF transfer baskı. Cam, metal, seramik, akrilik ve sert plastik gibi pürüzsüz yüzeylere uygulanır. Tasarım ölçünüzü ve adedi girin; yerleşim ve fiyat anında ekranda.",
    "chips": [
     "40 cm rulo eni",
     "Zeminsiz, arka planı olmayan baskı",
-    "Cam, metal, plastik, ahşap"
+    "Cam, metal, seramik, sert plastik"
    ],
    "bilgi": [
     {
@@ -794,7 +794,7 @@
     },
     {
      "b": "Nerelere uygulanır?",
-     "m": "Cam, metal, plastik, ahşap, seramik ve ambalaj gibi sert ve pürüzsüz yüzeylere. Kumaş ve tekstil ürünleri için <a href=\"#\">Sıcak DTF Baskı</a> sayfasını kullanın."
+     "m": "Cam, metal, seramik, akrilik ve sert plastik gibi temiz, kuru ve pürüzsüz yüzeylere. Ham ahşap, kumaş, silikon, pürüzlü ve sürekli esneyen yüzeyler için uygun değildir; özel yüzeylerde önce küçük bir deneme yapmanızı öneririz. Kumaş ürünler için <a href=\"#\">Sıcak DTF Baskı</a> sayfasını kullanın."
     },
     {
      "b": "Nasıl uygulanır?",
