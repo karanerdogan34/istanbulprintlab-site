@@ -59,7 +59,8 @@
         kusgozuAdet: kgAdet * adet, kusgozu: yuvarla(kgBedel)
       },
       araToplam: yuvarla(araToplam), kdv: yuvarla(kdv), toplam: yuvarla(araToplam + kdv),
-      kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik
+      kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik && !(cfg.kargo_max_m2 && m2 > cfg.kargo_max_m2),
+      kargoAyrica: !!(cfg.kargo_max_m2 && m2 > cfg.kargo_max_m2)
     };
   }
 

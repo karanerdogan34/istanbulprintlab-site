@@ -115,7 +115,9 @@
           "b": "Dosya nasıl hazırlanır?",
           "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Uzaktan bakılan brandalarda baskı ölçüsünde en az 72 PPI yeterlidir. Kuşgözü gelecek kenarlardan 3 cm içeriye yazı ve önemli öğe koymayın."
         }
-      ]
+      ],
+      "kargo_max_m2": 16,
+      "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz, kargo bedeli ayrıca hesaplanır. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz."
     }
   }
 }
