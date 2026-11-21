@@ -31,7 +31,7 @@
     if (kisa > cfg.net_en) {
       teklif = 'Bu ölçü tek parça üretilemez: iki kenar da ' + cfg.net_en + ' cm\'yi aşıyor. Kenarlardan en az biri en fazla ' + cfg.net_en + ' cm olmalı. Daha büyük işler parçalı üretilir; bunun için teklif alın.';
     } else if (uzun > genel.tek_parca_max_boy) {
-      teklif = 'Tek parça en fazla ' + (genel.tek_parca_max_boy / 100) + ' m üretilir. Daha uzun işler parçalı üretilir; bunun için teklif alın.';
+      teklif = 'Tek parça en fazla ' + (genel.tek_parca_max_boy / 100) + ' metre üretilir. Daha uzun işler parçalı üretilir; bunun için teklif alın.';
     }
     if (malz && malz.uyari) uyarilar.push(malz.uyari);
     if (teklif) return {durum: 'teklif', mesaj: teklif, uyarilar: uyarilar};

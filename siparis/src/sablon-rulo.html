@@ -220,7 +220,7 @@ function kgCiz(){
 }
 if (C.kusgozu) { $('s-kg').style.display=''; $('kgOner').addEventListener('click', function(){ var en=IPLMotor.sayi($('en').value), boy=IPLMotor.sayi($('boy').value); if (en>0&&boy>0){ $('kusgozu').value=kgOneri(en,boy); ciz(); } }); }
 numarala();
-$('olcuNot').textContent = 'Kenarlardan biri en fazla '+C.net_en+' cm, diğeri en fazla '+(G.tek_parca_max_boy/100)+' m olabilir. Daha büyük ve daha uzun işler parçalı üretilir; bunlar için teklif alınır.';
+$('olcuNot').textContent = 'Kenarlardan biri en fazla '+C.net_en+' cm, diğeri en fazla '+(G.tek_parca_max_boy/100)+' metre olabilir. Daha büyük ve daha uzun işler parçalı üretilir; bunlar için teklif alınır.';
 
 // bilgi kartları
 $('bilgi').innerHTML = (C.bilgi||[]).map(function(b){return '<div><h3>'+esc(b.b)+'</h3><p>'+b.m+'</p></div>';}).join('');
