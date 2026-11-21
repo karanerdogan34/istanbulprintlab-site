@@ -1,0 +1,70 @@
+{
+  "_aciklama": "IPL web-to-print merkezi fiyat ve kural yapılandırması. Tüm tutarlar TL, KDV hariç. Ölçüler cm. Fiyat değişikliği yalnızca Karan Bey onayıyla yapılır.",
+  "genel": {
+    "kdv_orani": 0.2,
+    "asgari_baski": 999,
+    "kargo_ucretsiz_esik": 5000,
+    "tek_parca_max_boy": 4900
+  },
+  "urunler": {
+    "folyo-baski": {
+      "ad": "Folyo Baskı",
+      "tur": "rulo",
+      "net_en": 150,
+      "malzemeler": [
+        {
+          "kod": "oracal-beyaz-mat",
+          "ad": "Oracal beyaz mat",
+          "m2": 460
+        },
+        {
+          "kod": "oracal-beyaz-parlak",
+          "ad": "Oracal beyaz parlak",
+          "m2": 460
+        },
+        {
+          "kod": "oracal-seffaf-parlak",
+          "ad": "Oracal şeffaf parlak",
+          "m2": 460,
+          "uyari": "Şeffaf folyoda beyaz mürekkep kullanılmaz; açık renkler ve beyaz alanlar baskıda şeffaf kalır, renkler uygulanan yüzeyin renginden etkilenir."
+        }
+      ],
+      "laminasyon": {
+        "secenekler": [
+          "yok",
+          "mat",
+          "parlak"
+        ],
+        "carpan": 1.75
+      },
+      "ppi": {
+        "uygun": 100,
+        "uyari": 72
+      },
+      "aciklama": "Duvar, vitrin, kapı ve düz yüzeyler için baskılı yapışkanlı folyo. Ölçünüzü girin, dosyanızı yükleyin; fiyat ve dosya kontrolü anında ekranda.",
+      "chips": [
+        "Oracal folyo",
+        "GREENGUARD Gold sertifikalı orijinal mürekkep",
+        "İç ve dış mekan"
+      ],
+      "bilgi": [
+        {
+          "b": "Orijinal mürekkep, sertifikalı üretim",
+          "m": "Tüm baskılar Kadıköy'deki atölyemizde, GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkeplerle yapılır. Düşük kimyasal emisyonlu bu mürekkepler çocuk odaları, okullar ve ofisler için de uygundur."
+        },
+        {
+          "b": "Kesimli iş mi istiyorsunuz?",
+          "m": "Folyo baskı kesimsiz teslim edilir. Kare, dikdörtgen veya yuvarlak kesimli işler için <a href=\"#\">Sticker / Etiket Baskı</a> sayfasını kullanın."
+        },
+        {
+          "b": "Gold, gümüş, ultra clear",
+          "m": "Özel folyolar standart fiyatlandırmanın dışındadır. Ölçünüzü ve dosyanızı WhatsApp'tan (+90 532 523 73 64) gönderin, fiyatı size iletelim."
+        },
+        {
+          "b": "Dosya nasıl hazırlanır?",
+          "m": "Dosyayı baskı ölçüsünde hazırlayın; yazıları kontura çevirin. Görsellerde baskı ölçüsünde en az 100 PPI önerilir. PDF ve TIFF dosyaları operatörümüz tarafından kontrol edilir."
+        }
+      ]
+    }
+  }
+}

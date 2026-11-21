@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>__BASLIK__ — Sipariş | IstanbulPrintLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Mono:wght@400;500&family=Jost:wght@400;500;600&display=swap">
+<style>
+:root{--ink:#0B0B0B;--paper:#fff;--stone:#F4F3F1;--line:#E4E2DE;--mute:#5E5B57;--soft:#3A3835;--ok:#1E6B3A;--okbg:#EAF4EC;--warn:#8A5A00;--warnbg:#FFF6E0;--bad:#A3271B;--badbg:#FBECEA}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Jost,'Helvetica Neue',Arial,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+h1,h2,h3{margin:0;font-weight:500}
+p{margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+header.site{border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-family:Archivo,sans-serif;font-stretch:112%;font-weight:700;font-size:20px;letter-spacing:-.01em;text-decoration:none;border:1.5px solid var(--ink);padding:4px 10px}
+.testbar{background:#FFF4D6;border-bottom:1px solid #F0D58A;color:#6B4A00;font-size:14px;text-align:center;padding:8px 16px}
+.crumb{font-size:14px;color:var(--mute);padding-top:28px}
+.crumb a{color:var(--mute);text-decoration:none}
+.hero{padding:16px 0 32px;display:grid;gap:14px}
+.hero h1{font-family:Archivo,sans-serif;font-stretch:110%;font-weight:700;font-size:44px;line-height:1.02;letter-spacing:-.025em}
+.hero p.lead{color:var(--soft);max-width:640px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;padding:5px 11px;border:1px solid var(--line);border-radius:999px;color:var(--soft);background:#fff}
+.chip.ink{background:var(--ink);color:#fff;border-color:var(--ink)}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:40px;align-items:start;padding-bottom:64px}
+.step{border-top:1px solid var(--line);padding:26px 0}
+.step h2{font-size:22px;display:flex;gap:12px;align-items:baseline;margin-bottom:14px}
+.step h2 .n{font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--mute)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.opt{position:relative;border:1px solid var(--line);border-radius:8px;padding:14px 16px;cursor:pointer;background:#fff;display:flex;flex-direction:column;gap:2px;min-height:64px}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt b{font-weight:500}
+.opt small{color:var(--mute);font-size:14px}
+.opt:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.opt:has(input:focus-visible){outline:2px solid var(--ink);outline-offset:2px}
+.fields{display:grid;grid-template-columns:1fr 1fr 120px;gap:12px}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--soft)}
+label.f input{font:inherit;font-size:18px;height:52px;border:1px solid var(--line);border-radius:8px;padding:0 14px;background:#fff;color:var(--ink);width:100%}
+label.f input:focus{outline:none;border-color:var(--ink)}
+label.f input[aria-invalid=true]{border-color:var(--bad)}
+.err{color:var(--bad);font-size:14px;min-height:0}
+.hint{font-size:14px;color:var(--mute);margin-top:10px}
+.msg{border-radius:8px;padding:12px 14px;font-size:15px;margin-top:12px}
+.msg.ok{background:var(--okbg);color:var(--ok)}
+.msg.warn{background:var(--warnbg);color:var(--warn)}
+.msg.bad{background:var(--badbg);color:var(--bad)}
+.drop{display:block;border:1.5px dashed #BDB9B3;border-radius:10px;padding:26px;text-align:center;background:var(--stone);cursor:pointer}
+.drop:hover,.drop.on{border-color:var(--ink)}
+.drop b{display:block;font-weight:500}
+.drop .small{display:block;margin-top:4px}
+.drop input{display:none}
+.filecard{display:flex;gap:14px;align-items:center;margin-top:12px}
+.filecard img{width:84px;height:84px;object-fit:contain;background:var(--stone);border-radius:6px}
+.chk{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--soft);cursor:pointer}
+.chk input{width:20px;height:20px;margin-top:3px;accent-color:var(--ink);flex-shrink:0}
+aside.sum{position:sticky;top:20px;border:1px solid var(--line);border-radius:12px;padding:22px;background:#fff}
+aside.sum h3{font-size:18px;margin-bottom:12px}
+.line{display:flex;justify-content:space-between;gap:12px;padding:7px 0;font-size:15px;color:var(--soft)}
+.line.total{border-top:1px solid var(--line);margin-top:6px;padding-top:12px;font-size:17px;color:var(--ink)}
+.line.big{font-size:24px;font-weight:500;color:var(--ink);padding-top:4px}
+.line span:last-child{font-family:'IBM Plex Mono',monospace;white-space:nowrap}
+.btn{display:flex;width:100%;align-items:center;justify-content:center;min-height:54px;border-radius:999px;font:inherit;font-weight:500;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;margin-top:14px;text-decoration:none}
+.btn:disabled{background:#CFCCC7;border-color:#CFCCC7;cursor:not-allowed}
+.btn.ghost{background:#fff;color:var(--ink)}
+.small{font-size:13px;color:var(--mute);margin-top:10px}
+.info{background:var(--stone);padding:56px 0}
+.info .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
+.info h3{font-size:18px;margin-bottom:8px}
+.info p{color:var(--soft);font-size:15px}
+footer{padding:28px 0;font-size:14px;color:var(--mute);border-top:1px solid var(--line)}
+.mbar{display:none}
+@media (max-width:900px){
+ .layout{grid-template-columns:1fr;gap:0}
+ aside.sum{position:static;margin-top:8px}
+ .hero h1{font-size:34px}
+ .fields{grid-template-columns:1fr 1fr}
+ .fields label:last-child{grid-column:1/-1}
+ .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));justify-content:space-between;align-items:center;z-index:20}
+ .mbar b{font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:18px}
+ .mbar a{font-size:15px;font-weight:500}
+ body{padding-bottom:70px}
+}
+</style>
+</head>
+<body>
+<div class="testbar">Test ortamı — bu sayfa henüz yayında değil. Ödeme ve dosya gönderimi kapalıdır.</div>
+<header class="site"><div class="wrap"><a class="logo" href="#">IstanbulPrintLab®</a><span class="small" style="margin:0">Kadıköy, İstanbul</span></div></header>
+
+<main class="wrap">
+ <div class="crumb"><a href="#">Ürünler</a> / __BASLIK__</div>
+ <section class="hero">
+  <h1>__BASLIK__</h1>
+  <p class="lead">__ACIKLAMA__</p>
+  <div class="chips" id="chips"></div>
+ </section>
+
+ <div class="layout">
+  <form id="f" novalidate>
+   <section class="step" id="s-malzeme">
+    <h2><span class="n">01</span>Malzeme</h2>
+    <div class="opts" id="malzemeler"></div>
+    <div id="malzUyari"></div>
+   </section>
+
+   <section class="step" id="s-lam">
+    <h2><span class="n">02</span>Laminasyon</h2>
+    <div class="opts" id="lamlar"></div>
+    <p class="hint" id="lamNot"></p>
+   </section>
+
+   <section class="step">
+    <h2><span class="n">03</span>Ölçü ve adet</h2>
+    <div class="fields">
+     <label class="f">Genişlik (cm)<input id="en" inputmode="decimal" autocomplete="off" placeholder="ör. 120"></label>
+     <label class="f">Yükseklik (cm)<input id="boy" inputmode="decimal" autocomplete="off" placeholder="ör. 80"></label>
+     <label class="f">Adet<input id="adet" inputmode="numeric" autocomplete="off" value="1"></label>
+    </div>
+    <div class="err" id="olcuErr"></div>
+    <p class="hint" id="olcuNot"></p>
+   </section>
+
+   <section class="step">
+    <h2><span class="n">04</span>Baskı dosyası</h2>
+    <label class="drop" id="drop"><input type="file" id="dosya" accept=".pdf,.jpg,.jpeg,.png,.tif,.tiff,.webp"><b>Dosyanızı seçin veya buraya sürükleyin</b><span class="small">PDF, JPG, PNG veya TIFF. Yazılar kontura çevrilmiş olmalı.</span></label>
+    <div id="dosyaSonuc"></div>
+   </section>
+
+   <section class="step">
+    <h2><span class="n">05</span>Onay</h2>
+    <label class="chk"><input type="checkbox" id="onay"><span>Seçtiğim ölçüleri, metinleri, görselleri ve yerleşimi kontrol edip onaylıyorum. Ekran ile baskı arasında renk farklılıkları olabileceğini biliyorum.</span></label>
+   </section>
+  </form>
+
+  <aside class="sum" id="ozet" aria-live="polite">
+   <h3>Sipariş özeti</h3>
+   <div id="ozetIc"><p class="small" style="margin:0">Ölçünüzü girdiğinizde fiyat burada görünür.</p></div>
+   <button class="btn" id="devam" type="button" disabled>Ödemeye geç</button>
+   <p class="small" id="devamNot">Dosya kontrolü ve onay tamamlandığında ödeme adımına geçebilirsiniz.</p>
+   <p class="small">Fiyatlara tasarım ve montaj dahil değildir. __KARGO_METNI__</p>
+  </aside>
+ </div>
+</main>
+
+<section class="info"><div class="wrap grid" id="bilgi"></div></section>
+<footer><div class="wrap">IstanbulPrintLab · Kadıköy'deki atölyemizde Mimaki CJV200 ve GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkeplerle üretim.</div></footer>
+<div class="mbar"><div><span class="small" style="margin:0;display:block">KDV dahil</span><b id="mTop">—</b></div><a href="#ozet">Özete git ↓</a></div>
+
+<script>
+__MOTOR__
+</script>
+<script>
+(function(){
+'use strict';
+var F = __FIYATLAR__;
+var KOD = '__URUN__';
+var C = F.urunler[KOD], G = F.genel;
+var WA = 'https://wa.me/905325237364?text=';
+var $ = function(id){return document.getElementById(id);};
+var tl = function(x){return x.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})+' ₺';};
+var tl0 = function(x){return x.toLocaleString('tr-TR')+' ₺';};
+var esc = function(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
+
+// chips
+var minM2 = Math.min.apply(null, C.malzemeler.map(function(m){return m.m2;}));
+var chips = [{t: tl0(minM2)+' + KDV / m²', ink: true}].concat((C.chips||[]).map(function(t){return {t:t};}));
+$('chips').innerHTML = chips.map(function(c){return '<span class="chip'+(c.ink?' ink':'')+'">'+esc(c.t)+'</span>';}).join('');
+
+// malzemeler
+$('malzemeler').innerHTML = C.malzemeler.map(function(m,i){
+  return '<label class="opt"><input type="radio" name="malzeme" value="'+m.kod+'"'+(i===0?' checked':'')+'><b>'+esc(m.ad)+'</b><small>'+tl0(m.m2)+' + KDV / m²</small></label>';
+}).join('');
+// laminasyon
+var LAD = {yok:'Laminasyonsuz', mat:'Mat laminasyon', parlak:'Parlak laminasyon'};
+if (C.laminasyon) {
+  $('lamlar').innerHTML = C.laminasyon.secenekler.map(function(l,i){
+    var alt = l==='yok' ? 'Ek ücret yok' : 'm² fiyatının %'+Math.round((C.laminasyon.carpan-1)*100)+' fazlası';
+    return '<label class="opt"><input type="radio" name="lam" value="'+l+'"'+(i===0?' checked':'')+'><b>'+LAD[l]+'</b><small>'+alt+'</small></label>';
+  }).join('');
+  $('lamNot').textContent = C.lamNot || 'Laminasyon baskıyı çizilmeye, neme ve UV ışığına karşı korur. Laminasyonlu işlerde mürekkebin kuruması beklendiği için teslim süresi uzar.';
+} else { $('s-lam').style.display='none'; }
+
+$('olcuNot').textContent = 'Kenarlardan biri en fazla '+C.net_en+' cm, diğeri en fazla '+(G.tek_parca_max_boy/100)+' m olabilir. Daha büyük ve daha uzun işler parçalı üretilir; bunlar için teklif alınır.';
+
+// bilgi kartları
+$('bilgi').innerHTML = (C.bilgi||[]).map(function(b){return '<div><h3>'+esc(b.b)+'</h3><p>'+b.m+'</p></div>';}).join('');
+
+var dosya = null; // {ad, tur, px:{w,h}|null, url}
+var son = null;
+
+function girdi(){
+  var mz = document.querySelector('input[name=malzeme]:checked');
+  var lm = document.querySelector('input[name=lam]:checked');
+  return {malzeme: mz && mz.value, laminasyon: lm ? lm.value : 'yok', en: $('en').value, boy: $('boy').value, adet: $('adet').value};
+}
+
+function dosyaDurum(){
+  if (!dosya) return null;
+  var g = girdi(), en = IPLMotor.sayi(g.en), boy = IPLMotor.sayi(g.boy);
+  if (!dosya.px) return {sonuc:'inceleme', metin:'Bu dosya türünü operatörümüz kontrol edecek. Kontrol tamamlanmadan üretim başlamaz.'};
+  if (!(en>0 && boy>0)) return {sonuc:'bekle', metin:'Dosyanın uygunluğunu görmek için ölçüyü girin.'};
+  var k = IPLMotor.dosyaKontrol(C, dosya.px, en, boy);
+  var t;
+  if (k.sonuc==='uygun') t = 'Baskıya uygun. '+en+' × '+boy+' cm ölçüde çözünürlük yaklaşık '+k.ppi+' PPI.';
+  else if (k.sonuc==='inceleme') t = 'Çözünürlük sınırda: bu ölçüde yaklaşık '+k.ppi+' PPI. Yakından bakıldığında netlik azalabilir; dosyanızı operatörümüz kontrol edecek.';
+  else t = 'Baskıya uygun değil: bu ölçüde çözünürlük yalnızca '+k.ppi+' PPI. Daha yüksek çözünürlüklü bir dosya yükleyin ya da ölçüyü küçültün.';
+  if (k.oranSapma > 2) t += ' Dosyanın en-boy oranı girdiğiniz ölçüden %'+k.oranSapma+' farklı; baskıda kenarlarda boşluk ya da kırpma olabilir.';
+  if (k.dondur) t += ' Dosyanız girdiğiniz ölçüye göre yan duruyor; baskıda 90° çevrilerek yerleştirilir.';
+  return {sonuc:k.sonuc, metin:t};
+}
+
+function ciz(){
+  var g = girdi();
+  var r = IPLMotor.hesapla(F, KOD, g);
+  son = r;
+  // malzeme uyarısı
+  var mz = C.malzemeler.filter(function(m){return m.kod===g.malzeme;})[0];
+  $('malzUyari').innerHTML = mz && mz.uyari ? '<div class="msg warn">'+esc(mz.uyari)+'</div>' : '';
+  ['en','boy','adet'].forEach(function(a){$(a).removeAttribute('aria-invalid');});
+  $('olcuErr').textContent = '';
+  var dolu = g.en.trim() !== '' || g.boy.trim() !== '';
+  var h = '';
+  if (r.durum === 'hata') {
+    if (dolu) {
+      r.hatalar.forEach(function(e){ if ($(e.alan)) $(e.alan).setAttribute('aria-invalid','true'); });
+      $('olcuErr').textContent = r.hatalar.map(function(e){return e.mesaj;}).join(' ');
+    }
+    h = '<p class="small" style="margin:0">Ölçünüzü girdiğinizde fiyat burada görünür.</p>';
+    $('mTop').textContent = '—';
+  } else if (r.durum === 'teklif') {
+    var txt = encodeURIComponent('Merhaba, '+C.ad+' için teklif almak istiyorum: '+g.en+' × '+g.boy+' cm, '+g.adet+' adet.');
+    h = '<div class="msg warn" style="margin-top:0">'+esc(r.mesaj)+'</div><a class="btn ghost" href="'+WA+txt+'" target="_blank" rel="noopener">WhatsApp ile teklif iste</a><p class="small">WhatsApp: +90 532 523 73 64</p>';
+    $('mTop').textContent = 'Teklif';
+  } else {
+    var k = r.kalemler;
+    h += '<div class="line"><span>Alan</span><span>'+k.m2.toLocaleString('tr-TR')+' m²</span></div>';
+    h += '<div class="line"><span>Baskı ('+tl0(k.birimM2)+' / m²)</span><span>'+tl(k.baski)+'</span></div>';
+    if (k.asgariFarki > 0) h += '<div class="line"><span>Asgari baskı tutarı farkı</span><span>'+tl(k.asgariFarki)+'</span></div>';
+    if (k.laminasyon > 0) h += '<div class="line"><span>Laminasyon</span><span>'+tl(k.laminasyon)+'</span></div>';
+    h += '<div class="line total"><span>Ara toplam (KDV hariç)</span><span>'+tl(r.araToplam)+'</span></div>';
+    h += '<div class="line"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
+    h += '<div class="line big"><span>Toplam</span><span>'+tl(r.toplam)+'</span></div>';
+    h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+(r.kargoUcretsiz?'Ücretsiz':'Alıcı ödemeli')+'</span></div>';
+    if (k.asgariFarki > 0) h += '<p class="small">Asgari baskı tutarı '+tl0(G.asgari_baski)+' + KDV\'dir; laminasyon bu tutarın üzerine eklenir.</p>';
+    $('mTop').textContent = tl(r.toplam);
+  }
+  $('ozetIc').innerHTML = h;
+
+  // dosya
+  var d = dosyaDurum();
+  var dh = '';
+  if (dosya) {
+    dh = '<div class="filecard">'+(dosya.url?'<img alt="" src="'+dosya.url+'">':'')+'<div><b style="font-weight:500">'+esc(dosya.ad)+'</b><div class="small" style="margin:0">'+(dosya.px?dosya.px.w+' × '+dosya.px.h+' piksel':dosya.tur.toUpperCase()+' dosyası')+'</div></div></div>';
+    var cls = {uygun:'ok', inceleme:'warn', 'uygun-degil':'bad', bekle:'warn'}[d.sonuc];
+    dh += '<div class="msg '+cls+'">'+esc(d.metin)+'</div>';
+  }
+  $('dosyaSonuc').innerHTML = dh;
+
+  // devam butonu
+  var hazir = r.durum==='tamam' && dosya && d && (d.sonuc==='uygun' || d.sonuc==='inceleme') && $('onay').checked;
+  $('devam').disabled = !hazir;
+  $('devam').style.display = r.durum==='teklif' ? 'none' : '';
+  var neden = r.durum!=='tamam' ? 'Ölçüyü girin.' : !dosya ? 'Baskı dosyanızı yükleyin.' : (d.sonuc==='uygun-degil' ? 'Dosya baskıya uygun değil.' : (!$('onay').checked ? 'Onay kutusunu işaretleyin.' : 'Hazır.'));
+  $('devamNot').textContent = hazir ? (d.sonuc==='inceleme' ? 'Dosyanız operatör kontrolüne alınacak; kontrol tamamlanmadan üretim başlamaz.' : 'Dosyanız ve seçimleriniz siparişe sabitlenir.') : neden;
+  $('devamNot').style.display = r.durum==='teklif' ? 'none' : '';
+}
+
+function dosyaAl(file){
+  if (!file) return;
+  var ad = file.name, uz = (ad.split('.').pop()||'').toLowerCase();
+  if (['pdf','jpg','jpeg','png','tif','tiff','webp'].indexOf(uz) < 0) {
+    $('dosyaSonuc').innerHTML = '<div class="msg bad">Bu dosya türü kabul edilmiyor. PDF, JPG, PNG veya TIFF yükleyin.</div>'; return;
+  }
+  if (dosya && dosya.url) URL.revokeObjectURL(dosya.url);
+  dosya = {ad: ad, tur: uz, px: null, url: null};
+  if (['jpg','jpeg','png','webp'].indexOf(uz) >= 0) {
+    var url = URL.createObjectURL(file), im = new Image();
+    im.onload = function(){ dosya.px = {w: im.naturalWidth, h: im.naturalHeight}; dosya.url = url; ciz(); };
+    im.onerror = function(){ dosya.url = null; ciz(); };
+    im.src = url;
+  }
+  ciz();
+}
+
+$('f').addEventListener('input', ciz);
+$('f').addEventListener('change', ciz);
+$('f').addEventListener('submit', function(e){e.preventDefault();});
+$('dosya').addEventListener('change', function(e){ dosyaAl(e.target.files[0]); });
+var drop = $('drop');
+['dragenter','dragover'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.add('on');});});
+['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('on');});});
+drop.addEventListener('drop', function(e){ dosyaAl(e.dataTransfer.files[0]); });
+$('devam').addEventListener('click', function(){
+  $('devamNot').textContent = 'Test ortamı: ödeme adımı henüz bağlı değil.';
+});
+ciz();
+})();
+</script>
+</body>
+</html>
