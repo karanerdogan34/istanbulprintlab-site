@@ -210,6 +210,24 @@ def fiyatlari_dogrula(P):
             raise FiyatHatasi('"%s" fiyatı %s olamaz; %s ile %s arasında olmalı.' % (k, v, lo, hi))
 
 
+def siparis_fiyatlari():
+    """Sitedeki eski fiyat kısaltmalarını ({{folyo}} vb.) sipariş hesaplayıcılarının fiyat dosyasından türetir.
+    Telefondan "Sipariş fiyatları"nda bir fiyat değişince hesaplayıcı, anasayfa düğmesi ve sayfa metinleri birlikte değişir."""
+    F = js('siparis/src/fiyatlar.json')
+    U, G = F['urunler'], F['genel']
+    m2 = lambda kod, mk=None: next(m['m2'] for m in U[kod]['malzemeler'] if mk is None or m['kod'] == mk)
+    lam = lambda kod: U[kod]['laminasyon']['carpan']
+    d = {
+        'sticker': m2('sticker-etiket-baski'), 'folyo': m2('folyo-baski'), 'owv': m2('one-way-vision-baski'),
+        'foreks': m2('foreks-baski', '3mm'), 'branda_beyaz': m2('branda-baski', 'branda-arkasi-beyaz'),
+        'branda_siyah': m2('branda-baski', 'branda-arkasi-siyah'), 'mesh': m2('mesh-baski'),
+        'asgari': G['asgari_baski'], 'kargo_esik': G['kargo_ucretsiz_esik'],
+    }
+    d['folyo_lam'] = int(round(d['folyo'] * lam('folyo-baski')))
+    d['foreks_lam'] = int(round(d['foreks'] * lam('foreks-baski')))
+    return d
+
+
 def onceki_fiyatlar():
     # 1) Netlify'ın bir önceki başarılı yayınının commit'i, 2) bir önceki commit, 3) canlı site
     import subprocess
@@ -234,8 +252,9 @@ def fiyat_raporu(P, eski):
     if not eski:
         return
     buyuk = []
+    turetilen = set(siparis_fiyatlari())  # bunlar telefonda "Sipariş fiyatları"nda ayrıca onaylanır
     for k, v in P.items():
-        if k in ('buyuk_degisiklik_onay', 'buyuk_onay') or k not in eski or not isinstance(eski.get(k), int):
+        if k in ('buyuk_degisiklik_onay', 'buyuk_onay') or k in turetilen or k not in eski or not isinstance(eski.get(k), int):
             continue
         if v != eski[k]:
             oran = (v - eski[k]) * 100.0 / eski[k] if eski[k] else 100.0
@@ -381,6 +400,7 @@ def main():
     vakalar()
     # fiyat ve iletişim — bütün sayfalara
     P = js('content/fiyatlar.json')
+    P.update(siparis_fiyatlari())  # hesaplayıcılardaki fiyatlar tek kaynak: siparis/src/fiyatlar.json
     fiyatlari_dogrula(P)
     fiyat_raporu(P, onceki_fiyatlar())
     cift = iletisim_ciftleri()

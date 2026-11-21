@@ -713,7 +713,7 @@
     },
     {
      "b": "Çerçeveli poster",
-     "m": "Çerçeveli posterler 21 × 30, 30 × 40, 40 × 50, 50 × 70 ve 61 × 91 cm ölçülerinde; siyah, beyaz veya meşe renk çerçeveyle hazırlanır. Çerçeve pleksi ön yüz, arkalık ve askı aparatıyla, korumalı ambalajda gönderilir. Poster seçtiğiniz çerçeve ölçüsünde basılır; çerçeve kenarı görselin her kenarından birkaç milimetreyi kapatır, önemli öğeleri kenarlara çok yakın koymayın. Çerçeve bedeli baskıya ek olarak hesaplanır; çerçeveli siparişlerde 999 ₺ asgari tutar baskı ve çerçeve toplamına uygulanır."
+     "m": "Çerçeveli posterler 21 × 30, 30 × 40, 40 × 50, 50 × 70 ve 61 × 91 cm ölçülerinde; siyah, beyaz veya meşe renk çerçeveyle hazırlanır. Çerçeve pleksi ön yüz, arkalık ve askı aparatıyla, korumalı ambalajda gönderilir. Poster seçtiğiniz çerçeve ölçüsünde basılır; çerçeve kenarı görselin her kenarından birkaç milimetreyi kapatır, önemli öğeleri kenarlara çok yakın koymayın. Çerçeve bedeli baskıya ek olarak hesaplanır; çerçeveli siparişlerde {{genel.asgari_baski}} ₺ asgari tutar baskı ve çerçeve toplamına uygulanır."
     },
     {
      "b": "Kendi ölçünüz",
@@ -790,7 +790,7 @@
    "bilgi": [
     {
      "b": "Metre ile fiyat",
-     "m": "Soğuk DTF 40 cm enindeki ruloya basılır ve kullanılan rulo uzunluğu kadar ücretlendirilir: 40 × 100 cm = 920 ₺ + KDV. Tasarımlarınız ruloya, aralarında 1 cm boşluk kalacak şekilde otomatik yerleştirilir; ödediğiniz uzunluk ekranda görünür."
+     "m": "Soğuk DTF 40 cm enindeki ruloya basılır ve kullanılan rulo uzunluğu kadar ücretlendirilir: 40 × 100 cm = {{metre_fiyat}} ₺ + KDV. Tasarımlarınız ruloya, aralarında 1 cm boşluk kalacak şekilde otomatik yerleştirilir; ödediğiniz uzunluk ekranda görünür."
     },
     {
      "b": "Nerelere uygulanır?",
@@ -829,7 +829,7 @@
    "bilgi": [
     {
      "b": "Tabaka ile fiyat",
-     "m": "Sıcak DTF 30 × 60 cm tabakalara basılır; her tabaka 499 ₺ + KDV. Tasarımlarınız tabakaya, aralarında 1 cm boşluk kalacak şekilde otomatik yerleştirilir; kaç tabaka gerektiği ekranda görünür. Tek parça tasarım en fazla 30 × 60 cm olabilir."
+     "m": "Sıcak DTF 30 × 60 cm tabakalara basılır; her tabaka {{tabaka.fiyat}} ₺ + KDV. Tasarımlarınız tabakaya, aralarında 1 cm boşluk kalacak şekilde otomatik yerleştirilir; kaç tabaka gerektiği ekranda görünür. Tek parça tasarım en fazla 30 × 60 cm olabilir."
     },
     {
      "b": "Nerelere uygulanır?",
