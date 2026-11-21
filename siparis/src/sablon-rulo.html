@@ -198,13 +198,16 @@ if (C.laminasyon) {
 // adım numaraları
 function numarala(){ var n=0; document.querySelectorAll('.step').forEach(function(st){ if (st.style.display==='none') return; n++; st.querySelector('.n').textContent=(n<10?'0':'')+n; }); }
 // kuşgözü
-function kgOneri(en, boy){ var a=C.kusgozu.oneri_aralik; var nx=Math.max(1,Math.round(en/a)), ny=Math.max(1,Math.round(boy/a)); return 2*(nx+ny); }
+function kgOneri(en, boy){ var a=C.kusgozu.oneri_aralik; return Math.max(4, 2*(Math.ceil(en/a)+Math.ceil(boy/a))); }
 function kgNoktalar(en, boy, n){
-  // köşelerden başlayarak çevreye eşit aralıkla dağıt
-  var P=2*(en+boy), pts=[], adim=P/n;
-  for (var i=0;i<n;i++){ var d=i*adim, x, y;
-    if (d<=en){x=d;y=0;} else if (d<=en+boy){x=en;y=d-en;} else if (d<=2*en+boy){x=en-(d-en-boy);y=boy;} else {x=0;y=boy-(d-2*en-boy);}
-    pts.push([x,y]); }
+  // dört köşe sabit; kalanlar kenar uzunluğuna göre paylaştırılıp her kenara eşit aralıkla dizilir
+  // karşılıklı kenarlar eşit sayıda kuşgözü alır (simetrik); tek kalan olursa üst kenara eklenir
+  var pts=[[0,0],[en,0],[en,boy],[0,boy]], r=n-4;
+  var h=Math.min(Math.round((r/2)*en/(en+boy)), Math.floor(r/2)), v=Math.floor((r-2*h)/2), art=r-2*h-2*v;
+  var pay=[h+art, v, h, v];
+  var kenar=[[[0,0],[en,0]],[[en,0],[en,boy]],[[en,boy],[0,boy]],[[0,boy],[0,0]]];
+  for (var e=0;e<4;e++){ var a=kenar[e][0], b=kenar[e][1], m=pay[e];
+    for (var t=1;t<=m;t++){ var f=t/(m+1); pts.push([a[0]+(b[0]-a[0])*f, a[1]+(b[1]-a[1])*f]); } }
   return pts;
 }
 function kgCiz(){
@@ -214,9 +217,10 @@ function kgCiz(){
   $('kgNot').textContent='Bu ölçü için önerilen: '+on+' adet (yaklaşık her '+C.kusgozu.oneri_aralik+' cm\'de bir). Her kuşgözü '+tl0(C.kusgozu.fiyat)+' + KDV, arkasına branda takviyesi dahil.';
   if (!(n>=4)) { $('kgOnizleme').innerHTML=''; return; }
   var W=320, sc=W/Math.max(en,boy), w=en*sc, hh=boy*sc, pad=10, pts=kgNoktalar(en,boy,n);
-  var svg='<svg viewBox="0 0 '+(w+2*pad)+' '+(hh+2*pad)+'" width="'+(w+2*pad)+'" style="max-width:100%;height:auto" role="img" aria-label="Kuşgözü yerleşimi"><rect x="'+pad+'" y="'+pad+'" width="'+w+'" height="'+hh+'" fill="#F4F3F1" stroke="#0B0B0B" stroke-width="1"/>';
+  var gp=Math.max(C.kusgozu.guvenli_cm*sc,6);
+  var svg='<svg viewBox="0 0 '+(w+2*pad)+' '+(hh+2*pad)+'" width="'+(w+2*pad)+'" style="max-width:100%;height:auto" role="img" aria-label="Kuşgözü yerleşimi"><rect x="'+pad+'" y="'+pad+'" width="'+w+'" height="'+hh+'" fill="#F4F3F1" stroke="#0B0B0B" stroke-width="1"/><rect x="'+(pad+gp)+'" y="'+(pad+gp)+'" width="'+Math.max(w-2*gp,0)+'" height="'+Math.max(hh-2*gp,0)+'" fill="none" stroke="#8A5A00" stroke-width="0.8" stroke-dasharray="3 3"/>';
   pts.forEach(function(p){ var cx=pad+Math.min(Math.max(p[0]*sc,4),w-4), cy=pad+Math.min(Math.max(p[1]*sc,4),hh-4); svg+='<circle cx="'+cx+'" cy="'+cy+'" r="3.2" fill="#fff" stroke="#0B0B0B" stroke-width="1.4"/>'; });
-  $('kgOnizleme').innerHTML=svg+'</svg>';
+  $('kgOnizleme').innerHTML=svg+'</svg><p class="hint" style="margin-top:6px">Kesikli çizgi güvenli alanı gösterir: yazı ve önemli öğeleri kenarlardan en az '+C.kusgozu.guvenli_cm+' cm içeride tutun.</p>';
 }
 if (C.kusgozu) { $('s-kg').style.display=''; $('kgOner').addEventListener('click', function(){ var en=IPLMotor.sayi($('en').value), boy=IPLMotor.sayi($('boy').value); if (en>0&&boy>0){ $('kusgozu').value=kgOneri(en,boy); ciz(); } }); }
 numarala();

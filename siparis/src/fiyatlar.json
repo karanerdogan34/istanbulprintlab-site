@@ -80,12 +80,13 @@
           "kod": "branda-arkasi-siyah",
           "ad": "Arkası siyah branda",
           "m2": 369,
-          "not": "Arkadan ışık geçirmez; iki yüzü de görünen yerlerde ve ışıklı alanlarda tercih edilir."
+          "not": "Arka taraftan gelen ışığın baskıyı etkilemesini engeller. Tek yüz baskılıdır; ışıklı kutu ve arkadan aydınlatmalı uygulamalar için uygun değildir."
         }
       ],
       "kusgozu": {
         "fiyat": 20,
-        "oneri_aralik": 50
+        "oneri_aralik": 50,
+        "guvenli_cm": 3
       },
       "ppi": {
         "uygun": 72,
