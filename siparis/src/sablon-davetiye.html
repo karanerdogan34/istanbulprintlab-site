@@ -125,7 +125,7 @@ label.f textarea:focus,label.f select:focus{outline:none;border-color:var(--ink)
    <section class="step">
     <h2><span class="n">06</span>Adet</h2>
     <div class="paketler opts" id="paketler"></div>
-    <p class="hint">Her davetiye için bir zarf fiyata dahildir.</p>
+    <p class="hint">Zarf dahil değildir. Davetiye 14 × 20 cm zarfa sığar.</p>
    </section>
 
    <section class="step">
@@ -141,7 +141,7 @@ label.f textarea:focus,label.f select:focus{outline:none;border-color:var(--ink)
    <button class="btn ghost" id="pdfIndir" type="button" style="display:none">Baskı dosyasını indir (PDF)</button>
    <div id="pdfDurum"></div>
    <p class="small" id="devamNot"></p>
-   <p class="small">Fiyata 350 gr mat kuşe, selefon ve zarf dahildir. __KARGO_METNI__</p>
+   <p class="small">Fiyata 350 gr mat kuşe ve selefon dahildir; zarf dahil değildir. __KARGO_METNI__</p>
   </aside>
  </div>
 </main>
@@ -400,7 +400,6 @@ function ciz(){
   h += '<div class="line"><span>Davetiye</span><span style="font-family:inherit">13 × 18 cm, '+k.paket+' adet, '+(yon==='cift'?'çift yön':'tek yön')+'</span></div>';
   var sel = document.querySelector('input[name=selefon]:checked').value==='parlak' ? 'parlak' : 'mat';
   h += '<div class="line"><span>Kağıt</span><span style="font-family:inherit">350 gr mat kuşe, '+sel+' selefon</span></div>';
-  h += '<div class="line"><span>Zarf</span><span style="font-family:inherit">'+k.paket+' adet, dahil</span></div>';
   if (m==='sablon') h += '<div class="line"><span>Şablon</span><span style="font-family:inherit">'+(secili()+1)+'. '+TPL[secili()].ad+'</span></div>';
   if (tarihYazi()) h += '<div class="line"><span>Etkinlik</span><span style="font-family:inherit">'+esc(tarihYazi())+(saatYazi()?', '+esc(saatYazi()):'')+'</span></div>';
   if (m==='sablon') { var dz = veri(false), kk = [['İsimler',[dz.isim1,dz.isim2].filter(Boolean).join(' & ')],['Mekan',dz.mekan],['Adres',dz.adres]];
