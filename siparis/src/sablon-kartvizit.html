@@ -139,7 +139,7 @@ __CSS__
   <aside class="sum" id="ozet" aria-live="polite">
    <h3>Sipariş özeti</h3>
    <div id="ozetIc"></div>
-   <button class="btn" id="devam" type="button" disabled>Ödemeye geç</button>
+   <button class="btn" id="devam" type="button" disabled>WhatsApp'tan sipariş talebi gönder</button>
    <button class="btn ghost" id="pdfIndir" type="button" style="display:none">Baskı dosyasını indir (PDF)</button>
    <div id="pdfDurum"></div>
    <p class="small" id="devamNot"></p>
@@ -277,7 +277,7 @@ function ciz(){
   $('pdfIndir').style.display = (m==='sablon' && dosyaTamam) ? '' : 'none';
   var hazir = dosyaTamam && $('onay').checked;
   $('devam').disabled = !hazir;
-  $('devamNot').textContent = hazir ? (m==='sablon' ? 'Kartvizitiniz önizlemedeki haliyle baskı dosyasına dönüştürülür ve siparişe sabitlenir.' : 'Dosyanız ve seçimleriniz siparişe sabitlenir.') : (!dosyaTamam ? (m==='sablon' ? 'Ad soyad ve en az bir iletişim bilgisi girin.' : 'PDF dosyanızı yükleyin.') : 'Onay kutusunu işaretleyin.');
+  $('devamNot').textContent = hazir ? (m==='sablon' ? 'Düğmeye bastığınızda kartvizitiniz baskı dosyası (PDF) olarak indirilir ve WhatsApp mesajınız hazırlanır; PDF\'i mesaja ekleyin.' : 'Düğmeye bastığınızda seçimleriniz ve ön fiyat WhatsApp mesajı olarak hazırlanır; baskı dosyanızı mesaja ekleyin.') : (!dosyaTamam ? (m==='sablon' ? 'Ad soyad ve en az bir iletişim bilgisi girin.' : 'PDF dosyanızı yükleyin.') : 'Onay kutusunu işaretleyin.');
 }
 $('f').addEventListener('input', function(e){ if (e.target.id && e.target.id.indexOf('k_')===0) tplCiz(); ciz(); });
 $('f').addEventListener('change', function(e){ if (e.target.name==='renk' || e.target.name==='zemin' || e.target.name==='font') tplCiz(); ciz(); });
@@ -307,12 +307,13 @@ function indir(b){ if (indirici) return indirici.save({filename: dosyaAdi(), dat
   var u=URL.createObjectURL(b), a=document.createElement('a'); a.href=u; a.download=dosyaAdi(); document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(u);},4000); }
 $('pdfIndir').addEventListener('click', function(){ pdfUret().then(function(b){ if(b) indir(b); }); });
 $('devam').addEventListener('click', function(){
-  if (mod()==='sablon') { pdfUret().then(function(b){ if (b) $('devamNot').textContent='Baskı dosyanız hazırlandı ('+Math.round(b.size/1024)+' KB). Test ortamı: ödeme adımı henüz bağlı değil.'; }); }
-  else $('devamNot').textContent='Test ortamı: ödeme adımı henüz bağlı değil.';
+  if (mod()==='sablon') pdfUret().then(function(b){ if (b) { indir(b); $('devamNot').textContent='Baskı dosyanız (PDF) indirildi. WhatsApp\'ta açılan mesaja bu dosyayı ekleyip gönderin.'; } });
+  else $('devamNot').textContent='Sipariş talebiniz WhatsApp\'ta hazır mesaj olarak açıldı; PDF dosyanızı mesaja ekleyip gönderin.';
 });
 tplCiz(); ciz();
 if (document.fonts && document.fonts.load) Promise.all(FONTLAR.map(function(f){ return Promise.all([document.fonts.load('400 20px "'+f+'"'), document.fonts.load('700 20px "'+f+'"')]); })).then(function(){ tplCiz(); ciz(); }, function(){ tplCiz(); ciz(); });
 })();
 </script>
+<script>__WA__</script>
 </body>
 </html>
