@@ -144,12 +144,30 @@
     };
   }
 
+  // Adet ve yön tablolu ürünler (kartvizit vb.)
+  function adetliHesapla(cfg, genel, g) {
+    var satir = null;
+    for (var i = 0; i < cfg.paketler.length; i++) if (String(cfg.paketler[i].adet) === String(g.paket)) satir = cfg.paketler[i];
+    if (!satir) return {durum: 'hata', hatalar: [{alan: 'paket', mesaj: 'Adet seçin.'}]};
+    var yon = g.yon === 'cift' ? 'cift' : 'tek';
+    var kopya = sayi(g.kopya || 1);
+    if (!(kopya >= 1) || Math.floor(kopya) !== kopya) return {durum: 'hata', hatalar: [{alan: 'kopya', mesaj: 'Farklı isim/tasarım sayısı 1 veya daha büyük olmalı.'}]};
+    var birim = satir[yon], baski = yuvarla(birim * kopya);
+    var tamamlama = baski < genel.asgari_baski ? yuvarla(genel.asgari_baski - baski) : 0;
+    var araToplam = yuvarla(baski + tamamlama), kdv = yuvarla(araToplam * genel.kdv_orani);
+    return {durum: 'tamam', uyarilar: [],
+      kalemler: {paket: satir.adet, yon: yon, birim: birim, kopya: kopya, baski: baski, asgariFarki: tamamlama, adetBasi: yuvarla(birim / satir.adet)},
+      araToplam: araToplam, kdv: kdv, toplam: yuvarla(araToplam + kdv),
+      kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik, kargoAyrica: false};
+  }
+
   function hesapla(fiyatlar, urunKod, girdi) {
     var cfg = fiyatlar.urunler[urunKod];
     if (!cfg) return {durum: 'hata', hatalar: [{alan: 'urun', mesaj: 'Ürün bulunamadı.'}]};
     if (cfg.tur === 'rulo' && cfg.kesim) return kesimHesapla(cfg, fiyatlar.genel, girdi);
     if (cfg.tur === 'rulo') return ruloHesapla(cfg, fiyatlar.genel, girdi);
     if (cfg.tur === 'yazi') return yaziHesapla(cfg, fiyatlar.genel, girdi);
+    if (cfg.tur === 'kartvizit') return adetliHesapla(cfg, fiyatlar.genel, girdi);
     return {durum: 'hata', hatalar: [{alan: 'urun', mesaj: 'Bu ürün türü henüz tanımlı değil.'}]};
   }
 

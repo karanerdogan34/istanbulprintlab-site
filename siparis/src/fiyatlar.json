@@ -726,6 +726,49 @@
           "m": "Dosyayı poster ölçüsünde hazırlayın; yazıları kontura çevirin. Görsellerde baskı ölçüsünde en az 100 PPI önerilir."
         }
       ]
+    },
+    "kartvizit-baski": {
+      "ad": "Kartvizit Baskı",
+      "tur": "kartvizit",
+      "paketler": [
+        {
+          "adet": 250,
+          "tek": 1199,
+          "cift": 1499
+        },
+        {
+          "adet": 500,
+          "tek": 2199,
+          "cift": 2499
+        },
+        {
+          "adet": 1000,
+          "tek": 2999,
+          "cift": 3299
+        }
+      ],
+      "olcu": "85 × 55 mm",
+      "kagit": "350 gr mat kuşe, selefonlu",
+      "aciklama": "350 gr mat kuşe, selefonlu kartvizit. Hazır şablonlardan birini seçip bilgilerinizi yazın ya da kurumsal tasarımınızı PDF olarak yükleyin; fiyat anında ekranda.",
+      "chips": [
+        "350 gr mat kuşe",
+        "Selefon dahil",
+        "85 × 55 mm"
+      ],
+      "bilgi": [
+        {
+          "b": "Kağıt ve selefon",
+          "m": "Kartvizitler 350 gr mat kuşe kağıda basılır; selefon (laminasyon) fiyata dahildir. Standart ölçü 85 × 55 mm'dir."
+        },
+        {
+          "b": "Kurumsal tasarımınız varsa",
+          "m": "Hazır kurumsal kartvizitinizi 85 × 55 mm ölçüsünde, her kenarda 2 mm taşma payıyla PDF olarak yükleyin; yazıları kontura çevirin. Çift yön için iki sayfalı PDF yükleyin."
+        },
+        {
+          "b": "Hangi işler teklifle?",
+          "m": "Daha kalın kağıt, kabartma, lak, yaldız ve özel kesim gibi özel kartvizitler teklifle fiyatlandırılır. WhatsApp'tan (+90 532 523 73 64) yazın."
+        }
+      ]
     }
   }
 }
