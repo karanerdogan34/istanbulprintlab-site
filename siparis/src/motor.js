@@ -210,6 +210,30 @@
       kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik && !(cfg.rulo_en * uzunluk / 10000 > genel.kargo_max_m2), kargoAyrica: cfg.rulo_en * uzunluk / 10000 > genel.kargo_max_m2, kargoMaxM2: genel.kargo_max_m2};
   }
 
+
+  // Duvar kağıdı: duvar ölçüsü + her kenarda emniyet payı; üretim alanı m² ile fiyatlanır, rulo enine göre eşit şeritlere bölünür
+  function duvarHesapla(cfg, genel, g) {
+    var en = sayi(g.en), boy = sayi(g.boy), hatalar = [];
+    if (!(en > 0)) hatalar.push({alan: 'en', mesaj: 'Duvarın genişliğini santimetre olarak girin (ör. 320).'});
+    if (!(boy > 0)) hatalar.push({alan: 'boy', mesaj: 'Duvarın yüksekliğini santimetre olarak girin (ör. 260).'});
+    var malz = null;
+    for (var i = 0; i < cfg.malzemeler.length; i++) if (cfg.malzemeler[i].kod === g.malzeme) malz = cfg.malzemeler[i];
+    if (!malz) hatalar.push({alan: 'malzeme', mesaj: 'Malzeme seçin.'});
+    if (hatalar.length) return {durum: 'hata', hatalar: hatalar};
+    if (malz.teklif) return {durum: 'teklif', mesaj: malz.ad + ' standart fiyatlandırmanın dışındadır. Duvar ölçünüzü ve görselinizi WhatsApp\'tan gönderin, fiyatı size iletelim.', uyarilar: []};
+    var p = cfg.emniyet_cm || 0, uEn = en + 2 * p, uBoy = boy + 2 * p;
+    if (uBoy > genel.tek_parca_max_boy || uEn > genel.tek_parca_max_boy) return {durum: 'teklif', mesaj: 'Duvarın kenarları en fazla ' + (genel.tek_parca_max_boy / 100) + ' metre olabilir. Daha büyük işler için teklif alın.', uyarilar: []};
+    var serit = Math.ceil(uEn / malz.serit_en - 1e-9), seritEn = uEn / serit;
+    var m2 = uEn * uBoy / 10000;
+    var baski = yuvarla(m2 * malz.m2);
+    var tamamlama = baski < genel.asgari_baski ? yuvarla(genel.asgari_baski - baski) : 0;
+    var araToplam = yuvarla(baski + tamamlama), kdv = yuvarla(araToplam * genel.kdv_orani);
+    return {durum: 'tamam', uyarilar: [],
+      kalemler: {m2: yuvarla(m2), birimM2: malz.m2, uretimEn: uEn, uretimBoy: uBoy, serit: serit, seritEn: Math.round(seritEn * 10) / 10, baski: baski, asgariFarki: tamamlama},
+      araToplam: araToplam, kdv: kdv, toplam: yuvarla(araToplam + kdv),
+      kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik && !(m2 > genel.kargo_max_m2), kargoAyrica: m2 > genel.kargo_max_m2, kargoMaxM2: genel.kargo_max_m2};
+  }
+
   function hesapla(fiyatlar, urunKod, girdi) {
     var cfg = fiyatlar.urunler[urunKod];
     if (!cfg) return {durum: 'hata', hatalar: [{alan: 'urun', mesaj: 'Ürün bulunamadı.'}]};
@@ -218,6 +242,7 @@
     if (cfg.tur === 'yazi') return yaziHesapla(cfg, fiyatlar.genel, girdi);
     if (cfg.tur === 'kartvizit') return adetliHesapla(cfg, fiyatlar.genel, girdi);
     if (cfg.tur === 'dtf') return dtfHesapla(cfg, fiyatlar.genel, girdi);
+    if (cfg.tur === 'duvar') return duvarHesapla(cfg, fiyatlar.genel, girdi);
     return {durum: 'hata', hatalar: [{alan: 'urun', mesaj: 'Bu ürün türü henüz tanımlı değil.'}]};
   }
 

@@ -844,6 +844,99 @@
      "m": "Arka planı şeffaf PNG veya PDF kullanın: şeffaf alanlar baskısız kalır. JPG dosyalarda arka plan da basılır. Görsellerde baskı ölçüsünde en az 100 PPI önerilir; yazıları kontura çevirin. Kendi yerleşiminizi yaptıysanız tabakanın tamamının ölçüsünü girin (en fazla 30 × 60 cm)."
     }
    ]
+  },
+  "duvar-kagidi-baski": {
+   "ad": "Duvar Kağıdı Baskı",
+   "tur": "duvar",
+   "emniyet_cm": 5,
+   "malzemeler": [
+    {
+     "kod": "nonwoven-dokulu",
+     "ad": "Non-woven, dokulu vinil (240 gr)",
+     "m2": 378,
+     "serit_en": 105,
+     "not": "Kum veya keten dokulu vinil yüzey, non-woven taban. Tutkalla uygulanır; tutkal duvara sürülür."
+    },
+    {
+     "kod": "nonwoven-premium",
+     "ad": "Non-woven premium, sedir dokulu (280 gr)",
+     "m2": 570,
+     "serit_en": 104,
+     "not": "Daha kalın, belirgin dokulu vinil yüzey, non-woven taban. Tutkalla uygulanır."
+    },
+    {
+     "kod": "tekstil",
+     "ad": "Tekstil tabanlı (400 gr)",
+     "m2": 990,
+     "serit_en": 138,
+     "not": "Kumaş dokulu, yırtılmaya dayanıklı kalın yüzey. Tutkalla uygulanır; geniş rulo sayesinde daha az ek yeri."
+    },
+    {
+     "kod": "yapiskanli-duz",
+     "ad": "Kendinden yapışkanlı, PVC içermeyen",
+     "m2": 789,
+     "serit_en": 135,
+     "not": "Tutkal gerekmez; arka kağıdı soyularak düz ve temiz duvara yapıştırılır."
+    },
+    {
+     "kod": "yapiskanli-kumas",
+     "ad": "Kendinden yapışkanlı kumaş (350 gr)",
+     "m2": 1098,
+     "serit_en": 128,
+     "not": "Kumaş dokulu yüzey; tutkal gerekmez."
+    },
+    {
+     "kod": "yapiskanli-dokulu",
+     "ad": "Kendinden yapışkanlı premium dokulu",
+     "m2": 1905,
+     "serit_en": 135,
+     "not": "Dokulu premium yüzey; tutkal gerekmez."
+    },
+    {
+     "kod": "kagit",
+     "ad": "Kağıt bazlı duvar kağıdı",
+     "m2": 0,
+     "serit_en": 105,
+     "not": "",
+     "teklif": true
+    },
+    {
+     "kod": "metalik",
+     "ad": "Altın / gümüş metalik (premium)",
+     "m2": 0,
+     "serit_en": 128,
+     "not": "",
+     "teklif": true
+    }
+   ],
+   "ppi": {
+    "uygun": 72,
+    "uyari": 50
+   },
+   "aciklama": "Ev, ofis, mağaza, otel ve çocuk odaları için duvarınızın ölçüsüne özel baskılı duvar kağıdı. Duvar ölçünüzü girin, malzemeyi seçin; şerit planı ve fiyat anında ekranda.",
+   "chips": [
+    "Duvarınıza özel ölçü",
+    "GREENGUARD Gold sertifikalı orijinal mürekkep",
+    "6 malzeme seçeneği"
+   ],
+   "bilgi": [
+    {
+     "b": "Nasıl hesaplanır?",
+     "m": "Duvar ölçünüzün her kenarına 5 cm kesim payı eklenir ve fiyat bu üretim ölçüsünün m²'si üzerinden hesaplanır. Baskı, seçtiğiniz malzemenin rulo enine göre eşit genişlikte şeritlere bölünür; şerit sayısı ekranda görünür."
+    },
+    {
+     "b": "Orijinal mürekkep, sertifikalı üretim",
+     "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
+    },
+    {
+     "b": "Uygulama",
+     "m": "Tutkallı malzemelerde tutkal duvara sürülür ve şeritler ek yerlerinden birleştirilerek yerleştirilir. Kendinden yapışkanlı malzemeler temiz, kuru ve düz duvara tutkalsız uygulanır. Fiyatlara tutkal ve montaj dahil değildir."
+    },
+    {
+     "b": "Dosya nasıl hazırlanır?",
+     "m": "Görselinizi duvarın tamamı için tek parça hazırlayın; şeritlere bölme işini biz yaparız. Önemli öğeleri (yazı, yüz, logo) kenarlardan en az 10 cm içeride tutun. Duvar kağıdı uzaktan izlendiği için baskı ölçüsünde 72 PPI ve üzeri yeterlidir."
+    }
+   ]
   }
  }
 }
