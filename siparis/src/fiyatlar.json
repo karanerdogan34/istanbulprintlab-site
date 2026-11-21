@@ -201,7 +201,7 @@
         ],
         "carpan": 2
       },
-      "lamNot": "Şeffaf laminasyon baskıyı çizilmeye, neme ve UV ışığına karşı korur. Laminasyonlu işlerde mürekkebin kuruması beklendiği için teslim süresi uzar.",
+      "lamNot": "Delikli cam folyosuna uygun şeffaf laminasyon uygulanır; baskıyı çizilmeye, neme ve UV ışığına karşı korur. Laminasyonlu işlerde mürekkebin kuruması beklendiği için teslim süresi uzar.",
       "ppi": {
         "uygun": 100,
         "uyari": 72
@@ -219,7 +219,7 @@
         },
         {
           "b": "Nasıl çalışır?",
-          "m": "Delikli folyonun dış yüzü baskılıdır, iç yüzü siyahtır. Gündüz dışarıdan görsel görünür, içeriden dışarısı izlenebilir. Akşam içerisi aydınlatıldığında dışarıdan içerisi görünebilir."
+          "m": "Delikli folyonun dış yüzü baskılıdır, iç yüzü siyahtır ve camın dış yüzeyine uygulanacak şekilde basılır. Gündüz dışarıdan görsel görünür, içeriden dışarısı izlenebilir. Akşam içerisi dışarıdan daha aydınlıksa dışarıdan içerisi görünür. İçeriden uygulama için WhatsApp'tan bilgi alın."
         },
         {
           "b": "Tasarım önerisi",
