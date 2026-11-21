@@ -310,6 +310,7 @@ function ciz(){
   } else {
     var k = r.kalemler;
     if (k.parca) h += '<div class="line"><span>Sticker</span><span>'+esc(k.parca)+' × '+g.adet+' adet</span></div>';
+    var alanNot = k.parca ? '<p class="small">Alan, her sticker\'ın kesim kutusu üzerinden hesaplanır (genişlik × yükseklik; yuvarlakta çap × çap).</p>' : '';
     h += '<div class="line"><span>Alan</span><span>'+k.m2.toLocaleString('tr-TR')+' m²</span></div>';
     h += '<div class="line"><span>Baskı ('+tl0(k.birimM2)+' / m²)</span><span>'+tl(k.baski)+'</span></div>';
     if (k.asgariFarki > 0) h += '<div class="line"><span>Asgari baskı tutarı farkı</span><span>'+tl(k.asgariFarki)+'</span></div>';
@@ -320,6 +321,7 @@ function ciz(){
     h += '<div class="line big"><span>Toplam</span><span>'+tl(r.toplam)+'</span></div>';
     h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+(r.kargoAyrica?'Ayrıca hesaplanır':(r.kargoUcretsiz?'Ücretsiz':'Alıcı ödemeli'))+'</span></div>';
     if (r.kargoAyrica) h += '<p class="small">'+k.m2.toLocaleString('tr-TR')+' m² ile '+C.kargo_max_m2+' m² sınırının üzerinde olduğu için ücretsiz kargo uygulanmaz; kargo bedeli ayrıca hesaplanır. Dilerseniz Kadıköy\'deki atölyemizden teslim alabilirsiniz.</p>';
+    h += alanNot;
     if (k.asgariFarki > 0) h += '<p class="small">Asgari baskı tutarı '+tl0(G.asgari_baski)+' + KDV\'dir; laminasyon bu tutarın üzerine eklenir.</p>';
     $('mTop').textContent = tl(r.toplam);
   }
@@ -329,9 +331,11 @@ function ciz(){
   var d = dosyaDurum();
   var dh = '';
   if (dosya) {
-    dh = '<div class="filecard">'+(dosya.url?'<img alt="" src="'+dosya.url+'">':'')+'<div><b style="font-weight:500">'+esc(dosya.ad)+'</b><div class="small" style="margin:0">'+(dosya.px?dosya.px.w+' × '+dosya.px.h+' piksel':dosya.tur.toUpperCase()+' dosyası')+'</div></div></div>';
+    var yuv = g.sekil==='yuvarlak';
+    dh = '<div class="filecard">'+(dosya.url?'<img alt="" src="'+dosya.url+'"'+(yuv?' style="border-radius:50%;object-fit:cover"':'')+'>':'')+'<div><b style="font-weight:500">'+esc(dosya.ad)+'</b><div class="small" style="margin:0">'+(dosya.px?dosya.px.w+' × '+dosya.px.h+' piksel':dosya.tur.toUpperCase()+' dosyası')+'</div></div></div>';
     var cls = {uygun:'ok', inceleme:'warn', 'uygun-degil':'bad', bekle:'warn'}[d.sonuc];
     dh += '<div class="msg '+cls+'">'+esc(d.metin)+'</div>';
+    if (yuv && dosya.url) dh += '<p class="hint">Önizleme yuvarlak kesimi gösterir: dairenin dışında kalan köşeler kesilir. Önemli öğeleri dairenin içinde tutun.</p>';
   }
   $('dosyaSonuc').innerHTML = dh;
 

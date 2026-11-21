@@ -179,7 +179,7 @@
         },
         {
           "b": "Dosya nasıl hazırlanır?",
-          "m": "Dosyayı tek bir sticker ölçüsünde hazırlayın; yazıları kontura çevirin. Kesim çizgisine yakın yazı ve önemli öğe koymayın. Görsellerde baskı ölçüsünde en az 100 PPI önerilir."
+          "m": "Dosyayı tek bir sticker ölçüsünde hazırlayın; yazıları kontura çevirin. Yazı ve önemli görselleri kesim çizgisinden en az 3 mm içeride tutun; kenara kadar uzanan tasarımlarda taşma payı bırakın. Görsellerde baskı ölçüsünde en az 100 PPI önerilir."
         }
       ]
     }
