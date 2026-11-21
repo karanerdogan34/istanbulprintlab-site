@@ -118,6 +118,70 @@
       ],
       "kargo_max_m2": 16,
       "kargo_metni": "Kargo ücreti alıcıya aittir; 5.000 ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir. 16 m²'nin (ör. 160 × 1000 cm) üzerindeki siparişlerde ücretsiz kargo uygulanmaz, kargo bedeli ayrıca hesaplanır. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz."
+    },
+    "sticker-etiket-baski": {
+      "ad": "Sticker / Etiket Baskı",
+      "tur": "rulo",
+      "net_en": 150,
+      "malzemeler": [
+        {
+          "kod": "oracal-beyaz-mat",
+          "ad": "Oracal beyaz mat",
+          "m2": 920
+        },
+        {
+          "kod": "oracal-beyaz-parlak",
+          "ad": "Oracal beyaz parlak",
+          "m2": 920
+        },
+        {
+          "kod": "oracal-seffaf-parlak",
+          "ad": "Oracal şeffaf parlak",
+          "m2": 920,
+          "uyari": "Şeffaf folyoda beyaz mürekkep kullanılmaz; açık renkler ve beyaz alanlar baskıda şeffaf kalır, renkler uygulanan yüzeyin renginden etkilenir."
+        }
+      ],
+      "laminasyon": {
+        "secenekler": [
+          "yok",
+          "mat",
+          "parlak"
+        ],
+        "carpan": 1.75
+      },
+      "kesim": {
+        "min_cm": 4,
+        "max_adet": 250,
+        "ozel_mesaj": "Yıldız, logo konturu gibi özel ve girift kesimler ayrıca fiyatlandırılır. Dosyanızı WhatsApp'tan gönderin, fiyatı size iletelim."
+      },
+      "ppi": {
+        "uygun": 100,
+        "uyari": 72
+      },
+      "aciklama": "Ürün, ambalaj, vitrin ve kampanya için kesimli sticker ve etiket. Şekli, ölçüyü ve adedi seçin; dosyanızı yükleyin, fiyat anında ekranda.",
+      "chips": [
+        "Oracal folyo",
+        "Kare, dikdörtgen, yuvarlak kesim",
+        "GREENGUARD Gold sertifikalı orijinal mürekkep"
+      ],
+      "bilgi": [
+        {
+          "b": "Orijinal mürekkep, sertifikalı üretim",
+          "m": "Kadıköy'deki atölyemizde, düşük kimyasal emisyon kriterlerini karşılayan GREENGUARD Gold sertifikalı orijinal Mimaki CS250 mürekkepler kullanıyoruz."
+        },
+        {
+          "b": "Hangi işler teklifle?",
+          "m": "4 cm'den küçük kesimler, 250 adetten fazla siparişler, özel ve girift kesimler, rulo etiket, kağıt ve PP sticker ile diğer özel malzemeler teklifle fiyatlandırılır. Ölçünüzü ve dosyanızı WhatsApp'tan (+90 532 523 73 64) gönderin."
+        },
+        {
+          "b": "Kesimsiz baskı mı istiyorsunuz?",
+          "m": "Kesim gerekmeyen düz baskılar için <a href=\"#\">Folyo Baskı</a> sayfasını kullanın; m² fiyatı daha uygundur."
+        },
+        {
+          "b": "Dosya nasıl hazırlanır?",
+          "m": "Dosyayı tek bir sticker ölçüsünde hazırlayın; yazıları kontura çevirin. Kesim çizgisine yakın yazı ve önemli öğe koymayın. Görsellerde baskı ölçüsünde en az 100 PPI önerilir."
+        }
+      ]
     }
   }
 }

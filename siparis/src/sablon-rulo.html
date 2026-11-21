@@ -113,12 +113,17 @@ footer{padding:28px 0;font-size:14px;color:var(--mute);border-top:1px solid var(
     <p class="hint" id="lamNot"></p>
    </section>
 
+   <section class="step" id="s-sekil" style="display:none">
+    <h2><span class="n">00</span>Kesim şekli</h2>
+    <div class="opts" id="sekiller"></div>
+   </section>
+
    <section class="step">
     <h2><span class="n">03</span>Ölçü ve adet</h2>
     <div class="fields">
-     <label class="f">Genişlik (cm)<input id="en" inputmode="decimal" autocomplete="off" placeholder="ör. 120"></label>
-     <label class="f">Yükseklik (cm)<input id="boy" inputmode="decimal" autocomplete="off" placeholder="ör. 80"></label>
-     <label class="f">Adet<input id="adet" inputmode="numeric" autocomplete="off" value="1"></label>
+     <label class="f" id="lEn"><span id="tEn">Genişlik (cm)</span><input id="en" inputmode="decimal" autocomplete="off" placeholder="ör. 120"></label>
+     <label class="f" id="lBoy"><span id="tBoy">Yükseklik (cm)</span><input id="boy" inputmode="decimal" autocomplete="off" placeholder="ör. 80"></label>
+     <label class="f"><span id="tAdet">Adet</span><input id="adet" inputmode="numeric" autocomplete="off" value="1"></label>
     </div>
     <div class="err" id="olcuErr"></div>
     <p class="hint" id="olcuNot"></p>
@@ -195,6 +200,24 @@ if (C.laminasyon) {
   $('lamNot').textContent = C.lamNot || 'Laminasyon baskıyı çizilmeye, neme ve UV ışığına karşı korur. Laminasyonlu işlerde mürekkebin kuruması beklendiği için teslim süresi uzar.';
 } else { $('s-lam').style.display='none'; }
 
+// kesim şekli
+var SAD = {kare:'Kare', dikdortgen:'Dikdörtgen', yuvarlak:'Yuvarlak', ozel:'Özel / girift şekil'};
+var SAL = {kare:'Kenar ölçüsünü girin', dikdortgen:'Genişlik ve yükseklik', yuvarlak:'Çapı girin', ozel:'Teklifle fiyatlandırılır'};
+function sekilAyarla(){
+  var sk = document.querySelector('input[name=sekil]:checked'); if (!sk) return;
+  var v = sk.value;
+  $('lBoy').style.display = (v==='dikdortgen') ? '' : 'none';
+  $('tEn').textContent = v==='yuvarlak' ? 'Çap (cm)' : (v==='kare' ? 'Kenar (cm)' : 'Genişlik (cm)');
+  $('tBoy').textContent = 'Yükseklik (cm)';
+}
+if (C.kesim) {
+  $('s-sekil').style.display = '';
+  $('sekiller').innerHTML = ['dikdortgen','kare','yuvarlak','ozel'].map(function(k,i){
+    return '<label class="opt"><input type="radio" name="sekil" value="'+k+'"'+(i===0?' checked':'')+'><b>'+SAD[k]+'</b><small>'+SAL[k]+'</small></label>'; }).join('');
+  $('tAdet').textContent = 'Adet (sticker sayısı)';
+  $('en').placeholder = 'ör. 10'; $('boy').placeholder = 'ör. 5'; $('adet').value = '100';
+  $('sekiller').addEventListener('change', sekilAyarla); sekilAyarla();
+}
 // adım numaraları
 function numarala(){ var n=0; document.querySelectorAll('.step').forEach(function(st){ if (st.style.display==='none') return; n++; st.querySelector('.n').textContent=(n<10?'0':'')+n; }); }
 // kuşgözü
@@ -224,7 +247,7 @@ function kgCiz(){
 }
 if (C.kusgozu) { $('s-kg').style.display=''; $('kgOner').addEventListener('click', function(){ var en=IPLMotor.sayi($('en').value), boy=IPLMotor.sayi($('boy').value); if (en>0&&boy>0){ $('kusgozu').value=kgOneri(en,boy); ciz(); } }); }
 numarala();
-$('olcuNot').textContent = 'Kenarlardan biri en fazla '+C.net_en+' cm, diğeri en fazla '+(G.tek_parca_max_boy/100)+' metre olabilir. Daha büyük ve daha uzun işler parçalı üretilir; bunlar için teklif alınır.';
+$('olcuNot').textContent = C.kesim ? ('Tek bir sticker\'ın ölçüsünü girin. Her sticker en az '+C.kesim.min_cm+' cm olmalı; en fazla '+C.kesim.max_adet+' adet sipariş verilebilir. Daha küçük ölçüler ve daha fazla adet için teklif alın.') : 'Kenarlardan biri en fazla '+C.net_en+' cm, diğeri en fazla '+(G.tek_parca_max_boy/100)+' metre olabilir. Daha büyük ve daha uzun işler parçalı üretilir; bunlar için teklif alınır.';
 
 // bilgi kartları
 $('bilgi').innerHTML = (C.bilgi||[]).map(function(b){return '<div><h3>'+esc(b.b)+'</h3><p>'+b.m+'</p></div>';}).join('');
@@ -235,7 +258,10 @@ var son = null;
 function girdi(){
   var mz = document.querySelector('input[name=malzeme]:checked');
   var lm = document.querySelector('input[name=lam]:checked');
-  return {malzeme: mz && mz.value, laminasyon: lm ? lm.value : 'yok', en: $('en').value, boy: $('boy').value, adet: $('adet').value, kusgozu: $('kusgozu').value};
+  var sk = document.querySelector('input[name=sekil]:checked');
+  var sekil = sk ? sk.value : null;
+  var boyV = (sekil==='yuvarlak'||sekil==='kare') ? $('en').value : $('boy').value;
+  return {malzeme: mz && mz.value, laminasyon: lm ? lm.value : 'yok', sekil: sekil, en: $('en').value, boy: boyV, adet: $('adet').value, kusgozu: $('kusgozu').value};
 }
 
 function dosyaDurum(){
@@ -277,11 +303,13 @@ function ciz(){
     h = '<p class="small" style="margin:0">Ölçünüzü girdiğinizde fiyat burada görünür.</p>';
     $('mTop').textContent = '—';
   } else if (r.durum === 'teklif') {
-    var txt = encodeURIComponent('Merhaba, '+C.ad+' için teklif almak istiyorum: '+g.en+' × '+g.boy+' cm, '+g.adet+' adet.');
+    var olc = g.sekil ? (SAD[g.sekil]+(g.sekil==='ozel'?'':(g.sekil==='yuvarlak'?', çap '+g.en+' cm':', '+g.en+' × '+g.boy+' cm'))) : (g.en+' × '+g.boy+' cm');
+    var txt = encodeURIComponent('Merhaba, '+C.ad+' için teklif almak istiyorum: '+olc+', '+g.adet+' adet.');
     h = '<div class="msg warn" style="margin-top:0">'+esc(r.mesaj)+'</div><a class="btn ghost" href="'+WA+txt+'" target="_blank" rel="noopener">WhatsApp ile teklif iste</a><p class="small">WhatsApp: +90 532 523 73 64</p>';
     $('mTop').textContent = 'Teklif';
   } else {
     var k = r.kalemler;
+    if (k.parca) h += '<div class="line"><span>Sticker</span><span>'+esc(k.parca)+' × '+g.adet+' adet</span></div>';
     h += '<div class="line"><span>Alan</span><span>'+k.m2.toLocaleString('tr-TR')+' m²</span></div>';
     h += '<div class="line"><span>Baskı ('+tl0(k.birimM2)+' / m²)</span><span>'+tl(k.baski)+'</span></div>';
     if (k.asgariFarki > 0) h += '<div class="line"><span>Asgari baskı tutarı farkı</span><span>'+tl(k.asgariFarki)+'</span></div>';

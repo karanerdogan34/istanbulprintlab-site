@@ -76,9 +76,27 @@
     return {ppi: Math.round(ppi), sonuc: sonuc, oranSapma: Math.round(sapma * 100), dondur: !dikey};
   }
 
+  // Kesimli ürünler (sticker/etiket): şekil + parça ölçüsü + adet → rulo hesabına çevrilir
+  function kesimHesapla(cfg, genel, g) {
+    var K = cfg.kesim, sekil = g.sekil || 'dikdortgen';
+    if (sekil === 'ozel') return {durum: 'teklif', mesaj: K.ozel_mesaj, uyarilar: []};
+    var en = sayi(g.en), boy = sekil === 'dikdortgen' ? sayi(g.boy) : en, adet = sayi(g.adet), hatalar = [];
+    var etiket = sekil === 'yuvarlak' ? 'Çapı' : (sekil === 'kare' ? 'Kenar uzunluğunu' : 'Genişliği');
+    if (!(en > 0)) hatalar.push({alan: 'en', mesaj: etiket + ' santimetre olarak girin.'});
+    if (sekil === 'dikdortgen' && !(boy > 0)) hatalar.push({alan: 'boy', mesaj: 'Yüksekliği santimetre olarak girin.'});
+    if (!(adet >= 1) || Math.floor(adet) !== adet) hatalar.push({alan: 'adet', mesaj: 'Adet 1 veya daha büyük bir tam sayı olmalı.'});
+    if (hatalar.length) return {durum: 'hata', hatalar: hatalar};
+    if (Math.min(en, boy) < K.min_cm) return {durum: 'teklif', mesaj: K.min_cm + ' cm\'den küçük kesimler standart fiyatlandırmanın dışındadır. Bu iş için teklif alın.', uyarilar: []};
+    if (adet > K.max_adet) return {durum: 'teklif', mesaj: K.max_adet + ' adetten fazla kesimli sticker siparişleri teklifle fiyatlandırılır. Bu iş için teklif alın.', uyarilar: []};
+    var r = ruloHesapla(cfg, genel, {malzeme: g.malzeme, laminasyon: g.laminasyon, en: en, boy: boy, adet: adet});
+    if (r.durum === 'tamam') { r.kalemler.sekil = sekil; r.kalemler.parca = sekil === 'yuvarlak' ? ('Ø ' + en + ' cm') : (en + ' × ' + boy + ' cm'); }
+    return r;
+  }
+
   function hesapla(fiyatlar, urunKod, girdi) {
     var cfg = fiyatlar.urunler[urunKod];
     if (!cfg) return {durum: 'hata', hatalar: [{alan: 'urun', mesaj: 'Ürün bulunamadı.'}]};
+    if (cfg.tur === 'rulo' && cfg.kesim) return kesimHesapla(cfg, fiyatlar.genel, girdi);
     if (cfg.tur === 'rulo') return ruloHesapla(cfg, fiyatlar.genel, girdi);
     return {durum: 'hata', hatalar: [{alan: 'urun', mesaj: 'Bu ürün türü henüz tanımlı değil.'}]};
   }
