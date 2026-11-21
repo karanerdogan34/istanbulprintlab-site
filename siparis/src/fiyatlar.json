@@ -973,7 +973,9 @@
      "Tavan ve süpürgelikte kalan 5 cm kesim payını maket bıçağıyla düzgünce kesin.",
      "Tutkal gerekmez. Uygulamayı iki kişi yapmak hizalamayı kolaylaştırır."
     ]
-   }
+   },
+   "kargo_hep_alici": true,
+   "kargo_metni": "Duvar kağıdı siparişlerinde kargo ücreti, sipariş tutarından bağımsız olarak alıcıya aittir. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz."
   }
  }
 }

@@ -231,7 +231,7 @@
     return {durum: 'tamam', uyarilar: [],
       kalemler: {m2: yuvarla(m2), birimM2: malz.m2, uretimEn: uEn, uretimBoy: uBoy, serit: serit, seritEn: Math.round(seritEn * 10) / 10, baski: baski, asgariFarki: tamamlama},
       araToplam: araToplam, kdv: kdv, toplam: yuvarla(araToplam + kdv),
-      kargoUcretsiz: araToplam >= genel.kargo_ucretsiz_esik && !(m2 > genel.kargo_max_m2), kargoAyrica: m2 > genel.kargo_max_m2, kargoMaxM2: genel.kargo_max_m2};
+      kargoUcretsiz: !cfg.kargo_hep_alici && araToplam >= genel.kargo_ucretsiz_esik && !(m2 > genel.kargo_max_m2), kargoAyrica: !cfg.kargo_hep_alici && m2 > genel.kargo_max_m2, kargoMaxM2: genel.kargo_max_m2}; // duvar kağıdında kargo her zaman alıcıya ait
   }
 
   function hesapla(fiyatlar, urunKod, girdi) {
