@@ -1,7 +1,7 @@
 {
   "yol": "mesh-branda",
   "seo_baslik": "Mesh Branda Baskı İstanbul — m² Fiyatı Hesapla | IstanbulPrintLab",
-  "seo_aciklama": "Mesh (delikli) branda baskı: rüzgâr alan cephe, iskele ve şantiye çevresi için. Ölçünüzü girin, fiyatı anında hesaplayın. {{mesh}} ₺ + KDV / m² (KDV dahil {{mesh+kdv}} ₺), asgari 1 m².",
+  "seo_aciklama": "Mesh (delikli) branda baskı: rüzgâr alan cephe, iskele ve şantiye çevresi için. Ölçünüzü girin, fiyatı anında hesaplayın. {{mesh}} ₺ + KDV / m² (KDV dahil {{mesh+kdv}} ₺); asgari sipariş tutarı {{asgari}} ₺ + KDV.",
   "etiket": "Büyük format · Dış mekan",
   "baslik": "Mesh branda baskı",
   "giris": "Rüzgâr alan cephe, iskele ve şantiye çevresi için hava geçiren delikli branda.",

@@ -1,7 +1,7 @@
 {
   "yol": "folyo-baski",
   "seo_baslik": "Baskılı Folyo ve Folyo Kesim — Fiyat Hesapla | IstanbulPrintLab",
-  "seo_aciklama": "Baskılı yapışkanlı folyo: duvar, vitrin, kapı ve düz yüzeyler için. Ölçünüzü girin, fiyatı anında hesaplayın. {{folyo}} ₺ + KDV / m²'den (KDV dahil {{folyo+kdv}} ₺), asgari 1 m².",
+  "seo_aciklama": "Baskılı yapışkanlı folyo: duvar, vitrin, kapı ve düz yüzeyler için. Ölçünüzü girin, fiyatı anında hesaplayın. {{folyo}} ₺ + KDV / m²'den (KDV dahil {{folyo+kdv}} ₺); asgari sipariş tutarı {{asgari}} ₺ + KDV.",
   "etiket": "Folyo ve cam",
   "baslik": "Baskılı folyo",
   "giris": "Duvar, vitrin, kapı ve düz yüzeyler için baskılı yapışkanlı folyo.",

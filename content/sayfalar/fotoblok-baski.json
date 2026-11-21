@@ -1,7 +1,7 @@
 {
   "yol": "fotoblok-baski",
   "seo_baslik": "Fotoblok Baskı İstanbul — m² Fiyatı Hesapla | IstanbulPrintLab",
-  "seo_aciklama": "Fotoblok baskı İstanbul: tanıtım, stant ve dekor panoları. Düz fotoblok {{foreks}} ₺ + KDV / m² (KDV dahil {{foreks+kdv}} ₺), ön fiyatı anında hesaplayın; dekupe figür için teklif alın.",
+  "seo_aciklama": "Fotoblok baskı İstanbul: tanıtım, stant ve dekor panoları. Düz fotoblok {{foreks}} ₺ + KDV / m²'den (3 mm) (KDV dahil {{foreks+kdv}} ₺), ön fiyatı anında hesaplayın; dekupe figür için teklif alın.",
   "etiket": "İç mekan · Tanıtım ve dekor",
   "baslik": "Fotoblok baskı",
   "giris": "Fotoblok levha üzerine baskı: tanıtım panosu, dekupe figür, fotoğraf ve dekor panoları.",
@@ -57,7 +57,7 @@
     },
     {
       "soru": "Fiyat nasıl hesaplanıyor?",
-      "cevap": "Düz (dikdörtgen) fotoblok {{foreks}} ₺ + KDV / m² (KDV dahil {{foreks+kdv}} ₺; laminasyonlu {{foreks_lam}} ₺ + KDV) birim fiyattan, asgari 1 m², girdiğiniz ölçü ve adede göre toplam alan üzerinden hesaplanır. Özel kesim (dekupe) fotoblokun fiyatı daha yüksektir; fiyat için bizimle iletişime geçin.",
+      "cevap": "Düz (dikdörtgen) fotoblok {{foreks}} ₺ + KDV / m²'den (3 mm) (KDV dahil {{foreks+kdv}} ₺; laminasyonlu {{foreks_lam}} ₺ + KDV) birim fiyattan; asgari sipariş tutarı {{asgari}} ₺ + KDV, girdiğiniz ölçü ve adede göre toplam alan üzerinden hesaplanır. Özel kesim (dekupe) fotoblokun fiyatı daha yüksektir; fiyat için bizimle iletişime geçin.",
       "acik": false
     },
     {

@@ -1,7 +1,7 @@
 {
   "yol": "foreks-baski",
   "seo_baslik": "Foreks Baskı İstanbul — m² Fiyatı Hesapla | IstanbulPrintLab",
-  "seo_aciklama": "Foreks (fotoblok) pano baskı: tanıtım, yönlendirme ve dekor panoları. Düz kesim {{foreks}} ₺ + KDV / m² (KDV dahil {{foreks+kdv}} ₺), ön fiyatı anında hesaplayın; özel kesime teklif alın.",
+  "seo_aciklama": "Foreks (fotoblok) pano baskı: tanıtım, yönlendirme ve dekor panoları. Düz kesim {{foreks}} ₺ + KDV / m²'den (3 mm) (KDV dahil {{foreks+kdv}} ₺), ön fiyatı anında hesaplayın; özel kesime teklif alın.",
   "etiket": "İç mekan · Pano ve tabela",
   "baslik": "Foreks baskı",
   "giris": "Reklamcılar arasında \"foreks baskı\" diye bilinen sert pano baskısını fotoblok levha üzerine üretiyoruz: tanıtım panosu, yönlendirme, dekupe figür ve dekor panoları.",
@@ -38,7 +38,7 @@
     },
     {
       "ad": "Kesim",
-      "deger": "Düz (dikdörtgen) kesim {{foreks}} ₺ + KDV / m²; özel kesim (dekupe) fiyatı daha yüksektir, fiyat için bizimle iletişime geçin."
+      "deger": "Düz (dikdörtgen) kesim {{foreks}} ₺ + KDV / m²'den (3 mm); özel kesim (dekupe) fiyatı daha yüksektir, fiyat için bizimle iletişime geçin."
     },
     {
       "ad": "Montaj",
@@ -53,7 +53,7 @@
     },
     {
       "soru": "Fiyat nasıl hesaplanıyor?",
-      "cevap": "Düz (dikdörtgen) kesim {{foreks}} ₺ + KDV / m² (KDV dahil {{foreks+kdv}} ₺; laminasyonlu {{foreks_lam}} ₺ + KDV) üzerinden, asgari 1 m², girdiğiniz ölçü ve adede göre hesaplanır. Özel kesim (dekupe) fiyatı daha yüksektir; teklifle bildiririz.",
+      "cevap": "Düz (dikdörtgen) kesim {{foreks}} ₺ + KDV / m²'den (3 mm) (KDV dahil {{foreks+kdv}} ₺; laminasyonlu {{foreks_lam}} ₺ + KDV) üzerinden; asgari sipariş tutarı {{asgari}} ₺ + KDV, girdiğiniz ölçü ve adede göre hesaplanır. Özel kesim (dekupe) fiyatı daha yüksektir; teklifle bildiririz.",
       "acik": false
     },
     {

@@ -1,15 +1,15 @@
 {
-  "sticker": 1750,
-  "folyo": 800,
-  "folyo_lam": 1200,
-  "owv": 1200,
-  "foreks": 1600,
-  "foreks_lam": 2000,
-  "branda_beyaz": 650,
-  "branda_siyah": 750,
-  "mesh": 900,
+  "sticker": 920,
+  "folyo": 460,
+  "folyo_lam": 805,
+  "owv": 600,
+  "foreks": 999,
+  "foreks_lam": 1748,
+  "branda_beyaz": 369,
+  "branda_siyah": 369,
+  "mesh": 699,
   "cam_filmi": 2600,
-  "rollup": 4500,
+  "rollup": 3999,
   "takvim": 999,
   "takvim_cerceveli": 3999,
   "takvim_50": 699,
@@ -17,5 +17,11 @@
   "asgari": 999,
   "dekupe": 999,
   "duvar_kagidi": 999,
-  "kargo_esik": 5000
+  "kargo_esik": 5000,
+  "buyuk_onay": {
+    "branda_siyah": [
+      750,
+      369
+    ]
+  }
 }

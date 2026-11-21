@@ -35,7 +35,7 @@
     },
     {
       "soru": "Fiyat nasıl hesaplanıyor?",
-      "cevap": "Beyaz folyo ile aynı birim fiyattan: {{sticker}} ₺ + KDV / m² (KDV dahil {{sticker+kdv}} ₺), 130 cm rulo üzerindeki yerleşime göre; asgari sipariş {{asgari}} ₺ + KDV.",
+      "cevap": "Beyaz folyo ile aynı birim fiyattan: {{sticker}} ₺ + KDV / m² (KDV dahil {{sticker+kdv}} ₺), basılan alana göre; asgari sipariş {{asgari}} ₺ + KDV.",
       "acik": false
     }
   ]
