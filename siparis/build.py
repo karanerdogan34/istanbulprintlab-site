@@ -29,6 +29,34 @@ def _isle(o, urun):
 
 import re
 F['urunler'] = {k: _isle(u, u) for k, u in F['urunler'].items()}
+
+
+# Telefon uygulamasından gelen fiyatlar için sunucu tarafı denetim: sıfır, eksi ya da sayı olmayan fiyat derlemeyi durdurur (canlı site eski haliyle kalır).
+def _denetle():
+    hata = []
+    def bak(v, ad, lo=1, hi=200000):
+        if isinstance(v, bool) or not isinstance(v, (int, float)) or not lo <= v <= hi:
+            hata.append('%s = %r' % (ad, v))
+    bak(F['genel']['asgari_baski'], 'genel.asgari_baski', 0, 20000)
+    bak(F['genel']['kargo_ucretsiz_esik'], 'genel.kargo_ucretsiz_esik', 0, 200000)
+    for kod, u in F['urunler'].items():
+        for i, m in enumerate(u.get('malzemeler', [])):
+            if 'm2' in m: bak(m['m2'], '%s.malzemeler.%d.m2' % (kod, i), 0 if u['tur'] == 'duvar' else 1)
+        for i, m in enumerate(u.get('kademeler', [])): bak(m['m2'], '%s.kademeler.%d.m2' % (kod, i))
+        for i, m in enumerate(u.get('paketler', [])):
+            for y in ('tek', 'cift'):
+                if y in m: bak(m[y], '%s.paketler.%d.%s' % (kod, i, y))
+        if 'metre_fiyat' in u: bak(u['metre_fiyat'], kod + '.metre_fiyat')
+        if 'tabaka' in u: bak(u['tabaka']['fiyat'], kod + '.tabaka.fiyat')
+        if 'kusgozu' in u: bak(u['kusgozu']['fiyat'], kod + '.kusgozu.fiyat')
+        if 'laminasyon' in u: bak(u['laminasyon']['carpan'], kod + '.laminasyon.carpan', 1, 4)
+        for o in (u.get('cerceve') or {}).get('olculer', []):
+            for r, v in o.get('fiyat', {}).items(): bak(v, '%s.cerceve.%s.%s' % (kod, o['kod'], r))
+    if hata:
+        raise SystemExit('Geçersiz sipariş fiyatı: ' + ', '.join(hata))
+
+
+_denetle()
 motor = oku('src/motor.js')
 css = oku('src/ortak.css')
 kpdf = oku('src/kartvizit-pdf.js')
