@@ -363,6 +363,14 @@ main{counter-reset:sec}
 .g5u{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
 .svc6 img{height:300px}
 @media (max-width:760px){.svc6{grid-template-columns:1fr 1fr;gap:14px}.svc6 img{height:170px}.svc6 h3{font-size:17px}.svc6 p{font-size:13px}.svc6 .tag{font-size:10px}#urunler .g5u{grid-template-columns:1fr 1fr;gap:12px}#urunler .card img{height:150px !important}#urunler .card h3{font-size:16px !important}#urunler .card .btn{width:100%;white-space:nowrap;font-size:13px;padding-left:8px;padding-right:8px}#urunler .card .in{padding:14px}#urunler .card .muted{font-size:13px !important}#urunler .card .price{font-size:18px}#urunler .card .price small{display:block;font-size:11px}}
+.pbtns{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.pbtn{display:flex;flex-direction:column;gap:4px;border:1px solid var(--line);border-radius:10px;padding:16px 16px 14px;text-decoration:none;color:var(--ink);background:#fff;transition:border-color .2s,transform .2s,box-shadow .2s}
+.pbtn b{font-size:17px;font-weight:600;line-height:1.25}
+.pbtn small{font-size:13px;color:var(--mute);line-height:1.35}
+.pbtn:hover,.pbtn:focus-visible{border-color:var(--ink);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.hero .hfast{font-size:15px;color:var(--soft)}
+@media (max-width:980px){.pbtns{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:760px){.pbtns{gap:8px}.pbtn{padding:12px 10px 10px;border-radius:8px}.pbtn b{font-size:14.5px}.pbtn small{font-size:11.5px}.hero .heroimg{display:none}.hero{padding-bottom:24px}}
 </style>
 </head>
 <body>
@@ -375,7 +383,7 @@ main{counter-reset:sec}
 <a href="/" class="logo" aria-label="IstanbulPrintLab ana sayfa"><img src="/img/logo-ipl-black.png" alt="IstanbulPrintLab" width="1200" height="377"></a>
 <nav class="nav hide-sm" aria-label="Ana menü">
 <a href="#hizmetler">Baskı Hizmetleri</a>
-<a href="/sticker-baski/">Fiyat Hesapla</a>
+<a href="/#hizli-siparis">Fiyat Hesapla</a>
 <a href="/yilbasi-ayakli-fotoblok/">Yılbaşı Fotoblok</a>
 <a href="/ofis-cam-filmi/">Ofis Cam Filmi</a>
 <a href="#projeler">Projeler</a>
@@ -389,7 +397,7 @@ main{counter-reset:sec}
 </div>
 <nav id="mobileNav" aria-label="Mobil menü" hidden>
 <a href="#hizmetler">Baskı Hizmetleri</a>
-<a href="/sticker-baski/">Fiyat Hesapla</a>
+<a href="/#hizli-siparis">Fiyat Hesapla</a>
 <a href="/yilbasi-ayakli-fotoblok/">Yılbaşı Fotoblok</a>
 <a href="/2027-ajanda-takvim/">2027 Ajanda Takvim</a>
 <a href="#projeler">Projeler</a>
@@ -406,44 +414,29 @@ main{counter-reset:sec}
 <!-- ============ ANA SAYFA ============ -->
 <div class="view" data-view="home">
 <section class="wrap hero">
-<div style="display:flex;flex-direction:column;gap:26px">
-<div class="h1wrap"><h1 class="hsmall"><span class="regmark" aria-hidden="true"></span>İstanbul'da hızlı dijital baskı</h1><p class="hbig"><span class="ln"><span>Üretimi Kadıköy'deki atölyemizde yapıyoruz.</span></span> <span class="ln"><span>Her işi özenle hazırlıyoruz.</span></span></p></div>
-<p class="lead" style="font-size:20px">Sticker, etiket, fotoblok, folyo, afiş, poster, branda, foreks ve roll-up. Makine parkurumuzla eksiksiz basıyor, kesiyor; Türkiye'nin her yerine ve dünyaya gönderiyoruz.</p>
-<p class="hfast"><b>Standart işler 1–2 iş günü içinde hazır.</b> Dosya ve ödeme onayından sonra üretime başlıyoruz.</p>
-<div class="cats" aria-label="Başlıca hizmetler">
-<a class="chip" href="/sticker-baski/">Sticker</a><a class="chip" href="/sticker-baski/">Etiket</a><a class="chip" href="/yilbasi-ayakli-fotoblok/">Yılbaşı fotoblok</a><a class="chip" href="/dekupe-figur/">Dekupe figür</a><a class="chip" href="/fotoblok-baski/">Fotoblok</a><a class="chip" href="#hizmetler">Folyo kesim</a><a class="chip" href="/afis-baski/">Afiş</a><a class="chip" href="/branda-baski/">Branda</a><a class="chip" href="/poster-baski/">Poster</a><a class="chip" href="/roll-up-baski/">Roll-up</a><a class="chip" href="/foreks-baski/">Foreks</a><a class="chip" href="/ofis-cam-filmi/">Ofis cam filmi</a><a class="chip" href="/one-way-vision/">One way vision</a><a class="chip" href="/duvar-kagidi-baski/">Duvar kağıdı</a><a class="chip" href="/okullar-icin-baski/">Okullar</a>
+<div style="display:flex;flex-direction:column;gap:22px">
+<div class="h1wrap"><h1 class="hsmall"><span class="regmark" aria-hidden="true"></span>İstanbul'da hızlı dijital baskı</h1><p class="hbig"><span class="ln"><span>Hızlı tasarla, anında fiyat gör,</span></span> <span class="ln"><span>kolayca sipariş ver.</span></span></p></div>
+<p class="lead" style="font-size:20px">Ürününüzü seçin, ölçünüzü girin ya da hazır şablonla tasarlayın; fiyatınız anında ekranda, siparişiniz tek mesajla bize ulaşır. 1–2 iş günü içinde teslim alın.</p>
+<p class="hfast">GREENGUARD Gold sertifikalı orijinal mürekkep · Kadıköy'de üretim · Anında ön fiyat · Baskı öncesi dosya kontrolü</p>
 </div>
-<div class="row">
-<a href="tel:+905325237364" class="btn">Hemen Ara</a>
-<a href="https://wa.me/905325237364?text=Merhaba%2C%20bask%C4%B1%20i%C3%A7in%20fiyat%20almak%20istiyorum." class="btn ghost">WhatsApp'tan Yaz</a>
-<a href="/sticker-baski/" class="btn ghost">Fiyatı Hesapla</a>
-</div>
-<p class="note" data-y="y1">+90 532 523 73 64 · Pzt–Cmt 09:00–19:00 · <a href="#teklif">Teklif formu</a></p>
-</div>
-<div><div class="crop"><i class="cm" aria-hidden="true"></i><div class="heroimgs">
+<div class="heroimg"><div class="crop"><i class="cm" aria-hidden="true"></i><div class="heroimgs">
 <img class="ph" src="/img/hero-atolye.webp" alt="IstanbulPrintLab Kadıköy atölyesinde Mimaki ile dijital baskı" fetchpriority="high" width="1800" height="938" data-g="g1">
 <img class="ph" src="/img/baski-yakin.webp" alt="Baskı kafası altında renkli dijital baskı" loading="lazy" data-g="g2">
 <img class="ph" src="/img/takvim-isik.webp" alt="Işık altında üst üste 2027 ajanda takvim posterleri" loading="lazy" data-g="g3">
 </div></div><div class="dimx" aria-hidden="true">160 cm baskı ve kesim eni</div></div>
 </section>
 
-<section class="facts" aria-label="Neden IstanbulPrintLab"><div class="wrap">
-<div><b>Baskı ve kontur kesim tek makinede</b><span>Kesimli işlerde baskı ve kesim aynı Mimaki'de; kullanılabilir genişlik 160 cm</span></div>
-<div><b>Standart işlerde 1–2 iş günü</b><span>Dosya ve ödeme onayından sonra. Büyük ve özel işlerde süre teklifte yazılır.</span></div>
-<div><b>2012'den beri reklam ve baskıda</b><span>Kadıköy Fikirtepe'deki atölyemiz — gelip üretimi görebilirsiniz</span></div>
-<div><b>Dünyaya gönderim</b><span>Ülkeye, ölçüye ve adete göre teklif; sağlam paketleme</span></div>
-</div></section>
+<section class="wrap" id="hizli-siparis" aria-label="Ürünler: fiyat hesapla ve sipariş ver" style="padding-bottom:64px">
+<div class="pbtns"><!--URUN_DUGMELERI--><!--/URUN_DUGMELERI--></div>
+</section>
 
 <section id="urunler" class="wrap sec" style="padding-bottom:64px">
-<div class="shead"><div><span class="eyebrow">Hemen sipariş verin</span><h2 class="h2" style="font-size:40px;margin-top:12px" data-y="y2">Öne çıkan ürünlerimiz</h2></div><a class="link" href="/fotoblok-baski/">Fiyatı hesapla →</a></div>
-<div class="grid g4 g5u">
-<article class="card"><img src="/img/gercek-fotoblok-avm.webp" alt="AVM girişinde dekupe kesim fotoblok figür" loading="lazy" style="height:220px;object-fit:cover;width:100%" data-g="g4"><div class="in"><h3 style="font-size:19px" data-y="y3">Fotoblok baskı</h3><p class="muted" style="font-size:15px" data-y="y4">Pano ve dekupe figür · tek parça en fazla 150×300 cm</p><p class="price" style="margin-top:auto">{{foreks+kdv}} ₺ / m² <small>düz fotoblok · KDV dahil · {{foreks}} ₺ + KDV</small></p><p class="muted" style="font-size:13px;margin-top:4px" data-y="y5">Dekupe figür {{dekupe}} ₺ + KDV'den başlayan fiyatlarla</p><a href="/fotoblok-baski/" class="btn sm">Fiyat hesapla</a></div></article>
-<article class="card"><img src="/img/etiket-rulo.webp" alt="Rulo etiket ve sticker baskı" loading="lazy" style="height:220px;object-fit:cover;width:100%" data-g="g5"><div class="in"><h3 style="font-size:19px" data-y="y6">Sticker ve etiket baskı + kesim</h3><p class="muted" style="font-size:15px" data-y="y7">Oracal folyo · baskı ve kesim fiyata dahil · asgari {{asgari}} ₺ + KDV</p><p class="price" style="margin-top:auto">{{sticker+kdv}} ₺ / m² <small>KDV dahil · {{sticker}} ₺ + KDV</small></p><a href="/sticker-baski/" class="btn sm">Fiyat hesapla</a></div></article>
-<article class="card"><img src="/img/branda-afis.webp" alt="Branda ve afiş baskı" loading="lazy" style="height:220px;object-fit:cover;width:100%" data-g="g6"><div class="in"><h3 style="font-size:19px" data-y="y8">Branda afiş baskı</h3><p class="muted" style="font-size:15px" data-y="y9">Avrupa ithal 400 gr dökme · dış mekan</p><p class="price" style="margin-top:auto">{{branda_beyaz+kdv}} ₺ / m² <small>KDV dahil · {{branda_beyaz}} ₺ + KDV'den</small></p><a href="/branda-baski/" class="btn sm">Fiyat hesapla</a></div></article>
-<article class="card"><img src="/img/one-way.webp" alt="Delikli one way vision cam folyosu" loading="lazy" style="height:220px;object-fit:cover;width:100%" data-g="g7"><div class="in"><h3 style="font-size:19px" data-y="y10">One way vision cam folyosu</h3><p class="muted" style="font-size:15px" data-y="y11">Delikli folyo · içeriden dışarısı görünür</p><p class="price" style="margin-top:auto">{{owv+kdv}} ₺ / m² <small>KDV dahil · {{owv}} ₺ + KDV</small></p><a href="/one-way-vision/" class="btn sm">Fiyat hesapla</a></div></article>
+<div class="shead"><div><span class="eyebrow">Fiyatı belli, hemen sipariş verin</span><h2 class="h2" style="font-size:40px;margin-top:12px" data-y="y2">Öne çıkan ürünlerimiz</h2></div></div>
+<div class="grid g4">
 <article class="card"><img src="/img/takvim-cerceve.webp" alt="Çerçeveli 2027 ajanda takvim" loading="lazy" style="height:220px;object-fit:cover;width:100%" data-g="g8"><div class="in"><span class="tag">Sezon ürünü</span><h3 style="font-size:19px" data-y="y12">2027 ajanda takvim poster</h3><p class="muted" style="font-size:15px" data-y="y13">70×100 cm · 12 renk · çerçeveli seçenek 61×91 cm</p><p class="price" style="margin-top:auto">Poster {{takvim}} ₺ · Çerçeveli {{takvim_cerceveli}} ₺ <small>KDV dahil</small></p><a href="/2027-ajanda-takvim/" class="btn sm ghost">İncele ve sipariş ver</a></div></article>
+<article class="card"><img src="/img/rollup-urun.webp" alt="85×200 cm roll-up banner" loading="lazy" style="height:220px;object-fit:cover;width:100%"><div class="in"><span class="tag">Hazır ürün</span><h3 style="font-size:19px">Roll-up banner</h3><p class="muted" style="font-size:15px">85×200 cm · 400 gr Avrupa dökme branda baskı, mekanizma ve taşıma çantası dahil</p><p class="price" style="margin-top:auto">{{rollup+kdv}} ₺ <small>KDV dahil · {{rollup}} ₺ + KDV</small></p><a href="/roll-up-baski/" class="btn sm">Sipariş talebi oluştur</a></div></article>
 </div>
-<p class="note" style="margin-top:20px" data-y="y14">Fiyatlar KDV dahil gösterilir, KDV hariç tutar yanında yazar. Tasarım, montaj ve kargo fiyatlara dahil değildir. Kargo ücreti alıcıya aittir; {{kargo_esik}} ₺ + KDV üzeri siparişlerde kargo bizden (roll-up, foreks ve fotoblok hariç). Kadıköy'deki atölyemizden teslim alabilirsiniz. Sitedeki hesaplamalar ön fiyattır; kesin fiyatı dosya kontrolünden sonra biz iletiriz.</p>
+<p class="note" style="margin-top:20px">Fiyatlar KDV dahil gösterilir, KDV hariç tutar yanında yazar. Kargo ücreti alıcıya aittir; {{kargo_esik}} ₺ + KDV üzeri siparişlerde kargo bizden (roll-up hariç). Kadıköy'deki atölyemizden teslim alabilirsiniz.</p>
 </section>
 
 <section id="hizmetler" class="wrap sec">

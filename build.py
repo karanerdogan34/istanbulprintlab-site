@@ -48,6 +48,48 @@ def projeler_html():
     return '\n' + '\n'.join(out) + '\n'
 
 
+# ---------- anasayfa ürün düğmeleri (sipariş sayfalarının fiyat dosyasından) ----------
+DUGMELER = [  # (sipariş ürün kodu, sitedeki sayfa, düğme adı)
+    ('folyo-baski', '/folyo-baski/', 'Folyo baskı'), ('branda-baski', '/branda-baski/', 'Branda baskı'),
+    ('sticker-etiket-baski', '/sticker-baski/', 'Sticker / etiket'), ('one-way-vision-baski', '/one-way-vision/', 'One way vision'),
+    ('folyo-yazi-kesim', '/folyo-yazi-kesim/', 'Folyo yazı kesim'), ('foreks-baski', '/foreks-baski/', 'Foreks baskı'),
+    ('fotoblok-baski', '/fotoblok-baski/', 'Fotoblok baskı'), ('afis-baski', '/afis-baski/', 'Afiş baskı'),
+    ('kartvizit-baski', '/kartvizit-baski/', 'Kartvizit'), ('poster-baski', '/poster-baski/', 'Poster baskı'),
+    ('mesh-baski', '/mesh-branda/', 'Mesh baskı'), ('soguk-dtf-baski', '/soguk-dtf-baski/', 'Soğuk DTF'),
+    ('sicak-dtf-baski', '/sicak-dtf-baski/', 'Sıcak DTF'), ('duvar-kagidi-baski', '/duvar-kagidi-baski/', 'Duvar kağıdı'),
+    ('davetiye-baski', '/davetiye-baski/', 'Davetiye')]
+
+
+def _tl(n):
+    return '{:,}'.format(int(n)).replace(',', '.') + ' ₺'
+
+
+def baslangic_fiyati(u):
+    t = u['tur']
+    if t in ('rulo', 'duvar'):
+        f = [m['m2'] for m in u.get('malzemeler', []) if isinstance(m.get('m2'), (int, float)) and m['m2'] > 0]
+        birim = '/ m²'
+        if not f:
+            return ''
+        return '%s + KDV %s%s' % (_tl(min(f)), birim, "'den" if len(set(f)) > 1 else '')
+    if t == 'yazi':
+        return '%s + KDV / m²\'den' % _tl(min(k['m2'] for k in u['kademeler']))
+    if t == 'dtf':
+        return ('%s + KDV / metre' % _tl(u['metre_fiyat'])) if u.get('metre_fiyat') else ('%s + KDV / tabaka' % _tl(u['tabaka']['fiyat']))
+    if t in ('kartvizit', 'davetiye'):
+        p = u['paketler'][0]
+        return '%s + KDV\'den' % _tl(min(v for k, v in p.items() if k in ('tek', 'cift')))
+    return ''
+
+
+def urun_dugmeleri_html():
+    F = js('siparis/src/fiyatlar.json')['urunler']
+    out = []
+    for kod, yol, ad in DUGMELER:
+        out.append('<a class="pbtn" href="%s"><b>%s</b><small>%s</small></a>' % (yol, E(ad), E(baslangic_fiyati(F[kod]))))
+    return '\n' + '\n'.join(out) + '\n'
+
+
 # ---------- fiyatlar ----------
 TOK = re.compile(r'\{\{([a-z0-9_]+)(?:\*([\d.]+))?(\+kdv|:ham)?\}\}')
 HER_TOK = re.compile(r'\{\{[^{}]{0,40}\}\}')
@@ -234,6 +276,7 @@ def main():
     p = '%s/index.html' % DIST
     s = S.uygula_ana(oku(p), js('content/anasayfa.json'))
     s = re.sub(r'<!--PROJELER-->.*?<!--/PROJELER-->', lambda m: '<!--PROJELER-->' + projeler_html() + '<!--/PROJELER-->', s, flags=re.S)
+    s = re.sub(r'<!--URUN_DUGMELERI-->.*?<!--/URUN_DUGMELERI-->', lambda m: '<!--URUN_DUGMELERI-->' + urun_dugmeleri_html() + '<!--/URUN_DUGMELERI-->', s, flags=re.S)
     yaz(p, s)
     vakalar()
     # fiyat ve iletişim — bütün sayfalara
