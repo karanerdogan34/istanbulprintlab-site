@@ -853,42 +853,42 @@
     {
      "kod": "nonwoven-dokulu",
      "ad": "Non-woven, dokulu vinil (240 gr)",
-     "m2": 378,
+     "m2": 605,
      "serit_en": 105,
      "not": "Kum veya keten dokulu vinil yüzey, non-woven taban. Tutkalla uygulanır; tutkal duvara sürülür."
     },
     {
      "kod": "nonwoven-premium",
      "ad": "Non-woven premium, sedir dokulu (280 gr)",
-     "m2": 570,
+     "m2": 912,
      "serit_en": 104,
      "not": "Daha kalın, belirgin dokulu vinil yüzey, non-woven taban. Tutkalla uygulanır."
     },
     {
      "kod": "tekstil",
      "ad": "Tekstil tabanlı (400 gr)",
-     "m2": 990,
+     "m2": 1584,
      "serit_en": 138,
      "not": "Kumaş dokulu, yırtılmaya dayanıklı kalın yüzey. Tutkalla uygulanır; geniş rulo sayesinde daha az ek yeri."
     },
     {
      "kod": "yapiskanli-duz",
      "ad": "Kendinden yapışkanlı, PVC içermeyen",
-     "m2": 789,
+     "m2": 1262,
      "serit_en": 135,
      "not": "Tutkal gerekmez; arka kağıdı soyularak düz ve temiz duvara yapıştırılır."
     },
     {
      "kod": "yapiskanli-kumas",
      "ad": "Kendinden yapışkanlı kumaş (350 gr)",
-     "m2": 1098,
+     "m2": 1757,
      "serit_en": 128,
      "not": "Kumaş dokulu yüzey; tutkal gerekmez."
     },
     {
      "kod": "yapiskanli-dokulu",
      "ad": "Kendinden yapışkanlı premium dokulu",
-     "m2": 1905,
+     "m2": 3048,
      "serit_en": 135,
      "not": "Dokulu premium yüzey; tutkal gerekmez."
     },
