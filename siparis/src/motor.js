@@ -3,7 +3,7 @@
 (function (kok) {
   'use strict';
 
-  function yuvarla(x) { return Math.round(x * 100) / 100; }
+  function yuvarla(x) { var v = Number(Math.abs(x).toFixed(6)); var r = Number(Math.round(Number(v + 'e2')) + 'e-2'); return x < 0 ? -r : r; } // kuruşta yarım yukarı
 
   function sayi(v) {
     if (typeof v === 'number') return v;
@@ -42,9 +42,9 @@
 
     var m2Parca = en * boy / 10000;
     var m2 = m2Parca * adet;
-    var baski = m2 * malz.m2;
-    var tamamlama = baski < genel.asgari_baski ? genel.asgari_baski - baski : 0;
-    var lamBedel = (cfg.laminasyon && lam !== 'yok') ? m2 * malz.m2 * (cfg.laminasyon.carpan - 1) : 0;
+    var baski = yuvarla(m2 * malz.m2);
+    var tamamlama = baski < genel.asgari_baski ? yuvarla(genel.asgari_baski - baski) : 0;
+    var lamBedel = (cfg.laminasyon && lam !== 'yok') ? yuvarla(m2 * malz.m2 * (cfg.laminasyon.carpan - 1)) : 0;
     var kgAdet = 0, kgBedel = 0;
     if (cfg.kusgozu) {
       kgAdet = sayi(g.kusgozu || 0);
@@ -52,9 +52,9 @@
       if (kgAdet > 0 && kgAdet < 4) return {durum: 'hata', hatalar: [{alan: 'kusgozu', mesaj: 'Kuşgözü en az 4 adet olmalı (her köşeye bir tane), ya da 0 yazın.'}]};
       kgBedel = kgAdet * adet * cfg.kusgozu.fiyat;
     }
-    var araToplam = baski + tamamlama + lamBedel + kgBedel;
+    var araToplam = yuvarla(baski + tamamlama + lamBedel + kgBedel);
     var kmax = ('kargo_max_m2' in malz) ? malz.kargo_max_m2 : cfg.kargo_max_m2;
-    var kdv = araToplam * genel.kdv_orani;
+    var kdv = yuvarla(araToplam * genel.kdv_orani);
     return {
       durum: 'tamam',
       uyarilar: uyarilar,
@@ -120,9 +120,9 @@
     for (var k = 0; k < cfg.kademeler.length; k++) if (harf >= cfg.kademeler[k].min_harf) { kademe = cfg.kademeler[k]; break; }
     if (!kademe) return {durum: 'teklif', mesaj: cfg.kademeler[cfg.kademeler.length - 1].min_harf + ' cm\'den küçük harfler standart fiyatlandırmanın dışındadır. Bu iş için teklif alın.', uyarilar: []};
     var m2 = en * boy / 10000 * adet;
-    var baski = m2 * kademe.m2;
-    var tamamlama = baski < genel.asgari_baski ? genel.asgari_baski - baski : 0;
-    var araToplam = baski + tamamlama, kdv = araToplam * genel.kdv_orani;
+    var baski = yuvarla(m2 * kademe.m2);
+    var tamamlama = baski < genel.asgari_baski ? yuvarla(genel.asgari_baski - baski) : 0;
+    var araToplam = yuvarla(baski + tamamlama), kdv = yuvarla(araToplam * genel.kdv_orani);
     return {
       durum: 'tamam', uyarilar: [],
       kalemler: {m2: yuvarla(m2), birimM2: kademe.m2, kademe: kademe.ad, baski: yuvarla(baski), asgariFarki: yuvarla(tamamlama), laminasyon: 0, kusgozu: 0, renk: renk.ad},

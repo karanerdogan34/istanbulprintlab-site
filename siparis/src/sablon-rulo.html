@@ -283,12 +283,17 @@ function ciz(){
   $('dosyaSonuc').innerHTML = dh;
 
   // devam butonu
-  var hazir = r.durum==='tamam' && dosya && d && (d.sonuc==='uygun' || d.sonuc==='inceleme') && $('onay').checked;
+  var ozelTes = C.teslimat && document.querySelector('input[name=teslim]:checked').value==='ozel';
+  if (ozelTes && r.durum==='tamam') {
+    var wtxt = encodeURIComponent('Merhaba, '+C.ad+' için özel teslimat fiyatı almak istiyorum: '+(mz?mz.ad+', ':'')+g.en+' × '+g.boy+' cm, '+g.adet+' adet. Teslimat adresi: ');
+    $('ozetIc').innerHTML += '<div class="msg warn">Özel teslimat bedeli siparişten önce size bildirilir. Teslimat teklifi almak için WhatsApp\'tan yazın; teklifi onayladığınızda ödeme bağlantısı iletilir.</div><a class="btn ghost" href="'+WA+wtxt+'" target="_blank" rel="noopener">Özel teslimat teklifi iste</a>';
+  }
+  var hazir = !ozelTes && r.durum==='tamam' && dosya && d && (d.sonuc==='uygun' || d.sonuc==='inceleme') && $('onay').checked;
   $('devam').disabled = !hazir;
-  $('devam').style.display = r.durum==='teklif' ? 'none' : '';
+  $('devam').style.display = (r.durum==='teklif' || ozelTes) ? 'none' : '';
   var neden = r.durum!=='tamam' ? 'Ölçüyü girin.' : !dosya ? 'Baskı dosyanızı yükleyin.' : (d.sonuc==='uygun-degil' ? 'Dosya baskıya uygun değil.' : (!$('onay').checked ? 'Onay kutusunu işaretleyin.' : 'Hazır.'));
   $('devamNot').textContent = hazir ? (d.sonuc==='inceleme' ? 'Dosyanız operatör kontrolüne alınacak; kontrol tamamlanmadan üretim başlamaz.' : 'Dosyanız ve seçimleriniz siparişe sabitlenir.') : neden;
-  $('devamNot').style.display = r.durum==='teklif' ? 'none' : '';
+  $('devamNot').style.display = (r.durum==='teklif' || ozelTes) ? 'none' : '';
 }
 
 function dosyaAl(file){
