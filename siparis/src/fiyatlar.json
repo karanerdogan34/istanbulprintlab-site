@@ -715,7 +715,7 @@
         },
         {
           "b": "Çerçeveli poster",
-          "m": "Çerçeveli posterler 21 × 30, 30 × 40, 40 × 50, 50 × 70 ve 61 × 91 cm ölçülerinde; siyah, beyaz veya meşe renk çerçeveyle hazırlanır. Çerçeve pleksi ön yüz, arkalık ve askı aparatıyla, korumalı ambalajda gönderilir. Poster seçtiğiniz çerçeve ölçüsünde basılır; çerçeve kenarı görselin her kenarından birkaç milimetreyi kapatır, önemli öğeleri kenarlara çok yakın koymayın. Çerçeve bedeli baskıya ek olarak hesaplanır."
+          "m": "Çerçeveli posterler 21 × 30, 30 × 40, 40 × 50, 50 × 70 ve 61 × 91 cm ölçülerinde; siyah, beyaz veya meşe renk çerçeveyle hazırlanır. Çerçeve pleksi ön yüz, arkalık ve askı aparatıyla, korumalı ambalajda gönderilir. Poster seçtiğiniz çerçeve ölçüsünde basılır; çerçeve kenarı görselin her kenarından birkaç milimetreyi kapatır, önemli öğeleri kenarlara çok yakın koymayın. Çerçeve bedeli baskıya ek olarak hesaplanır; çerçeveli siparişlerde 999 ₺ asgari tutar baskı ve çerçeve toplamına uygulanır."
         },
         {
           "b": "Kendi ölçünüz",
@@ -748,21 +748,21 @@
         }
       ],
       "olcu": "85 × 55 mm",
-      "kagit": "350 gr mat kuşe, selefonlu",
-      "aciklama": "350 gr mat kuşe, selefonlu kartvizit. Hazır şablonlardan birini seçip bilgilerinizi yazın ya da kurumsal tasarımınızı PDF olarak yükleyin; fiyat anında ekranda.",
+      "kagit": "350 gr mat kuşe, mat veya parlak selefonlu",
+      "aciklama": "350 gr mat kuşe, mat veya parlak selefonlu kartvizit. Hazır şablonlardan birini seçip bilgilerinizi yazın ya da kurumsal tasarımınızı PDF olarak yükleyin; fiyat anında ekranda.",
       "chips": [
         "350 gr mat kuşe",
-        "Selefon dahil",
+        "Mat veya parlak selefon dahil",
         "85 × 55 mm"
       ],
       "bilgi": [
         {
           "b": "Kağıt ve selefon",
-          "m": "Kartvizitler 350 gr mat kuşe kağıda basılır; selefon (laminasyon) fiyata dahildir. Standart ölçü 85 × 55 mm'dir."
+          "m": "Kartvizitler 350 gr mat kuşe kağıda basılır; mat veya parlak selefon (laminasyon) fiyata dahildir. Standart ölçü 85 × 55 mm'dir."
         },
         {
           "b": "Kurumsal tasarımınız varsa",
-          "m": "Hazır kurumsal kartvizitinizi PDF olarak yükleyin: dosya ölçüsü 89 × 59 mm (85 × 55 mm + her kenarda 2 mm taşma), önemli yazılar kesim çizgisinden en az 3 mm içeride, yazılar konturda. Çift yönde 1. sayfa ön yüz, 2. sayfa arka yüz olmalıdır."
+          "m": "Hazır kurumsal kartvizitinizi PDF olarak yükleyin: dosya ölçüsü 91 × 61 mm (85 × 55 mm + her kenarda 3 mm taşma), önemli yazılar kesim çizgisinden en az 3 mm içeride, yazılar konturda. Çift yönde 1. sayfa ön yüz, 2. sayfa arka yüz olmalıdır."
         },
         {
           "b": "Hangi işler teklifle?",

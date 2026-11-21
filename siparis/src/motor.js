@@ -53,7 +53,8 @@
     var m2Parca = en * boy / 10000;
     var m2 = m2Parca * adet;
     var baski = yuvarla(m2 * malz.m2);
-    var tamamlama = baski < genel.asgari_baski ? yuvarla(genel.asgari_baski - baski) : 0;
+    var cerOn = cer ? yuvarla(cer.fiyat * adet) : 0; // çerçeveli posterde asgari tutar, baskı + çerçeve toplamına bakar
+    var tamamlama = (baski + cerOn) < genel.asgari_baski ? yuvarla(genel.asgari_baski - baski - cerOn) : 0;
     var lamBedel = (cfg.laminasyon && lam !== 'yok') ? yuvarla(m2 * malz.m2 * (cfg.laminasyon.carpan - 1)) : 0;
     var kgAdet = 0, kgBedel = 0;
     if (cfg.kusgozu) {
@@ -62,7 +63,7 @@
       if (kgAdet > 0 && kgAdet < 4) return {durum: 'hata', hatalar: [{alan: 'kusgozu', mesaj: 'Kuşgözü en az 4 adet olmalı (her köşeye bir tane), ya da 0 yazın.'}]};
       kgBedel = kgAdet * adet * cfg.kusgozu.fiyat;
     }
-    var cerBedel = cer ? yuvarla(cer.fiyat * adet) : 0;
+    var cerBedel = cerOn;
     var araToplam = yuvarla(baski + tamamlama + lamBedel + kgBedel + cerBedel);
     var kmax = ('kargo_max_m2' in malz) ? malz.kargo_max_m2 : cfg.kargo_max_m2;
     var kdv = yuvarla(araToplam * genel.kdv_orani);
