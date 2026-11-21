@@ -4,8 +4,10 @@
 (function (kok) {
   'use strict';
   var BIRIM = 72 / 25.4 / 10;           // 1 şablon birimi = 0,1 mm → pt
-  var TASMA = 30, W = 850, H = 550;      // 3 mm taşma
-  var PW = (W + 2 * TASMA) * BIRIM, PH = (H + 2 * TASMA) * BIRIM, TB = TASMA * BIRIM;
+  var TASMA = 30;                        // 3 mm taşma
+  var W = 850, H = 550, PW, PH, TB;      // sayfa ölçüsü her üretimde ayarlanır (kartvizit 85×55, davetiye 130×180 mm vb.)
+  function olcuAyarla(w, h) { W = w; H = h; PW = (W + 2 * TASMA) * BIRIM; PH = (H + 2 * TASMA) * BIRIM; TB = TASMA * BIRIM; }
+  olcuAyarla(850, 550);
 
   // Palet renklerinin baskı (CMYK) karşılıkları; 0–1 aralığında
   var CMYK = {
@@ -110,7 +112,8 @@
   }
 
   // Bir yüzü (SVG metni) PDF içerik akışına çevirir
-  function yuzCiz(svgMetni, fontlar, logo, eksik) {
+  function aileAdi(s) { var f = (s['font-family'] || '').split(',')[0].replace(/['"]/g, '').trim(); return f; }
+  function yuzCiz(svgMetni, fontlar, varsayilan, logo, eksik) {
     var doc = new DOMParser().parseFromString(svgMetni, 'image/svg+xml'), kokEl = doc.documentElement;
     var parca = ['q', [BIRIM, 0, 0, -BIRIM, TB, PH - TB].map(n).join(' ') + ' cm'], zemin = [0, 0, 0, 0], ilkRect = true, logoVar = false;
     Array.prototype.forEach.call(kokEl.querySelectorAll('rect,circle,path,text,image'), function (el) {
@@ -121,6 +124,7 @@
         var x = sayi(el.getAttribute('x'), 0), y = sayi(el.getAttribute('y'), 0), w = sayi(el.getAttribute('width'), 0), h = sayi(el.getAttribute('height'), 0);
         if (ilkRect && dolgu) { zemin = dolgu; ilkRect = false; }
         if (dolgu) parca.push(renkKomut(dolgu) + '\n' + [x, y, w, h].map(n).join(' ') + ' re f');
+        if (s.stroke && s.stroke !== 'none') parca.push(renkKomut(cmyk(s.stroke), true) + ' ' + n(sayi(s['stroke-width'], 1)) + ' w\n' + [x, y, w, h].map(n).join(' ') + ' re S');
       } else if (tag === 'circle') {
         var yol = daire(sayi(el.getAttribute('cx'), 0), sayi(el.getAttribute('cy'), 0), sayi(el.getAttribute('r'), 0));
         if (dolgu) parca.push(renkKomut(dolgu) + '\n' + yol + '\nf');
@@ -129,7 +133,7 @@
         if (dolgu) parca.push(renkKomut(dolgu) + '\n' + svgYol(el.getAttribute('d')) + '\nf');
       } else if (tag === 'text') {
         var metin = el.textContent; if (!metin || !dolgu) return;
-        var kalin = sayi(s['font-weight'], 400) >= 600, font = fontlar[kalin ? 1 : 0], boyut = sayi(s['font-size'], 16);
+        var kalin = sayi(s['font-weight'], 400) >= 600, aile = fontlar[aileAdi(s)] || fontlar[varsayilan], font = aile[kalin ? 1 : 0], boyut = sayi(s['font-size'], 16);
         Array.from(metin).forEach(function (ch) { if (ch.trim() && font.charToGlyph(ch).index === 0 && eksik.indexOf(ch) < 0) eksik.push(ch); });
         var gen = font.getAdvanceWidth(metin, boyut, {kerning: true}), tx = sayi(el.getAttribute('x'), 0), ty = sayi(el.getAttribute('y'), 0);
         if (s['text-anchor'] === 'middle') tx -= gen / 2; else if (s['text-anchor'] === 'end') tx -= gen;
@@ -166,7 +170,7 @@
     });
     nesneler[katalog - 1] = {d: '<< /Type /Catalog /Pages ' + sayfalar + ' 0 R >>'};
     nesneler[sayfalar - 1] = {d: '<< /Type /Pages /Kids [' + cocuklar.join(' ') + '] /Count ' + cocuklar.length + ' >>'};
-    nesneler[bilgi - 1] = {d: '<< /Title (IstanbulPrintLab kartvizit baski dosyasi 85x55 mm + 3 mm tasma) /Producer (IstanbulPrintLab) >>'};
+    nesneler[bilgi - 1] = {d: '<< /Title (IstanbulPrintLab baski dosyasi ' + (W / 10) + 'x' + (H / 10) + ' mm + 3 mm tasma) /Producer (IstanbulPrintLab) >>'};
     ekle('%PDF-1.4\n'); ekle(new Uint8Array([37, 226, 227, 207, 211, 10]));
     nesneler.forEach(function (o, i) {
       ofset[i] = boy; ekle((i + 1) + ' 0 obj\n' + o.d + '\n');
@@ -179,17 +183,26 @@
     return new Blob(parcalar, {type: 'application/pdf'});
   }
 
-  // secenek: {yuzler: [svg metni, ...], font: 'Montserrat', yol: 'fontlar/', logo: dataURL|null}
+  // secenek: {yuzler: [svg metni, ...], font: 'Montserrat' (varsayılan), yol: 'fontlar/', logo: dataURL|null, olcu: {w, h} (0,1 mm birim, kesim ölçüsü)}
+  // Yazıların font ailesi SVG'deki font-family'den okunur; sayfada geçen her aile yüklenir.
   function olustur(secenek) {
-    var yol = secenek.yol || 'fontlar/', ad = secenek.font.replace(/\s/g, '');
+    var yol = secenek.yol || 'fontlar/';
+    olcuAyarla(secenek.olcu ? secenek.olcu.w : 850, secenek.olcu ? secenek.olcu.h : 550);
+    var aileler = [secenek.font];
+    secenek.yuzler.forEach(function (sv) { (sv.match(/font-family:'([^']+)'/g) || []).forEach(function (m) { var a = m.slice(13, -1); if (aileler.indexOf(a) < 0) aileler.push(a); }); });
     return scriptYukle(yol + 'opentype.min.js').then(function () {
-      return Promise.all([fontYukle(yol, ad + '-400.woff'), fontYukle(yol, ad + '-700.woff'), secenek.logo ? logoHazirla(secenek.logo) : null]);
+      var isler = [];
+      aileler.forEach(function (a) { var d = a.replace(/\s/g, ''); isler.push(fontYukle(yol, d + '-400.woff'), fontYukle(yol, d + '-700.woff')); });
+      isler.push(secenek.logo ? logoHazirla(secenek.logo) : null);
+      return Promise.all(isler);
     }).then(function (r) {
-      var eksik = [], yuzler = secenek.yuzler.map(function (s) { return yuzCiz(s, [r[0], r[1]], r[2], eksik); });
+      var fontlar = {}; aileler.forEach(function (a, i) { fontlar[a] = [r[2 * i], r[2 * i + 1]]; });
+      var logo = r[r.length - 1];
+      var eksik = [], yuzler = secenek.yuzler.map(function (s) { return yuzCiz(s, fontlar, secenek.font, logo, eksik); });
       if (eksik.length) return {blob: null, eksik: eksik};
-      return {blob: pdfYaz(yuzler, r[2]), eksik: []};
+      return {blob: pdfYaz(yuzler, logo), eksik: []};
     });
   }
 
-  kok.IPLKartvizitPDF = {olustur: olustur, olcu: {genislikMm: 91, yukseklikMm: 61, kesimMm: [85, 55], tasmaMm: 3}};
+  kok.IPLKartvizitPDF = {olustur: olustur, tasmaMm: 3};
 })(typeof self !== 'undefined' ? self : this);

@@ -980,6 +980,63 @@
    },
    "kargo_hep_alici": true,
    "kargo_metni": "Duvar kağıdı siparişlerinde kargo ücreti, sipariş tutarından bağımsız olarak alıcıya aittir. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz."
+  },
+  "davetiye-baski": {
+   "ad": "Davetiye Baskı",
+   "tur": "davetiye",
+   "olcu": {
+    "en": 130,
+    "boy": 180
+   },
+   "uretim_is_gunu": 3,
+   "kargo_is_gunu": 2,
+   "paketler": [
+    {
+     "adet": 50,
+     "tek": 2199,
+     "cift": 2599
+    },
+    {
+     "adet": 100,
+     "tek": 2800,
+     "cift": 3299
+    },
+    {
+     "adet": 200,
+     "tek": 3800,
+     "cift": 4499
+    },
+    {
+     "adet": 300,
+     "tek": 4500,
+     "cift": 5299
+    }
+   ],
+   "aciklama": "Düğün, nişan, kına, sünnet, doğum günü ve kurumsal etkinlikler için 13 × 18 cm davetiye. Şablonu seçin, bilgilerinizi yazın; önizleme ve fiyat anında ekranda. Zarf dahildir.",
+   "chips": [
+    "13 × 18 cm",
+    "350 gr mat kuşe, selefonlu",
+    "Zarf dahil",
+    "3 iş gününde kargoda"
+   ],
+   "bilgi": [
+    {
+     "b": "Kağıt ve zarf",
+     "m": "Davetiyeler 350 gr mat kuşe kartona basılır ve mat ya da parlak selefonla kaplanır; kalın ve sağlam durur. Her davetiye için bir zarf fiyata dahildir."
+    },
+    {
+     "b": "Ne zaman teslim edilir?",
+     "m": "Davetiyeler sipariş ve onaydan sonra 3 iş gününde kargoya verilir; kargo genellikle 1–2 iş günü sürer. Etkinliğinize az zaman kaldıysa sipariş öncesinde WhatsApp'tan (+90 532 523 73 64) bize yazın."
+    },
+    {
+     "b": "Kendi tasarımınız mı var?",
+     "m": "PDF dosyası yükleyebilirsiniz: 136 × 186 mm (130 × 180 mm + her kenarda 3 mm taşma), yazılar konturlu. Önemli yazıları kesim çizgisinden en az 5 mm içeride tutun. Çift yönde 1. sayfa ön yüz, 2. sayfa arka yüzdür."
+    },
+    {
+     "b": "Özel davetiyeler",
+     "m": "Farklı ölçü, dokulu, sedefli veya kraft kağıt, yaldız, katlamalı ve özel kesimli davetiyeler teklifle fiyatlandırılır. WhatsApp'tan bize yazın."
+    }
+   ]
   }
  }
 }

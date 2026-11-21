@@ -240,7 +240,7 @@
     if (cfg.tur === 'rulo' && cfg.kesim) return kesimHesapla(cfg, fiyatlar.genel, girdi);
     if (cfg.tur === 'rulo') return ruloHesapla(cfg, fiyatlar.genel, girdi);
     if (cfg.tur === 'yazi') return yaziHesapla(cfg, fiyatlar.genel, girdi);
-    if (cfg.tur === 'kartvizit') return adetliHesapla(cfg, fiyatlar.genel, girdi);
+    if (cfg.tur === 'kartvizit' || cfg.tur === 'davetiye') return adetliHesapla(cfg, fiyatlar.genel, girdi);
     if (cfg.tur === 'dtf') return dtfHesapla(cfg, fiyatlar.genel, girdi);
     if (cfg.tur === 'duvar') return duvarHesapla(cfg, fiyatlar.genel, girdi);
     return {durum: 'hata', hatalar: [{alan: 'urun', mesaj: 'Bu ürün türü henüz tanımlı değil.'}]};
