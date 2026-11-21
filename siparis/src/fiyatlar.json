@@ -295,8 +295,9 @@
         },
         {
           "kod": "diger",
-          "ad": "Diğer renk (WhatsApp'tan belirtin)",
-          "hex": "conic"
+          "ad": "Diğer renk",
+          "hex": "conic",
+          "teklif": true
         },
         {
           "kod": "gold",
@@ -321,7 +322,7 @@
         "Poppins",
         "Raleway",
         "Archivo Black",
-        "Playfair Display"
+        "Barlow"
       ],
       "aciklama": "Vitrin, cam, kapı, araç ve tabela yazıları için renkli kesim folyosundan yazı ve düz logo kesimi. Transfer bandı dahil, uygulamaya hazır teslim. Yazınızı sitede yazın ya da kesim dosyanızı yükleyin.",
       "chips": [

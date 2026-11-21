@@ -109,7 +109,7 @@
     if (!renk) hatalar.push({alan: 'renk', mesaj: 'Renk seçin.'});
     if (hatalar.length) return {durum: 'hata', hatalar: hatalar};
     if (harf > boy) return {durum: 'hata', hatalar: [{alan: 'harf', mesaj: 'Harf yüksekliği yazının toplam yüksekliğinden büyük olamaz.'}]};
-    if (renk.teklif) return {durum: 'teklif', mesaj: renk.ad + ' kesim folyosu standart fiyatlandırmanın dışındadır. Bu iş için teklif alın.', uyarilar: []};
+    if (renk.teklif) return {durum: 'teklif', mesaj: (renk.kod === 'diger' ? 'Listede olmayan renkler stok durumuna göre fiyatlandırılır. İstediğiniz rengi belirterek teklif alın.' : renk.ad + ' kesim folyosu standart fiyatlandırmanın dışındadır. Bu iş için teklif alın.'), uyarilar: []};
     if (g.stil === 'el') return {durum: 'teklif', mesaj: 'El yazısı, ince ve birbirine bağlı hatlar ile girift logolar ayrıca fiyatlandırılır. Bu iş için teklif alın.', uyarilar: []};
     var kisa = Math.min(en, boy), uzun = Math.max(en, boy);
     if (kisa > cfg.max_en) return {durum: 'teklif', mesaj: cfg.max_en + ' cm\'yi aşan işler renkli kesim folyosuyla tek parça üretilemez; bu iş baskes (baskı + kesim) olmak zorundadır. Bu iş için teklif alın.', uyarilar: []};

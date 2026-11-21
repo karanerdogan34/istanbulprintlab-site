@@ -7,7 +7,7 @@
 <title>__BASLIK__ — Sipariş | IstanbulPrintLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Mono:wght@400;500&family=Jost:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto:wght@500&family=Open+Sans:wght@600&family=Oswald:wght@500&family=Bebas+Neue&family=Anton&family=Poppins:wght@600&family=Raleway:wght@600&family=Archivo+Black&family=Playfair+Display:wght@600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto:wght@500&family=Open+Sans:wght@600&family=Oswald:wght@500&family=Bebas+Neue&family=Anton&family=Poppins:wght@600&family=Raleway:wght@600&family=Archivo+Black&family=Barlow:wght@600&display=swap">
 <style>
 __CSS__
 .fonts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
@@ -101,7 +101,7 @@ textarea.yazi:focus{outline:none;border-color:var(--ink)}
    <div id="ozetIc"></div>
    <button class="btn" id="devam" type="button" disabled>Ödemeye geç</button>
    <p class="small" id="devamNot"></p>
-   <p class="small">Fiyatlara transfer bandı dahildir; uygulama (montaj) dahil değildir. __KARGO_METNI__</p>
+   <p class="small">Her iş kesimden önce operatörümüz tarafından kontrol edilir. Fiyatlara transfer bandı dahildir; uygulama (montaj) dahil değildir. __KARGO_METNI__</p>
   </aside>
  </div>
 </main>
@@ -228,6 +228,7 @@ function ciz(){
     h += '<div class="line"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
     h += '<div class="line big"><span>Toplam</span><span>'+tl(r.toplam)+'</span></div>';
     h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+(r.kargoUcretsiz?'Ücretsiz':'Alıcı ödemeli')+'</span></div>';
+    if (m==='dosya') h += '<div class="msg warn">Fiyat girdiğiniz ölçülere göre hesaplandı. Operatörümüz dosyanızı kontrol eder; dosyadaki ölçüler farklıysa güncel fiyatı onayınıza sunarız, onayınız olmadan üretime başlanmaz.</div>';
     h += '<p class="small">'+esc(k.kademe)+' fiyatı uygulandı. Alan, yazının toplam genişliği × yüksekliği üzerinden hesaplanır.'+(k.asgariFarki>0?' Asgari sipariş tutarı '+tl0(G.asgari_baski)+' + KDV\'dir.':'')+'</p>';
     $('mTop').textContent = tl(r.toplam);
   }
