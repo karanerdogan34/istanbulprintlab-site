@@ -12,6 +12,16 @@
   ],
   "fotolar": [
     {
+      "gorsel": "/img/mesh-biekspert-montaj.webp",
+      "aciklama": "Kapalı otoparkta tel çit üzerine mesh branda montajı",
+      "kucuk_aciklama": "Biekspert araç teslim noktası için mesh branda montajı"
+    },
+    {
+      "gorsel": "/img/mesh-biekspert-cit.webp",
+      "aciklama": "Tel çite gerilmiş baskılı mesh branda",
+      "kucuk_aciklama": "Tel çit üzerine gerilmiş baskılı mesh branda"
+    },
+    {
       "gorsel": "/img/mesh.webp",
       "aciklama": "Cephede mesh branda"
     }
