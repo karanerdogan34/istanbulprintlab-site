@@ -248,8 +248,8 @@
       "aciklama": "İnşaat çevre paravanlarına proje görselli branda, mesh ve folyo.",
       "etiket": "Teklif ile",
       "baglanti": "/santiye-paravani-giydirme/",
-      "gorsel": "/img/gercek-branda-renev.webp",
-      "gorsel_aciklama": "Şantiye çevre paravanına baskılı branda",
+      "gorsel": "/img/paravan-birgen-aksam.webp",
+      "gorsel_aciklama": "Birgen İnşaat şantiye paravanı giydirmesi",
       "goster": true
     },
     {
@@ -257,8 +257,8 @@
       "aciklama": "Ofis, klinik ve butik mağazalar için kapı ve isim tabelaları.",
       "etiket": "Teklif ile",
       "baglanti": "/pirinc-tabela/",
-      "gorsel": "/img/antre-2.webp",
-      "gorsel_aciklama": "Butik logo tabela",
+      "gorsel": "/img/pirinc-yonlendirme.webp",
+      "gorsel_aciklama": "Pirinç çerçeveli Meeting Room yönlendirme tabelası",
       "goster": true
     },
     {
@@ -266,8 +266,8 @@
       "aciklama": "Kat, oda, WC, otopark ve acil çıkış; foreks, kompozit, akrilik.",
       "etiket": "Teklif ile",
       "baglanti": "/yonlendirme-tabelalari/",
-      "gorsel": "/img/proje-ray.webp",
-      "gorsel_aciklama": "Kurumsal bilgilendirme tabelası",
+      "gorsel": "/img/yon-ferko.webp",
+      "gorsel_aciklama": "Mermer duvarda paslanmaz harfli yönlendirme tabelası",
       "goster": true
     },
     {
