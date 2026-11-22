@@ -89,6 +89,15 @@
     a.target = '_blank'; a.rel = 'noopener';
     document.body.appendChild(a); a.click(); a.remove();
   });
+  // Gömülü hesaplayıcıda WhatsApp/telefon/e-posta tıklamalarını üst sayfaya bildir; üst sayfa Google etiketiyle dönüşüm olarak gönderir
+  if (window.parent !== window && document.documentElement.classList.contains('gomulu')) {
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[href]') : null; if (!a) return;
+      var h = a.getAttribute('href') || '';
+      var ad = /wa\.me|whatsapp/i.test(h) ? 'whatsapp_click' : (/^tel:/i.test(h) ? 'phone_click' : (/^mailto:/i.test(h) ? 'email_click' : null));
+      if (ad) try { window.parent.postMessage({ ipl: 'olay', ad: ad, urun: location.pathname }, location.origin); } catch (x) {}
+    }, true);
+  }
   window.IPLSiparisMesaji = mesaj; // test için
 
   // Sitenin ürün sayfasına gömülüyken yüksekliği üst sayfaya bildir (çerçeve kaydırma çubuğu olmadan uzar)
