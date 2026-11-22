@@ -203,8 +203,8 @@
       "aciklama": "Duvar, kapı, mobilya ve vitrin yüzeylerine baskılı veya renkli folyo.",
       "etiket": "Teklif ile",
       "baglanti": "/folyo-kaplama/",
-      "gorsel": "/img/gercek-folyo-avm-cephe.webp",
-      "gorsel_aciklama": "AVM cephesinde baskılı folyo kaplama",
+      "gorsel": "/img/folyo-emanet-dolabi.webp",
+      "gorsel_aciklama": "Emanet dolabı folyo kaplama ve giydirme",
       "goster": true
     },
     {
@@ -239,8 +239,8 @@
       "aciklama": "Stant panosu, fotoblok, roll-up, branda ve yönlendirme baskıları.",
       "etiket": "Teklif ile",
       "baglanti": "/fuar-projeleri/",
-      "gorsel": "/img/gercek-folyo-olivium.webp",
-      "gorsel_aciklama": "Büyük ölçekli baskı ve montaj",
+      "gorsel": "/img/fuar-milka-stand.webp",
+      "gorsel_aciklama": "Milka için üretilen ışıklı ürün standı",
       "goster": true
     },
     {
