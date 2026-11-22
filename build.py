@@ -422,6 +422,16 @@ def main():
     yaz('%s/fiyatlar.json' % DIST, json.dumps({k: v for k, v in P.items() if k not in ('buyuk_degisiklik_onay', 'buyuk_onay')}, ensure_ascii=False, indent=2))
     import foto_isle
     foto_isle.isle(DIST, YB.RAPOR)
+    # favicon (yeni çerçeveli logo motifi): kendi simgesi olmayan tüm sayfalara eklenir
+    FAV = ('<link rel="icon" href="/favicon.ico" sizes="any">'
+           '<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">'
+           '<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">'
+           '<link rel="apple-touch-icon" href="/apple-touch-icon.png">')
+    for f in glob.glob('%s/**/*.html' % DIST, recursive=True):
+        s = open(f, encoding='utf-8').read()
+        if 'rel="icon"' in s or '</head>' not in s:
+            continue
+        open(f, 'w', encoding='utf-8').write(s.replace('</head>', FAV + '</head>', 1))
     # yönetim uygulaması, değişikliğin sitede yayına girdiğini bu dosyadan anlar
     yaz('%s/yonetim/surum.json' % DIST, json.dumps({'commit': os.environ.get('COMMIT_REF', '')}))
     eksik = ic_baglanti_kontrol()
