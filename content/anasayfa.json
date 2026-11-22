@@ -212,8 +212,8 @@
       "aciklama": "Marka adı, logo ve çalışma saatleri; kesim ve yerinde uygulama.",
       "etiket": "Teklif ile",
       "baglanti": "/cam-yazisi-uygulama/",
-      "gorsel": "/img/folyo-vitrin.webp",
-      "gorsel_aciklama": "Vitrin camında folyo kesim yazı",
+      "gorsel": "/img/cam-yazisi-merhaba.webp",
+      "gorsel_aciklama": "Vitrin camında folyo kesim yazı ve çizimler",
       "goster": true
     },
     {
@@ -275,8 +275,8 @@
       "aciklama": "Mağaza girişi, otel lobisi ve etkinlikler için karşılama panoları.",
       "etiket": "Teklif ile",
       "baglanti": "/ayakli-panolar/",
-      "gorsel": "/img/gercek-fotoblok-atolye.webp",
-      "gorsel_aciklama": "Ayaklı fotoblok pano",
+      "gorsel": "/img/pano-houseofsilk.webp",
+      "gorsel_aciklama": "Mağaza içinde ışıklı ayaklı pano",
       "goster": true
     },
     {
@@ -284,8 +284,8 @@
       "aciklama": "Karakter, maskot ve ürün şeklinde özel kesim figürler.",
       "etiket": "Teklif ile",
       "baglanti": "/dekupe-figur/",
-      "gorsel": "/img/gercek-fotoblok-avm.webp",
-      "gorsel_aciklama": "Dekupe kesim fotoblok figür",
+      "gorsel": "/img/figur-hugoboss.webp",
+      "gorsel_aciklama": "Hugo Boss için özel üretim akrilik figür",
       "goster": true
     },
     {
@@ -293,8 +293,8 @@
       "aciklama": "Cephe kaplama, ışıklı tabela ve büyük ölçekli projeler için Reklamİstanbul.",
       "etiket": "Reklamİstanbul →",
       "baglanti": "https://www.reklamistanbul.com.tr/",
-      "gorsel": "/img/gercek-branda-ozakkaya.webp",
-      "gorsel_aciklama": "Büyük ölçekli cephe uygulaması",
+      "gorsel": "/img/tabela-nayn-davul.webp",
+      "gorsel_aciklama": "Yuvarlak ışıklı davul tabela",
       "goster": true
     }
   ],
