@@ -63,6 +63,7 @@ __CSS__</style>
      <label class="f" id="lBoy"><span id="tBoy">Yükseklik (cm)</span><input id="boy" inputmode="decimal" autocomplete="off" placeholder="ör. 80"></label>
      <label class="f"><span id="tAdet">Adet</span><input id="adet" inputmode="numeric" autocomplete="off" value="1"></label>
     </div>
+    <div class="hizli" id="hizli" hidden></div>
     <div class="err" id="olcuErr"></div>
     <p class="hint" id="olcuNot"></p>
    </section>
@@ -175,7 +176,7 @@ if (C.cerceve) {
   $('cerRenk').innerHTML = C.cerceve.renkler.map(function(r,i){ return '<label class="opt"><input type="radio" name="cerRenk" value="'+r.kod+'"'+(i===0?' checked':'')+'><b><span style="display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid #CFCCC7;background:'+r.hex+';vertical-align:-2px;margin-right:8px"></span>'+r.ad.charAt(0).toUpperCase()+r.ad.slice(1)+'</b></label>'; }).join('');
   function cerOlcuCiz(){
     var cr = document.querySelector('input[name=cerRenk]:checked'), grp = C.cerceve.renkler.filter(function(x){return x.kod===cr.value;})[0].grup;
-    var sec = document.querySelector('input[name=cerOlcu]:checked'), sv = sec ? sec.value : C.cerceve.olculer[3].kod;
+    var sec = document.querySelector('input[name=cerOlcu]:checked'), sv = sec ? sec.value : ((C.cerceve.olculer.filter(function(o){return o.kod==='50x70';})[0]||C.cerceve.olculer[0]).kod);
     $('cerOlcu').innerHTML = C.cerceve.olculer.map(function(o){ return '<label class="opt"><input type="radio" name="cerOlcu" value="'+o.kod+'"'+(o.kod===sv?' checked':'')+'><b>'+o.ad+'</b><small>Çerçeve '+tl0(o.fiyat[grp])+' + KDV</small></label>'; }).join('');
   }
   cerOlcuCiz();
@@ -224,6 +225,23 @@ $('bilgi').innerHTML = (C.bilgi||[]).map(function(b){return '<div><h3>'+esc(b.b)
 var dosya = null; // {ad, tur, px:{w,h}|null, url}
 var son = null;
 
+// Örnek ölçü: alanlar boşken müşteri fiyatı körlemesine aramasın — örneğin tutarı gösterilir, tek dokunuşla uygulanır (alanlar kendiliğinden doldurulmaz)
+var ORNEK = ({'sticker-etiket-baski':{en:'5',boy:'5',adet:'100'}, 'poster-baski':{en:'50',boy:'70',adet:'1'}, 'afis-baski':{en:'70',boy:'100',adet:'1'},
+  'foreks-baski':{en:'70',boy:'100',adet:'1'}, 'fotoblok-baski':{en:'70',boy:'100',adet:'1'}, 'branda-baski':{en:'300',boy:'100',adet:'1'},
+  'mesh-baski':{en:'300',boy:'100',adet:'1'}})[KOD] || {en:'100',boy:'100',adet:'1'};
+function ornekMetni(){ return ORNEK.en+' × '+ORNEK.boy+' cm'+(ORNEK.adet!=='1'?', '+ORNEK.adet+' adet':''); }
+function ornekUygula(){
+  var cv = document.querySelector('input[name=cerVar][value=yok]'); if (cv && !cv.checked) { cv.checked = true; cv.dispatchEvent(new Event('change',{bubbles:true})); }
+  var sk = document.querySelector('input[name=sekil][value=dikdortgen]'); if (sk && !sk.checked) { sk.checked = true; sk.dispatchEvent(new Event('change',{bubbles:true})); }
+  $('en').value = ORNEK.en; $('boy').value = ORNEK.boy; $('adet').value = ORNEK.adet;
+  ciz(); try { $('en').scrollIntoView({block:'center'}); } catch(x){}
+}
+function ornekFiyat(g){
+  var gg = {}; for (var k in g) gg[k] = g[k];
+  gg.en = ORNEK.en; gg.boy = ORNEK.boy; gg.adet = ORNEK.adet; delete gg.cerceve; delete gg.cerceveRenk; if (gg.sekil && gg.sekil!=='dikdortgen') gg.sekil = 'dikdortgen';
+  try { var r = IPLMotor.hesapla(F, KOD, gg); return r.durum==='tamam' ? r.toplam : null; } catch(x) { return null; }
+}
+document.addEventListener('click', function(e){ if (e.target && e.target.closest && e.target.closest('[data-ornek]')) { e.preventDefault(); ornekUygula(); } });
 function girdi(){
   var mz = document.querySelector('input[name=malzeme]:checked');
   var lm = document.querySelector('input[name=lam]:checked');
@@ -249,7 +267,7 @@ function dosyaDurum(){
   var t;
   if (k.sonuc==='uygun') t = 'Çözünürlük ön kontrolünden geçti: '+en+' × '+boy+' cm ölçüde yaklaşık '+k.ppi+' PPI. Son kontrol üretim öncesinde yapılır.';
   else if (k.sonuc==='inceleme') t = 'Çözünürlük sınırda: bu ölçüde yaklaşık '+k.ppi+' PPI. Yakından bakıldığında netlik azalabilir; dosyanızı operatörümüz kontrol edecek.';
-  else t = 'Baskıya uygun değil: bu ölçüde çözünürlük yalnızca '+k.ppi+' PPI. Daha yüksek çözünürlüklü bir dosya yükleyin ya da ölçüyü küçültün.';
+  else t = 'Çözünürlük düşük: bu ölçüde yaklaşık '+k.ppi+' PPI; baskıda netlik belirgin şekilde azalabilir. Daha yüksek çözünürlüklü bir dosyanız varsa onu yükleyin ya da ölçüyü küçültün. Dilerseniz bu dosyayla devam edin: operatörümüz dosyanızı kontrol edip sizinle görüşür; onayınız olmadan üretim başlamaz.';
   var sonuc = k.sonuc;
   if (k.dondur) t += ' Dosyanızın yönü girdiğiniz ölçüyle uyuşmuyor (biri yatay, diğeri dikey). Genişlik ve yüksekliği kontrol edin.';
   if (k.oranSapma > 2) { t += ' Dosyanın en-boy oranı girdiğiniz ölçüden %'+k.oranSapma+' farklı. Dosyayı ölçüye uygun hazırlayın ya da ölçüyü düzeltin'+(sonuc==='uygun-degil'?'.':'; aksi halde dosyanız operatör incelemesine alınır.'); if (sonuc==='uygun') sonuc='inceleme'; }
@@ -278,6 +296,8 @@ function ciz(){
       $('kgErr').textContent = kgH.map(function(e){return e.mesaj;}).join(' ');
     }
     h = '<p class="small" style="margin:0">Ölçünüzü girdiğinizde fiyat burada görünür.</p>';
+    var oy = !dolu && ornekFiyat(g);
+    if (oy) h += '<div class="ornek"><span>Örnek: '+esc(ornekMetni())+'</span><b>'+tl(oy)+' <small>KDV dahil</small></b><button type="button" class="btn ghost" data-ornek>Bu ölçüyle hesapla</button></div>';
     $('mTop').textContent = '—';
   } else if (r.durum === 'teklif') {
     var olc = g.sekil ? (SAD[g.sekil]+(g.sekil==='ozel'?'':(g.sekil==='yuvarlak'?', çap '+g.en+' cm':', '+g.en+' × '+g.boy+' cm'))) : (g.en+' × '+g.boy+' cm');
@@ -306,6 +326,10 @@ function ciz(){
       h += '<p class="small">Asgari baskı tutarı '+tl0(G.asgari_baski)+' + KDV\'dir'+(ek.length?'; '+ek.join(' ve ')+' bedeli bu tutarın üzerine eklenir':'')+'.</p>'; }
     $('mTop').textContent = tl(r.toplam);
   }
+  var cerVarMi = C.cerceve && document.querySelector('input[name=cerVar]:checked').value==='var';
+  var hz = !dolu && !cerVarMi && ornekFiyat(g);
+  $('hizli').hidden = !hz;
+  if (hz) $('hizli').innerHTML = '<button type="button" class="chip-btn" data-ornek>Örnek ölçüyü uygula: '+esc(ornekMetni())+' · '+tl(hz)+' KDV dahil</button>';
   $('ozetIc').innerHTML = h;
 
   // dosya
@@ -314,7 +338,7 @@ function ciz(){
   if (dosya) {
     var yuv = g.sekil==='yuvarlak';
     dh = '<div class="filecard">'+(dosya.url?'<img alt="" src="'+dosya.url+'"'+(yuv?' style="border-radius:50%;object-fit:cover"':'')+'>':'')+'<div><b style="font-weight:500">'+esc(dosya.ad)+'</b><div class="small" style="margin:0">'+(dosya.px?dosya.px.w+' × '+dosya.px.h+' piksel':dosya.tur.toUpperCase()+' dosyası')+'</div></div></div>';
-    var cls = {uygun:'ok', inceleme:'warn', 'uygun-degil':'bad', bekle:'warn'}[d.sonuc];
+    var cls = {uygun:'ok', inceleme:'warn', 'uygun-degil':'warn', bekle:'warn'}[d.sonuc];
     dh += '<div class="msg '+cls+'">'+esc(d.metin)+'</div>';
     if (yuv && dosya.url) dh += '<p class="hint">Önizleme yuvarlak kesimi gösterir: dairenin dışında kalan köşeler kesilir. Önemli öğeleri dairenin içinde tutun.</p>';
   }
@@ -326,11 +350,11 @@ function ciz(){
     var wtxt = encodeURIComponent('Merhaba, '+C.ad+' için özel teslimat fiyatı almak istiyorum: '+(mz?mz.ad+', ':'')+g.en+' × '+g.boy+' cm, '+g.adet+' adet. Teslimat adresi: ');
     $('ozetIc').innerHTML += '<div class="msg warn">Özel teslimat bedeli siparişten önce size bildirilir. Teslimat teklifi almak için WhatsApp\'tan yazın; teklifi onayladığınızda ödeme bilgileri iletilir.</div><a class="btn ghost" href="'+WA+wtxt+'" target="_blank" rel="noopener">Özel teslimat teklifi iste</a>';
   }
-  var hazir = !ozelTes && r.durum==='tamam' && dosya && d && (d.sonuc==='uygun' || d.sonuc==='inceleme') && $('onay').checked;
+  var hazir = !ozelTes && r.durum==='tamam' && dosya && d && (d.sonuc==='uygun' || d.sonuc==='inceleme' || d.sonuc==='uygun-degil') && $('onay').checked;
   $('devam').disabled = !hazir;
   $('devam').style.display = (r.durum==='teklif' || ozelTes) ? 'none' : '';
-  var neden = r.durum!=='tamam' ? 'Ölçüyü girin.' : !dosya ? 'Baskı dosyanızı yükleyin.' : (d.sonuc==='uygun-degil' ? 'Dosya baskıya uygun değil.' : (!$('onay').checked ? 'Onay kutusunu işaretleyin.' : 'Hazır.'));
-  $('devamNot').textContent = hazir ? (d.sonuc==='inceleme' ? 'Dosyanız operatör kontrolüne alınacak; kontrol tamamlanmadan üretim başlamaz.' : 'Düğmeye bastığınızda seçimleriniz ve ön fiyat WhatsApp mesajı olarak hazırlanır; baskı dosyanızı mesaja ekleyin.') : neden;
+  var neden = r.durum!=='tamam' ? 'Ölçüyü girin.' : !dosya ? 'Baskı dosyanızı yükleyin.' : ((!$('onay').checked ? 'Onay kutusunu işaretleyin.' : 'Hazır.'));
+  $('devamNot').textContent = hazir ? (d.sonuc!=='uygun' ? 'Dosyanız operatör kontrolüne alınacak; kontrol tamamlanmadan üretim başlamaz.' : 'Düğmeye bastığınızda seçimleriniz ve ön fiyat WhatsApp mesajı olarak hazırlanır; baskı dosyanızı mesaja ekleyin.') : neden;
   $('devamNot').style.display = (r.durum==='teklif' || ozelTes) ? 'none' : '';
 }
 

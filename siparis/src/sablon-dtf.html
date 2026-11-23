@@ -92,6 +92,11 @@ $('olcuNot').textContent = TAB ? ('Tek bir tasarımın ölçüsünü ve kaç ade
 
 var dosya = null; // {ad, tur, px, url, seffaf}
 
+// Örnek ölçü: alanlar boşken örneğin tutarı gösterilir, tek dokunuşla uygulanır
+var ORNEK = {en:'5',boy:'5',adet:'100'};
+function ornekMetni(){ return ORNEK.en+' × '+ORNEK.boy+' cm'+(ORNEK.adet?', '+ORNEK.adet+' adet':''); }
+function ornekFiyat(g){ var gg={}; for (var k in g) gg[k]=g[k]; for (var k2 in ORNEK) gg[k2]=ORNEK[k2]; try { var r = IPLMotor.hesapla(F, KOD, gg); return r.durum==='tamam' ? r.toplam : null; } catch(x) { return null; } }
+document.addEventListener('click', function(e){ if (e.target && e.target.closest && e.target.closest('[data-ornek]')) { e.preventDefault(); for (var k in ORNEK) $(k).value = ORNEK[k]; ciz(); try { $('en').scrollIntoView({block:'center'}); } catch(x){} } });
 function girdi(){ return {en: $('en').value, boy: $('boy').value, adet: $('adet').value}; }
 
 // rulo yerleşim önizlemesi (ilk 120 cm çizilir)
@@ -123,7 +128,7 @@ function dosyaDurum(){
   var k = IPLMotor.dosyaKontrol(C, dosya.px, en, boy), t, sonuc = k.sonuc;
   if (k.sonuc==='uygun') t = 'Çözünürlük ön kontrolünden geçti: '+en+' × '+boy+' cm ölçüde yaklaşık '+k.ppi+' PPI. Son kontrol üretim öncesinde yapılır.';
   else if (k.sonuc==='inceleme') t = 'Çözünürlük sınırda: bu ölçüde yaklaşık '+k.ppi+' PPI. Yakından bakıldığında netlik azalabilir; dosyanızı operatörümüz kontrol edecek.';
-  else t = 'Baskıya uygun değil: bu ölçüde çözünürlük yalnızca '+k.ppi+' PPI. Daha yüksek çözünürlüklü bir dosya yükleyin ya da ölçüyü küçültün.';
+  else t = 'Çözünürlük düşük: bu ölçüde yaklaşık '+k.ppi+' PPI; baskıda netlik belirgin şekilde azalabilir. Daha yüksek çözünürlüklü bir dosyanız varsa onu yükleyin ya da ölçüyü küçültün. Dilerseniz bu dosyayla devam edin: operatörümüz dosyanızı kontrol edip sizinle görüşür; onayınız olmadan üretim başlamaz.';
   if (k.dondur) t += ' Dosyanızın yönü girdiğiniz ölçüyle uyuşmuyor (biri yatay, diğeri dikey). Genişlik ve yüksekliği kontrol edin.';
   if (k.oranSapma > 2) { t += ' Dosyanın en-boy oranı girdiğiniz ölçüden %'+k.oranSapma+' farklı. Dosyayı ölçüye uygun hazırlayın ya da ölçüyü düzeltin'+(sonuc==='uygun-degil'?'.':'; aksi halde dosyanız operatör incelemesine alınır.'); if (sonuc==='uygun') sonuc='inceleme'; }
   if (k.dondur && sonuc==='uygun') sonuc='inceleme';
@@ -144,7 +149,7 @@ function ciz(){
   var dolu = g.en.trim()!=='' || g.boy.trim()!=='', h = '';
   if (r.durum==='hata') {
     if (dolu) { r.hatalar.forEach(function(e){ if ($(e.alan)) $(e.alan).setAttribute('aria-invalid','true'); }); $('olcuErr').textContent = r.hatalar.map(function(e){return e.mesaj;}).join(' '); }
-    h = '<p class="small" style="margin:0">Ölçünüzü girdiğinizde fiyat burada görünür.</p>'; $('mTop').textContent = '—';
+    h = '<p class="small" style="margin:0">Ölçünüzü girdiğinizde fiyat burada görünür.</p>'; var oy = !dolu && ornekFiyat(g); if (oy) h += '<div class="ornek"><span>Örnek: '+esc(ornekMetni())+'</span><b>'+tl(oy)+' <small>KDV dahil</small></b><button type="button" class="btn ghost" data-ornek>Bu ölçüyle hesapla</button></div>'; $('mTop').textContent = '—';
   } else if (r.durum==='teklif') {
     var txt = encodeURIComponent('Merhaba, '+C.ad+' için teklif almak istiyorum: '+g.en+' × '+g.boy+' cm, '+g.adet+' adet.');
     h = '<div class="msg warn" style="margin-top:0">'+esc(r.mesaj)+'</div><a class="btn ghost" href="'+WA+txt+'" target="_blank" rel="noopener">WhatsApp ile teklif iste</a><p class="small">WhatsApp: +90 532 523 73 64</p>';
@@ -171,17 +176,17 @@ function ciz(){
   var d = dosyaDurum(), dh = '';
   if (dosya) {
     dh = '<div class="filecard">'+(dosya.url?'<img alt="" src="'+dosya.url+'" style="background:repeating-conic-gradient(#EDEBE8 0% 25%,#fff 0% 50%) 0 0/12px 12px">':'')+'<div><b style="font-weight:500">'+esc(dosya.ad)+'</b><div class="small" style="margin:0">'+(dosya.px?dosya.px.w+' × '+dosya.px.h+' piksel':dosya.tur.toUpperCase()+' dosyası')+'</div></div></div>';
-    dh += '<div class="msg '+({uygun:'ok', inceleme:'warn', 'uygun-degil':'bad', bekle:'warn'}[d.sonuc])+'">'+esc(d.metin)+'</div>';
+    dh += '<div class="msg '+({uygun:'ok', inceleme:'warn', 'uygun-degil':'warn', bekle:'warn'}[d.sonuc])+'">'+esc(d.metin)+'</div>';
     var zm = zeminMesaj(); if (zm) dh += '<div class="msg warn">'+esc(zm)+'</div>';
   }
   $('dosyaSonuc').innerHTML = dh;
 
-  var hazir = r.durum==='tamam' && dosya && d && (d.sonuc==='uygun' || d.sonuc==='inceleme') && $('onay').checked;
+  var hazir = r.durum==='tamam' && dosya && d && (d.sonuc==='uygun' || d.sonuc==='inceleme' || d.sonuc==='uygun-degil') && $('onay').checked;
   $('devam').disabled = !hazir;
   $('devam').style.display = r.durum==='teklif' ? 'none' : '';
   $('devamNot').style.display = r.durum==='teklif' ? 'none' : '';
-  var neden = r.durum!=='tamam' ? 'Ölçüyü girin.' : !dosya ? 'Baskı dosyanızı yükleyin.' : (d.sonuc==='uygun-degil' ? 'Dosya baskıya uygun değil.' : (!$('onay').checked ? 'Onay kutusunu işaretleyin.' : ''));
-  $('devamNot').textContent = hazir ? (d.sonuc==='inceleme' ? 'Dosyanız operatör kontrolüne alınacak; kontrol tamamlanmadan üretim başlamaz.' : 'Düğmeye bastığınızda seçimleriniz ve ön fiyat WhatsApp mesajı olarak hazırlanır; baskı dosyanızı mesaja ekleyin.') : neden;
+  var neden = r.durum!=='tamam' ? 'Ölçüyü girin.' : !dosya ? 'Baskı dosyanızı yükleyin.' : ((!$('onay').checked ? 'Onay kutusunu işaretleyin.' : ''));
+  $('devamNot').textContent = hazir ? (d.sonuc!=='uygun' ? 'Dosyanız operatör kontrolüne alınacak; kontrol tamamlanmadan üretim başlamaz.' : 'Düğmeye bastığınızda seçimleriniz ve ön fiyat WhatsApp mesajı olarak hazırlanır; baskı dosyanızı mesaja ekleyin.') : neden;
 }
 
 // PNG'de şeffaf piksel var mı (küçültülmüş örnekle)

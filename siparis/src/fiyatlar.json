@@ -657,23 +657,12 @@
    "cerceve": {
     "olculer": [
      {
-      "kod": "21x30",
-      "ad": "21 × 30 cm",
-      "en": 21,
-      "boy": 30,
-      "fiyat": {
-       "siyah-beyaz": 899,
-       "mese": 999
-      }
-     },
-     {
       "kod": "30x40",
       "ad": "30 × 40 cm",
       "en": 30,
       "boy": 40,
       "fiyat": {
-       "siyah-beyaz": 1199,
-       "mese": 1299
+       "siyah-beyaz": 1199
       }
      },
      {
@@ -682,8 +671,7 @@
       "en": 40,
       "boy": 50,
       "fiyat": {
-       "siyah-beyaz": 1899,
-       "mese": 1999
+       "siyah-beyaz": 1899
       }
      },
      {
@@ -692,8 +680,7 @@
       "en": 50,
       "boy": 70,
       "fiyat": {
-       "siyah-beyaz": 2999,
-       "mese": 3299
+       "siyah-beyaz": 2999
       }
      },
      {
@@ -702,8 +689,7 @@
       "en": 61,
       "boy": 91,
       "fiyat": {
-       "siyah-beyaz": 3999,
-       "mese": 4299
+       "siyah-beyaz": 3999
       }
      }
     ],
@@ -719,12 +705,6 @@
       "ad": "beyaz",
       "grup": "siyah-beyaz",
       "hex": "#FFFFFF"
-     },
-     {
-      "kod": "mese",
-      "ad": "meşe",
-      "grup": "mese",
-      "hex": "#C69C6D"
      }
     ]
    },
@@ -749,7 +729,7 @@
     },
     {
      "b": "Çerçeveli poster",
-     "m": "Çerçeveli posterler 21 × 30, 30 × 40, 40 × 50, 50 × 70 ve 61 × 91 cm ölçülerinde; siyah, beyaz veya meşe renk çerçeveyle hazırlanır. Çerçeve pleksi ön yüz, arkalık ve askı aparatıyla, korumalı ambalajda gönderilir. Poster seçtiğiniz çerçeve ölçüsünde basılır; çerçeve kenarı görselin her kenarından birkaç milimetreyi kapatır, önemli öğeleri kenarlara çok yakın koymayın. Çerçeve bedeli baskıya ek olarak hesaplanır; çerçeveli siparişlerde {{genel.asgari_baski}} ₺ asgari tutar baskı ve çerçeve toplamına uygulanır."
+     "m": "Çerçeveli posterler 30 × 40, 40 × 50, 50 × 70 ve 61 × 91 cm ölçülerinde; siyah veya beyaz çerçeveyle hazırlanır. Çerçeve pleksi ön yüz, arkalık ve askı aparatıyla, korumalı ambalajda gönderilir. Poster seçtiğiniz çerçeve ölçüsünde basılır; çerçeve kenarı görselin her kenarından birkaç milimetreyi kapatır, önemli öğeleri kenarlara çok yakın koymayın. Çerçeve bedeli baskıya ek olarak hesaplanır; çerçeveli siparişlerde {{genel.asgari_baski}} ₺ asgari tutar baskı ve çerçeve toplamına uygulanır."
     },
     {
      "b": "Kendi ölçünüz",

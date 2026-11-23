@@ -70,7 +70,8 @@ for kod, u in F['urunler'].items():
     s = oku('src/sablon-%s.html' % u['tur'])
     esik = F['genel']['kargo_ucretsiz_esik']
     kargo = u.get('kargo_metni') or ('Kargo ücreti alıcıya aittir; %s ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir.%s Dilerseniz Kadıköy\'deki atölyemizden teslim alabilirsiniz.' % (format(esik, ',').replace(',', '.'), '' if u['tur'] in ('kartvizit', 'davetiye') else ' %s m²\'nin üzerindeki siparişlerde ücretsiz kargo uygulanmaz.' % F['genel']['kargo_max_m2']))
-    for a, b in [('__CSS__', css), ('__MOTOR__', motor), ('__FIYATLAR__', json.dumps(F, ensure_ascii=False)), ('__URUN__', kod),
+    # sayfaya yalnızca kendi ürününün fiyatları gömülür (daha hafif sayfa, daha hızlı açılış)
+    for a, b in [('__CSS__', css), ('__MOTOR__', motor), ('__FIYATLAR__', json.dumps(dict(F, urunler={kod: u}), ensure_ascii=False)), ('__URUN__', kod),
                  ('__BASLIK__', u['ad']), ('__ACIKLAMA__', u.get('aciklama', '')), ('__KARGO_METNI__', kargo), ('__KPDF__', kpdf), ('__QR__', qr), ('__WA__', wa)]:
         s = s.replace(a, b)
     if YAYIN: s = re.sub(r'<div class="testbar">.*?</div>\n?', '', s)

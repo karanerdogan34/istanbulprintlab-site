@@ -2,6 +2,8 @@
    "Ödemeye geç" düğmesi, sayfadaki seçimleri ve ön fiyatı hazır bir WhatsApp mesajına çevirir.
    Kesin fiyat ve üretim onayı dosya kontrolünden sonra IPL tarafından verilir; ödeme onaydan sonra alınır. */
 (function () {
+  // Hesaplayıcı hazır: içerik JS ile dolduktan sonra görünür olur (yüklenirken sayfa zıplamasın — CLS)
+  document.documentElement.classList.add('hazir');
   var NUMARA = '905325237364';
   var btn = document.getElementById('devam'), form = document.getElementById('f');
   if (!btn || !form) return;
@@ -79,11 +81,25 @@
     if (f.length) m.push('', 'Ön hesaplama:', f.map(function (x) { return '• ' + x; }).join('\n'));
     if (pdf && gorunur(pdf)) m.push('', 'Sitede oluşturduğum baskı dosyasını (PDF) bu mesaja ekliyorum.');
     else if (s.dosyalar.length) m.push('', 'Baskı dosyam: ' + s.dosyalar.join(', ') + ' (bu mesaja ekliyorum).');
+    if (document.querySelector('#dosyaSonuc .msg.warn')) m.push('', 'Dosya ön kontrolünde uyarı çıktı; dosyamın kontrol edilmesini rica ederim.');
     m.push('', 'Seçimlerimi ve yazımları kontrol edip onayladım.');
     return m.join('\n');
   }
+  // Hesaplayıcı adımları (PostHog): fiyat görüldü, dosya yüklendi, sipariş talebi gönderildi — her biri sayfa başına bir kez
+  var olaylar = {};
+  function olay(ad, ek) {
+    if (olaylar[ad]) return; olaylar[ad] = 1;
+    try { if (window.__phOlay) window.__phOlay(ad, Object.assign({ urun: location.pathname }, ek || {})); } catch (x) {}
+  }
+  var mTop = document.getElementById('mTop');
+  var izle = function () {
+    if (mTop && /\d/.test(mTop.textContent)) olay('hesaplayici_fiyat', { tutar: temiz(mTop.textContent) });
+    if (document.querySelector('.filecard')) olay('hesaplayici_dosya');
+  };
+  if (window.MutationObserver) new MutationObserver(izle).observe(document.body, { childList: true, subtree: true, characterData: true });
   btn.addEventListener('click', function () {
     if (btn.disabled) return;
+    olay('hesaplayici_siparis', { tutar: mTop ? temiz(mTop.textContent) : '' });
     var a = document.createElement('a');
     a.href = 'https://wa.me/' + NUMARA + '?text=' + encodeURIComponent(mesaj());
     a.target = '_blank'; a.rel = 'noopener';

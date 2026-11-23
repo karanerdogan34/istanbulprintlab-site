@@ -4,7 +4,7 @@ Kaynak: site/ (fiyatlar {{anahtar}} işaretli) + content/*.json (yönetim paneli
 Çıktı: dist/ — Netlify yalnızca dist/ klasörünü yayınlar.
 Çalıştırma: python3 build.py
 """
-import glob, html, json, os, re, shutil, sys, urllib.request
+import glob, html, json, os, re, shutil, sys, urllib.parse, urllib.request
 from decimal import Decimal, ROUND_HALF_UP
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -397,6 +397,8 @@ def main():
                         ('HAKKIMIZDA_KISA', S.m2h(A.get('hakkimizda_kisa') or ''))):
         s = re.sub(r'<!--%s-->.*?<!--/%s-->' % (isim, isim), lambda m, h=html_, i=isim: '<!--%s-->%s<!--/%s-->' % (i, h, i), s, flags=re.S)
     yaz(p, s)
+    hesap_seridi()
+    ana_gorsel_oncelik()
     vakalar()
     # fiyat ve iletişim — bütün sayfalara
     P = js('content/fiyatlar.json')
@@ -439,6 +441,54 @@ def main():
     if eksik:
         raise S.IcerikHatasi('Sitede kırık iç bağlantı var: %s' % ', '.join(sorted(eksik)[:10]))
     print('Derleme tamam.')
+
+
+# ---------- Ürün sayfası üst şeridi: başlangıç fiyatı + "Fiyatı hesapla" / WhatsApp (reklamdan gelen mobil ziyaretçi ilk ekranda görsün) ----------
+SERIT_CSS = ('<style>.hs{margin-top:16px;display:grid;gap:12px}.hs-fiyat{margin:0;font-size:17px}.hs-fiyat b{font-size:22px;font-weight:600}'
+             '.hs-fiyat small{display:block;font-size:14px;color:#5f5f5b;margin-top:2px}'
+             '.hs-kalite{margin:0;font-size:14px;line-height:1.45;padding:8px 12px;border-left:3px solid #0B0B0B;background:#F4F4F1}.hs-btn{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:460px}.hs-btn a{min-height:50px;display:flex;align-items:center;justify-content:center;'
+             'border-radius:999px;border:1px solid #0B0B0B;text-decoration:none;font-weight:500;font-size:16px;white-space:nowrap;padding:0 12px;text-align:center}'
+             '.hs-btn a.ana{background:#0B0B0B;color:#fff}.hs-btn a.ikinci{background:#fff;color:#0B0B0B}#hesapla{scroll-margin-top:84px}'
+             '@media (max-width:900px){.pdp[data-siparisli]{display:flex!important;flex-direction:column}.pdp[data-siparisli]>.conf{display:contents}'
+             '.pdp[data-siparisli]>.conf>div:first-child{order:-1;margin-bottom:6px}.pdp[data-siparisli]>.conf>.sp-cerceve{order:1}}</style>')
+
+
+def ana_gorsel_oncelik():
+    # ürün sayfasının ana görseli ilk ekrandadır: tembel yüklenmesin, öncelikli insin (LCP)
+    for f in glob.glob('%s/**/index.html' % DIST, recursive=True):
+        s = oku(f)
+        s2 = re.sub(r'<img class="gal-main[^>]*>', lambda m: m.group(0).replace(' loading="lazy"', '').replace('<img ', '<img fetchpriority="high" ', 1) if 'fetchpriority' not in m.group(0) else m.group(0), s)
+        if s2 != s:
+            yaz(f, s2)
+
+
+def hesap_seridi():
+    F = js('siparis/src/fiyatlar.json')['urunler']
+    for f in glob.glob('%s/*/index.html' % DIST):
+        s = oku(f)
+        m = re.search(r'<iframe data-sp src="/siparis/([a-z0-9-]+)/', s)
+        if not m or 'class="hs"' in s or m.group(1) not in F:
+            continue
+        u = F[m.group(1)]
+        fy = baslangic_fiyati(u).split(' + ', 1)
+        fiyat = ('<b>%s</b> + %s' % (E(fy[0]), E(fy[1]))) if len(fy) > 1 else ''
+        asgari = '' if u['tur'] == 'davetiye' else 'Asgari sipariş tutarı %s + KDV · Tasarım, montaj ve kargo hariç' % _tl(js('siparis/src/fiyatlar.json')['genel']['asgari_baski'])
+        # kalite notu: Mimaki'de basılan ürünlerde mürekkep + malzeme + geçiş; yazı kesimde malzeme
+        kalite = {'rulo': 'GREENGUARD Gold sertifikalı orijinal Mimaki mürekkep · birinci sınıf malzeme · 8–10 geçişli yüksek kalite baskı',
+                  'duvar': 'GREENGUARD Gold sertifikalı orijinal Mimaki mürekkep · çocuk odası dahil güvenle kullanılabilir · birinci sınıf malzeme',
+                  'yazi': 'Birinci sınıf kesim folyosu · transfer bandı dahil'}.get(u['tur'], '')
+        wa = 'https://wa.me/905325237364?text=' + urllib.parse.quote('Merhaba, %s için fiyat bilgisi almak istiyorum.' % u['ad'])
+        serit = ('<div class="hs">' + ('<p class="hs-fiyat">%s%s</p>' % (fiyat, '<small>%s</small>' % asgari if asgari else '') if fiyat else '')
+                 + ('<p class="hs-kalite">%s</p>' % E(kalite) if kalite else '')
+                 + '<div class="hs-btn"><a class="ana" href="#hesapla">Fiyatı hesapla</a><a class="ikinci" href="%s" target="_blank" rel="noopener">WhatsApp\'tan sor</a></div></div>' % E(wa))
+        # başlık açıklamasının hemen altına
+        s2, n = re.subn(r'(<p class="lead"[^>]*>.*?</p>)', lambda mm: mm.group(1) + serit, s, count=1, flags=re.S)
+        if not n:
+            continue
+        s2 = s2.replace('<div class="sp-cerceve">', '<div class="sp-cerceve" id="hesapla">', 1)
+        s2 = s2.replace('<a href="#teklif" class="main">Teklif Al</a>', '<a href="#hesapla" class="main">Fiyatı hesapla</a>', 1)
+        s2 = s2.replace('</head>', SERIT_CSS + '</head>', 1)
+        yaz(f, s2)
 
 
 SITE = 'https://www.istanbulprintlab.com'
