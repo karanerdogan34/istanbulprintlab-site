@@ -3,10 +3,11 @@
 import crypto from 'node:crypto';
 import { json } from '../lib/ortak.mjs';
 import { ayarlar, linkCoz, iframeBelirteci } from '../lib/paytr.mjs';
-import { linkOku, linkYaz, denemeYaz } from '../lib/kayit.mjs';
+import { linkOku, linkAtomik, denemeYaz } from '../lib/kayit.mjs';
 
 const temiz = (s, n) => String(s || '').replace(/[<>\r\n\t]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, n);
 const SOZLESME_SURUMU = '2026-11-24';
+const KILIT_MS = 2 * 60e3; // aynı link için iki ödeme penceresinin aynı anda açılmasını önler
 const GECERSIZ = 'Bu ödeme bağlantısı geçersiz veya süresi dolmuş. Lütfen WhatsApp\'tan bizden yeni bağlantı isteyin.';
 
 async function linkDurumu(a, belirtec) {
@@ -58,14 +59,29 @@ export default async (req) => {
   const oid = ('IPL' + v.n.replace(/^IPL-?/, '').replace(/[^A-Z0-9]/g, '') + 'T' + Date.now().toString(36) + crypto.randomBytes(3).toString('hex')).toUpperCase().slice(0, 64);
   const simdi = new Date().toISOString();
 
-  // Önce deneme kaydı (sözleşme onayının kanıtı dahil) yazılır; kayıt yazılamazsa ödeme başlatılmaz.
+  // 1) Bağlantıyı atomik olarak bu denemeye ayır: başka bir pencere az önce ödeme başlattıysa ikinci ödeme penceresi açılmaz.
+  let kilit;
+  try {
+    kilit = await linkAtomik(v.i, (eski) => {
+      if (eski.durum !== 'bekliyor') return null;
+      if (eski.sonDenemeZaman && Date.now() - Date.parse(eski.sonDenemeZaman) < KILIT_MS) return null;
+      return { ...eski, sonDeneme: oid, sonDenemeZaman: simdi };
+    });
+  } catch (e) {
+    console.error('Ödeme kaydı okunamadı:', oid, e && e.message);
+    return json({ message: 'Ödeme sayfası şu an açılamadı. Lütfen biraz sonra tekrar deneyin.' }, 503);
+  }
+  if (!kilit.tamam) {
+    if (kilit.kayit && kilit.kayit.durum === 'odendi') return json({ message: 'Bu siparişin ödemesi alınmıştır, teşekkür ederiz.', odendi: true }, 409);
+    return json({ message: 'Bu sipariş için az önce bir ödeme sayfası açıldı. Lütfen o pencereden devam edin ya da 2 dakika sonra tekrar deneyin.' }, 409);
+  }
+  // 2) Deneme kaydı (sözleşme onayının kanıtı dahil) yazılır; kayıt yazılamazsa ödeme başlatılmaz.
   try {
     await denemeYaz(oid, {
       oid, linkId: v.i, siparisNo: v.n, aciklama: v.a, kurus: v.k, durum: 'baslatildi', zaman: simdi, test: a.test === '1',
       musteri: { ad, eposta, telefon, adres }, fatura,
       sozlesme: { onay: true, zaman: simdi, ip, surum: SOZLESME_SURUMU, belgeler: ['/on-bilgilendirme-formu/', '/mesafeli-satis-sozlesmesi/', '/kvkk/'] },
     });
-    await linkYaz(v.i, { ...k, sonDeneme: oid, sonDenemeZaman: simdi });
   } catch (e) {
     console.error('Ödeme kaydı yazılamadı:', oid, e && e.message);
     return json({ message: 'Ödeme sayfası şu an açılamadı. Lütfen biraz sonra tekrar deneyin.' }, 503);

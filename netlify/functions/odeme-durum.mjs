@@ -9,7 +9,7 @@ export default async (req) => {
   try {
     const d = await denemeOku(oid);
     if (!d) return json({ durum: 'bilinmiyor' }, 404);
-    const durum = d.durum === 'basarili' || d.durum === 'mukerrer' ? 'basarili' : d.durum === 'basarisiz' ? 'basarisiz' : 'bekliyor';
+    const durum = ['basarili', 'mukerrer', 'inceleme'].includes(d.durum) ? 'basarili' : d.durum === 'basarisiz' ? 'basarisiz' : 'bekliyor';
     return json({ durum, siparisNo: d.siparisNo, toplam: durum === 'basarili' && d.sonuc ? d.sonuc.toplam : null });
   } catch (_) { return json({ durum: 'bekliyor' }); }
 };

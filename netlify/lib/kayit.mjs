@@ -9,7 +9,11 @@ const depo = () => {
     bellek = bellek || new Map();
     return {
       get: async (k) => (bellek.has(k) ? JSON.parse(bellek.get(k)) : null),
-      setJSON: async (k, v) => { bellek.set(k, JSON.stringify(v)); },
+      getWithMetadata: async (k) => (bellek.has(k) ? { data: JSON.parse(bellek.get(k)), etag: String(bellek.get(k).length) + bellek.get(k).slice(-8) } : null),
+      setJSON: async (k, v, o = {}) => {
+        if (o.onlyIfMatch) { const e = bellek.has(k) ? String(bellek.get(k).length) + bellek.get(k).slice(-8) : null; if (e !== o.onlyIfMatch) return { modified: false }; }
+        bellek.set(k, JSON.stringify(v)); return { modified: true };
+      },
       list: async ({ prefix }) => ({ blobs: [...bellek.keys()].filter((k) => k.startsWith(prefix)).map((key) => ({ key })) }),
     };
   }
@@ -18,6 +22,17 @@ const depo = () => {
 
 export const linkOku = (id) => depo().get('link/' + id, { type: 'json' });
 export const linkYaz = (id, v) => depo().setJSON('link/' + id, v);
+// Bağlantı kaydını atomik günceller: okunduğu andan beri başka bir istek değiştirdiyse yazmaz (eş zamanlı ödeme denemelerine karşı).
+// guncelle(eski) → yeni kayıt ya da null (vazgeç). Dönüş: { tamam, kayit }.
+export async function linkAtomik(id, guncelle) {
+  const d = depo();
+  const o = await d.getWithMetadata('link/' + id, { type: 'json' });
+  if (!o || !o.data) return { tamam: false, kayit: null };
+  const yeni = guncelle(o.data);
+  if (!yeni) return { tamam: false, kayit: o.data };
+  const r = await d.setJSON('link/' + id, yeni, { onlyIfMatch: o.etag });
+  return { tamam: !!(r && r.modified), kayit: yeni };
+}
 export const denemeOku = (oid) => depo().get('deneme/' + oid, { type: 'json' });
 export const denemeYaz = (oid, v) => depo().setJSON('deneme/' + oid, v);
 
