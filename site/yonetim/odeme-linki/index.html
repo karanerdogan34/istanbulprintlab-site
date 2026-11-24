@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="theme-color" content="#111111">
+<link rel="icon" href="/yonetim/ikon-192.png">
+<link rel="stylesheet" href="/yonetim/app.css?v=7">
+<title>Ödeme linki · IPL Yönetim</title>
+</head>
+<body>
+<div class="ust"><a class="geri" href="/yonetim/" aria-label="Yönetime dön">‹</a><h1>Ödeme linki oluştur</h1></div>
+<div class="aciklama-not">Dosyası kontrol edilip fiyatı onaylanan sipariş için müşteriye gönderilecek kart ile ödeme bağlantısı. Tutarı KDV dahil yazın. Müşteri taksit seçerse bankanın vade farkı müşteriye yansır.</div>
+<form id="f" style="padding:0 16px 24px">
+<label class="alan"><span>Sipariş no — zorunlu</span><input name="siparisNo" required maxlength="20" placeholder="Örn. IPL-1234" autocapitalize="characters"></label>
+<label class="alan"><span>Açıklama (müşteri görür) — zorunlu</span><input name="aciklama" required maxlength="120" placeholder="Örn. 5 m² folyo baskı + kesim"></label>
+<label class="alan"><span>Tutar (TL, KDV dahil) — zorunlu</span><input name="tutar" required inputmode="decimal" placeholder="Örn. 2.399,90"></label>
+<label class="alan"><span>Taksit</span><select name="maxTaksit"><option value="12" selected>12 taksite kadar</option><option value="9">9 taksite kadar</option><option value="6">6 taksite kadar</option><option value="3">3 taksite kadar</option><option value="1">Yalnızca tek çekim</option></select></label>
+<label class="alan"><span>Link geçerlilik süresi</span><select name="gun"><option value="3">3 gün</option><option value="7" selected>7 gün</option><option value="15">15 gün</option><option value="30">30 gün</option></select></label>
+<button class="dugme ana tam" id="olustur" type="submit">Linki oluştur</button>
+<p id="mesaj" role="status" style="color:var(--kirmizi)"></p>
+</form>
+<div id="sonuc" hidden style="padding:0 16px 32px">
+<div class="degisiklik-kutu"><b>Link hazır</b><span id="testNot"></span><br><span id="gecerlilik"></span>
+<textarea id="link" readonly rows="4" style="width:100%;margin-top:10px;font-size:13px"></textarea></div>
+<button class="dugme ana tam" id="kopyala" type="button" style="margin-top:10px">Linki kopyala</button>
+<a class="dugme tam" id="wa" target="_blank" rel="noopener" style="margin-top:10px;display:flex;align-items:center;justify-content:center;text-decoration:none">WhatsApp ile gönder</a>
+</div>
+<script src="/yonetim/odeme-linki/odeme-linki.js"></script>
+</body>
+</html>
