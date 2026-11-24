@@ -1,5 +1,6 @@
 /* Yönetim: onaylı sipariş için imzalı PayTR ödeme bağlantısı üretir. Giriş, ana yönetim uygulamasındaki oturumla yapılır. */
 (function () {
+  var sonId = '';
   var f = document.getElementById('f'), m = document.getElementById('mesaj'), b = document.getElementById('olustur');
   f.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -9,6 +10,7 @@
       .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
       .then(function (s) {
         if (!s.ok) throw new Error(s.j.message || 'Link oluşturulamadı.');
+        sonId = s.j.id; document.getElementById('iptal').disabled = false; document.getElementById('iptal').textContent = 'Bu linki iptal et';
         document.getElementById('link').value = s.j.link;
         document.getElementById('testNot').textContent = s.j.test ? ' — TEST MODU: bu linkle gerçek tahsilat yapılmaz.' : '';
         document.getElementById('gecerlilik').textContent = 'Son geçerlilik: ' + new Date(s.j.gecerlilik).toLocaleString('tr-TR');
@@ -19,6 +21,14 @@
       })
       .catch(function (er) { m.textContent = er.message; })
       .then(function () { b.disabled = false; b.textContent = 'Linki oluştur'; });
+  });
+  document.getElementById('iptal').addEventListener('click', function () {
+    var bt = this;
+    if (!sonId || !confirm('Bu ödeme linki iptal edilsin mi? Müşteri bu linkle artık ödeme yapamaz.')) return;
+    fetch('/.netlify/functions/odeme-link', { method: 'DELETE', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', 'x-yonetim': '1' }, body: JSON.stringify({ id: sonId }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (s) { if (!s.ok) throw new Error(s.j.message || 'İptal edilemedi.'); bt.textContent = 'Link iptal edildi'; bt.disabled = true; })
+      .catch(function (er) { alert(er.message); });
   });
   document.getElementById('kopyala').addEventListener('click', function () {
     var t = document.getElementById('link'); t.select();

@@ -416,8 +416,16 @@ main{counter-reset:sec}
 <label class="f">E-posta<input class="inp" type="email" name="eposta" required autocomplete="email"></label>
 <label class="f">Telefon<input class="inp" type="tel" name="telefon" required autocomplete="tel" placeholder="05xx xxx xx xx"></label>
 <label class="f span2">Fatura / teslimat adresi<textarea class="inp" name="adres" rows="3" required autocomplete="street-address"></textarea></label>
+<fieldset class="span2" style="border:0;padding:0;margin:0;display:flex;gap:20px;font-size:15px"><legend class="muted" style="font-size:14px;margin-bottom:6px">Fatura türü</legend>
+<label style="display:flex;gap:8px;align-items:center"><input type="radio" name="faturaTuru" value="bireysel" checked> Bireysel</label>
+<label style="display:flex;gap:8px;align-items:center"><input type="radio" name="faturaTuru" value="kurumsal"> Kurumsal (firma)</label></fieldset>
+<label class="f span2" data-bireysel>T.C. kimlik no (isteğe bağlı)<input class="inp" name="tckn" inputmode="numeric" maxlength="11" autocomplete="off"></label>
+<label class="f span2" data-kurumsal hidden>Firma unvanı<input class="inp" name="unvan" autocomplete="organization"></label>
+<label class="f" data-kurumsal hidden>Vergi dairesi<input class="inp" name="vergiDairesi"></label>
+<label class="f" data-kurumsal hidden>Vergi no<input class="inp" name="vkn" inputmode="numeric" maxlength="11" autocomplete="off"></label>
+<p class="muted span2" style="font-size:13px;margin:0">Kişisel verileriniz yalnızca siparişinizin ifası, faturalandırma ve teslimat için <a href="/kvkk/" target="_blank" rel="noopener">KVKK Aydınlatma Metni</a> kapsamında işlenir. Kişiye özel üretilen baskılarda cayma hakkı kullanılamaz; üretim hatalarında ücretsiz yeniden üretim yapılır (<a href="/iade-ve-degisim/" target="_blank" rel="noopener">iade ve değişim koşulları</a>).</p>
 <label class="span2" style="display:flex;gap:10px;align-items:flex-start;font-size:14px"><input type="checkbox" name="sozlesme" required style="margin-top:3px"><span><a href="/on-bilgilendirme-formu/" target="_blank" rel="noopener">Ön bilgilendirme formunu</a> ve <a href="/mesafeli-satis-sozlesmesi/" target="_blank" rel="noopener">mesafeli satış sözleşmesini</a> okudum, onaylıyorum.</span></label>
-<button class="btn span2" type="submit" id="odDugme">Kart ile ödemeye geç</button>
+<button class="btn span2" type="submit" id="odDugme">Onayla ve ödemeye geç</button>
 <p class="formmsg span2" role="status" id="odMesaj"></p>
 </form>
 <div id="odCerceve" hidden></div>
