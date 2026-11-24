@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="theme-color" content="#111111">
+<link rel="icon" href="/yonetim/ikon-192.png">
+<link rel="stylesheet" href="/yonetim/app.css?v=7">
+<title>Ödemeler · IPL Yönetim</title>
+</head>
+<body>
+<div class="ust"><a class="geri" href="/yonetim/" aria-label="Yönetime dön">‹</a><h1>Ödemeler</h1><a class="dugme ust-baglanti" href="/yonetim/odeme-linki/">+ Link</a></div>
+<div class="aciklama-not">Kart ile yapılan ödemeler ve fatura bilgileri. "Ödendi" olanların faturasını kesin. Taksitte müşterinin ödediği toplam (vade farkı dahil) ayrıca yazılır.</div>
+<div style="padding:0 16px 8px;display:flex;gap:8px;flex-wrap:wrap">
+<label style="display:flex;gap:6px;align-items:center;font-size:14px"><input type="checkbox" id="sadeceOdenen" checked> Yalnızca ödenenler</label>
+<label style="display:flex;gap:6px;align-items:center;font-size:14px"><input type="checkbox" id="testGizle"> Test ödemelerini gizle</label>
+</div>
+<p id="mesaj" class="aciklama-not" role="status">Yükleniyor…</p>
+<div id="liste" style="padding:0 16px 32px"></div>
+<script src="/yonetim/odemeler/odemeler.js"></script>
+</body>
+</html>

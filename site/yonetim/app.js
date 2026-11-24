@@ -291,6 +291,7 @@ function anaEkran() {
     ${durumSatiri()}
     <button class="buyuk-ekle" id="ekle"><span>+</span> Fotoğraf ekle</button>
     <a class="dugme tam odeme-link" href="/yonetim/odeme-linki/">💳 Ödeme linki oluştur (kart ile ödeme)</a>
+    <a class="dugme tam odeme-link" href="/yonetim/odemeler/">📋 Ödemeler ve fatura bilgileri</a>
     <input class="ara" id="ara" type="search" placeholder="Sayfa ara (ör. sticker, branda)" value="${kacir(D.ara)}">
     ${grup('fiyatlar', 'Fiyatlar')}${grup('anasayfa', 'Anasayfa')}${grup('html', '', 'ana')}${grup('projeler', '')}${grup('galeri', 'Projelerimiz ve referanslarımız (kategoriler)')}${grup('sayfa', 'Ürün sayfaları')}${grup('vaka', 'Vaka çalışmaları')}<button class="dugme tam" id="yeniVaka">+ Yeni vaka çalışması</button>${grup('html', 'Bilgi sayfaları', 'bilgi')}${grup('html', 'Semt sayfaları', 'semt')}${grup('html', 'Rehber yazıları', 'rehber')}${grup('iletisim', 'Site ayarları')}
     <button class="dugme tam ara-bosluk" id="baglantiKontrol">Satış bağlantılarını kontrol et (WhatsApp, telefon, e-posta, form)</button>
