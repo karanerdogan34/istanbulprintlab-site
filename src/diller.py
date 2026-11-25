@@ -81,12 +81,13 @@ def cevir(s, dil, C):
             parcalar[i] = p
             continue
         p = METIN_RE.sub(lambda m: '>%s<' % html.escape(_cevir_metin(html.unescape(m.group(1)), C), quote=False) if _gecerli(html.unescape(m.group(1))) else m.group(0), p)
-        p = OZ_RE.sub(lambda m: '%s="%s"' % (m.group(1), html.escape(_cevir_metin(html.unescape(m.group(2)), C))) if _gecerli(html.unescape(m.group(2))) and m.group(1) != 'value' else m.group(0), p)
+        p = OZ_RE.sub(lambda m: '%s="%s"' % (m.group(1), html.escape(_cevir_metin(html.unescape(m.group(2)), C))) if _gecerli(html.unescape(m.group(2))) and m.group(1) not in ('value', 'data-name') else m.group(0), p)
         parcalar[i] = p
     s = ''.join(parcalar)
     # dil, yön, bağlantılar
     s = re.sub(r'<html lang="en"', '<html lang="%s" dir="%s"' % (dil, yon), s, count=1)
     s = s.replace('href="/en/', 'href="/%s/' % dil).replace(SITE + '/en/', '%s/%s/' % (SITE, dil))
+    s = s.replace('<input type="hidden" name="language" value="en">', '<input type="hidden" name="language" value="%s">' % dil)
     s = re.sub(r'(<div class="view"[^>]*) lang="en"', r'\1 lang="%s"' % dil, s)
     s = s.replace("closest('[lang=en]')", "closest('[lang=%s]')" % dil)
     # döviz karşılığı: dile göre sayı biçimi; 100'ün altındaki tutarlarda iki ondalık (yuvarlama algı farkını önler)
