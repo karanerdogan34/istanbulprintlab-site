@@ -290,6 +290,7 @@ function anaEkran() {
   kok.innerHTML = `<div class="ust"><h1>IstanbulPrintLab</h1><a class="dugme ust-baglanti" href="${SITE}/" target="_blank" rel="noopener">Siteyi aç</a></div>
     ${durumSatiri()}
     <button class="buyuk-ekle" id="ekle"><span>+</span> Fotoğraf ekle</button>
+    <a class="dugme tam odeme-link" href="/yonetim/talepler/">📥 Sipariş talepleri (hesaplayıcıdan gelenler)</a>
     <a class="dugme tam odeme-link" href="/yonetim/odeme-linki/">💳 Ödeme linki oluştur (kart ile ödeme)</a>
     <a class="dugme tam odeme-link" href="/yonetim/odemeler/">📋 Ödemeler ve fatura bilgileri</a>
     <input class="ara" id="ara" type="search" placeholder="Sayfa ara (ör. sticker, branda)" value="${kacir(D.ara)}">
