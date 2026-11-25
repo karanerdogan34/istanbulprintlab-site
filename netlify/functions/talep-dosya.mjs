@@ -22,10 +22,11 @@ export default async (req) => {
   try {
     if (g.durum) {
       const d = await oturumDurumu(k.dosya.oturum, k.dosya.boyut);
-      if (d.gecersiz) { // oturumun süresi dolmuş: aynı dosya adıyla yeni oturum, yükleme baştan
+      if (d.gecersiz) { // oturumun süresi dolmuş: yeni oturum, yükleme baştan. Eş zamanlı iki istekte ilk yazan kazanır, ikisi aynı oturumu kullanır.
+        const eski = k.dosya.oturum;
         const o = await yuklemeOturumu({ ad: no + ' - ' + k.dosya.ad, boyut: k.dosya.boyut, tur: k.dosya.tur, aciklama: k.urunAd + ' · ' + k.telefon, origin: url.origin });
-        await talepGuncelle(no, (e) => ({ ...e, dosya: { ...e.dosya, oturum: o.adres, klasor: o.klasorId } }));
-        return json({ yeni: o.adres, sonraki: 0 });
+        const s = await talepGuncelle(no, (e) => (e.dosya.oturum !== eski ? null : { ...e, dosya: { ...e.dosya, oturum: o.adres, klasor: o.klasorId } }));
+        return json({ yeni: s.dosya.oturum, sonraki: 0 });
       }
       if (!d.bitti) return json({ sonraki: d.sonraki });
       if (!d.id) return json({ message: 'Geçici hata' }, 503);
@@ -34,14 +35,15 @@ export default async (req) => {
     if (g.id) {
       const f = await dosyaDogrula(k, g.id);
       if (!f) return json({ message: 'Dosya doğrulanamadı' }, 409);
-      await dosyaSonucla(no, f).catch((e) => console.error('Dosya maili gönderilemedi:', no, e && e.message));
+      await dosyaSonucla(no, f);
       return json({ tamam: true, bitti: true });
     }
     if (g.hata) {
       // Önce Drive'a sor: tarayıcı hata sansa da dosya tamamlanmış olabilir
       const d = await oturumDurumu(k.dosya.oturum, k.dosya.boyut).catch(() => null);
-      const f = d && d.bitti && d.id ? await dosyaDogrula(k, d.id) : null;
-      await dosyaSonucla(no, f || { hata: g.hata }).catch((e) => console.error('Dosya maili gönderilemedi:', no, e && e.message));
+      const f = d && d.bitti && d.id ? await dosyaDogrula(k, d.id).catch(() => null) : null;
+      if (!f && d && d.bitti) return json({ tamam: false }); // dosya Drive'da ama şu an doğrulanamadı: talep-kontrol tamamlar
+      await dosyaSonucla(no, f || { hata: g.hata });
       return json({ tamam: !!f, bitti: !!f });
     }
   } catch (e) {

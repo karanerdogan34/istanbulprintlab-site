@@ -28,6 +28,9 @@ const depo = () => {
 
 export const talepOku = (no) => depo().get('talep/' + no, { type: 'json' });
 export const talepYaz = (no, v) => depo().setJSON('talep/' + no, v);
+// Yeni talep: yalnızca bu numarada kayıt yoksa yazar (numara çakışmasında var olan müşteri kaydı ezilmez)
+export const talepYeniYaz = async (no, v) => { const r = await depo().setJSON('talep/' + no, v, { onlyIfNew: true }); return !!(r && r.modified); };
+export const istemciNoDegistir = (id, no) => depo().setJSON('istemci/' + id, { no, zaman: Date.now() });
 // Talep kaydını atomik günceller (iki istek aynı anda yazarsa biri diğerinin değişikliğini ezmesin). guncelle(eski) → yeni | null
 export async function talepGuncelle(no, guncelle) {
   const d = depo();
@@ -49,6 +52,7 @@ export async function istemciSahiplen(id, no) {
   const v = await d.get('istemci/' + id, { type: 'json' });
   return { yeni: false, no: v && v.no };
 }
+istemciSahiplen.oku = (id) => depo().get('istemci/' + id, { type: 'json' });
 
 // Talep numarası: T + YYAAGG + '-' + 4 karakter (karışan harfler yok: 0/O, 1/I/L). Örn. T261125-K7QM
 const HARF = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';

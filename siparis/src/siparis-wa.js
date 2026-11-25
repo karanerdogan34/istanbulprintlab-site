@@ -251,9 +251,16 @@
         sonucKutusu(j.no, !!(d && !buyuk));
         if (buyuk) { var m = document.createElement('div'); m.className = 'msg warn'; m.textContent = 'Dosyanız 300 MB\'tan büyük olduğu için siteden yüklenemedi. Lütfen dosyanızı WhatsApp\'tan ya da WeTransfer ile gönderin; talebiniz bize ulaştı.'; document.getElementById('talepSonuc').insertBefore(m, document.getElementById('tWa')); return; }
         if (!d) return;
-        if (!j.yukleme) { yuklemeDurumu(0, 'Dosyanız şu an siteden alınamadı. Talebiniz bize ulaştı; lütfen dosyanızı aşağıdaki WhatsApp düğmesinden gönderin.', 'bad'); return; }
+        // Drive o an yanıt vermediyse aynı talep için iki kez daha yükleme adresi istenir (yeni talep açılmaz)
+        var adresIste = function (n) {
+          if (j.yukleme || n >= 2) return Promise.resolve(j.yukleme);
+          yuklemeDurumu(0, 'Dosya yüklemesi hazırlanıyor…');
+          return bekle(2500).then(function () { return postJSON('talep', veri); }).then(function (y) { if (y.yukleme) j.yukleme = y.yukleme; return adresIste(n + 1); }, function () { return adresIste(n + 1); });
+        };
+        return adresIste(0).then(function (adres) {
+        if (!adres) { yuklemeDurumu(0, 'Dosyanız şu an siteden alınamadı. Talebiniz bize ulaştı; lütfen dosyanızı aşağıdaki WhatsApp düğmesinden gönderin.', 'bad'); return; }
         yukleniyor = true;
-        return yukle(j, j.yukleme, d.blob).then(function () {
+        return yukle(j, adres, d.blob).then(function () {
           yukleniyor = false; yuklemeDurumu(1, 'Dosyanız da alındı. Teşekkür ederiz.', 'ok');
           var bar = document.getElementById('tBar'); if (bar) bar.parentNode.style.display = 'none';
           olay('dosya_yuklendi', { talep: j.no });
@@ -263,6 +270,7 @@
           return postJSON('talep-dosya', { no: j.no, anahtar: j.anahtar, hata: String(e && e.message || 'hata') }).then(function (r) {
             if (r.tamam) yuklemeDurumu(1, 'Dosyanız da alındı. Teşekkür ederiz.', 'ok'); // Drive'a aslında ulaşmışsa
           }, function () {});
+        });
         });
       });
     }).catch(function () {

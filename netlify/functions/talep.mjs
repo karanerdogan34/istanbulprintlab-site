@@ -2,7 +2,7 @@
 // Talep, dosya yüklenmeden ÖNCE kaydedilir: müşteri sayfayı kapatsa ya da WhatsApp'ı açmasa bile telefon ve seçimler bize ulaşır.
 // Mail ya da Drive hatası talebi düşürmez; gönderilemeyen mailleri talep-kontrol (zamanlanmış) tekrar dener.
 import { json } from '../lib/ortak.mjs';
-import { talepYaz, talepOku, talepGuncelle, istemciSahiplen, yeniNo, talepAnahtari, sinirAsildi, kotaAyir, telefonDuzelt } from '../lib/talep.mjs';
+import { talepYeniYaz, istemciNoDegistir, talepOku, talepGuncelle, istemciSahiplen, yeniNo, talepAnahtari, sinirAsildi, kotaAyir, telefonDuzelt } from '../lib/talep.mjs';
 import { yuklemeOturumu } from '../lib/google.mjs';
 import { ilkMail } from '../lib/talep-islem.mjs';
 
@@ -34,25 +34,32 @@ export default async (req, context) => {
   }
 
   // Aynı tıklama ikinci kez gelirse (çift dokunma, bağlantı kopması) yeni talep açılmaz: istemci kimliğini ilk alan kazanır.
-  const aday = yeniNo();
-  const sahip = await istemciSahiplen(istemci, aday);
-  let k;
-  if (sahip.yeni) {
+  // Hız sınırı kimlik alınmadan önce uygulanır; böylece reddedilen bir istek kimliği kilitlemez.
+  const onceki = await istemciSahiplen.oku(istemci);
+  if (!onceki) {
     const ip = (req.headers.get('x-nf-client-connection-ip') || (req.headers.get('x-forwarded-for') || '').split(',')[0] || '').trim();
     if (ip && await sinirAsildi(ip)) return json({ message: 'Çok sayıda talep gönderildi. Lütfen biraz sonra tekrar deneyin ya da +90 532 523 73 64 numarasından bize ulaşın.' }, 429);
+  }
+  const sahip = onceki ? { yeni: false, no: onceki.no } : await istemciSahiplen(istemci, yeniNo());
+  let k = sahip.no && !sahip.yeni ? await talepOku(sahip.no) : null;
+  if (!k) {
+    // Yeni talep — ya da kimlik alınmış ama kayıt yazılamamış (yarım kalmış önceki deneme): bu isteğin verisiyle kaydı oluştur
     if (dosya.durum === 'yukleniyor' && !(await kotaAyir(dosya.boyut))) dosya = { ...dosya, durum: 'kota' };
     const sayfa = (() => { try { const s = new URL(String(g.sayfa || '')); return s.origin === url.origin ? s.origin + s.pathname : url.origin; } catch (_) { return url.origin; } })();
-    k = {
-      no: aday, zaman: new Date().toISOString(),
+    const veri = {
+      zaman: new Date().toISOString(),
       urunAd: tekSatir(g.urunAd, 120) || 'Ürün', sayfa,
       telefon, ad: tekSatir(g.ad, 80), not: tekSatir(g.not, 500),
       ozet: temiz(g.ozet, 5000), toplam: tekSatir(g.toplam, 40),
-      dosya, mail: { ilk: false, dosya: false },
+      dosya, mail: { ilk: false, dosya: false }, istemci,
     };
-    await talepYaz(k.no, k);
-  } else {
-    k = sahip.no && await talepOku(sahip.no);
-    if (!k) return json({ message: 'Talep işlenirken bir sorun oluştu, lütfen tekrar deneyin.' }, 503);
+    let no = sahip.no;
+    for (let i = 0; i < 4 && !k; i++) {
+      if (await talepYeniYaz(no, { no, ...veri })) k = { no, ...veri };
+      else { const v = await talepOku(no); if (v && v.istemci === istemci) k = v; } // aynı tıklamanın eş zamanlı isteği az önce yazdı
+      if (!k) { no = yeniNo(); await istemciNoDegistir(istemci, no); } // numara çakışması: yeni numara
+    }
+    if (!k) return json({ message: 'Talep kaydedilemedi, lütfen tekrar deneyin.' }, 503);
   }
 
   // Dosya için Drive'a doğrudan yükleme oturumu (dosya Netlify'dan geçmez). Aynı talep için var olan oturum yeniden kullanılır.
@@ -61,12 +68,18 @@ export default async (req, context) => {
     if (k.dosya.oturum) yukleme = k.dosya.oturum;
     else {
       try {
-        const o = await yuklemeOturumu({ ad: k.no + ' - ' + k.dosya.ad, boyut: k.dosya.boyut, tur: k.dosya.tur, aciklama: k.urunAd + ' · ' + k.telefon, origin: url.origin });
-        yukleme = o.adres;
-        k = await talepGuncelle(k.no, (e) => ({ ...e, dosya: { ...e.dosya, durum: 'yukleniyor', oturum: o.adres, klasor: o.klasorId } }));
+        // Toplam 12 sn sınır: müşteri beklemesin; aşılırsa tarayıcı aynı kimlikle tekrar sorar
+        const o = await Promise.race([
+          yuklemeOturumu({ ad: k.no + ' - ' + k.dosya.ad, boyut: k.dosya.boyut, tur: k.dosya.tur, aciklama: k.urunAd + ' · ' + k.telefon, origin: url.origin }),
+          new Promise((_, red) => setTimeout(() => red(new Error('Drive yanıt vermedi (12 sn)')), 12000)),
+        ]);
+        // Eş zamanlı iki istekte ilk yazılan oturum geçerli; ikinci istek de onu kullanır (fazladan açılan boş oturum zararsızdır)
+        k = await talepGuncelle(k.no, (e) => (e.dosya.oturum ? null : { ...e, dosya: { ...e.dosya, durum: 'yukleniyor', oturum: o.adres, klasor: o.klasorId } }));
+        yukleme = k.dosya.oturum;
       } catch (e) {
         console.error('Drive yükleme oturumu açılamadı:', k.no, e && e.message);
-        k = await talepGuncelle(k.no, (x) => (x.dosya.durum === 'baglanti' ? null : { ...x, dosya: { ...x.dosya, durum: 'baglanti' } }));
+        k = await talepGuncelle(k.no, (x) => (x.dosya.durum !== 'yukleniyor' || x.dosya.oturum ? null : { ...x, dosya: { ...x.dosya, durum: 'baglanti' } }));
+        yukleme = k.dosya.oturum || null;
       }
     }
   }

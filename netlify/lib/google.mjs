@@ -70,12 +70,14 @@ async function g(url, secenek = {}) {
 }
 
 // Talep dosyalarının klasörü: ilk kullanımda oluşturulur, kimliği saklanır. Silinmişse yeniden oluşturulur.
+let klasorOnbellek = null; // { id, zaman } — her talepte klasörü tekrar sormamak için (10 dk)
 async function klasor() {
+  if (klasorOnbellek && Date.now() - klasorOnbellek.zaman < 10 * 60e3) return klasorOnbellek.id;
   const d = ayarDepo(), k = await d.get('drive-klasor', { type: 'json' });
   if (k && k.id) {
     const r = await g('https://www.googleapis.com/drive/v3/files/' + k.id + '?fields=id,trashed');
-    const j = r.ok ? await r.json() : null;
-    if (j && j.id && !j.trashed) return k.id;
+    if (r.ok) { const j = await r.json(); if (j.id && !j.trashed) { klasorOnbellek = { id: k.id, zaman: Date.now() }; return k.id; } }
+    else if (r.status !== 404) throw new Error('Drive klasörü kontrol edilemedi (' + r.status + ')'); // geçici hata: yeni klasör açma
   }
   const r = await g('https://www.googleapis.com/drive/v3/files?fields=id', {
     method: 'POST',
@@ -85,6 +87,7 @@ async function klasor() {
   const j = await r.json().catch(() => ({}));
   if (!j.id) throw new Error('Drive klasörü oluşturulamadı (' + r.status + ')');
   await d.setJSON('drive-klasor', { id: j.id });
+  klasorOnbellek = { id: j.id, zaman: Date.now() };
   return j.id;
 }
 
@@ -122,7 +125,8 @@ export async function oturumDurumu(adres, toplam) {
 export async function dosyaBilgisi(id) {
   if (!/^[A-Za-z0-9_-]{10,100}$/.test(String(id || ''))) return null;
   const r = await g('https://www.googleapis.com/drive/v3/files/' + id + '?fields=id,name,size,parents,webViewLink,trashed');
-  if (!r.ok) return null;
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error('Drive dosya bilgisi alınamadı (' + r.status + ')'); // geçici: çağıran tekrar dener
   return r.json();
 }
 

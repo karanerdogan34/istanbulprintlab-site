@@ -20,7 +20,7 @@ export default async () => {
       const d = k.dosya || {};
       if (d.durum === 'yukleniyor' && d.oturum && yas > 30 * DK) {
         const o = await oturumDurumu(d.oturum, d.boyut).catch(() => null);
-        if (o && o.bitti && o.id) { const f = await dosyaDogrula(k, o.id); await dosyaSonucla(k.no, f || { hata: 'Drive\'daki dosya doğrulanamadı' }); islenen++; }
+        if (o && o.bitti && o.id) { const f = await dosyaDogrula(k, o.id); await dosyaSonucla(k.no, f || { hata: 'Drive\'daki dosya doğrulanamadı' }); islenen++; } // geçici Drive hatası istisna fırlatır: sonraki turda tekrar denenir
         else if (yas > 3 * 60 * DK || (o && o.gecersiz)) { await dosyaSonucla(k.no, { hata: 'Yükleme tamamlanmadı (müşteri sayfadan ayrıldı ya da bağlantı koptu)' }); islenen++; }
       } else if ((d.durum === 'tamam' || d.durum === 'hata') && !k.mail.dosya) { await dosyaSonucla(k.no, d.durum === 'tamam' ? { id: d.id, link: d.link } : { hata: d.hata || 'hata' }); islenen++; }
     } catch (e) { console.error('Talep kontrolü:', k.no, e && e.message); }
