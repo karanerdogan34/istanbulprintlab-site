@@ -197,7 +197,7 @@
         araToplam: at, kdv: kd, toplam: yuvarla(at + kd), m2: yuvarla(tabaka * T.en * T.boy / 10000),
         kargoUcretsiz: at >= genel.kargo_ucretsiz_esik && !(tabaka * T.en * T.boy / 10000 > genel.kargo_max_m2), kargoAyrica: tabaka * T.en * T.boy / 10000 > genel.kargo_max_m2, kargoMaxM2: genel.kargo_max_m2};
     }
-    if (Math.min(en, boy) > cfg.rulo_en) return {durum: 'teklif', mesaj: 'Soğuk DTF en fazla ' + cfg.rulo_en + ' cm enindeki ruloya basılır; tasarımın kenarlarından en az biri ' + cfg.rulo_en + ' cm veya daha kısa olmalı. Daha büyük işler için teklif alın.', uyarilar: []};
+    if (Math.min(en, boy) > cfg.rulo_en) return {durum: 'teklif', mesaj: 'UV DTF en fazla ' + cfg.rulo_en + ' cm enindeki ruloya basılır; tasarımın kenarlarından en az biri ' + cfg.rulo_en + ' cm veya daha kısa olmalı. Daha büyük işler için teklif alın.', uyarilar: []};
     var y = dtfYerlesim(cfg.rulo_en, cfg.aralik_cm, en, boy, adet);
     var uzunluk = Math.ceil(y.uzunluk - 1e-9); // tam santimetreye yukarı
     if (uzunluk > genel.tek_parca_max_boy) return {durum: 'teklif', mesaj: 'Bu sipariş ' + (uzunluk / 100).toLocaleString('tr-TR') + ' metre rulo gerektiriyor. Tek seferde en fazla ' + (genel.tek_parca_max_boy / 100) + ' metre basılır; daha uzun işler için teklif alın.', uyarilar: []};
@@ -234,18 +234,43 @@
       kargoUcretsiz: !cfg.kargo_hep_alici && araToplam >= genel.kargo_ucretsiz_esik && !(m2 > genel.kargo_max_m2), kargoAyrica: !cfg.kargo_hep_alici && m2 > genel.kargo_max_m2, kargoMaxM2: genel.kargo_max_m2}; // duvar kağıdında kargo her zaman alıcıya ait
   }
 
-  function hesapla(fiyatlar, urunKod, girdi) {
-    var cfg = fiyatlar.urunler[urunKod];
-    if (!cfg) return {durum: 'hata', hatalar: [{alan: 'urun', mesaj: 'Ürün bulunamadı.'}]};
-    if (cfg.tur === 'rulo' && cfg.kesim) return kesimHesapla(cfg, fiyatlar.genel, girdi);
-    if (cfg.tur === 'rulo') return ruloHesapla(cfg, fiyatlar.genel, girdi);
-    if (cfg.tur === 'yazi') return yaziHesapla(cfg, fiyatlar.genel, girdi);
-    if (cfg.tur === 'kartvizit' || cfg.tur === 'davetiye') return adetliHesapla(cfg, fiyatlar.genel, girdi);
-    if (cfg.tur === 'dtf') return dtfHesapla(cfg, fiyatlar.genel, girdi);
-    if (cfg.tur === 'duvar') return duvarHesapla(cfg, fiyatlar.genel, girdi);
-    return {durum: 'hata', hatalar: [{alan: 'urun', mesaj: 'Bu ürün türü henüz tanımlı değil.'}]};
+  // Kargo kuralı (tek yerden): KDV dahil toplam eşiğin altındaysa sabit kargo ücreti, eşik ve üzerinde ücretsiz.
+  // kargo_yok: kargoyla gönderilmez (foreks, fotoblok, ayaklı pano) · kargo_hep_ucretsiz: kartvizit
+  // kargo_hep_alici: duvar kağıdı · kargoAyrica: m² sınırı aşıldı → ücret ayrıca bildirilir
+  function kargoUygula(cfg, genel, r) {
+    if (!r || r.durum !== 'tamam') return r;
+    var ucret = genel.kargo_ucreti || 0;
+    r.kargoYok = false; r.kargoUcret = 0;
+    if (cfg.kargo_yok) { r.kargoYok = true; r.kargoUcretsiz = false; r.kargoAyrica = false; }
+    else if (cfg.kargo_hep_ucretsiz) { r.kargoUcretsiz = true; r.kargoAyrica = false; }
+    else if (cfg.kargo_hep_alici || r.kargoAyrica) { r.kargoUcretsiz = false; }
+    else if (r.toplam >= genel.kargo_ucretsiz_esik) { r.kargoUcretsiz = true; }
+    else { r.kargoUcretsiz = false; r.kargoUcret = ucret; }
+    r.genelToplam = yuvarla(r.toplam + r.kargoUcret);
+    return r;
   }
 
-  var M = {hesapla: hesapla, dosyaKontrol: dosyaKontrol, sayi: sayi};
+  function hesapla(fiyatlar, urunKod, girdi) {
+    var cfg = fiyatlar.urunler[urunKod], G = fiyatlar.genel;
+    if (!cfg) return {durum: 'hata', hatalar: [{alan: 'urun', mesaj: 'Ürün bulunamadı.'}]};
+    var r;
+    if (cfg.tur === 'rulo' && cfg.kesim) r = kesimHesapla(cfg, G, girdi);
+    else if (cfg.tur === 'rulo') r = ruloHesapla(cfg, G, girdi);
+    else if (cfg.tur === 'yazi') r = yaziHesapla(cfg, G, girdi);
+    else if (cfg.tur === 'kartvizit' || cfg.tur === 'davetiye') r = adetliHesapla(cfg, G, girdi);
+    else if (cfg.tur === 'dtf') r = dtfHesapla(cfg, G, girdi);
+    else if (cfg.tur === 'duvar') r = duvarHesapla(cfg, G, girdi);
+    else return {durum: 'hata', hatalar: [{alan: 'urun', mesaj: 'Bu ürün türü henüz tanımlı değil.'}]};
+    return kargoUygula(cfg, G, r);
+  }
+
+  function kargoYazi(r) {
+    if (r.kargoYok) return 'Kargo ile gönderilmez';
+    if (r.kargoUcretsiz) return 'Ücretsiz';
+    if (r.kargoUcret > 0) return r.kargoUcret.toLocaleString('tr-TR') + ' ₺ (KDV dahil)';
+    return 'Alıcı ödemeli';
+  }
+
+  var M = {hesapla: hesapla, dosyaKontrol: dosyaKontrol, sayi: sayi, kargoYazi: kargoYazi};
   if (typeof module === 'object' && module.exports) module.exports = M; else kok.IPLMotor = M;
 })(typeof self !== 'undefined' ? self : this);

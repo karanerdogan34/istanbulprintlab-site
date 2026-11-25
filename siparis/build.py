@@ -39,6 +39,7 @@ def _denetle():
             hata.append('%s = %r' % (ad, v))
     bak(F['genel']['asgari_baski'], 'genel.asgari_baski', 0, 20000)
     bak(F['genel']['kargo_ucretsiz_esik'], 'genel.kargo_ucretsiz_esik', 0, 200000)
+    bak(F['genel']['kargo_ucreti'], 'genel.kargo_ucreti', 0, 5000)
     for kod, u in F['urunler'].items():
         for i, m in enumerate(u.get('malzemeler', [])):
             if 'm2' in m: bak(m['m2'], '%s.malzemeler.%d.m2' % (kod, i), 0 if u['tur'] == 'duvar' else 1)
@@ -69,7 +70,7 @@ CIKTI = os.environ.get('CIKTI') or os.path.join(K, 'dist')  # site derlemesi dis
 for kod, u in F['urunler'].items():
     s = oku('src/sablon-%s.html' % u['tur'])
     esik = F['genel']['kargo_ucretsiz_esik']
-    kargo = u.get('kargo_metni') or ('Kargo ücreti alıcıya aittir; %s ₺ + KDV ve üzeri siparişlerde kargo ücretsizdir.%s Dilerseniz Kadıköy\'deki atölyemizden teslim alabilirsiniz.' % (format(esik, ',').replace(',', '.'), '' if u['tur'] in ('kartvizit', 'davetiye') else ' %s m²\'nin üzerindeki siparişlerde ücretsiz kargo uygulanmaz.' % F['genel']['kargo_max_m2']))
+    kargo = u.get('kargo_metni') or ('KDV dahil %s ₺ altındaki siparişlerde kargo ücreti %s ₺, %s ₺ ve üzeri siparişlerde kargo ücretsizdir.%s Dilerseniz Kadıköy\'deki atölyemizden teslim alabilirsiniz.' % (format(esik, ',').replace(',', '.'), format(F['genel']['kargo_ucreti'], ',').replace(',', '.'), format(esik, ',').replace(',', '.'), '' if u['tur'] in ('kartvizit', 'davetiye') else ' %s m²\'nin üzerindeki siparişlerde kargo ücreti ayrıca bildirilir.' % F['genel']['kargo_max_m2']))
     # sayfaya yalnızca kendi ürününün fiyatları gömülür (daha hafif sayfa, daha hızlı açılış)
     for a, b in [('__CSS__', css), ('__MOTOR__', motor), ('__FIYATLAR__', json.dumps(dict(F, urunler={kod: u}), ensure_ascii=False)), ('__URUN__', kod),
                  ('__BASLIK__', u['ad']), ('__ACIKLAMA__', u.get('aciklama', '')), ('__KARGO_METNI__', kargo), ('__KPDF__', kpdf), ('__QR__', qr), ('__WA__', wa)]:

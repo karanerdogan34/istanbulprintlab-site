@@ -3,7 +3,8 @@
  "genel": {
   "kdv_orani": 0.2,
   "asgari_baski": 999,
-  "kargo_ucretsiz_esik": 5000,
+  "kargo_ucretsiz_esik": 1500,
+  "kargo_ucreti": 200,
   "tek_parca_max_boy": 4900,
   "kargo_max_m2": 16
  },
@@ -415,7 +416,7 @@
     "uygun": 100,
     "uyari": 72
    },
-   "kargo_metni": "Bu ürün kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz; özel teslimat bedeli ayrıca bildirilir. Fiyatlara ayak ve askı aparatı dahil değildir.",
+   "kargo_metni": "Bu ürün kargoda zarar görebileceği için kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da nakliye ile teslim isteyebilirsiniz; nakliye bedeli sipariş öncesinde bildirilir ve alıcıya aittir. Fiyatlara ayak ve askı aparatı dahil değildir.",
    "ad": "Foreks Baskı",
    "aciklama": "Mağaza, ofis, fuar ve etkinlik için baskılı foreks levha. Kalınlığı ve ölçüyü seçin, dosyanızı yükleyin; fiyat anında ekranda.",
    "chips": [
@@ -442,9 +443,10 @@
     },
     {
      "b": "Teslimat",
-     "m": "Foreks levhalar kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz. Levhalar tek parça teslim edilir; atölyeden teslim almadan önce ürünün ölçüsüne uygun bir taşıma aracı ayarlayın."
+     "m": "Foreks levhalar kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da nakliye ile teslim isteyebilirsiniz; nakliye bedeli önceden bildirilir ve alıcıya aittir. Levhalar tek parça teslim edilir; atölyeden teslim almadan önce ürünün ölçüsüne uygun bir taşıma aracı ayarlayın."
     }
-   ]
+   ],
+   "kargo_yok": true
   },
   "fotoblok-baski": {
    "tur": "rulo",
@@ -491,7 +493,7 @@
     "uygun": 100,
     "uyari": 72
    },
-   "kargo_metni": "Bu ürün kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz; özel teslimat bedeli ayrıca bildirilir. Fiyatlara ayak ve askı aparatı dahil değildir.",
+   "kargo_metni": "Bu ürün kargoda zarar görebileceği için kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da nakliye ile teslim isteyebilirsiniz; nakliye bedeli sipariş öncesinde bildirilir ve alıcıya aittir. Fiyatlara ayak ve askı aparatı dahil değildir.",
    "ad": "Fotoblok Baskı",
    "aciklama": "Fotoğraf, tablo, kampanya ve dekorasyon için baskılı fotoblok. Kalınlığı ve ölçüyü seçin, dosyanızı yükleyin; fiyat anında ekranda.",
    "chips": [
@@ -518,9 +520,10 @@
     },
     {
      "b": "Teslimat",
-     "m": "Fotobloklar kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da özel teslimat isteyebilirsiniz. Levhalar tek parça teslim edilir; atölyeden teslim almadan önce ürünün ölçüsüne uygun bir taşıma aracı ayarlayın."
+     "m": "Fotobloklar kargo ile gönderilmez. Kadıköy'deki atölyemizden teslim alabilir ya da nakliye ile teslim isteyebilirsiniz; nakliye bedeli önceden bildirilir ve alıcıya aittir. Levhalar tek parça teslim edilir; atölyeden teslim almadan önce ürünün ölçüsüne uygun bir taşıma aracı ayarlayın."
     }
-   ]
+   ],
+   "kargo_yok": true
   },
   "afis-baski": {
    "ad": "Afiş Baskı",
@@ -787,7 +790,7 @@
    "kargo_metni": "Kartvizit siparişlerinde kargo ücretsizdir. Dilerseniz Kadıköy'deki atölyemizden teslim alabilirsiniz."
   },
   "soguk-dtf-baski": {
-   "ad": "Soğuk DTF Baskı",
+   "ad": "UV DTF Baskı",
    "tur": "dtf",
    "rulo_en": 40,
    "metre_fiyat": 920,
@@ -806,7 +809,7 @@
    "bilgi": [
     {
      "b": "Metre ile fiyat",
-     "m": "Soğuk DTF 40 cm enindeki ruloya basılır ve kullanılan rulo uzunluğu kadar ücretlendirilir: 40 × 100 cm = {{metre_fiyat}} ₺ + KDV. Tasarımlarınız ruloya, aralarında 1 cm boşluk kalacak şekilde otomatik yerleştirilir; ödediğiniz uzunluk ekranda görünür."
+     "m": "UV DTF 40 cm enindeki ruloya basılır ve kullanılan rulo uzunluğu kadar ücretlendirilir: 40 × 100 cm = {{metre_fiyat}} ₺ + KDV. Tasarımlarınız ruloya, aralarında 1 cm boşluk kalacak şekilde otomatik yerleştirilir; ödediğiniz uzunluk ekranda görünür."
     },
     {
      "b": "Nerelere uygulanır?",
@@ -849,7 +852,7 @@
     },
     {
      "b": "Nerelere uygulanır?",
-     "m": "Tişört, sweatshirt, hırka, bez çanta, şapka ve benzeri kumaş ürünlere. Cam, metal, plastik gibi sert yüzeyler için <a href=\"/soguk-dtf-baski/\">Soğuk DTF Baskı</a> sayfasını kullanın."
+     "m": "Tişört, sweatshirt, hırka, bez çanta, şapka ve benzeri kumaş ürünlere. Cam, metal, plastik gibi sert yüzeyler için <a href=\"/soguk-dtf-baski/\">UV DTF Baskı</a> sayfasını kullanın."
     },
     {
      "b": "Nasıl uygulanır?",

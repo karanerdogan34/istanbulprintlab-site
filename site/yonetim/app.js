@@ -1354,7 +1354,8 @@ function siparisKalemleri(V) {
   const K = [];
   const ekle = (yol, urun, ad, birim, tip = 'tl') => K.push({ yol, urun, ad, birim, tip });
   ekle(['genel', 'asgari_baski'], 'Genel', 'Asgari baskı tutarı', 'sipariş başı');
-  ekle(['genel', 'kargo_ucretsiz_esik'], 'Genel', 'Ücretsiz kargo sınırı', 'sipariş tutarı');
+  ekle(['genel', 'kargo_ucretsiz_esik'], 'Genel', 'Ücretsiz kargo sınırı (KDV dahil)', 'sipariş tutarı');
+  ekle(['genel', 'kargo_ucreti'], 'Genel', 'Kargo ücreti, sınırın altında (KDV dahil)', 'sipariş başı');
   for (const [kod, u] of Object.entries(V.urunler || {})) {
     const ad = u.ad || URUN_ADI[kod] || kod; const y = (...p) => ['urunler', kod, ...p];
     (u.malzemeler || []).forEach((m, i) => { if (typeof m.m2 === 'number' && m.m2 > 0) ekle(y('malzemeler', i, 'm2'), ad, (u.malzeme_baslik ? u.malzeme_baslik + ' ' : '') + m.ad, 'm²'); });
@@ -1370,7 +1371,7 @@ function siparisKalemleri(V) {
 }
 const sfAlbum = () => D.albumler.find((a) => a.id === 'siparisFiyat');
 const sfYaz = (k, v) => k.tip === 'carpan' ? '× ' + String(v).replace('.', ',') : tl(v);
-const sfAralik = (k) => k.tip === 'carpan' ? [1, 4] : k.yol[1] === 'kargo_ucretsiz_esik' ? [0, 200000] : k.yol[1] === 'asgari_baski' ? [0, 20000] : k.birim === 'adet' && k.ad === 'Kuşgözü' ? [1, 1000] : [50, 60000];
+const sfAralik = (k) => k.tip === 'carpan' ? [1, 4] : k.yol[1] === 'kargo_ucretsiz_esik' ? [0, 200000] : k.yol[1] === 'kargo_ucreti' ? [0, 5000] : k.yol[1] === 'asgari_baski' ? [0, 20000] : k.birim === 'adet' && k.ad === 'Kuşgözü' ? [1, 1000] : [50, 60000];
 function siparisFiyatEkrani() {
   const al = sfAlbum(); if (!al) return git({ ad: 'ana' }, true);
   const g = gorunenAlbum(al); const K = siparisKalemleri(al.veri);

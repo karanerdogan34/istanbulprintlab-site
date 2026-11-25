@@ -271,8 +271,9 @@ function ciz(){
   h += '<div class="line total"><span>Ara toplam (KDV hariç)</span><span>'+tl(r.araToplam)+'</span></div>';
   h += '<div class="line"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
   h += '<div class="line big"><span>Toplam</span><span>'+tl(r.toplam)+'</span></div>';
-  h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+(r.kargoUcretsiz?'Ücretsiz':'Alıcı ödemeli')+'</span></div>';
-  $('ozetIc').innerHTML = h; $('mTop').textContent = tl(r.toplam);
+  h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+IPLMotor.kargoYazi(r)+'</span></div>';
+    if (r.kargoUcret > 0) h += '<div class="line big"><span>Kargo dahil toplam</span><span>'+tl(r.genelToplam)+'</span></div>';
+  $('ozetIc').innerHTML = h; $('mTop').textContent = tl(r.genelToplam || r.toplam);
   $('pdfSonuc').innerHTML = pdfAd ? '<div class="msg warn">'+esc(pdfAd)+' alındı. PDF dosyaları operatörümüz tarafından ölçü, taşma payı ve yazı kontrolünden geçirilir; sorun varsa üretimden önce sizinle iletişime geçilir.</div>' : '';
   var dosyaTamam = m==='sablon' ? eksik.length===0 : !!pdfAd;
   $('pdfIndir').style.display = (m==='sablon' && dosyaTamam) ? '' : 'none';

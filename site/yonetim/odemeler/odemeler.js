@@ -13,7 +13,7 @@
     var uy = [], simdi = Date.now();
     if (!K || !K.zaman) uy.push('Otomatik ödeme kontrolü henüz çalışmadı.');
     else {
-      if (simdi - Date.parse(K.zaman) > 15 * 60e3) uy.push('Otomatik ödeme kontrolü ' + Math.round((simdi - Date.parse(K.zaman)) / 60e3) + ' dakikadır çalışmadı.');
+      if (simdi - Date.parse(K.zaman) > 25 * 60e3) uy.push('Otomatik ödeme kontrolü ' + Math.round((simdi - Date.parse(K.zaman)) / 60e3) + ' dakikadır çalışmadı.');
       var ak = K.aktarici || {};
       if (ak.hata) uy.push('Bildirim aktarıcısına ulaşılamıyor (' + ak.hata + '). Son başarılı kontrol: ' + (K.sonBasarili ? new Date(K.sonBasarili).toLocaleString('tr-TR') : '-'));
       if (ak.bekleyen && ak.enEski && simdi - ak.enEski > 15 * 60e3) uy.push('Aktarıcıda 15 dakikadan uzun süredir siteye işlenemeyen ' + ak.bekleyen + ' bildirim var.');

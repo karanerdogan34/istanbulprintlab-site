@@ -318,13 +318,14 @@ function ciz(){
     h += '<div class="line"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
     h += '<div class="line big"><span>Toplam</span><span>'+tl(r.toplam)+'</span></div>';
     if (C.teslimat) { var ts = document.querySelector('input[name=teslim]:checked').value; h += '<div class="line"><span>Teslimat</span><span style="font-family:inherit">'+(ts==='ozel'?'Özel teslimat (bedeli ayrıca)':'Atölyeden teslim')+'</span></div>'; } else
-    h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+(r.kargoAyrica?'Alıcı ödemeli':(r.kargoUcretsiz?'Ücretsiz':'Alıcı ödemeli'))+'</span></div>';
+    h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+IPLMotor.kargoYazi(r)+'</span></div>';
+    if (r.kargoUcret > 0) h += '<div class="line big"><span>Kargo dahil toplam</span><span>'+tl(r.genelToplam)+'</span></div>';
     if (r.kargoAyrica) h += '<p class="small">'+k.m2.toLocaleString('tr-TR')+' m² ile '+r.kargoMaxM2+' m² sınırının üzerinde olduğu için ücretsiz kargo uygulanmaz; kargo ücreti alıcıya aittir. Dilerseniz Kadıköy\'deki atölyemizden teslim alabilirsiniz.</p>';
     h += alanNot;
     if (k.asgariFarki > 0 && k.cerceve > 0) h += '<p class="small">Asgari sipariş tutarı '+tl0(G.asgari_baski)+' + KDV\'dir; çerçeveli siparişlerde baskı ve çerçeve toplamına uygulanır.</p>';
     else if (k.asgariFarki > 0) { var ek=[]; if (C.laminasyon) ek.push('laminasyon'); if (C.kusgozu) ek.push('kuşgözü');
       h += '<p class="small">Asgari baskı tutarı '+tl0(G.asgari_baski)+' + KDV\'dir'+(ek.length?'; '+ek.join(' ve ')+' bedeli bu tutarın üzerine eklenir':'')+'.</p>'; }
-    $('mTop').textContent = tl(r.toplam);
+    $('mTop').textContent = tl(r.genelToplam || r.toplam);
   }
   var cerVarMi = C.cerceve && document.querySelector('input[name=cerVar]:checked').value==='var';
   var hz = !dolu && !cerVarMi && ornekFiyat(g);

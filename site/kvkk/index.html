@@ -472,7 +472,7 @@ main{counter-reset:sec}
 </div>
 <nav aria-label="Hizmetler"><b>Hizmetler</b><a href="/sticker-baski/">Sticker ve etiket</a><a href="/logo-sticker-baski/">Logo sticker</a><a href="/seffaf-sticker-baski/">Şeffaf sticker</a><a href="/rulo-etiket-baski/">Rulo etiket</a><a href="/fotoblok-baski/">Fotoblok baskı</a><a href="/yilbasi-ayakli-fotoblok/">Yılbaşı ayaklı fotoblok</a><a href="/dekupe-figur/">Dekupe figür</a><a href="/duvar-kagidi-baski/">Duvar kağıdı</a><a href="/cocuk-odasi-duvar-kagidi/">Çocuk odası duvar kağıdı</a><a href="/okullar-icin-baski/">Okullar için baskı</a><a href="/ofis-cam-filmi/">Ofis cam filmi ve kumlama</a><a href="/folyo-baski/">Folyo kesim ve cam yazısı</a><a href="/afis-baski/">Afiş baskı</a><a href="/branda-baski/">Branda ve mesh</a><a href="/poster-baski/">Poster ve çerçeve</a><a href="/roll-up-baski/">Roll-up baskı</a><a href="/foreks-baski/">Foreks baskı</a></nav>
 <nav aria-label="Araçlar"><b>Araçlar</b><a href="/sticker-baski/">Fiyat hesaplayıcı</a><a href="/hakkimizda/#malzeme-secici">Malzeme seçici</a><a href="/hakkimizda/#rehber">Kesim şablonu</a><a href="/rehber/baski-dosyasi-hazirlama/">Baskı dosyası rehberi</a><a href="/rehber/cam-filmi-secimi/">Cam filmi seçim rehberi</a><a href="/siparis-durumu/">Sipariş durumu</a><a href="/kurumsal/">Kurumsal müşteriler</a><a href="/rehber/">Tüm rehberler</a><a href="/istanbul/">İstanbul hizmet bölgeleri</a></nav>
-<nav aria-label="Kurumsal"><b>Kurumsal</b><a href="/#projeler">Projeler</a><a href="/hakkimizda/#sektorler">Sektörler</a><a href="/hakkimizda/">Hakkımızda</a><a href="/2027-ajanda-takvim/">2027 ajanda takvim</a><a href="/en/">English</a><a href="/kvkk/">KVKK ve gizlilik</a><a href="/cerez-politikasi/">Çerez politikası</a><a href="/on-bilgilendirme-formu/">Ön bilgilendirme formu</a><a href="/mesafeli-satis-sozlesmesi/">Mesafeli satış sözleşmesi</a><a href="/iade-ve-degisim/">İade ve değişim</a></nav>
+<nav aria-label="Kurumsal"><b>Kurumsal</b><a href="/#projeler">Projeler</a><a href="/hakkimizda/#sektorler">Sektörler</a><a href="/hakkimizda/">Hakkımızda</a><a href="/2027-ajanda-takvim/">2027 ajanda takvim</a><a href="/en/">English</a><a href="/kvkk/">KVKK ve gizlilik</a><a href="/cerez-politikasi/">Çerez politikası</a><a href="/on-bilgilendirme-formu/">Ön bilgilendirme formu</a><a href="/mesafeli-satis-sozlesmesi/">Mesafeli satış sözleşmesi</a><a href="/iade-ve-degisim/">İade ve değişim</a><a href="/teslimat-ve-kargo/">Teslimat ve kargo</a></nav>
 </div>
 <div class="wrap base"><span>© 2026 IstanbulPrintLab</span><a href="https://www.instagram.com/istanbulprintlab" style="color:var(--mute)">Instagram @istanbulprintlab</a></div>
 </footer>
@@ -590,7 +590,7 @@ function calc(){
   $('#sUnit').textContent=(net/q).toLocaleString('tr-TR',{maximumFractionDigits:2})+' ₺ + KDV';
   var sn=$('#sNet');if(sn)sn.textContent=fmt(net)+' + KDV';
   animTotal($('#sTotal'),total);
-  $('#sShip').textContent=net>=FREESHIP?'Ücretsiz ({{kargo_esik}} ₺ + KDV üzeri)':'Alıcıya ait · atölyeden teslim alınabilir';
+  $('#sShip').textContent=net*(1+KDV)>=FREESHIP?'Ücretsiz (KDV dahil {{kargo_esik}} ₺ ve üzeri)':'{{kargo_ucreti}} ₺ (KDV dahil) · atölyeden teslim alınabilir';
   var wn=[];if(minUsed)wn.push('Asgari sipariş tutarı {{asgari}} ₺ + KDV uygulandı.');
   if(Math.min(w,h)<4||cut==='kontur'||q>250)wn.push('Bu iş için kesin fiyat dosya kontrolünden sonra teklifle belirlenir (4 cm altı kesim detayı, kontur kesim veya 250 adetten fazla parça).');
   var sw=$('#sWarn');if(sw)sw.textContent=wn.join(' ');
@@ -789,7 +789,7 @@ $$('.mcalc').forEach(function(f){
     var mr=$('.mRate',f);if(mr)mr.textContent=EN?(fmt(rate).replace(' ₺',' TRY')+' / m² excl. VAT'):(fmt(Math.round(rate*(1+KDV)))+' / m² · '+fmt(rate)+' + KDV');
     var mn=$('.mNet',f);if(mn)mn.textContent=EN?fmt(net).replace(' ₺',' TRY'):fmt(net)+' + KDV';
     if(EN){animTotal($('.mTotal',f),net);f.__t=net;fxShow(f)}else animTotal($('.mTotal',f),total);
-    var ms=$('.mShip',f);if(ms&&!EN)ms.textContent=bulky?'Alıcıya ait · atölyeden teslim alınabilir':(net>=FREESHIP?'Ücretsiz ({{kargo_esik}} ₺ + KDV üzeri)':'Alıcıya ait · atölyeden teslim alınabilir');
+    var ms=$('.mShip',f);if(ms&&!EN)ms.textContent=bulky?'Kargo ile gönderilmez · atölyeden teslim veya nakliye':(net*(1+KDV)>=FREESHIP?'Ücretsiz (KDV dahil {{kargo_esik}} ₺ ve üzeri)':'{{kargo_ucreti}} ₺ (KDV dahil) · atölyeden teslim alınabilir');
     var wn=[];if(minNu)wn.push(EN?'Minimum order {{asgari}} TRY + VAT applied.':'Asgari sipariş tutarı {{asgari}} ₺ + KDV uygulandı.');
     if(ROLLM){var cutv=f.elements.cut?String(f.elements.cut.value):'';if(Math.min(w,h)<4||/^Kontur|^Contour/.test(cutv)||q>250)wn.push(EN?'Final price is confirmed by quote after file check (cut details under 4 cm, contour cut or more than 250 pieces).':'Bu iş için kesin fiyat dosya kontrolünden sonra teklifle belirlenir (4 cm altı kesim detayı, kontur kesim veya 250 adetten fazla parça).')}
     var mw=$('.mWarn',f);if(mw)mw.textContent=wn.join(' ');

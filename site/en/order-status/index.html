@@ -550,7 +550,7 @@ function calc(){
   $('#sUnit').textContent=(net/q).toLocaleString('tr-TR',{maximumFractionDigits:2})+' ₺ + KDV';
   var sn=$('#sNet');if(sn)sn.textContent=fmt(net)+' + KDV';
   animTotal($('#sTotal'),total);
-  $('#sShip').textContent=net>=FREESHIP?'Ücretsiz ({{kargo_esik}} ₺ + KDV üzeri)':'Alıcıya ait · atölyeden teslim alınabilir';
+  $('#sShip').textContent=net*(1+KDV)>=FREESHIP?'Ücretsiz (KDV dahil {{kargo_esik}} ₺ ve üzeri)':'{{kargo_ucreti}} ₺ (KDV dahil) · atölyeden teslim alınabilir';
   var wn=[];if(minUsed)wn.push('Asgari sipariş tutarı {{asgari}} ₺ + KDV uygulandı.');
   if(Math.min(w,h)<4||cut==='kontur'||q>250)wn.push('Bu iş için kesin fiyat dosya kontrolünden sonra teklifle belirlenir (4 cm altı kesim detayı, kontur kesim veya 250 adetten fazla parça).');
   var sw=$('#sWarn');if(sw)sw.textContent=wn.join(' ');
@@ -749,7 +749,7 @@ $$('.mcalc').forEach(function(f){
     var mr=$('.mRate',f);if(mr)mr.textContent=EN?(fmt(rate).replace(' ₺',' TRY')+' / m² excl. VAT'):(fmt(Math.round(rate*(1+KDV)))+' / m² · '+fmt(rate)+' + KDV');
     var mn=$('.mNet',f);if(mn)mn.textContent=EN?fmt(net).replace(' ₺',' TRY'):fmt(net)+' + KDV';
     if(EN){animTotal($('.mTotal',f),net);f.__t=net;fxShow(f)}else animTotal($('.mTotal',f),total);
-    var ms=$('.mShip',f);if(ms&&!EN)ms.textContent=bulky?'Alıcıya ait · atölyeden teslim alınabilir':(net>=FREESHIP?'Ücretsiz ({{kargo_esik}} ₺ + KDV üzeri)':'Alıcıya ait · atölyeden teslim alınabilir');
+    var ms=$('.mShip',f);if(ms&&!EN)ms.textContent=bulky?'Kargo ile gönderilmez · atölyeden teslim veya nakliye':(net*(1+KDV)>=FREESHIP?'Ücretsiz (KDV dahil {{kargo_esik}} ₺ ve üzeri)':'{{kargo_ucreti}} ₺ (KDV dahil) · atölyeden teslim alınabilir');
     var wn=[];if(minNu)wn.push(EN?'Minimum order {{asgari}} TRY + VAT applied.':'Asgari sipariş tutarı {{asgari}} ₺ + KDV uygulandı.');
     if(ROLLM){var cutv=f.elements.cut?String(f.elements.cut.value):'';if(Math.min(w,h)<4||/^Kontur|^Contour/.test(cutv)||q>250)wn.push(EN?'Final price is confirmed by quote after file check (cut details under 4 cm, contour cut or more than 250 pieces).':'Bu iş için kesin fiyat dosya kontrolünden sonra teklifle belirlenir (4 cm altı kesim detayı, kontur kesim veya 250 adetten fazla parça).')}
     var mw=$('.mWarn',f);if(mw)mw.textContent=wn.join(' ');

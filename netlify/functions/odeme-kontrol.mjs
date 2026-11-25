@@ -1,4 +1,4 @@
-// Zamanlanmış ödeme kontrolü (2 dakikada bir; durum sorgusu 10 dakikada bir). İki yedek katman:
+// Zamanlanmış ödeme kontrolü (10 dakikada bir — Netlify kredisi tasarrufu için). İki yedek katman:
 //  1) Türkiye'deki aktarıcının kuyruğunda siteye iletilememiş bildirim varsa imzalı istekle çeker, işler ve onaylar.
 //  2) Ödeme sayfası açılıp sonucu hâlâ gelmemiş denemeler için PayTR Durum Sorgu API'ye sorar (geri çekilmeli aralıklarla).
 // Son çalışma bilgisi 'sistem/kontrol' kaydına yazılır; yönetim panelindeki Ödemeler ekranı buna göre uyarı gösterir.
@@ -6,7 +6,7 @@ import { ayarlar, durumSorgu, AKTARICI, aktariciBasliklari } from '../lib/paytr.
 import { bildirimIsle } from '../lib/bildirim-isle.mjs';
 import { sonDenemeler, denemeAtomik, sistemOku, sistemYaz } from '../lib/kayit.mjs';
 
-export const config = { schedule: '*/2 * * * *' };
+export const config = { schedule: '*/10 * * * *' };
 
 const DK = 60e3;
 // Durum sorgusu zamanlaması: ödeme sayfası açıldıktan 5 dk sonra başla, 48 saat boyunca giderek seyrelen aralıklarla sor.
@@ -74,8 +74,8 @@ export default async () => {
   if (!a) return;
   const zaman = new Date().toISOString();
   const once = (await sistemOku('kontrol').catch(() => null)) || {};
-  // Durum sorgusu tüm deneme kayıtlarını okuduğu için 10 dakikada bir çalışır; aktarıcı kontrolü her seferinde.
-  const sorguZamani = !once.sorguZaman || Date.now() - Date.parse(once.sorguZaman) >= 9.5 * 60e3;
+  // Görev 10 dakikada bir çalışır; durum sorgusu da her çalışmada yapılır (eşik, zamanlama kaymalarına karşı 9 dk).
+  const sorguZamani = !once.sorguZaman || Date.now() - Date.parse(once.sorguZaman) >= 9 * 60e3;
   const [aktarici, sorgu] = await Promise.all([aktaricidanCek(a), sorguZamani ? durumlariSor(a).catch((e) => ({ hata: e && e.message })) : Promise.resolve(once.sorgu || null)]);
   await sistemYaz('kontrol', {
     zaman, aktarici, sorgu, sorguZaman: sorguZamani ? zaman : once.sorguZaman,

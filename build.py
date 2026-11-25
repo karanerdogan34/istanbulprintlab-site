@@ -55,7 +55,7 @@ DUGMELER = [  # (sipariş ürün kodu, sitedeki sayfa, düğme adı)
     ('folyo-yazi-kesim', '/folyo-yazi-kesim/', 'Folyo yazı kesim'), ('foreks-baski', '/foreks-baski/', 'Foreks baskı'),
     ('fotoblok-baski', '/fotoblok-baski/', 'Fotoblok baskı'), ('afis-baski', '/afis-baski/', 'Afiş baskı'),
     ('kartvizit-baski', '/kartvizit-baski/', 'Kartvizit'), ('poster-baski', '/poster-baski/', 'Poster baskı'),
-    ('mesh-baski', '/mesh-branda/', 'Mesh baskı'), ('soguk-dtf-baski', '/soguk-dtf-baski/', 'Soğuk DTF'),
+    ('mesh-baski', '/mesh-branda/', 'Mesh baskı'), ('soguk-dtf-baski', '/soguk-dtf-baski/', 'UV DTF'),
     ('sicak-dtf-baski', '/sicak-dtf-baski/', 'Sıcak DTF'), ('duvar-kagidi-baski', '/duvar-kagidi-baski/', 'Duvar kağıdı'),
     ('davetiye-baski', '/davetiye-baski/', 'Davetiye')]
 
@@ -189,7 +189,7 @@ TOK = re.compile(r'\{\{([a-z0-9_]+)(?:\*([\d.]+))?(\+kdv|:ham)?\}\}')
 HER_TOK = re.compile(r'\{\{[^{}]{0,40}\}\}')
 KDV_DAHIL = {'takvim', 'takvim_cerceveli', 'takvim_50', 'takvim_100'}
 # Her fiyat için makul aralık (TL). Dışında kalan değer derlemeyi durdurur.
-ARALIK = {'asgari': (0, 20000), 'kargo_esik': (0, 200000), 'rollup': (500, 50000)}
+ARALIK = {'asgari': (0, 20000), 'kargo_esik': (0, 200000), 'kargo_ucreti': (0, 5000), 'kargo_max_m2': (1, 1000), 'rollup': (500, 50000)}
 VARSAYILAN_ARALIK = (50, 30000)
 
 
@@ -221,7 +221,7 @@ def siparis_fiyatlari():
         'sticker': m2('sticker-etiket-baski'), 'folyo': m2('folyo-baski'), 'owv': m2('one-way-vision-baski'),
         'foreks': m2('foreks-baski', '3mm'), 'branda_beyaz': m2('branda-baski', 'branda-arkasi-beyaz'),
         'branda_siyah': m2('branda-baski', 'branda-arkasi-siyah'), 'mesh': m2('mesh-baski'),
-        'asgari': G['asgari_baski'], 'kargo_esik': G['kargo_ucretsiz_esik'],
+        'asgari': G['asgari_baski'], 'kargo_esik': G['kargo_ucretsiz_esik'], 'kargo_ucreti': G['kargo_ucreti'], 'kargo_max_m2': G['kargo_max_m2'],
     }
     d['folyo_lam'] = int(round(d['folyo'] * lam('folyo-baski')))
     d['foreks_lam'] = int(round(d['foreks'] * lam('foreks-baski')))

@@ -165,10 +165,11 @@ function ciz(){
     h += '<div class="line total"><span>Ara toplam (KDV hariç)</span><span>'+tl(r.araToplam)+'</span></div>';
     h += '<div class="line"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
     h += '<div class="line big"><span>Toplam</span><span>'+tl(r.toplam)+'</span></div>';
-    h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+(r.kargoUcretsiz?'Ücretsiz':'Alıcı ödemeli')+'</span></div>';
+    h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+IPLMotor.kargoYazi(r)+'</span></div>';
+    if (r.kargoUcret > 0) h += '<div class="line big"><span>Kargo dahil toplam</span><span>'+tl(r.genelToplam)+'</span></div>';
     if (r.kargoAyrica) h += '<p class="small">Sipariş alanı '+r.kargoMaxM2+' m² sınırının üzerinde olduğu için ücretsiz kargo uygulanmaz; kargo ücreti alıcıya aittir. Dilerseniz Kadıköy\'deki atölyemizden teslim alabilirsiniz.</p>';
     if (k.asgariFarki > 0) h += '<p class="small">Asgari baskı tutarı '+tl0(G.asgari_baski)+' + KDV\'dir.</p>';
-    $('mTop').textContent = tl(r.toplam);
+    $('mTop').textContent = tl(r.genelToplam || r.toplam);
   }
   $('ozetIc').innerHTML = h;
   yerlesimCiz(r);
