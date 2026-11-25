@@ -55,6 +55,7 @@ export async function erisim() {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({ client_id: i.id, client_secret: i.gizli, refresh_token: coz(k.r), grant_type: 'refresh_token' }),
+    signal: AbortSignal.timeout(SURE),
   });
   const j = await r.json().catch(() => ({}));
   if (!j.access_token) throw new Error('Google erişim anahtarı alınamadı: ' + (j.error || r.status));
@@ -62,9 +63,10 @@ export async function erisim() {
   return j.access_token;
 }
 
+const SURE = 8000; // her Google çağrısı en fazla 8 sn (müşteri beklemesin)
 async function g(url, secenek = {}) {
   const t = await erisim();
-  return fetch(url, { ...secenek, headers: { Authorization: 'Bearer ' + t, ...(secenek.headers || {}) } });
+  return fetch(url, { ...secenek, headers: { Authorization: 'Bearer ' + t, ...(secenek.headers || {}) }, signal: AbortSignal.timeout(SURE) });
 }
 
 // Talep dosyalarının klasörü: ilk kullanımda oluşturulur, kimliği saklanır. Silinmişse yeniden oluşturulur.
@@ -103,6 +105,17 @@ export async function yuklemeOturumu({ ad, boyut, tur, aciklama, origin }) {
   const adres = r.headers.get('location');
   if (!r.ok || !adres) throw new Error('Yükleme oturumu açılamadı (' + r.status + ')');
   return { adres, klasorId };
+}
+
+// Yükleme oturumunun durumu (tarayıcı Range başlığını okuyamazsa sunucu sorar; sunucuda CORS kısıtı yok).
+// Dönüş: { bitti, id } | { sonraki: bayt } | { gecersiz: true } (oturumun süresi dolmuş, 1 hafta)
+export async function oturumDurumu(adres, toplam) {
+  if (!/^https:\/\/www\.googleapis\.com\/upload\/drive\//.test(String(adres || '')) && process.env.IPL_TEST_BELLEK !== '1') return { gecersiz: true };
+  const r = await fetch(adres, { method: 'PUT', headers: { 'Content-Range': 'bytes */' + toplam, 'Content-Length': '0' }, signal: AbortSignal.timeout(SURE) });
+  if (r.status === 200 || r.status === 201) { const j = await r.json().catch(() => ({})); return { bitti: true, id: j.id }; }
+  if (r.status === 308) { const m = /bytes=0-(\d+)/.exec(r.headers.get('range') || ''); return { sonraki: m ? parseInt(m[1], 10) + 1 : 0 }; }
+  if (r.status === 404 || r.status === 410) return { gecersiz: true };
+  throw new Error('Yükleme durumu alınamadı (' + r.status + ')');
 }
 
 // Yüklenen dosyanın gerçekten bizim klasörümüzde ve bu talebe ait olduğunu doğrular.

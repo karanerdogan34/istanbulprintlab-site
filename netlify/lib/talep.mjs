@@ -2,16 +2,24 @@
 //   talep/<no>      : talep kaydı (ürün, seçimler, ön fiyat, telefon, dosya durumu, mail durumu)
 //   istemci/<id>    : aynı tıklamanın iki kez kayıt açmasını önler (çift dokunma, bağlantı kopup yeniden deneme)
 //   sinir/<ip>/<saat> : IP başına saatlik talep sınırı (bot/kötüye kullanım)
+//   kota/<gün>      : sitenin günlük toplam dosya yükleme kotası
+//   ayar/gizli      : imza anahtarı (ilk kullanımda üretilir)
 import crypto from 'node:crypto';
 import { getStore } from '@netlify/blobs';
 
-let bellek = null; // yalnızca yerel testlerde
+let bellek = null; // yalnızca yerel testlerde (etag ve koşullu yazma dahil)
 const depo = () => {
   if (process.env.IPL_TEST_BELLEK === '1') {
     bellek = bellek || new Map();
+    const etag = (k) => (bellek.has(k) ? String(bellek.get(k).length) + ':' + bellek.get(k).slice(-12) : null);
     return {
       get: async (k) => (bellek.has(k) ? JSON.parse(bellek.get(k)) : null),
-      setJSON: async (k, v) => { bellek.set(k, JSON.stringify(v)); },
+      getWithMetadata: async (k) => (bellek.has(k) ? { data: JSON.parse(bellek.get(k)), etag: etag(k) } : null),
+      setJSON: async (k, v, o = {}) => {
+        if (o.onlyIfNew && bellek.has(k)) return { modified: false };
+        if (o.onlyIfMatch && etag(k) !== o.onlyIfMatch) return { modified: false };
+        bellek.set(k, JSON.stringify(v)); return { modified: true };
+      },
       list: async ({ prefix }) => ({ blobs: [...bellek.keys()].filter((k) => k.startsWith(prefix)).map((key) => ({ key })) }),
     };
   }
@@ -20,8 +28,27 @@ const depo = () => {
 
 export const talepOku = (no) => depo().get('talep/' + no, { type: 'json' });
 export const talepYaz = (no, v) => depo().setJSON('talep/' + no, v);
-export const istemciOku = (id) => depo().get('istemci/' + id, { type: 'json' });
-export const istemciYaz = (id, no) => depo().setJSON('istemci/' + id, { no, zaman: Date.now() });
+// Talep kaydını atomik günceller (iki istek aynı anda yazarsa biri diğerinin değişikliğini ezmesin). guncelle(eski) → yeni | null
+export async function talepGuncelle(no, guncelle) {
+  const d = depo();
+  for (let i = 0; i < 5; i++) {
+    const o = await d.getWithMetadata('talep/' + no, { type: 'json' });
+    if (!o || !o.data) return null;
+    const yeni = guncelle(o.data);
+    if (!yeni) return o.data;
+    const r = await d.setJSON('talep/' + no, yeni, { onlyIfMatch: o.etag });
+    if (r && r.modified) return yeni;
+  }
+  throw new Error('Talep güncellenemedi (eş zamanlı yazma)');
+}
+// Aynı istemci kimliği için yalnızca bir talep numarası: koşullu ilk yazma kazanır, ikinci istek ilkinin numarasını kullanır.
+export async function istemciSahiplen(id, no) {
+  const d = depo();
+  const r = await d.setJSON('istemci/' + id, { no, zaman: Date.now() }, { onlyIfNew: true });
+  if (r && r.modified) return { yeni: true, no };
+  const v = await d.get('istemci/' + id, { type: 'json' });
+  return { yeni: false, no: v && v.no };
+}
 
 // Talep numarası: T + YYAAGG + '-' + 4 karakter (karışan harfler yok: 0/O, 1/I/L). Örn. T261125-K7QM
 const HARF = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
@@ -32,29 +59,50 @@ export function yeniNo() {
   for (const b of crypto.randomBytes(4)) e += HARF[b % HARF.length];
   return 'T' + t + '-' + e;
 }
+export const NO_DESENI = /^T\d{6}-[A-Z0-9]{4}$/;
 
-function gizli() {
-  const s = process.env.TALEP_GIZLI || process.env.GITHUB_CLIENT_SECRET;
-  if (!s) throw new Error('Sunucu ayarı eksik');
-  return s;
+// Talep imzası ve IP özetleri için gizli anahtar: ortam değişkeni yoksa ilk kullanımda rastgele üretilip saklanır (başka bir sırra bağlı değil).
+let gizliOnbellek = null;
+async function gizli() {
+  if (process.env.TALEP_GIZLI) return process.env.TALEP_GIZLI;
+  if (gizliOnbellek) return gizliOnbellek;
+  const d = depo();
+  let v = await d.get('ayar/gizli', { type: 'json' });
+  if (!v || !v.g) {
+    await d.setJSON('ayar/gizli', { g: crypto.randomBytes(32).toString('base64url') }, { onlyIfNew: true });
+    v = await d.get('ayar/gizli', { type: 'json' });
+  }
+  gizliOnbellek = v.g;
+  return gizliOnbellek;
 }
 // Dosya yüklemesinin sonucunu bildiren isteğin, talebi açan tarayıcıdan geldiğini kanıtlayan imza
-export const talepAnahtari = (no) => crypto.createHmac('sha256', 'ipl-talep:' + gizli()).update(no).digest('base64url').slice(0, 32);
-export const anahtarDogru = (no, a) => {
-  const b = Buffer.from(talepAnahtari(no)), c = Buffer.from(String(a || ''));
+export const talepAnahtari = async (no) => crypto.createHmac('sha256', 'ipl-talep:' + (await gizli())).update(no).digest('base64url').slice(0, 32);
+export const anahtarDogru = async (no, a) => {
+  const b = Buffer.from(await talepAnahtari(no)), c = Buffer.from(String(a || ''));
   return b.length === c.length && crypto.timingSafeEqual(b, c);
 };
 
-// IP başına saatte en fazla SINIR talep. Sayaç atomik değildir; amaç kesin sayım değil, seri kötüye kullanımı kesmek.
-const SINIR = 10;
-export async function sinirAsildi(ip) {
+// Atomik sayaç (koşullu yazma ile): sınır aşıldıysa false döner, aşılmadıysa sayacı artırıp true döner.
+async function sayacArtir(k, artis, sinir) {
   const d = depo();
-  const h = crypto.createHash('sha256').update('ipl-ip:' + gizli() + ip).digest('hex').slice(0, 24);
-  const k = 'sinir/' + h + '/' + Math.floor(Date.now() / 3600e3);
-  const v = (await d.get(k, { type: 'json' })) || { n: 0 };
-  if (v.n >= SINIR) return true;
-  await d.setJSON(k, { n: v.n + 1 });
-  return false;
+  for (let i = 0; i < 6; i++) {
+    const o = await d.getWithMetadata(k, { type: 'json' });
+    const n = o && o.data ? o.data.n : 0;
+    if (n + artis > sinir) return false;
+    const r = o ? await d.setJSON(k, { n: n + artis }, { onlyIfMatch: o.etag }) : await d.setJSON(k, { n: artis }, { onlyIfNew: true });
+    if (r && r.modified) return true;
+  }
+  return false; // yoğun çakışmada temkinli davran
+}
+// IP başına saatte en fazla 10 talep
+export async function sinirAsildi(ip) {
+  const h = crypto.createHash('sha256').update('ipl-ip:' + (await gizli()) + ip).digest('hex').slice(0, 24);
+  return !(await sayacArtir('sinir/' + h + '/' + Math.floor(Date.now() / 3600e3), 1, 10));
+}
+// Sitenin tamamı için günlük yükleme kotası (bayt): Drive'ın kötüye kullanımla dolmasını önler
+const GUNLUK_KOTA = Number(process.env.TALEP_GUNLUK_KOTA_MB || 5000) * 1048576;
+export async function kotaAyir(bayt) {
+  return sayacArtir('kota/' + new Date(Date.now() + 3 * 3600e3).toISOString().slice(0, 10), bayt, GUNLUK_KOTA);
 }
 
 export async function sonTalepler(sinir = 200) {
@@ -64,6 +112,14 @@ export async function sonTalepler(sinir = 200) {
   const anahtarlar = blobs.map((b) => b.key).sort().slice(-400);
   const hepsi = await Promise.all(anahtarlar.map((k) => d.get(k, { type: 'json' })));
   return hepsi.filter(Boolean).sort((x, y) => String(y.zaman).localeCompare(String(x.zaman))).slice(0, sinir);
+}
+// Son N günün talepleri (zamanlanmış kontrol için; numaradaki tarihten süzülür, eski kayıtlar okunmaz)
+export async function yakinTalepler(gun = 3) {
+  const d = depo(), sinirTarih = new Date(Date.now() + 3 * 3600e3 - gun * 86400e3);
+  const alt = 'talep/T' + String(sinirTarih.getUTCFullYear()).slice(2) + String(sinirTarih.getUTCMonth() + 1).padStart(2, '0') + String(sinirTarih.getUTCDate()).padStart(2, '0');
+  const { blobs } = await d.list({ prefix: 'talep/' });
+  const anahtarlar = blobs.map((b) => b.key).filter((k) => k >= alt);
+  return (await Promise.all(anahtarlar.map((k) => d.get(k, { type: 'json' })))).filter(Boolean);
 }
 
 // Türkiye numaralarını wa.me / tel biçimine çevirir: 0532..., 532..., +90 532... → 905325237364
@@ -83,6 +139,7 @@ const DOSYA_DURUMU = {
   tamam: 'Yüklendi.',
   hata: 'YÜKLENEMEDİ — müşteriyi arayıp dosyayı WhatsApp\'tan isteyin.',
   baglanti: 'Drive bağlantısı kurulamadı; dosya alınamadı — müşteriden WhatsApp\'tan isteyin.',
+  kota: 'Günlük yükleme kotası doldu; dosya alınamadı — müşteriden WhatsApp\'tan isteyin.',
 };
 
 // Bildirim maili: telefonda ilk bakışta aranacak numara ve ürün görünsün diye en üstte

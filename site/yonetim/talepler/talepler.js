@@ -1,7 +1,7 @@
 /* Yönetim: sipariş talepleri listesi. Müşteri girdileri textContent ile yazılır (HTML olarak işlenmez). */
 (function () {
   var liste = document.getElementById('liste'), m = document.getElementById('mesaj'), gk = document.getElementById('google');
-  var DOSYA = { yok: 'Dosya yok', yukleniyor: 'Dosya yükleniyor / tamamlanmadı', tamam: 'Dosya geldi', hata: 'DOSYA YÜKLENEMEDİ', baglanti: 'Dosya alınamadı (Drive bağlantısı yok)' };
+  var DOSYA = { yok: 'Dosya yok', yukleniyor: 'Dosya yükleniyor / tamamlanmadı', tamam: 'Dosya geldi', hata: 'DOSYA YÜKLENEMEDİ', baglanti: 'Dosya alınamadı (Drive bağlantısı yok)', kota: 'Dosya alınamadı (günlük kota doldu)' };
   function el(etiket, metin, stil) { var e = document.createElement(etiket); if (metin != null) e.textContent = metin; if (stil) e.style.cssText = stil; return e; }
   function bag(metin, href) { var a = el('a', metin, 'display:inline-block;margin:8px 8px 0 0;padding:8px 12px;border:1px solid #111;border-radius:999px;color:#111;text-decoration:none;font-size:14px'); a.href = href; if (/^https?:/.test(href)) { a.target = '_blank'; a.rel = 'noopener'; } return a; }
   var q = new URLSearchParams(location.search).get('google');

@@ -174,54 +174,54 @@
     if (m && metin) { m.textContent = metin; m.style.color = tur === 'bad' ? 'var(--bad)' : tur === 'ok' ? 'var(--ok)' : ''; }
   }
 
-  // Drive'a kesintiden devam edebilen yükleme. 308 = parça alındı, devam; 200/201 = dosya tamam (gövdede dosya kimliği).
+  // Drive'a kesintiden devam edebilen yükleme. 308 = parça alındı; 200/201 = dosya tamam.
+  // Drive'ın aldığı bayt konumu (Range) tarayıcıda okunamazsa ya da bağlantı koparsa konum sunucuya sorulur (sunucuda CORS kısıtı yok).
   function parcaGonder(adres, blob, bas, toplam) {
-    return new Promise(function (coz, red) {
+    return new Promise(function (coz) {
       var son = Math.min(bas + PARCA, toplam), x = new XMLHttpRequest();
       x.open('PUT', adres, true);
+      x.timeout = 180000; // 8 MB parça çok yavaş hatta bile 3 dakikada gitmeli; takılırsa durum sorulur
       x.setRequestHeader('Content-Range', 'bytes ' + bas + '-' + (son - 1) + '/' + toplam);
       x.upload.onprogress = function (e) { if (e.lengthComputable) yuklemeDurumu((bas + e.loaded) / toplam, 'Dosyanız yükleniyor… %' + Math.floor((bas + e.loaded) / toplam * 100) + ' — lütfen bu sayfayı kapatmayın.'); };
       x.onload = function () {
-        if (x.status === 200 || x.status === 201) { var j = {}; try { j = JSON.parse(x.responseText); } catch (_) {} return coz({ bitti: true, id: j.id }); }
-        if (x.status === 308) { var r = x.getResponseHeader('Range'), m = r && /bytes=0-(\d+)/.exec(r); return coz({ bitti: false, sonraki: m ? parseInt(m[1], 10) + 1 : son }); }
-        red(new Error('HTTP ' + x.status));
+        if (x.status === 200 || x.status === 201) { var j = {}; try { j = JSON.parse(x.responseText); } catch (_) {} return coz({ bitti: true, id: j.id || null }); }
+        if (x.status === 308) { var r = null; try { r = x.getResponseHeader('Range'); } catch (_) {} var m = r && /bytes=0-(\d+)/.exec(r); return coz(m ? { sonraki: parseInt(m[1], 10) + 1 } : { sor: true }); }
+        coz({ sor: true, hata: 'HTTP ' + x.status });
       };
-      x.onerror = function () { red(new Error('ağ')); };
+      x.onerror = function () { coz({ sor: true, hata: 'ağ' }); };
+      x.ontimeout = function () { coz({ sor: true, hata: 'zaman aşımı' }); };
       x.send(blob.slice(bas, son));
     });
   }
-  function durumSor(adres, toplam) { // kopmadan sonra Drive'ın ne kadarını aldığını öğren
-    return new Promise(function (coz) {
-      var x = new XMLHttpRequest(); x.open('PUT', adres, true); x.setRequestHeader('Content-Range', 'bytes */' + toplam);
-      x.onload = function () {
-        if (x.status === 200 || x.status === 201) { var j = {}; try { j = JSON.parse(x.responseText); } catch (_) {} return coz({ bitti: true, id: j.id }); }
-        var r = x.getResponseHeader('Range'), m = r && /bytes=0-(\d+)/.exec(r); coz({ bitti: false, sonraki: m ? parseInt(m[1], 10) + 1 : (x.status === 308 && !r ? 0 : null) });
-      };
-      x.onerror = function () { coz(null); }; x.send();
-    });
-  }
-  function yukle(adres, blob) {
+  function bekle(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  // Dönüş: Promise<{ tamam: true }> ya da hata (reject)
+  function yukle(t, adres, blob) {
     var toplam = blob.size, bas = 0, deneme = 0;
-    return new Promise(function (coz, red) {
-      function adim() {
-        parcaGonder(adres, blob, bas, toplam).then(function (s) {
-          deneme = 0;
-          if (s.bitti) return coz(s.id);
-          bas = s.sonraki; adim();
-        }, function (e) {
-          if (++deneme > 6) return red(e);
-          yuklemeDurumu(null, 'Bağlantı yavaş, yükleme sürüyor… lütfen bu sayfayı kapatmayın.');
-          setTimeout(function () {
-            durumSor(adres, toplam).then(function (d) {
-              if (d && d.bitti) return coz(d.id);
-              if (d && d.sonraki != null) bas = d.sonraki;
-              adim();
-            });
-          }, Math.min(15000, 1000 * Math.pow(2, deneme)));
+    function sunucuyaSor() { return postJSON('talep-dosya', { no: t.no, anahtar: t.anahtar, durum: 1 }); }
+    function adim() {
+      return parcaGonder(adres, blob, bas, toplam).then(function (s) {
+        if (s.bitti && s.id) return postJSON('talep-dosya', { no: t.no, anahtar: t.anahtar, id: s.id }).then(function (j) {
+          if (j.tamam) return { tamam: true };
+          if (j.__durum >= 500 || !j.__durum) return sor(); // geçici sunucu hatası: durumu yeniden sor
+          throw new Error('Dosya doğrulanamadı');
         });
-      }
-      adim();
-    });
+        if (s.sonraki != null) { if (s.sonraki > bas) deneme = 0; bas = s.sonraki; return adim(); }
+        return sor(s.bitti ? null : s.hata);
+      });
+    }
+    function sor(hataVar) {
+      if (hataVar && ++deneme > 8) return Promise.reject(new Error(hataVar));
+      if (hataVar) yuklemeDurumu(null, 'Bağlantı yavaş, yükleme sürüyor… lütfen bu sayfayı kapatmayın.');
+      return bekle(hataVar ? Math.min(15000, 1000 * Math.pow(2, deneme)) : 0).then(sunucuyaSor).then(function (j) {
+        if (j.bitti) return { tamam: true };
+        if (j.yeni) { adres = j.yeni; bas = 0; return adim(); }
+        if (j.sonraki != null) { if (j.sonraki > bas) deneme = 0; bas = j.sonraki; return adim(); }
+        if (j.__durum === 409) throw new Error('Dosya doğrulanamadı');
+        if (++deneme > 8) throw new Error(j.message || 'durum alınamadı');
+        return bekle(Math.min(15000, 1000 * Math.pow(2, deneme))).then(function () { return sor(); });
+      }, function () { if (++deneme > 8) throw new Error('ağ'); return bekle(Math.min(15000, 1000 * Math.pow(2, deneme))).then(function () { return sor(); }); });
+    }
+    return adim();
   }
 
   btn.addEventListener('click', function () {
@@ -253,15 +253,16 @@
         if (!d) return;
         if (!j.yukleme) { yuklemeDurumu(0, 'Dosyanız şu an siteden alınamadı. Talebiniz bize ulaştı; lütfen dosyanızı aşağıdaki WhatsApp düğmesinden gönderin.', 'bad'); return; }
         yukleniyor = true;
-        return yukle(j.yukleme, d.blob).then(function (id) {
+        return yukle(j, j.yukleme, d.blob).then(function () {
           yukleniyor = false; yuklemeDurumu(1, 'Dosyanız da alındı. Teşekkür ederiz.', 'ok');
           var bar = document.getElementById('tBar'); if (bar) bar.parentNode.style.display = 'none';
           olay('dosya_yuklendi', { talep: j.no });
-          return postJSON('talep-dosya', { no: j.no, anahtar: j.anahtar, id: id });
         }, function (e) {
-          yukleniyor = false; yuklemeDurumu(null, 'Dosyanız yüklenemedi (bağlantı koptu). Talebiniz bize ulaştı; dosyanızı aşağıdaki WhatsApp düğmesinden gönderebilirsiniz.', 'bad');
+          yukleniyor = false; yuklemeDurumu(null, 'Dosyanız yüklenemedi. Talebiniz bize ulaştı; dosyanızı aşağıdaki WhatsApp düğmesinden gönderebilirsiniz.', 'bad');
           olay('dosya_yuklenemedi', { talep: j.no });
-          return postJSON('talep-dosya', { no: j.no, anahtar: j.anahtar, hata: String(e && e.message || 'hata') });
+          return postJSON('talep-dosya', { no: j.no, anahtar: j.anahtar, hata: String(e && e.message || 'hata') }).then(function (r) {
+            if (r.tamam) yuklemeDurumu(1, 'Dosyanız da alındı. Teşekkür ederiz.', 'ok'); // Drive'a aslında ulaşmışsa
+          }, function () {});
         });
       });
     }).catch(function () {

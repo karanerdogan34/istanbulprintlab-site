@@ -1,8 +1,12 @@
-// Hesaplayıcı: tarayıcının Drive'a yüklediği dosyanın sonucunu bildirir (tamam / hata). Dosyanın gerçekten bizim klasörümüzde,
-// bu talebin numarasıyla ve beyan edilen boyutta olduğu Drive'dan doğrulanır; sonra info@ adresine dosya linkiyle ikinci mail gider.
+// Hesaplayıcı: Drive'a yüklenen dosyanın durumu ve sonucu.
+//   { durum: 1 }  → yükleme oturumunda kaç bayt alındığını sunucu sorar (tarayıcı Range başlığını okuyamazsa); süresi dolmuşsa yeni oturum açar
+//   { id }        → dosya bitti: gerçekten bizim klasörümüzde, bu talebin numarasıyla ve beyan edilen boyutta olduğu doğrulanır, ikinci mail gider
+//   { hata }      → yükleme başarısız: "DOSYA YÜKLENEMEDİ" maili
+// Gönderilemeyen mailler ve sonucu hiç bildirilmeyen yüklemeler talep-kontrol (zamanlanmış) tarafından tamamlanır.
 import { json } from '../lib/ortak.mjs';
-import { talepOku, talepYaz, anahtarDogru, mailMetni } from '../lib/talep.mjs';
-import { dosyaBilgisi, mailGonder } from '../lib/google.mjs';
+import { talepOku, talepGuncelle, anahtarDogru, NO_DESENI } from '../lib/talep.mjs';
+import { oturumDurumu, yuklemeOturumu } from '../lib/google.mjs';
+import { dosyaSonucla, dosyaDogrula } from '../lib/talep-islem.mjs';
 
 export default async (req) => {
   const url = new URL(req.url), kaynak = req.headers.get('origin');
@@ -10,27 +14,39 @@ export default async (req) => {
   let g;
   try { g = await req.json(); } catch (_) { return json({ message: 'Geçersiz istek' }, 400); }
   const no = String(g.no || '');
-  if (!/^T\d{6}-[A-Z0-9]{4}$/.test(no) || !anahtarDogru(no, g.anahtar)) return json({ message: 'İzin yok' }, 403);
+  if (!NO_DESENI.test(no) || !(await anahtarDogru(no, g.anahtar))) return json({ message: 'İzin yok' }, 403);
   const k = await talepOku(no);
-  if (!k || !k.dosya || k.dosya.durum === 'yok') return json({ message: 'Talep bulunamadı' }, 404);
-  if (k.dosya.durum === 'tamam') return json({ tamam: true });
+  if (!k || !k.dosya || !k.dosya.oturum) return json({ message: 'Talep bulunamadı' }, 404);
+  if (k.dosya.durum === 'tamam') return json({ tamam: true, bitti: true });
 
-  let konu;
-  if (g.id) {
-    const f = await dosyaBilgisi(g.id).catch(() => null);
-    const uygun = f && !f.trashed && (f.parents || []).includes(k.dosya.klasor) && String(f.name || '').startsWith(no + ' - ') && Number(f.size) === Number(k.dosya.boyut);
-    if (!uygun) return json({ message: 'Dosya doğrulanamadı' }, 409);
-    k.dosya = { ...k.dosya, durum: 'tamam', id: f.id, link: f.webViewLink || ('https://drive.google.com/file/d/' + f.id + '/view') };
-    konu = 'Dosya geldi ' + no + ' — ' + k.urunAd + ' — ' + k.telefon;
-  } else {
-    if (k.dosya.durum === 'hata') return json({ tamam: true }); // aynı hata için ikinci mail atılmaz
-    k.dosya = { ...k.dosya, durum: 'hata', hata: String(g.hata || '').slice(0, 200) };
-    konu = 'DOSYA YÜKLENEMEDİ ' + no + ' — ' + k.urunAd + ' — ' + k.telefon;
-  }
-  await talepYaz(no, k);
   try {
-    await mailGonder({ konu, metin: mailMetni(k) });
-    k.mail = { ...k.mail, ilk: true, dosya: true }; await talepYaz(no, k);
-  } catch (e) { console.error('Dosya maili gönderilemedi:', no, e && e.message); }
-  return json({ tamam: true });
+    if (g.durum) {
+      const d = await oturumDurumu(k.dosya.oturum, k.dosya.boyut);
+      if (d.gecersiz) { // oturumun süresi dolmuş: aynı dosya adıyla yeni oturum, yükleme baştan
+        const o = await yuklemeOturumu({ ad: no + ' - ' + k.dosya.ad, boyut: k.dosya.boyut, tur: k.dosya.tur, aciklama: k.urunAd + ' · ' + k.telefon, origin: url.origin });
+        await talepGuncelle(no, (e) => ({ ...e, dosya: { ...e.dosya, oturum: o.adres, klasor: o.klasorId } }));
+        return json({ yeni: o.adres, sonraki: 0 });
+      }
+      if (!d.bitti) return json({ sonraki: d.sonraki });
+      if (!d.id) return json({ message: 'Geçici hata' }, 503);
+      g = { id: d.id };
+    }
+    if (g.id) {
+      const f = await dosyaDogrula(k, g.id);
+      if (!f) return json({ message: 'Dosya doğrulanamadı' }, 409);
+      await dosyaSonucla(no, f).catch((e) => console.error('Dosya maili gönderilemedi:', no, e && e.message));
+      return json({ tamam: true, bitti: true });
+    }
+    if (g.hata) {
+      // Önce Drive'a sor: tarayıcı hata sansa da dosya tamamlanmış olabilir
+      const d = await oturumDurumu(k.dosya.oturum, k.dosya.boyut).catch(() => null);
+      const f = d && d.bitti && d.id ? await dosyaDogrula(k, d.id) : null;
+      await dosyaSonucla(no, f || { hata: g.hata }).catch((e) => console.error('Dosya maili gönderilemedi:', no, e && e.message));
+      return json({ tamam: !!f, bitti: !!f });
+    }
+  } catch (e) {
+    console.error('Dosya durumu işlenemedi:', no, e && e.message);
+    return json({ message: 'Geçici hata' }, 503);
+  }
+  return json({ message: 'Geçersiz istek' }, 400);
 };

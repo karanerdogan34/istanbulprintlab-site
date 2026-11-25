@@ -1,16 +1,17 @@
 // Hesaplayıcı: sipariş talebini kaydeder, info@ adresine bildirim maili atar, dosya varsa Drive'a doğrudan yükleme adresi verir.
 // Talep, dosya yüklenmeden ÖNCE kaydedilir: müşteri sayfayı kapatsa ya da WhatsApp'ı açmasa bile telefon ve seçimler bize ulaşır.
-// Mail ya da Drive hatası talebi düşürmez; talep her durumda kayıtlı kalır ve yönetim > Talepler sayfasında görünür.
+// Mail ya da Drive hatası talebi düşürmez; gönderilemeyen mailleri talep-kontrol (zamanlanmış) tekrar dener.
 import { json } from '../lib/ortak.mjs';
-import { talepYaz, istemciOku, istemciYaz, talepOku, yeniNo, talepAnahtari, sinirAsildi, mailMetni, telefonDuzelt } from '../lib/talep.mjs';
-import { yuklemeOturumu, mailGonder } from '../lib/google.mjs';
+import { talepYaz, talepOku, talepGuncelle, istemciSahiplen, yeniNo, talepAnahtari, sinirAsildi, kotaAyir, telefonDuzelt } from '../lib/talep.mjs';
+import { yuklemeOturumu } from '../lib/google.mjs';
+import { ilkMail } from '../lib/talep-islem.mjs';
 
 const temiz = (s, n) => String(s || '').replace(/[<>\u0000-\u0008\u000B-\u001F]/g, ' ').trim().slice(0, n);
 const tekSatir = (s, n) => temiz(s, n).replace(/\s+/g, ' ');
 const AZAMI = 300 * 1048576; // 300 MB
 const UZANTILAR = ['pdf', 'ai', 'eps', 'svg', 'dxf', 'cdr', 'png', 'jpg', 'jpeg', 'tif', 'tiff', 'psd', 'zip'];
 
-export default async (req) => {
+export default async (req, context) => {
   const url = new URL(req.url), kaynak = req.headers.get('origin');
   if (req.method !== 'POST' || !kaynak || kaynak !== url.origin || !(req.headers.get('content-type') || '').startsWith('application/json')) return json({ message: 'İzin yok' }, 403);
   let g;
@@ -22,54 +23,59 @@ export default async (req) => {
   const telefon = tekSatir(g.telefon, 25), rakam = telefonDuzelt(telefon);
   if (rakam.length < 10 || rakam.length > 15) return json({ message: 'Size ulaşabilmemiz için telefon numaranızı yazın.', alan: 'telefon' }, 400);
 
-  // Aynı tıklama ikinci kez gelirse (çift dokunma, bağlantı kopması) yeni talep açılmaz; dosya henüz yüklenmediyse yeni yükleme adresi verilir.
-  const onceki = await istemciOku(istemci);
-  let k = onceki && onceki.no ? await talepOku(onceki.no) : null;
+  // Dosya bilgisi kayıttan önce doğrulanır (yanlış dosya talebi düşürmesin diye yalnız tür ve boyut reddedilir)
+  let dosya = { durum: 'yok' };
+  if (g.dosya && g.dosya.ad) {
+    const ad = tekSatir(g.dosya.ad, 150).replace(/[\\/:*?"|]/g, '_'), uz = (ad.split('.').pop() || '').toLowerCase(), boyut = Math.floor(Number(g.dosya.boyut));
+    if (!UZANTILAR.includes(uz)) return json({ message: 'Bu dosya türü kabul edilmiyor.' }, 400);
+    if (!(boyut > 0)) return json({ message: 'Dosya okunamadı, tekrar seçin.' }, 400);
+    if (boyut > AZAMI) return json({ message: 'Dosya 300 MB\'tan büyük. Lütfen dosyayı WhatsApp\'tan ya da WeTransfer ile gönderin.', buyuk: true }, 413);
+    dosya = { ad, boyut, tur: tekSatir(g.dosya.tur, 100) || 'application/octet-stream', durum: 'yukleniyor' };
+  }
 
-  if (!k) {
-    const ip = (req.headers.get('x-nf-client-connection-ip') || '').trim() || 'bilinmiyor';
-    if (await sinirAsildi(ip)) return json({ message: 'Çok sayıda talep gönderildi. Lütfen biraz sonra tekrar deneyin ya da +90 532 523 73 64 numarasından bize ulaşın.' }, 429);
-    let dosya = { durum: 'yok' };
-    if (g.dosya && g.dosya.ad) {
-      const ad = tekSatir(g.dosya.ad, 150).replace(/[\\/:*?"|]/g, '_'), uz = (ad.split('.').pop() || '').toLowerCase(), boyut = Math.floor(Number(g.dosya.boyut));
-      if (!UZANTILAR.includes(uz)) return json({ message: 'Bu dosya türü kabul edilmiyor.' }, 400);
-      if (!(boyut > 0)) return json({ message: 'Dosya okunamadı, tekrar seçin.' }, 400);
-      if (boyut > AZAMI) return json({ message: 'Dosya 300 MB\'tan büyük. Lütfen dosyayı WhatsApp\'tan ya da WeTransfer ile gönderin.', buyuk: true }, 413);
-      dosya = { ad, boyut, tur: tekSatir(g.dosya.tur, 100) || 'application/octet-stream', durum: 'yukleniyor' };
-    }
+  // Aynı tıklama ikinci kez gelirse (çift dokunma, bağlantı kopması) yeni talep açılmaz: istemci kimliğini ilk alan kazanır.
+  const aday = yeniNo();
+  const sahip = await istemciSahiplen(istemci, aday);
+  let k;
+  if (sahip.yeni) {
+    const ip = (req.headers.get('x-nf-client-connection-ip') || (req.headers.get('x-forwarded-for') || '').split(',')[0] || '').trim();
+    if (ip && await sinirAsildi(ip)) return json({ message: 'Çok sayıda talep gönderildi. Lütfen biraz sonra tekrar deneyin ya da +90 532 523 73 64 numarasından bize ulaşın.' }, 429);
+    if (dosya.durum === 'yukleniyor' && !(await kotaAyir(dosya.boyut))) dosya = { ...dosya, durum: 'kota' };
     const sayfa = (() => { try { const s = new URL(String(g.sayfa || '')); return s.origin === url.origin ? s.origin + s.pathname : url.origin; } catch (_) { return url.origin; } })();
     k = {
-      no: yeniNo(), zaman: new Date().toISOString(),
+      no: aday, zaman: new Date().toISOString(),
       urunAd: tekSatir(g.urunAd, 120) || 'Ürün', sayfa,
       telefon, ad: tekSatir(g.ad, 80), not: tekSatir(g.not, 500),
       ozet: temiz(g.ozet, 5000), toplam: tekSatir(g.toplam, 40),
       dosya, mail: { ilk: false, dosya: false },
     };
-    if (await talepOku(k.no)) k.no = yeniNo(); // çok düşük ihtimalli çakışma
     await talepYaz(k.no, k);
-    await istemciYaz(istemci, k.no);
+  } else {
+    k = sahip.no && await talepOku(sahip.no);
+    if (!k) return json({ message: 'Talep işlenirken bir sorun oluştu, lütfen tekrar deneyin.' }, 503);
   }
 
-  // Dosya için Drive'a doğrudan yükleme oturumu (dosya Netlify'dan geçmez; kredi harcamaz, boyut sınırına takılmaz)
+  // Dosya için Drive'a doğrudan yükleme oturumu (dosya Netlify'dan geçmez). Aynı talep için var olan oturum yeniden kullanılır.
   let yukleme = null;
-  if (k.dosya && (k.dosya.durum === 'yukleniyor' || k.dosya.durum === 'baglanti')) {
-    try {
-      const o = await yuklemeOturumu({ ad: k.no + ' - ' + k.dosya.ad, boyut: k.dosya.boyut, tur: k.dosya.tur, aciklama: k.urunAd + ' · ' + k.telefon, origin: url.origin });
-      yukleme = o.adres;
-      if (k.dosya.durum !== 'yukleniyor' || k.dosya.klasor !== o.klasorId) { k.dosya = { ...k.dosya, durum: 'yukleniyor', klasor: o.klasorId }; await talepYaz(k.no, k); }
-    } catch (e) {
-      console.error('Drive yükleme oturumu açılamadı:', k.no, e && e.message);
-      if (k.dosya.durum !== 'baglanti') { k.dosya = { ...k.dosya, durum: 'baglanti' }; await talepYaz(k.no, k); }
+  if (k.dosya && ['yukleniyor', 'baglanti'].includes(k.dosya.durum)) {
+    if (k.dosya.oturum) yukleme = k.dosya.oturum;
+    else {
+      try {
+        const o = await yuklemeOturumu({ ad: k.no + ' - ' + k.dosya.ad, boyut: k.dosya.boyut, tur: k.dosya.tur, aciklama: k.urunAd + ' · ' + k.telefon, origin: url.origin });
+        yukleme = o.adres;
+        k = await talepGuncelle(k.no, (e) => ({ ...e, dosya: { ...e.dosya, durum: 'yukleniyor', oturum: o.adres, klasor: o.klasorId } }));
+      } catch (e) {
+        console.error('Drive yükleme oturumu açılamadı:', k.no, e && e.message);
+        k = await talepGuncelle(k.no, (x) => (x.dosya.durum === 'baglanti' ? null : { ...x, dosya: { ...x.dosya, durum: 'baglanti' } }));
+      }
     }
   }
 
-  // İlk bildirim maili: talep düşer düşmez (dosya beklenmeden). Hata talebi etkilemez; dosya sonucu geldiğinde tekrar denenir.
+  // İlk bildirim maili yanıtı bekletmez (müşteri hemen talep numarasını görür); gönderilemezse talep-kontrol tekrar dener.
   if (!k.mail.ilk) {
-    try {
-      await mailGonder({ konu: 'Yeni sipariş talebi ' + k.no + ' — ' + k.urunAd + ' — ' + k.telefon, metin: mailMetni(k) });
-      k.mail.ilk = true; await talepYaz(k.no, k);
-    } catch (e) { console.error('Talep maili gönderilemedi:', k.no, e && e.message); }
+    const is = ilkMail(k.no).catch((e) => console.error('Talep maili gönderilemedi:', k.no, e && e.message));
+    if (context && typeof context.waitUntil === 'function') context.waitUntil(is); else await is;
   }
 
-  return json({ no: k.no, anahtar: talepAnahtari(k.no), yukleme, dosyaAlinamaz: !!(k.dosya && k.dosya.durum === 'baglanti') });
+  return json({ no: k.no, anahtar: await talepAnahtari(k.no), yukleme, dosyaAlinamaz: k.dosya.durum === 'baglanti' || k.dosya.durum === 'kota' });
 };
