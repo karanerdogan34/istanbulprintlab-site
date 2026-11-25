@@ -1,7 +1,7 @@
 {
   "yol": "en/standing-cutouts",
   "seo_baslik": "Die-Cut Standing Figures & Cut-Outs | IstanbulPrintLab",
-  "seo_aciklama": "Die-cut standing figures on printed foam board from {{asgari}} TRY: characters, mascots and Christmas displays, with night installation in Istanbul malls.",
+  "seo_aciklama": "Die-cut standing figures on printed foam board from {{asgari+kdv}} TRY: characters, mascots and Christmas displays, with night installation in Istanbul malls.",
   "etiket": "Shops · Malls · Exhibitions · Seasonal",
   "baslik": "Die-cut standing figures and cut-outs",
   "giris": "Characters, mascots, products and life-size people cut to shape on printed foam board, with a stand on the back so they stand on their own. For shop entrances, launches, exhibitions and Christmas displays.",
@@ -19,7 +19,7 @@
   "ozellikler": [
     {
       "ad": "Price",
-      "deger": "From **{{asgari}} TRY** per figure; quoted by size, design and quantity"
+      "deger": "From **{{asgari+kdv}} TRY** per figure; quoted by size, design and quantity"
     },
     {
       "ad": "Size",

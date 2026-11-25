@@ -419,8 +419,8 @@ main{counter-reset:sec}
 <h1 style="margin-top:8px">Printed foam boards (photo boards)</h1>
 <p class="lead" style="margin-top:10px">Full-colour printing on rigid foam board for promotional boards, wayfinding, photo panels and décor — known in Turkey as fotoblok or foreks.</p></div>
 <div class="cgroup"><b>Lamination</b><div class="opts" role="radiogroup">
-<label class="opt"><input type="radio" name="var" value="no-lamination" data-p="{{foreks:ham}}" checked><span>No lamination · {{foreks}} TRY/m² excl. VAT</span></label>
-<label class="opt"><input type="radio" name="var" value="laminated" data-p="{{foreks_lam:ham}}"><span>Laminated · {{foreks_lam}} TRY/m² excl. VAT</span></label>
+<label class="opt"><input type="radio" name="var" value="no-lamination" data-p="{{foreks:ham}}" checked><span>No lamination · {{foreks+kdv}} TRY/m²</span></label>
+<label class="opt"><input type="radio" name="var" value="laminated" data-p="{{foreks_lam:ham}}"><span>Laminated · {{foreks_lam+kdv}} TRY/m²</span></label>
 </div></div>
 <div class="cgroup"><b>Size and quantity</b>
 <div class="dims">
@@ -434,7 +434,7 @@ main{counter-reset:sec}
 <div class="sum" aria-live="polite">
 <div class="line"><span>Area</span><span class="mArea">—</span></div>
 <div class="line"><span>Unit price</span><span class="mRate">—</span></div>
-<div class="line" style="align-items:baseline;border-top:1px solid var(--line);padding-top:10px;margin-top:4px"><span>Production total <small class="muted">excl. VAT · estimate</small></span><span class="total mTotal">—</span></div>
+<div class="line" style="align-items:baseline;border-top:1px solid var(--line);padding-top:10px;margin-top:4px"><span>Production total <small class="muted">estimate · VAT if applicable and shipping extra</small></span><span class="total mTotal">—</span></div>
 <div class="line mFxL" hidden><span>Approx. <small class="muted mFxD">TCMB rate</small></span><span class="mFx">—</span></div>
 <div class="line"><span>Shipping, design, installation</span><span>Quoted separately</span></div>
 <p class="note mWarn" role="status" style="color:var(--bad)"></p>
@@ -447,7 +447,7 @@ main{counter-reset:sec}
 </tbody></table>
 <div class="row"><a class="btn" href="/en/#en-quote" style="flex:1">Get a quote with shipping</a><a class="btn ghost mWa" href="https://wa.me/905325237364">WhatsApp us</a></div>
 <p class="note">Straight-cut boards. Minimum 1 m². Cut-out shapes and stands are quoted. Max single piece 150 × 300 cm.</p>
-<p class="note">The amount shown is an estimate excluding VAT; this is a quote request, not a final order. We confirm the final price after checking your file. Design, installation and shipping are not included and are quoted separately. Orders invoiced in Turkey are subject to 20% VAT. Quotes are valid for 7 days.</p>
+<p class="note">The amount shown is an estimate; this is a quote request, not a final order. We confirm the final price after checking your file. Design and installation are quoted separately. If Turkish VAT applies to your order (for example, delivery within Türkiye), 20% VAT is added and shown separately in your quote. International shipping is always paid by the buyer — charged separately in your quote or paid on delivery; there is no free international shipping. Quotes are valid for 7 days.</p>
 </form>
 </section>
 </div>
@@ -755,10 +755,11 @@ var FX=null,fxQ=[];
 function fxShow(f){if(!FX){fxQ.indexOf(f)<0&&fxQ.push(f);return}var L=$('.mFxL',f);if(!L)return;var t=f.__t;
   $('.mFx',f).textContent='≈ €'+Math.round(t/FX.EUR).toLocaleString('en-GB')+' · $'+Math.round(t/FX.USD).toLocaleString('en-GB');
   $('.mFxD',f).textContent='TCMB rate '+FX.date;L.hidden=false}
+function fxYok(){$$('.mcalc').forEach(function(f){var L=$('.mFxL',f);if(!L)return;$('.mFx',f).textContent='—';$('.mFxD',f).textContent='Exchange rate unavailable right now — the final amount is given in your quote.';L.hidden=false})}
 if(document.querySelector('.mcalc[data-lang="en"]')){fetch('/api/kur',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(x){
   var d=new DOMParser().parseFromString(x,'application/xml'),g=function(c){var e=d.querySelector('Currency[CurrencyCode="'+c+'"] ForexSelling');return e?parseFloat(e.textContent):0};
-  var E=g('EUR'),U=g('USD'),T=d.querySelector('Tarih_Date');if(!(E>0&&U>0))return;
-  FX={EUR:E,USD:U,date:T?(T.getAttribute('Tarih')||''):''};fxQ.forEach(fxShow);fxQ=[]}).catch(function(){})}
+  var E=g('EUR'),U=g('USD'),T=d.querySelector('Tarih_Date');if(!(E>0&&U>0))return fxYok();
+  FX={EUR:E,USD:U,date:T?(T.getAttribute('Tarih')||''):''};fxQ.forEach(fxShow);fxQ=[]}).catch(fxYok)}
 $$('.mcalc').forEach(function(f){
   var P=+f.dataset.price;
   var EN=f.dataset.lang==='en',ROLLM=f.dataset.mode==='roll';
@@ -776,16 +777,16 @@ $$('.mcalc').forEach(function(f){
     var net=Math.ceil(area*rate),minN=+f.dataset.minnet||0,minNu=false;if(minN&&net<minN){net=minN;minNu=true}
     var total=Math.round(net*(1+KDV)),bulky=f.dataset.bulky==='1';
     $('.mArea',f).textContent=realA.toLocaleString(LC)+' m²'+(minA?(EN?' (billed as '+mina+' m² minimum)':' (asgari '+mina+' m² üzerinden)'):'');
-    var mr=$('.mRate',f);if(mr)mr.textContent=EN?(fmt(rate).replace(' ₺',' TRY')+' / m² excl. VAT'):(fmt(Math.round(rate*(1+KDV)))+' / m² · '+fmt(rate)+' + KDV');
-    var mn=$('.mNet',f);if(mn)mn.textContent=EN?fmt(net).replace(' ₺',' TRY'):fmt(net)+' + KDV';
-    if(EN){animTotal($('.mTotal',f),net);f.__t=net;fxShow(f)}else animTotal($('.mTotal',f),total);
+    var mr=$('.mRate',f);if(mr)mr.textContent=EN?(fmt(Math.round(rate*(1+KDV))).replace(' ₺',' TRY')+' / m²'):(fmt(Math.round(rate*(1+KDV)))+' / m² · '+fmt(rate)+' + KDV');
+    var mn=$('.mNet',f);if(mn)mn.textContent=EN?fmt(total).replace(' ₺',' TRY'):fmt(net)+' + KDV';
+    if(EN){animTotal($('.mTotal',f),total);f.__t=total;fxShow(f)}else animTotal($('.mTotal',f),total);
     var ms=$('.mShip',f);if(ms&&!EN)ms.textContent=bulky?'Kargo ile gönderilmez · atölyeden teslim veya nakliye':(net*(1+KDV)>=FREESHIP?'Ücretsiz (KDV dahil {{kargo_esik}} ₺ ve üzeri)':'{{kargo_ucreti}} ₺ (KDV dahil) · atölyeden teslim alınabilir');
-    var wn=[];if(minNu)wn.push(EN?'Minimum order {{asgari}} TRY + VAT applied.':'Asgari sipariş tutarı {{asgari}} ₺ + KDV uygulandı.');
+    var wn=[];if(minNu)wn.push(EN?'Minimum order {{asgari+kdv}} TRY applied.':'Asgari sipariş tutarı {{asgari}} ₺ + KDV uygulandı.');
     if(ROLLM){var cutv=f.elements.cut?String(f.elements.cut.value):'';if(Math.min(w,h)<4||/^Kontur|^Contour/.test(cutv)||q>250)wn.push(EN?'Final price is confirmed by quote after file check (cut details under 4 cm, contour cut or more than 250 pieces).':'Bu iş için kesin fiyat dosya kontrolünden sonra teklifle belirlenir (4 cm altı kesim detayı, kontur kesim veya 250 adetten fazla parça).')}
     var mw=$('.mWarn',f);if(mw)mw.textContent=wn.join(' ');
     var ex=f.elements.mat?', '+f.elements.mat.value+', '+f.elements.cut.value:'';
     var vv=f.querySelector('input[name="var"]:checked'),vx=vv?', '+vv.value:'';if(f.elements.lam)vx+=', '+(EN?'lamination: ':'laminasyon: ')+f.elements.lam.value;
-    $('.mWa',f).href='https://wa.me/905325237364?text='+encodeURIComponent(EN?('Hello, I would like a quote for '+f.dataset.name+': '+w+'×'+h+' cm, '+q+' pcs'+ex+vx+'. Estimate: '+fmt(net).replace(' ₺',' TRY')+' excl. VAT + shipping to my country.'):('Merhaba, '+f.dataset.name+' için teklif almak istiyorum: '+w+'×'+h+' cm, '+q+' adet'+ex+vx+'. Ön fiyat: '+fmt(net)+' + KDV'));}
+    $('.mWa',f).href='https://wa.me/905325237364?text='+encodeURIComponent(EN?('Hello, I would like a quote for '+f.dataset.name+': '+w+'×'+h+' cm, '+q+' pcs'+ex+vx+'. Estimate: '+fmt(total).replace(' ₺',' TRY')+' + shipping to my country.'):('Merhaba, '+f.dataset.name+' için teklif almak istiyorum: '+w+'×'+h+' cm, '+q+' adet'+ex+vx+'. Ön fiyat: '+fmt(net)+' + KDV'));}
   f.addEventListener('input',run);f.addEventListener('change',run);f.addEventListener('submit',function(e){e.preventDefault()});run();
 });
 // süreç: kaydırarak

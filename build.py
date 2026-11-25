@@ -400,6 +400,11 @@ def main():
     hesap_seridi()
     ana_gorsel_oncelik()
     vakalar()
+    # ek diller (ar, ru, fr, de, ur): /en/ sayfalarından, fiyatlar işlenmeden önce üretilir
+    import diller
+    if os.environ.get('DIL_CIKAR'):
+        diller.cikar(DIST, os.environ['DIL_CIKAR'])
+    print('Ek diller, çevirisi eksik metin sayısı:', diller.uret(DIST))
     # fiyat ve iletişim — bütün sayfalara
     P = js('content/fiyatlar.json')
     P.update(siparis_fiyatlari())  # hesaplayıcılardaki fiyatlar tek kaynak: siparis/src/fiyatlar.json
@@ -437,6 +442,7 @@ def main():
         open(f, 'w', encoding='utf-8').write(s.replace('</head>', FAV + '</head>', 1))
     # yönetim uygulaması, değişikliğin sitede yayına girdiğini bu dosyadan anlar
     yaz('%s/yonetim/surum.json' % DIST, json.dumps({'commit': os.environ.get('COMMIT_REF', '')}))
+    diller.site_haritasi(DIST, diller.baglantilar(DIST))
     eksik = ic_baglanti_kontrol()
     if eksik:
         raise S.IcerikHatasi('Sitede kırık iç bağlantı var: %s' % ', '.join(sorted(eksik)[:10]))
@@ -498,7 +504,7 @@ import cerez_onay  # noqa: E402
 CEREZ = dict(
     bant=False,  # True yapılırsa sağ alttaki çerez onay bandı geri gelir
     anahtar='ipl_cerez', posthog='phc_sXf3DbVV3R6LBHcQTHi7T4boryXwiLoVidPvEoB3XPY7',  # herkese açık proje anahtarı
-    diller=['tr', 'en'], yedek='tr', politika={'tr': '/cerez-politikasi/', 'en': '/en/privacy/'},
+    diller=['tr', 'en'], yedek='tr', politika={'tr': '/cerez-politikasi/', 'en': '/en/privacy/', 'ar': '/ar/privacy/', 'ru': '/ru/privacy/', 'fr': '/fr/privacy/', 'de': '/de/privacy/', 'ur': '/ur/privacy/'},
     renk=dict(zemin='#FFFFFF', yazi='#0B0B0B', cizgi='#E4E4E0', vurgu='#0B0B0B', vurgu_yazi='#FFFFFF'))
 ESKI_IZIN = "gtag('consent','default',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});"
 
