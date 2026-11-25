@@ -35,6 +35,20 @@ export async function linkAtomik(id, guncelle) {
 }
 export const denemeOku = (oid) => depo().get('deneme/' + oid, { type: 'json' });
 export const denemeYaz = (oid, v) => depo().setJSON('deneme/' + oid, v);
+// Deneme kaydını atomik günceller (aynı ödeme sonucu farklı kaynaklardan eş zamanlı gelirse bir kez işlenir).
+// guncelle(eski) → (async) yeni kayıt ya da null (vazgeç). Dönüş: { tamam, kayit }.
+export async function denemeAtomik(oid, guncelle) {
+  const d = depo();
+  const o = await d.getWithMetadata('deneme/' + oid, { type: 'json' });
+  if (!o || !o.data) return { tamam: false, kayit: null };
+  const yeni = await guncelle(o.data);
+  if (!yeni) return { tamam: false, kayit: o.data };
+  const r = await d.setJSON('deneme/' + oid, yeni, { onlyIfMatch: o.etag });
+  return { tamam: !!(r && r.modified), kayit: yeni };
+}
+// Sistem durumu (aktarıcı kontrolü vb.) — yönetim panelinde uyarı göstermek için.
+export const sistemOku = (ad) => depo().get('sistem/' + ad, { type: 'json' });
+export const sistemYaz = (ad, v) => depo().setJSON('sistem/' + ad, v);
 
 // Yönetim listesi için son denemeler (en yeni önce). Kayıt sayısı küçük olduğu için tamamı okunur, en fazla 200.
 export async function sonDenemeler(sinir = 200) {
