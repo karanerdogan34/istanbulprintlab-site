@@ -10,6 +10,7 @@ DILLER = {  # kod: (adı kendi dilinde, yön)
     'de': ('Deutsch', 'ltr'), 'ur': ('اردو', 'rtl'),
 }
 SITE = 'https://www.istanbulprintlab.com'
+YEREL = {'ar': 'ar-AE-u-nu-latn', 'ru': 'ru-RU', 'fr': 'fr-FR', 'de': 'de-DE', 'ur': 'en-PK'}
 METIN_RE = re.compile(r'>([^<>]*[A-Za-z][^<>]*)<')
 OZ_RE = re.compile(r'\b(content|alt|title|placeholder|aria-label|data-name|value)="([^"]*[A-Za-z][^"]*)"')
 JS_RE = re.compile(r"EN\s*\?\s*\(?\s*'((?:[^'\\]|\\.)*)'")
@@ -88,6 +89,10 @@ def cevir(s, dil, C):
     s = s.replace('href="/en/', 'href="/%s/' % dil).replace(SITE + '/en/', '%s/%s/' % (SITE, dil))
     s = re.sub(r'(<div class="view"[^>]*) lang="en"', r'\1 lang="%s"' % dil, s)
     s = s.replace("closest('[lang=en]')", "closest('[lang=%s]')" % dil)
+    # döviz karşılığı: dile göre sayı biçimi; 100'ün altındaki tutarlarda iki ondalık (yuvarlama algı farkını önler)
+    fx_eski = "'≈ €'+Math.round(t/FX.EUR).toLocaleString('en-GB')+' · $'+Math.round(t/FX.USD).toLocaleString('en-GB')"
+    fx_yeni = ("(function(v){return v.toLocaleString('%s',{minimumFractionDigits:v<100?2:0,maximumFractionDigits:v<100?2:0})})" % YEREL[dil])
+    s = s.replace(fx_eski, "'≈ €'+%s(t/FX.EUR)+' · $'+%s(t/FX.USD)" % (fx_yeni, fx_yeni))
     s = s.replace('"inLanguage": "en"', '"inLanguage": "%s"' % dil)
     s = re.sub(r'<meta property="og:locale" content="[^"]*">', '<meta property="og:locale" content="%s">' % dil, s)
     if yon == 'rtl':
