@@ -30,15 +30,21 @@ export default async (req) => {
 
   const no = String(g.siparisNo || '').trim().toUpperCase().replace(/[^A-Z0-9-]/g, '').slice(0, 20);
   const aciklama = String(g.aciklama || '').replace(/[<>]/g, '').replace(/\s+/g, ' ').trim().slice(0, 120);
-  const tl = Number(String(g.tutar || '').replace(/\./g, '').replace(',', '.'));
+  const sayi = (x) => Number(String(x || '').replace(/\./g, '').replace(',', '.'));
+  const tl = sayi(g.tutar);
+  const kargoTl = String(g.kargo || '').trim() === '' ? 0 : sayi(g.kargo);
   const maxTaksit = [1, 3, 6, 9, 12].includes(parseInt(g.maxTaksit, 10)) ? parseInt(g.maxTaksit, 10) : 12;
   const gun = Math.max(1, Math.min(30, parseInt(g.gun, 10) || 7));
   if (!no) return json({ message: 'Sipariş numarası gerekli.' }, 400);
   if (!aciklama) return json({ message: 'Açıklama gerekli.' }, 400);
   if (!Number.isFinite(tl) || tl < 1 || tl > 1000000) return json({ message: 'Tutar 1 TL ile 1.000.000 TL arasında olmalı.' }, 400);
+  if (!Number.isFinite(kargoTl) || kargoTl < 0 || kargoTl > 100000) return json({ message: 'Kargo / nakliye 0 ile 100.000 TL arasında olmalı.' }, 400);
+  const kg = Math.round(kargoTl * 100);
 
   const id = crypto.randomBytes(12).toString('hex');
-  const veri = { i: id, n: no, a: aciklama, k: Math.round(tl * 100), t: maxTaksit, b: Date.now() + gun * GUN };
+  // k: müşterinin ödeyeceği toplam (ürün + kargo/nakliye), kg: bunun kargo/nakliye kısmı
+  const veri = { i: id, n: no, a: aciklama, k: Math.round(tl * 100) + kg, t: maxTaksit, b: Date.now() + gun * GUN };
+  if (kg > 0) veri.kg = kg;
   await linkYaz(id, { ...veri, durum: 'bekliyor', olusturma: new Date().toISOString(), test: a.test === '1' });
   return json({ id, link: SITE + '/odeme/?l=' + linkImzala(a, veri), gecerlilik: new Date(veri.b).toISOString(), test: a.test === '1' });
 };

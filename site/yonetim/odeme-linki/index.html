@@ -13,11 +13,13 @@
 </head>
 <body>
 <div class="ust"><a class="geri" href="/yonetim/" aria-label="Yönetime dön">‹</a><h1>Ödeme linki oluştur</h1></div>
-<div class="aciklama-not">Dosyası kontrol edilip fiyatı onaylanan sipariş için müşteriye gönderilecek kart ile ödeme bağlantısı. Tutarı KDV dahil yazın. Müşteri taksit seçerse bankanın vade farkı müşteriye yansır.</div>
+<div class="aciklama-not">Dosyası kontrol edilip fiyatı onaylanan sipariş için müşteriye gönderilecek kart ile ödeme bağlantısı. Ürün tutarını ve varsa kargo/nakliye bedelini KDV dahil, ayrı ayrı yazın; müşteri ikisini ve toplamı ayrı görür. Müşteri taksit seçerse bankanın vade farkı müşteriye yansır.</div>
 <form id="f" style="padding:0 16px 24px">
 <label class="alan"><span>Sipariş no — zorunlu</span><input name="siparisNo" required maxlength="20" placeholder="Örn. IPL-1234" autocapitalize="characters"></label>
 <label class="alan"><span>Açıklama (müşteri görür) — zorunlu</span><input name="aciklama" required maxlength="120" placeholder="Örn. 5 m² folyo baskı + kesim"></label>
-<label class="alan"><span>Tutar (TL, KDV dahil) — zorunlu</span><input name="tutar" required inputmode="decimal" placeholder="Örn. 2.399,90"></label>
+<label class="alan"><span>Ürün tutarı (TL, KDV dahil, kargo hariç) — zorunlu</span><input name="tutar" required inputmode="decimal" placeholder="Örn. 1.198,80"></label>
+<label class="alan"><span>Kargo / nakliye (TL, KDV dahil) — yoksa boş bırakın</span><input name="kargo" inputmode="decimal" placeholder="Örn. 200 (KDV dahil 1.500 ₺ altı) · ücretsizse boş"></label>
+<p id="toplamNot" class="aciklama-not" style="margin:0 0 8px"></p>
 <label class="alan"><span>Taksit</span><select name="maxTaksit"><option value="12" selected>12 taksite kadar</option><option value="9">9 taksite kadar</option><option value="6">6 taksite kadar</option><option value="3">3 taksite kadar</option><option value="1">Yalnızca tek çekim</option></select></label>
 <label class="alan"><span>Link geçerlilik süresi</span><select name="gun"><option value="3">3 gün</option><option value="7" selected>7 gün</option><option value="15">15 gün</option><option value="30">30 gün</option></select></label>
 <button class="dugme ana tam" id="olustur" type="submit">Linki oluştur</button>

@@ -27,7 +27,7 @@ export default async (req) => {
   if (req.method === 'GET') {
     const d = await linkDurumu(a, url.searchParams.get('l'));
     if (d.hata) return d.hata;
-    return json({ siparisNo: d.v.n, aciklama: d.v.a, kurus: d.v.k, maxTaksit: d.v.t, test: a.test === '1' });
+    return json({ siparisNo: d.v.n, aciklama: d.v.a, kurus: d.v.k, kargoKurus: d.v.kg || 0, maxTaksit: d.v.t, test: a.test === '1' });
   }
 
   const kaynak = req.headers.get('origin');
@@ -89,7 +89,9 @@ export default async (req) => {
 
   const sonuc = await iframeBelirteci(a, {
     ip, oid, eposta, kurus: v.k, ad, adres, telefon,
-    sepet: [[('Sipariş ' + v.n + ' - ' + v.a).slice(0, 120), (v.k / 100).toFixed(2), 1]],
+    sepet: v.kg > 0
+      ? [[('Sipariş ' + v.n + ' - ' + v.a).slice(0, 120), ((v.k - v.kg) / 100).toFixed(2), 1], ['Kargo / nakliye', (v.kg / 100).toFixed(2), 1]]
+      : [[('Sipariş ' + v.n + ' - ' + v.a).slice(0, 120), (v.k / 100).toFixed(2), 1]],
     taksitYok: v.t === 1, maxTaksit: v.t > 1 ? v.t : 0,
   });
   if (sonuc.hata) {

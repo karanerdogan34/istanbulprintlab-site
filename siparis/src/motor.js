@@ -265,7 +265,7 @@
   }
 
   function kargoYazi(r) {
-    if (r.kargoYok) return 'Kargo ile gönderilmez';
+    if (r.kargoYok) return 'Kargoyla gönderilmez · atölyeden ücretsiz teslim veya nakliye (bedeli önceden bildirilir)';
     if (r.kargoUcretsiz) return 'Ücretsiz';
     if (r.kargoAyrica) return 'Ayrıca bildirilir';
     if (r.kargoUcret > 0) return r.kargoUcret.toLocaleString('tr-TR') + ' ₺ (KDV dahil)';

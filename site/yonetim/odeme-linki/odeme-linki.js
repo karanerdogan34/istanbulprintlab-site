@@ -2,6 +2,13 @@
 (function () {
   var sonId = '';
   var f = document.getElementById('f'), m = document.getElementById('mesaj'), b = document.getElementById('olustur');
+  var sy = function (x) { var n = Number(String(x || '').replace(/\./g, '').replace(',', '.')); return isFinite(n) ? n : 0; };
+  var tlYaz = function (n) { return n.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ₺'; };
+  var toplamGoster = function () {
+    var u = sy(f.tutar.value), k = sy(f.kargo.value);
+    document.getElementById('toplamNot').textContent = u > 0 ? 'Müşterinin ödeyeceği toplam: ' + tlYaz(u + k) + (k > 0 ? ' (ürün ' + tlYaz(u) + ' + kargo/nakliye ' + tlYaz(k) + ')' : ' (kargo ücretsiz)') : '';
+  };
+  f.tutar.addEventListener('input', toplamGoster); f.kargo.addEventListener('input', toplamGoster);
   f.addEventListener('submit', function (e) {
     e.preventDefault();
     var d = Object.fromEntries(new FormData(f));
