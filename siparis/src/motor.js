@@ -267,6 +267,7 @@
   function kargoYazi(r) {
     if (r.kargoYok) return 'Kargo ile gönderilmez';
     if (r.kargoUcretsiz) return 'Ücretsiz';
+    if (r.kargoAyrica) return 'Ayrıca bildirilir';
     if (r.kargoUcret > 0) return r.kargoUcret.toLocaleString('tr-TR') + ' ₺ (KDV dahil)';
     return 'Alıcı ödemeli';
   }
