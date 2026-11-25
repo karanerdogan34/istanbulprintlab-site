@@ -11,7 +11,7 @@ let bellek = null; // yalnızca yerel testlerde (etag ve koşullu yazma dahil)
 const depo = () => {
   if (process.env.IPL_TEST_BELLEK === '1') {
     bellek = bellek || new Map();
-    const etag = (k) => (bellek.has(k) ? String(bellek.get(k).length) + ':' + bellek.get(k).slice(-12) : null);
+    const etag = (k) => (bellek.has(k) ? crypto.createHash('sha1').update(bellek.get(k)).digest('hex') : null);
     return {
       get: async (k) => (bellek.has(k) ? JSON.parse(bellek.get(k)) : null),
       getWithMetadata: async (k) => (bellek.has(k) ? { data: JSON.parse(bellek.get(k)), etag: etag(k) } : null),
