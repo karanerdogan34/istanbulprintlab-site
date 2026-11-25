@@ -410,7 +410,7 @@ main{counter-reset:sec}
 <h2>Sharing and international transfer</h2><p>Data is shared only as needed with couriers (for international orders, UPS or similar carriers and the delivering company in your country), payment providers, our accountant, and hosting and email providers. Our site is hosted on Netlify; Google provides email, fonts and (with consent) Google Analytics and Google Ads measurement. Some of these servers are outside Türkiye.</p>
 <h2>Cookies</h2><p>Essential storage protects forms. We use Google Analytics and Google Ads measurement cookies to understand site usage and measure our ads. We also use PostHog (EU servers) to understand how the site is used, including session replay; anything typed into forms is masked, IP addresses are not stored and recordings are deleted after 30 days. <a href="#" onclick="try{posthog.opt_out_capturing()}catch(e){};this.textContent='Site analytics turned off in this browser.';return false">Turn off site analytics in this browser</a>. You can delete or block cookies at any time in your browser settings, or use Google's <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener">opt-out add-on</a>.</p>
 <h2>Your rights</h2><p>You may ask whether we process your data, request access, correction or deletion, and object to processing by writing to info@istanbulprintlab.com. We reply within 30 days.</p>
-<h2>Orders, delivery and returns</h2><p>Prices shown by our calculators include Turkish VAT and are preliminary; the final price is confirmed after file check. Production starts after you approve the artwork and sizes; standard print jobs are ready 1–2 business days after approval. Shipping, import duties and taxes of the destination country are paid by the buyer unless the quote says otherwise. Items made to your sizes, text or design are custom-made and cannot be returned; production defects or shipping damage are reprinted and reshipped free of charge. Report any problem with photos to info@istanbulprintlab.com.</p>
+<h2>Orders, delivery and returns</h2><p>Prices shown by our calculators are final prices with no VAT added on top; they are preliminary until the final price is confirmed after file check. Production starts after you approve the artwork and sizes; standard print jobs are ready 1–2 business days after approval. Shipping, import duties and taxes of the destination country are paid by the buyer; there is no free international shipping. Items made to your sizes, text or design are custom-made and cannot be returned; production defects or shipping damage are reprinted and reshipped free of charge. Report any problem with photos to info@istanbulprintlab.com.</p>
 <p><em>This English text is provided for information; the Turkish versions of our legal texts prevail.</em></p>
 </div></section>
 </div>
@@ -739,16 +739,16 @@ $$('.mcalc').forEach(function(f){
     var net=Math.ceil(area*rate),minN=+f.dataset.minnet||0,minNu=false;if(minN&&net<minN){net=minN;minNu=true}
     var total=Math.round(net*(1+KDV)),bulky=f.dataset.bulky==='1';
     $('.mArea',f).textContent=realA.toLocaleString(LC)+' m²'+(minA?(EN?' (billed as '+mina+' m² minimum)':' (asgari '+mina+' m² üzerinden)'):'');
-    var mr=$('.mRate',f);if(mr)mr.textContent=EN?(fmt(rate).replace(' ₺',' TRY')+' / m² excl. VAT'):(fmt(Math.round(rate*(1+KDV)))+' / m² · '+fmt(rate)+' + KDV');
-    var mn=$('.mNet',f);if(mn)mn.textContent=EN?fmt(net).replace(' ₺',' TRY'):fmt(net)+' + KDV';
-    if(EN){animTotal($('.mTotal',f),net);f.__t=net;fxShow(f)}else animTotal($('.mTotal',f),total);
+    var mr=$('.mRate',f);if(mr)mr.textContent=EN?(fmt(Math.round(rate*(1+KDV))).replace(' ₺',' TRY')+' / m²'):(fmt(Math.round(rate*(1+KDV)))+' / m² · '+fmt(rate)+' + KDV');
+    var mn=$('.mNet',f);if(mn)mn.textContent=EN?fmt(total).replace(' ₺',' TRY'):fmt(net)+' + KDV';
+    if(EN){animTotal($('.mTotal',f),total);f.__t=total;fxShow(f)}else animTotal($('.mTotal',f),total);
     var ms=$('.mShip',f);if(ms&&!EN)ms.textContent=bulky?'Alıcıya ait · atölyeden teslim alınabilir':(net>=FREESHIP?'Ücretsiz ({{kargo_esik}} ₺ + KDV üzeri)':'Alıcıya ait · atölyeden teslim alınabilir');
-    var wn=[];if(minNu)wn.push(EN?'Minimum order {{asgari}} TRY + VAT applied.':'Asgari sipariş tutarı {{asgari}} ₺ + KDV uygulandı.');
+    var wn=[];if(minNu)wn.push(EN?'Minimum order {{asgari+kdv}} TRY applied.':'Asgari sipariş tutarı {{asgari}} ₺ + KDV uygulandı.');
     if(ROLLM){var cutv=f.elements.cut?String(f.elements.cut.value):'';if(Math.min(w,h)<4||/^Kontur|^Contour/.test(cutv)||q>250)wn.push(EN?'Final price is confirmed by quote after file check (cut details under 4 cm, contour cut or more than 250 pieces).':'Bu iş için kesin fiyat dosya kontrolünden sonra teklifle belirlenir (4 cm altı kesim detayı, kontur kesim veya 250 adetten fazla parça).')}
     var mw=$('.mWarn',f);if(mw)mw.textContent=wn.join(' ');
     var ex=f.elements.mat?', '+f.elements.mat.value+', '+f.elements.cut.value:'';
     var vv=f.querySelector('input[name="var"]:checked'),vx=vv?', '+vv.value:'';if(f.elements.lam)vx+=', '+(EN?'lamination: ':'laminasyon: ')+f.elements.lam.value;
-    $('.mWa',f).href='https://wa.me/905325237364?text='+encodeURIComponent(EN?('Hello, I would like a quote for '+f.dataset.name+': '+w+'×'+h+' cm, '+q+' pcs'+ex+vx+'. Estimate: '+fmt(net).replace(' ₺',' TRY')+' excl. VAT + shipping to my country.'):('Merhaba, '+f.dataset.name+' için teklif almak istiyorum: '+w+'×'+h+' cm, '+q+' adet'+ex+vx+'. Ön fiyat: '+fmt(net)+' + KDV'));}
+    $('.mWa',f).href='https://wa.me/905325237364?text='+encodeURIComponent(EN?('Hello, I would like a quote for '+f.dataset.name+': '+w+'×'+h+' cm, '+q+' pcs'+ex+vx+'. Estimate: '+fmt(total).replace(' ₺',' TRY')+' + shipping to my country.'):('Merhaba, '+f.dataset.name+' için teklif almak istiyorum: '+w+'×'+h+' cm, '+q+' adet'+ex+vx+'. Ön fiyat: '+fmt(net)+' + KDV'));}
   f.addEventListener('input',run);f.addEventListener('change',run);f.addEventListener('submit',function(e){e.preventDefault()});run();
 });
 // süreç: kaydırarak

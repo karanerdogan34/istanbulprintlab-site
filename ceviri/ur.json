@@ -447,5 +447,21 @@
  " / m² excl. VAT": " / مربع میٹر، VAT کے بغیر",
  "Projects / Antre Gourmet": "پروجیکٹس / Antre Gourmet",
  "Legal / Privacy, Cookies and Terms of Sale": "قانونی / رازداری، کوکیز اور فروخت کی شرائط",
- "TCMB rate ": "TCMB ریٹ "
+ "TCMB rate ": "TCMB ریٹ ",
+ "White back · {{branda_beyaz+kdv}} TRY/m²": "سفید پشت · {{branda_beyaz+kdv}} ترک لیرا/مربع میٹر",
+ "Black back (blockout) · {{branda_siyah+kdv}} TRY/m²": "سیاہ پشت (بلیک آؤٹ) · {{branda_siyah+kdv}} ترک لیرا/مربع میٹر",
+ "estimate · shipping not included": "تخمینی قیمت · ترسیل شامل نہیں",
+ "The amount shown is an estimate; this is a quote request, not a final order. We confirm the final price after checking your file. Design and installation are quoted separately. International shipping is always paid by the buyer — charged separately in your quote or paid on delivery; there is no free international shipping. Quotes are valid for 7 days.": "دکھائی گئی رقم ایک اندازہ ہے؛ یہ کوٹیشن کی درخواست ہے، حتمی آرڈر نہیں۔ ہم آپ کی فائل چیک کرنے کے بعد حتمی قیمت کی تصدیق کرتے ہیں۔ ڈیزائن اور تنصیب کی الگ کوٹیشن ہوتی ہے۔ بین الاقوامی ترسیل ہمیشہ خریدار ادا کرتا ہے — کوٹیشن میں الگ سے یا ترسیل پر ادائیگی؛ بین الاقوامی ترسیل مفت نہیں ہے۔ کوٹیشن 7 دن کے لیے درست ہے۔",
+ "Minimum order {{asgari+kdv}} TRY applied.": "کم از کم آرڈر {{asgari+kdv}} ترک لیرا لاگو کیا گیا۔",
+ "No lamination · {{foreks+kdv}} TRY/m²": "لیمینیشن کے بغیر · {{foreks+kdv}} ترک لیرا/مربع میٹر",
+ "Laminated · {{foreks_lam+kdv}} TRY/m²": "لیمینیشن کے ساتھ · {{foreks_lam+kdv}} ترک لیرا/مربع میٹر",
+ "Yes. We ship worldwide from Istanbul with UPS or a similar international carrier. Shipping is paid by the buyer — charged separately in your quote or paid on delivery. There is no free international shipping.": "جی ہاں۔ ہم استنبول سے UPS یا اسی طرح کی بین الاقوامی کوریئر سروس کے ذریعے دنیا بھر میں بھیجتے ہیں۔ ترسیل کا خرچ خریدار ادا کرتا ہے — کوٹیشن میں الگ سے یا ترسیل پر ادائیگی۔ بین الاقوامی ترسیل مفت نہیں ہے۔",
+ "No. Import duties and local taxes of the destination country are paid by the recipient.": "نہیں۔ منزل کے ملک کی درآمدی ڈیوٹی اور مقامی ٹیکس وصول کنندہ ادا کرتا ہے۔",
+ "We reply in English. Prices are quoted per project; shipping to your address is paid by the buyer.": "ہم انگریزی میں جواب دیتے ہیں۔ ہر پروجیکٹ کی قیمت الگ طے کی جاتی ہے؛ آپ کے پتے تک ترسیل کا خرچ خریدار ادا کرتا ہے۔",
+ "No lamination · {{folyo+kdv}} TRY/m²": "لیمینیشن کے بغیر · {{folyo+kdv}} ترک لیرا/مربع میٹر",
+ "Laminated · {{folyo_lam+kdv}} TRY/m²": "لیمینیشن کے ساتھ · {{folyo_lam+kdv}} ترک لیرا/مربع میٹر",
+ "Prices shown by our calculators are final prices with no VAT added on top; they are preliminary until the final price is confirmed after file check. Production starts after you approve the artwork and sizes; standard print jobs are ready 1–2 business days after approval. Shipping, import duties and taxes of the destination country are paid by the buyer; there is no free international shipping. Items made to your sizes, text or design are custom-made and cannot be returned; production defects or shipping damage are reprinted and reshipped free of charge. Report any problem with photos to info@istanbulprintlab.com.": "ہمارے کیلکولیٹرز میں دکھائی گئی قیمتیں حتمی قیمتیں ہیں جن پر الگ سے VAT شامل نہیں کیا جاتا؛ فائل چیک کے بعد حتمی قیمت کی تصدیق تک یہ ابتدائی ہیں۔ تیاری ڈیزائن اور سائز کی آپ کی منظوری کے بعد شروع ہوتی ہے؛ عام پرنٹ آرڈر منظوری کے 1–2 کاروباری دن بعد تیار ہوتے ہیں۔ ترسیل، درآمدی ڈیوٹی اور منزل کے ملک کے ٹیکس خریدار ادا کرتا ہے؛ بین الاقوامی ترسیل مفت نہیں ہے۔ آپ کے سائز، متن یا ڈیزائن کے مطابق بنی اشیاء خاص طور پر تیار کی جاتی ہیں اور واپس نہیں ہو سکتیں؛ تیاری کے نقص والی یا ترسیل کے دوران خراب ہونے والی مصنوعات مفت دوبارہ پرنٹ کر کے بھیجی جاتی ہیں۔ کسی بھی مسئلے کی تصاویر کے ساتھ info@istanbulprintlab.com پر اطلاع دیں۔",
+ "Die-cut standing figures on printed foam board from {{asgari+kdv}} TRY: characters, mascots and Christmas displays, with night installation in Istanbul malls.": "پرنٹڈ فوم بورڈ پر شکل کے مطابق کٹے کھڑے فگرز {{asgari+kdv}} ترک لیرا سے: کردار، میسکوٹس اور کرسمس ڈسپلے، استنبول کے مالز میں رات کی تنصیب کے ساتھ۔",
+ "{{asgari+kdv}} TRY": "{{asgari+kdv}} ترک لیرا",
+ "Minimum order {{asgari+kdv}} TRY. Cut details under 4 cm, contour cuts or more than 250 pieces are confirmed by quote after file check. Lamination doubles the price.": "کم از کم آرڈر {{asgari+kdv}} ترک لیرا۔ 4 سینٹی میٹر سے چھوٹی کٹنگ تفصیل، کونٹور کٹ یا 250 سے زیادہ ٹکڑوں کی تصدیق فائل چیک کے بعد کوٹیشن سے ہوتی ہے۔ لیمینیشن سے قیمت دوگنی ہو جاتی ہے۔"
 }
