@@ -1,12 +1,10 @@
-// Yönetim: info@istanbulprintlab.com Google hesabını bir kez bağlar (Drive'a dosya yükleme + bildirim maili için).
-// Yalnızca yönetim uygulamasına giriş yapmış hesap başlatabilir; Google'a yönlendirir, dönüş google-donus fonksiyonundadır.
+// info@istanbulprintlab.com Google hesabını bir kez bağlar (Drive'a dosya yükleme + bildirim maili için).
+// Yönetim girişi aranmaz: dönüşte (google-donus) bağlanan hesabın info@istanbulprintlab.com olduğu Google'ın kimlik bilgisinden
+// doğrulanır; başka bir hesap bağlanamaz. Bu yüzden bağlantıyı başlatmak, info@ şifresini bilmeyen biri için işe yaramaz.
 import crypto from 'node:crypto';
-import { OTURUM, cerezOku, coz } from '../lib/ortak.mjs';
 import { istemci, KAPSAM, BILDIRIM_ADRESI } from '../lib/google.mjs';
 
 export default async (req) => {
-  const cerez = cerezOku(req, OTURUM);
-  if (!cerez || !coz(cerez)) return new Response(null, { status: 302, headers: { Location: '/yonetim/', 'Cache-Control': 'no-store' } });
   const i = istemci();
   if (!i) return new Response('Google bağlantı ayarları eksik: Netlify ortam değişkenlerine GOOGLE_CLIENT_ID ve GOOGLE_CLIENT_SECRET girilmeli.', { status: 500, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
   const state = crypto.randomBytes(16).toString('hex');
@@ -18,6 +16,7 @@ export default async (req) => {
   u.searchParams.set('access_type', 'offline');
   u.searchParams.set('prompt', 'consent');
   u.searchParams.set('login_hint', BILDIRIM_ADRESI);
+  u.searchParams.set('hd', BILDIRIM_ADRESI.split('@')[1]);
   u.searchParams.set('state', state);
   return new Response(null, {
     status: 302,
