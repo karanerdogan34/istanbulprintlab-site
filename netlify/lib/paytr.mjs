@@ -65,3 +65,39 @@ export function bildirimGecerli(a, p) {
   const x = Buffer.from(String(p.hash || '')), y = Buffer.from(beklenen);
   return x.length === y.length && crypto.timingSafeEqual(x, y);
 }
+
+// ---- Durum Sorgu API (bildirim hiç ulaşmazsa yedek) ----
+// Dönüş: { durum: 'basarili', toplamKurus, odemeKurus, taksit, test } | { durum: 'yok' | 'bildirilmedi' | 'hata', mesaj }
+export async function durumSorgu(a, oid) {
+  const token = b64hmac(a.key, a.id + oid + a.salt);
+  const form = new URLSearchParams({ merchant_id: a.id, merchant_oid: oid, paytr_token: token });
+  let j;
+  try {
+    const r = await fetch('https://www.paytr.com/odeme/durum-sorgu', { method: 'POST', body: form, signal: AbortSignal.timeout(10000) });
+    j = await r.json();
+  } catch (e) { return { durum: 'hata', mesaj: 'PayTR yanıt vermedi' }; }
+  if (j && j.status === 'success') {
+    const kurus = (v) => {
+      let t = String(v ?? '').trim();
+      if (t.includes(',') && t.includes('.')) t = t.replace(/\./g, '').replace(',', '.'); else t = t.replace(',', '.');
+      return /^\d+(\.\d{1,2})?$/.test(t) ? Math.round(parseFloat(t) * 100) : NaN;
+    };
+    const toplamKurus = kurus(j.payment_total), odemeKurus = kurus(j.payment_amount);
+    if (!Number.isFinite(toplamKurus) || toplamKurus <= 0) return { durum: 'hata', mesaj: 'Tutar okunamadı' };
+    return { durum: 'basarili', toplamKurus, odemeKurus, paraBirimi: String(j.currency || ''), taksit: String(j.taksit || j.installment_count || '1'), test: String(j.test_mode ?? a.test) === '1' };
+  }
+  const no = String((j && (j.err_no || j.err_code)) || '');
+  const mesaj = String((j && j.err_msg) || '').toLocaleLowerCase('tr');
+  if (/bildiril/.test(mesaj)) return { durum: 'bildirilmedi', mesaj: no || 'bildirilmedi' };          // ödeme var ama siteye bildirilmedi
+  if (/bulunamad/.test(mesaj)) return { durum: 'yok', mesaj: no || 'bulunamadi' };                    // başarılı ödeme yok (004/006)
+  return { durum: 'hata', mesaj: ((no ? no + ' ' : '') + String((j && j.err_msg) || 'Bilinmeyen yanıt')).slice(0, 120) };
+}
+
+// ---- Türkiye'deki bildirim aktarıcısı (odeme.istanbulprintlab.com) ile imzalı istekler ----
+export const AKTARICI = 'https://odeme.istanbulprintlab.com';
+const aktariciAnahtari = (a) => crypto.createHash('sha256').update('ipl-aktarici:' + a.key + ':' + a.salt).digest();
+export function aktariciBasliklari(a, yontem, yol, govde = '') {
+  const zaman = String(Math.floor(Date.now() / 1000));
+  const imza = crypto.createHmac('sha256', aktariciAnahtari(a)).update(yontem + '\n' + yol + '\n' + zaman + '\n' + govde).digest('base64url');
+  return { 'X-IPL-Zaman': zaman, 'X-IPL-Imza': imza };
+}
