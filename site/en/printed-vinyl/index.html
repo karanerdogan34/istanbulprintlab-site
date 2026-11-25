@@ -760,10 +760,11 @@ var FX=null,fxQ=[];
 function fxShow(f){if(!FX){fxQ.indexOf(f)<0&&fxQ.push(f);return}var L=$('.mFxL',f);if(!L)return;var t=f.__t;
   $('.mFx',f).textContent='≈ €'+Math.round(t/FX.EUR).toLocaleString('en-GB')+' · $'+Math.round(t/FX.USD).toLocaleString('en-GB');
   $('.mFxD',f).textContent='TCMB rate '+FX.date;L.hidden=false}
+function fxYok(){$$('.mcalc').forEach(function(f){var L=$('.mFxL',f);if(!L)return;$('.mFx',f).textContent='—';$('.mFxD',f).textContent='Exchange rate unavailable right now — the final amount is given in your quote.';L.hidden=false})}
 if(document.querySelector('.mcalc[data-lang="en"]')){fetch('/api/kur',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(x){
   var d=new DOMParser().parseFromString(x,'application/xml'),g=function(c){var e=d.querySelector('Currency[CurrencyCode="'+c+'"] ForexSelling');return e?parseFloat(e.textContent):0};
-  var E=g('EUR'),U=g('USD'),T=d.querySelector('Tarih_Date');if(!(E>0&&U>0))return;
-  FX={EUR:E,USD:U,date:T?(T.getAttribute('Tarih')||''):''};fxQ.forEach(fxShow);fxQ=[]}).catch(function(){})}
+  var E=g('EUR'),U=g('USD'),T=d.querySelector('Tarih_Date');if(!(E>0&&U>0))return fxYok();
+  FX={EUR:E,USD:U,date:T?(T.getAttribute('Tarih')||''):''};fxQ.forEach(fxShow);fxQ=[]}).catch(fxYok)}
 $$('.mcalc').forEach(function(f){
   var P=+f.dataset.price;
   var EN=f.dataset.lang==='en',ROLLM=f.dataset.mode==='roll';
