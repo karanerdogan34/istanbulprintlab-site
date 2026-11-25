@@ -139,7 +139,7 @@ label.f textarea:focus,label.f select:focus{outline:none;border-color:var(--ink)
   <aside class="sum" id="ozet" aria-live="polite">
    <h3>Sipariş özeti</h3>
    <div id="ozetIc"></div>
-   <button class="btn" id="devam" type="button" disabled>WhatsApp'tan sipariş talebi gönder</button>
+   <button class="btn" id="devam" type="button" disabled>Sipariş talebini gönder</button>
    <button class="btn ghost" id="pdfIndir" type="button" style="display:none">Baskı dosyasını indir (PDF)</button>
    <div id="pdfDurum"></div>
    <p class="small" id="devamNot"></p>
@@ -423,7 +423,7 @@ function ciz(){
   $('pdfIndir').style.display = (m==='sablon' && dosyaTamam) ? '' : 'none';
   var hazir = dosyaTamam && tarihTamam && $('onay').checked;
   $('devam').disabled = !hazir;
-  $('devamNot').textContent = hazir ? (m==='sablon' ? 'Düğmeye bastığınızda davetiyeniz baskı dosyası (PDF) olarak indirilir ve WhatsApp mesajınız hazırlanır; PDF\'i mesaja ekleyin.' : 'Düğmeye bastığınızda seçimleriniz ve ön fiyat WhatsApp mesajı olarak hazırlanır; baskı dosyanızı mesaja ekleyin.')
+  $('devamNot').textContent = hazir ? (m==='sablon' ? 'Telefon numaranızı yazıp gönderin; tasarladığınız davetiye baskı dosyası (PDF) olarak bize ulaşır.' : 'Telefon numaranızı yazıp gönderin; seçimleriniz, ön fiyat ve dosyanız bize ulaşır.')
     : (!tarihTamam ? (tk.durum==='yetismez' ? 'Etkinlik tarihi teslim süresine yetişmiyor; WhatsApp\'tan bize yazın.' : 'Geçerli bir etkinlik tarihi seçin.') : (!dosyaTamam ? (m==='sablon' ? 'İsim ve mekan bilgilerini girin.' : 'PDF dosyanızı yükleyin.') : 'Onay kutusunu işaretleyin.'));
 }
 
@@ -443,10 +443,7 @@ function dosyaAdi(){ var d = veri(false), a = [d.isim1, d.isim2].filter(Boolean)
 function indir(b){ if (indirici) return indirici.save({filename: dosyaAdi(), data: b}).catch(function(){});
   var u=URL.createObjectURL(b), a=document.createElement('a'); a.href=u; a.download=dosyaAdi(); document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(u);},4000); }
 $('pdfIndir').addEventListener('click', function(){ pdfUret().then(function(b){ if(b) indir(b); }); });
-$('devam').addEventListener('click', function(){
-  if (mod()==='sablon') pdfUret().then(function(b){ if (b) { indir(b); $('devamNot').textContent='Baskı dosyanız (PDF) indirildi. WhatsApp\'ta açılan mesaja bu dosyayı ekleyip gönderin.'; } });
-  else $('devamNot').textContent='Sipariş talebiniz WhatsApp\'ta hazır mesaj olarak açıldı; PDF dosyanızı mesaja ekleyip gönderin.';
-});
+window.IPLPdfUret = function(){ return mod()==='sablon' ? pdfUret() : Promise.resolve(null); }; // talep akışı tasarlanan PDF'i Drive'a yükler
 
 // ---------- olaylar ----------
 function onaySifirla(e){ if (e.target.id!=='onay' && $('onay').checked) $('onay').checked = false; }
