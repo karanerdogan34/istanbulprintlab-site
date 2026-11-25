@@ -57,8 +57,8 @@ __CSS__
   <aside class="sum" id="ozet" aria-live="polite">
    <h3>Sipariş özeti</h3>
    <div id="ozetIc"><p class="small" style="margin:0">Ölçünüzü girdiğinizde fiyat burada görünür.</p></div>
-   <button class="btn" id="devam" type="button" disabled>WhatsApp'tan sipariş talebi gönder</button>
-   <p class="small" id="devamNot">Dosya kontrolü ve onay tamamlandığında sipariş talebinizi WhatsApp'tan gönderebilirsiniz.</p>
+   <button class="btn" id="devam" type="button" disabled>Sipariş talebini gönder</button>
+   <p class="small" id="devamNot">Dosya kontrolü ve onay tamamlandığında sipariş talebinizi gönderebilirsiniz.</p>
    <p class="small">Fiyatlara tasarım ve uygulama dahil değildir. __KARGO_METNI__</p>
   </aside>
  </div>
@@ -186,7 +186,7 @@ function ciz(){
   $('devam').style.display = r.durum==='teklif' ? 'none' : '';
   $('devamNot').style.display = r.durum==='teklif' ? 'none' : '';
   var neden = r.durum!=='tamam' ? 'Ölçüyü girin.' : !dosya ? 'Baskı dosyanızı yükleyin.' : ((!$('onay').checked ? 'Onay kutusunu işaretleyin.' : ''));
-  $('devamNot').textContent = hazir ? (d.sonuc!=='uygun' ? 'Dosyanız operatör kontrolüne alınacak; kontrol tamamlanmadan üretim başlamaz.' : 'Düğmeye bastığınızda seçimleriniz ve ön fiyat WhatsApp mesajı olarak hazırlanır; baskı dosyanızı mesaja ekleyin.') : neden;
+  $('devamNot').textContent = hazir ? (d.sonuc!=='uygun' ? 'Dosyanız operatör kontrolüne alınacak; kontrol tamamlanmadan üretim başlamaz.' : 'Telefon numaranızı yazıp gönderin; seçimleriniz, ön fiyat ve dosyanız bize ulaşır.') : neden;
 }
 
 // PNG'de şeffaf piksel var mı (küçültülmüş örnekle)
@@ -218,7 +218,6 @@ var drop = $('drop');
 ['dragenter','dragover'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.add('on');});});
 ['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('on');});});
 drop.addEventListener('drop', function(e){ dosyaAl(e.dataTransfer.files[0]); });
-$('devam').addEventListener('click', function(){ $('devamNot').textContent = 'Sipariş talebiniz WhatsApp\'ta hazır mesaj olarak açıldı; baskı dosyanızı mesaja ekleyip gönderin.'; });
 ciz();
 })();
 </script>
