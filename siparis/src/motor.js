@@ -231,12 +231,12 @@
     return {durum: 'tamam', uyarilar: [],
       kalemler: {m2: yuvarla(m2), birimM2: malz.m2, uretimEn: uEn, uretimBoy: uBoy, serit: serit, seritEn: Math.round(seritEn * 10) / 10, baski: baski, asgariFarki: tamamlama},
       araToplam: araToplam, kdv: kdv, toplam: yuvarla(araToplam + kdv),
-      kargoUcretsiz: !cfg.kargo_hep_alici && araToplam >= genel.kargo_ucretsiz_esik && !(m2 > genel.kargo_max_m2), kargoAyrica: !cfg.kargo_hep_alici && m2 > genel.kargo_max_m2, kargoMaxM2: genel.kargo_max_m2}; // duvar kağıdında kargo her zaman alıcıya ait
+      kargoUcretsiz: !cfg.kargo_hep_alici && araToplam >= genel.kargo_ucretsiz_esik && !(m2 > genel.kargo_max_m2), kargoAyrica: !cfg.kargo_hep_alici && m2 > genel.kargo_max_m2, kargoMaxM2: genel.kargo_max_m2};
   }
 
   // Kargo kuralı (tek yerden): KDV dahil toplam eşiğin altındaysa sabit kargo ücreti, eşik ve üzerinde ücretsiz.
   // kargo_yok: kargoyla gönderilmez (foreks, fotoblok, ayaklı pano) · kargo_hep_ucretsiz: kartvizit
-  // kargo_hep_alici: duvar kağıdı · kargoAyrica: m² sınırı aşıldı → ücret ayrıca bildirilir
+  // kargo_hep_alici: kargo her tutarda alıcıya ait (şu an kullanılmıyor) · kargoAyrica: m² sınırı aşıldı → ücret ayrıca bildirilir
   function kargoUygula(cfg, genel, r) {
     if (!r || r.durum !== 'tamam') return r;
     var ucret = genel.kargo_ucreti || 0;
