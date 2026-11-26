@@ -423,6 +423,7 @@ function ciz(){
   var tarihTamam = tk.durum==='tamam';
   $('pdfIndir').style.display = (m==='sablon' && dosyaTamam) ? '' : 'none';
   var hazir = dosyaTamam && tarihTamam && $('onay').checked;
+  window.IPLSiparis = {kod: KOD, girdi: g, odenebilir: !!(hazir && r.durum==='tamam')}; // doğrudan kartla ödeme: tutar sunucuda yeniden hesaplanır
   $('devam').disabled = !hazir;
   $('devamNot').textContent = hazir ? (m==='sablon' ? 'Telefon numaranızı yazıp gönderin; tasarladığınız davetiye baskı dosyası (PDF) olarak bize ulaşır.' : 'Telefon numaranızı yazıp gönderin; seçimleriniz, ön fiyat ve dosyanız bize ulaşır.')
     : (!tarihTamam ? (tk.durum==='yetismez' ? 'Etkinlik tarihi teslim süresine yetişmiyor; WhatsApp\'tan bize yazın.' : 'Geçerli bir etkinlik tarihi seçin.') : (!dosyaTamam ? (m==='sablon' ? 'İsim ve mekan bilgilerini girin.' : 'PDF dosyanızı yükleyin.') : 'Onay kutusunu işaretleyin.'));

@@ -352,6 +352,7 @@ function ciz(){
     $('ozetIc').innerHTML += '<div class="msg warn">Özel teslimat bedeli siparişten önce size bildirilir. Teslimat teklifi almak için WhatsApp\'tan yazın; teklifi onayladığınızda ödeme bilgileri iletilir.</div><a class="btn ghost" href="'+WA+wtxt+'" target="_blank" rel="noopener">Özel teslimat teklifi iste</a>';
   }
   var hazir = !ozelTes && r.durum==='tamam' && dosya && d && (d.sonuc==='uygun' || d.sonuc==='inceleme' || d.sonuc==='uygun-degil') && $('onay').checked;
+  window.IPLSiparis = {kod: KOD, girdi: g, odenebilir: !!(hazir && d.sonuc==='uygun' && !r.kargoAyrica)}; // doğrudan kartla ödeme: tutar sunucuda yeniden hesaplanır
   $('devam').disabled = !hazir;
   $('devam').style.display = (r.durum==='teklif' || ozelTes) ? 'none' : '';
   var neden = r.durum!=='tamam' ? 'Ölçüyü girin.' : !dosya ? 'Baskı dosyanızı yükleyin.' : ((!$('onay').checked ? 'Onay kutusunu işaretleyin.' : 'Hazır.'));

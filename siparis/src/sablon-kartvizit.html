@@ -278,6 +278,7 @@ function ciz(){
   var dosyaTamam = m==='sablon' ? eksik.length===0 : !!pdfAd;
   $('pdfIndir').style.display = (m==='sablon' && dosyaTamam) ? '' : 'none';
   var hazir = dosyaTamam && $('onay').checked;
+  window.IPLSiparis = {kod: KOD, girdi: g, odenebilir: !!(hazir && r.durum==='tamam')}; // doğrudan kartla ödeme: tutar sunucuda yeniden hesaplanır
   $('devam').disabled = !hazir;
   $('devamNot').textContent = hazir ? (m==='sablon' ? 'Telefon numaranızı yazıp gönderin; tasarladığınız kartvizit baskı dosyası (PDF) olarak bize ulaşır.' : 'Telefon numaranızı yazıp gönderin; seçimleriniz, ön fiyat ve dosyanız bize ulaşır.') : (!dosyaTamam ? (m==='sablon' ? 'Ad soyad ve en az bir iletişim bilgisi girin.' : 'PDF dosyanızı yükleyin.') : 'Onay kutusunu işaretleyin.');
 }

@@ -81,3 +81,14 @@ for kod, u in F['urunler'].items():
     if u['tur'] in ('kartvizit', 'davetiye'):  # baskı PDF'i için fontlar ve yazı motoru
         shutil.copytree(os.path.join(K, 'src', 'fontlar'), os.path.join(CIKTI, kod, 'fontlar'), dirs_exist_ok=True)
     print('derlendi:', kod)
+
+# Sunucu (Netlify Function) için aynı motor ve aynı işlenmiş fiyatlar: doğrudan ödemede tutar sunucuda yeniden hesaplanır,
+# tarayıcının gönderdiği tutara hiç güvenilmez. Dosya derlemede üretilir (git'e girmez), fonksiyonlar bundan sonra paketlenir.
+_SUNUCU = os.path.join(K, '..', 'netlify', 'lib', 'uretilen')
+os.makedirs(_SUNUCU, exist_ok=True)
+open(os.path.join(_SUNUCU, 'siparis-motor.mjs'), 'w', encoding='utf-8').write(
+    '// Otomatik üretilir (siparis/build.py) — elle düzenlemeyin.\n'
+    'const module = { exports: {} };\n' + motor + '\n'
+    'export const motor = module.exports;\n'
+    'export const fiyatlar = ' + json.dumps(F, ensure_ascii=False) + ';\n')
+print('sunucu motoru yazıldı')

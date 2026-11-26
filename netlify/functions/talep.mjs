@@ -10,6 +10,18 @@ import { ilkMail } from '../lib/talep-islem.mjs';
 const temiz = (s, n) => String(s || '').replace(/[<>\u0000-\u0008\u000B-\u001F]/g, ' ').trim().slice(0, n);
 const tekSatir = (s, n) => temiz(s, n).replace(/\s+/g, ' ');
 const AZAMI = 300 * 1048576; // 300 MB
+// Doğrudan ödeme için hesaplayıcı girdisi (ürün kodu ve seçimler). Tutar sonra sunucuda yeniden hesaplanır; burada yalnız saklanır.
+function hesapBilgisi(g) {
+  const kod = String(g.urunKod || '');
+  if (!/^[a-z0-9-]{2,40}$/.test(kod) || !g.girdi || typeof g.girdi !== 'object' || Array.isArray(g.girdi)) return null;
+  const girdi = {};
+  for (const [a, v] of Object.entries(g.girdi).slice(0, 30)) {
+    if (!/^[a-zA-Z_][a-zA-Z0-9_]{0,30}$/.test(a)) continue;
+    if (v === null || ['string', 'number', 'boolean'].includes(typeof v)) girdi[a] = typeof v === 'string' ? v.slice(0, 200) : v;
+    else if (typeof v === 'object' && !Array.isArray(v) && JSON.stringify(v).length < 2000) girdi[a] = v; // yazı kesimde ölçüm nesnesi
+  }
+  return { kod, girdi, odenebilir: g.odenebilir === true };
+}
 const UZANTILAR = ['pdf', 'ai', 'eps', 'svg', 'dxf', 'cdr', 'png', 'jpg', 'jpeg', 'tif', 'tiff', 'psd', 'zip'];
 
 export default async (req, context) => {
@@ -53,6 +65,7 @@ export default async (req, context) => {
       telefon, ad: tekSatir(g.ad, 80), not: tekSatir(g.not, 500),
       ozet: temiz(g.ozet, 5000), toplam: tekSatir(g.toplam, 40),
       dosya, mail: { ilk: false, dosya: false }, istemci,
+      hesap: hesapBilgisi(g),
     };
     let no = sahip.no;
     for (let i = 0; i < 4 && !k; i++) {
