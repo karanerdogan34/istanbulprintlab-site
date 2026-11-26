@@ -171,10 +171,10 @@
     document.getElementById('tWa').href = waLink(no);
   }
   // Baskıya hazır siparişte müşteri beklemeden öder: sunucu tutarı yeniden hesaplar, ödeme sayfasına yönlendirir.
-  function odemeDugmesi(t) {
+  function odemeDugmesi(t, otomatik) {
     var kutu = document.getElementById('talepSonuc'); if (!kutu || document.getElementById('tOde')) return;
     var m = kutu.querySelector('.msg.ok');
-    if (m) m.innerHTML = '<b style="font-weight:600">Siparişiniz hazır.</b><br>Sipariş numaranız: <b style="font-weight:600">' + t.no + '</b><br>Ödemeyi şimdi kartla yapabilirsiniz (taksit seçenekleriyle). Ödemeniz alınınca üretime başlarız.';
+    if (m) m.innerHTML = '<b style="font-weight:600">Siparişiniz hazır, ödeme sayfasına geçiliyor.</b><br>Sipariş numaranız: <b style="font-weight:600">' + t.no + '</b><br>Kartla, dilerseniz taksitle ödeyebilirsiniz. Dosyanız üretimden önce son teknik kontrolden geçer; baskıya engel bir durum olursa sizinle iletişime geçeriz.';
     var b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.id = 'tOde'; b.style.marginTop = '12px'; b.style.width = '100%';
     b.textContent = 'Kartla öde' + (mTop && /\d/.test(mTop.textContent) ? ' · ' + temiz(mTop.textContent) : '');
     var e = document.createElement('div'); e.className = 'small'; e.id = 'tOdeNot'; e.style.margin = '6px 0 0';
@@ -188,6 +188,7 @@
         e.textContent = j.message || 'Ödeme sayfası açılamadı. Lütfen tekrar deneyin ya da WhatsApp\'tan yazın.'; e.style.color = 'var(--bad)';
       }, function () { b.disabled = false; b.textContent = 'Kartla öde'; e.textContent = 'Bağlantı hatası, lütfen tekrar deneyin.'; e.style.color = 'var(--bad)'; });
     });
+    if (otomatik) b.click(); // ekstra tıklama olmadan ödeme sayfasına geçilir; açılamazsa düğme yedek olarak kalır
   }
   function yuklemeDurumu(oran, metin, tur) {
     var b = document.getElementById('tBar'), m = document.getElementById('tYukleMetin');
@@ -273,8 +274,9 @@
         olay('talep_kaydedildi', { talep: j.no, dosya: d ? (buyuk ? 'buyuk' : 'var') : 'yok' });
         try { if (window.parent !== window) window.parent.postMessage({ ipl: 'olay', ad: 'talep_gonderildi', urun: location.pathname }, location.origin); } catch (x) {}
         sonucKutusu(j.no, !!(d && !buyuk));
+        if (odenebilir && !buyuk) { var ok = document.querySelector('#talepSonuc .msg.ok'); if (ok) ok.innerHTML = '<b style="font-weight:600">Siparişiniz alındı.</b><br>Sipariş numaranız: <b style="font-weight:600">' + j.no + '</b><br>' + (d ? 'Dosyanız yüklendikten sonra ödeme sayfasına geçeceksiniz.' : 'Ödeme sayfasına geçiliyor…'); }
         if (buyuk) { var m = document.createElement('div'); m.className = 'msg warn'; m.textContent = 'Dosyanız 300 MB\'tan büyük olduğu için siteden yüklenemedi. Lütfen dosyanızı WhatsApp\'tan ya da WeTransfer ile gönderin; talebiniz bize ulaştı.'; document.getElementById('talepSonuc').insertBefore(m, document.getElementById('tWa')); return; }
-        if (!d) { if (odenebilir) odemeDugmesi(j); return; }
+        if (!d) { if (odenebilir) odemeDugmesi(j, true); return; }
         // Drive o an yanıt vermediyse aynı talep için iki kez daha yükleme adresi istenir (yeni talep açılmaz)
         var adresIste = function (n) {
           if (j.yukleme || n >= 2) return Promise.resolve(j.yukleme);
@@ -288,7 +290,7 @@
           yukleniyor = false; yuklemeDurumu(1, 'Dosyanız da alındı. Teşekkür ederiz.', 'ok');
           var bar = document.getElementById('tBar'); if (bar) bar.parentNode.style.display = 'none';
           olay('dosya_yuklendi', { talep: j.no });
-          if (odenebilir) odemeDugmesi(j);
+          if (odenebilir) odemeDugmesi(j, true);
         }, function (e) {
           yukleniyor = false; yuklemeDurumu(null, 'Dosyanız yüklenemedi. Talebiniz bize ulaştı; dosyanızı aşağıdaki WhatsApp düğmesinden gönderebilirsiniz.', 'bad');
           olay('dosya_yuklenemedi', { talep: j.no });

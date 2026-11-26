@@ -31,6 +31,10 @@
         : 'Taksit seçenekleri ödeme ekranında kartınıza göre gösterilir' + (d.maxTaksit > 1 ? ' (en fazla ' + d.maxTaksit + ' taksit)' : '') + '. Taksitli ödemelerde bankanın vade farkı toplam tutara eklenir; tek çekimde yukarıdaki tutar çekilir.';
       $('odOzet').hidden = false;
       form.hidden = false;
+      // Hesaplayıcıda yazılan ad ve telefon tekrar istenmez (müşteri değiştirebilir)
+      try { var kisi = JSON.parse(localStorage.getItem('ipl_talep_kisi') || '{}') || {};
+        if (kisi.ad && form.elements.ad && !form.elements.ad.value) form.elements.ad.value = kisi.ad;
+        if (kisi.tel && form.elements.telefon && !form.elements.telefon.value) form.elements.telefon.value = kisi.tel; } catch (e) {}
     })
     .catch(function () { bilgi.textContent = 'Ödeme bilgileri alınamadı. Lütfen sayfayı yenileyin veya WhatsApp\'tan bize yazın.'; });
 

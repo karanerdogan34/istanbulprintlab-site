@@ -39,7 +39,7 @@ export default async (req) => {
   if (!k) return json({ message: 'Talep bulunamadı.' }, 404);
 
   // Daha önce bu talep için bağlantı üretildiyse aynısı kullanılır (çift tıklama, sayfa yenileme)
-  if (k.odeme && k.odeme.linkId) {
+  if (k.odeme && k.odeme.linkId && k.odeme.link) {
     const l = await linkOku(k.odeme.linkId);
     if (l && l.durum === 'odendi') return json({ message: 'Bu siparişin ödemesi alınmıştır, teşekkür ederiz.', odendi: true }, 409);
     if (l && l.durum === 'bekliyor' && l.b > Date.now() + 3600e3 && k.odeme.link) return json({ link: k.odeme.link });
@@ -54,10 +54,32 @@ export default async (req) => {
     return json({ message: neden + ' Talebiniz bize ulaştı; size dönüş yapacağız.' }, 409);
   }
 
-  const id = crypto.randomBytes(12).toString('hex');
+  // Aynı talep için tek bağlantı: talep kaydına atomik olarak yer ayrılır; eş zamanlı ikinci istek önceki bağlantıyı bekler.
+  // (Önceki bağlantı süresi dolmuş ya da iptal edilmişse yenisi açılabilir; ödenmiş bağlantı yukarıda reddedildi.)
+  const id = crypto.randomBytes(12).toString('hex'), simdi = Date.now();
+  let ayrildi;
+  try {
+    ayrildi = await talepGuncelle(no, (e) => {
+      const o = e.odeme;
+      if (o && o.linkId && o.linkId !== (k.odeme && k.odeme.linkId)) return null; // başka istek az önce ayırdı
+      if (o && o.hazirlaniyor && simdi - o.hazirlaniyor < 30000) return null;
+      return { ...e, odeme: { linkId: id, hazirlaniyor: simdi } };
+    });
+  } catch (e) { return json({ message: 'Ödeme sayfası şu an açılamadı. Lütfen tekrar deneyin.' }, 503); }
+  if (!ayrildi || !ayrildi.odeme || ayrildi.odeme.linkId !== id) {
+    for (let i = 0; i < 10; i++) { // diğer isteğin bağlantıyı yazmasını bekle (en fazla ~10 sn)
+      const v = await talepOku(no);
+      if (v && v.odeme && v.odeme.link) return json({ link: v.odeme.link });
+      await new Promise((r) => setTimeout(r, 1000));
+    }
+    return json({ message: 'Ödeme sayfası hazırlanıyor, lütfen birkaç saniye sonra tekrar deneyin.' }, 409);
+  }
+
   const veri = { i: id, n: no, a: t.aciklama, k: t.kurus, t: 12, b: Date.now() + 3 * GUN };
   if (t.kargoKurus > 0) veri.kg = t.kargoKurus;
-  await linkYaz(id, { ...veri, durum: 'bekliyor', olusturma: new Date().toISOString(), test: a.test === '1', kaynak: 'hesaplayici' });
+  // Ödemeye esas sipariş kaydı (sonradan değişmez): ürün, seçimler, tutar, kargo ve Drive'daki dosya kimliği
+  await linkYaz(id, { ...veri, durum: 'bekliyor', olusturma: new Date().toISOString(), test: a.test === '1', kaynak: 'hesaplayici',
+    siparis: { talep: no, urun: k.hesap.kod, girdi: k.hesap.girdi, dosyaId: (k.dosya && k.dosya.id) || null, dosyaAd: (k.dosya && k.dosya.ad) || null, telefon: k.telefon } });
   const link = SITE + '/odeme/?l=' + linkImzala(a, veri);
   await talepGuncelle(no, (e) => ({ ...e, odeme: { linkId: id, link, kurus: t.kurus, zaman: new Date().toISOString() } })).catch((e) => console.error('Talebe ödeme bağlantısı yazılamadı:', no, e && e.message));
   return json({ link, kurus: t.kurus });
