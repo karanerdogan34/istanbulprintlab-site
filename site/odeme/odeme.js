@@ -26,6 +26,7 @@
       $('odNo').textContent = d.siparisNo;
       $('odAciklama').textContent = d.aciklama;
       $('odTutar').textContent = tl(d.kurus);
+      if (d.nakliye) $('odNakliye').hidden = false;
       if (d.kargoKurus > 0) { $('odUrun').textContent = tl(d.kurus - d.kargoKurus); $('odKargo').textContent = tl(d.kargoKurus); $('odKalem').hidden = false; }
       $('odTaksitNot').textContent = d.maxTaksit === 1 ? 'Bu sipariş için tek çekim ödeme alınır.'
         : 'Taksit seçenekleri ödeme ekranında kartınıza göre gösterilir' + (d.maxTaksit > 1 ? ' (en fazla ' + d.maxTaksit + ' taksit)' : '') + '. Taksitli ödemelerde bankanın vade farkı toplam tutara eklenir; tek çekimde yukarıdaki tutar çekilir.';

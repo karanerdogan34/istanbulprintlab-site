@@ -27,7 +27,7 @@ export default async (req) => {
   if (req.method === 'GET') {
     const d = await linkDurumu(a, url.searchParams.get('l'));
     if (d.hata) return d.hata;
-    return json({ siparisNo: d.v.n, aciklama: d.v.a, kurus: d.v.k, kargoKurus: d.v.kg || 0, maxTaksit: d.v.t, test: a.test === '1' });
+    return json({ siparisNo: d.v.n, aciklama: d.v.a, kurus: d.v.k, kargoKurus: d.v.kg || 0, nakliye: d.v.ny === 1, maxTaksit: d.v.t, test: a.test === '1' });
   }
 
   const kaynak = req.headers.get('origin');
