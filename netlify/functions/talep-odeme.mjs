@@ -20,7 +20,7 @@ export function tutarHesapla(k) {
   let r;
   try { r = motor.hesapla(fiyatlar, h.kod, h.girdi || {}); } catch (_) { return { neden: 'hesap' }; }
   if (!r || r.durum !== 'tamam') return { neden: 'teklif' };
-  if (r.kargoAyrica) return { neden: 'kargo' };
+  if (r.kargoAyrica || r.kargoYok) return { neden: 'kargo' }; // m² sınırı aşıldı ya da kargoyla gönderilmeyen ürün (foreks, fotoblok): nakliye ayrıca bildirilir
   const toplam = Number(r.genelToplam || r.toplam), kargo = Number(r.kargoUcret || 0);
   if (!(toplam >= 1) || toplam > 1000000) return { neden: 'hesap' };
   return { kurus: Math.round(toplam * 100), kargoKurus: Math.round(kargo * 100), aciklama: String(k.urunAd || 'Baskı siparişi').slice(0, 100) };

@@ -183,7 +183,7 @@ function ciz(){
   $('dosyaSonuc').innerHTML = dh;
 
   var hazir = r.durum==='tamam' && dosya && d && (d.sonuc==='uygun' || d.sonuc==='inceleme' || d.sonuc==='uygun-degil') && $('onay').checked;
-  window.IPLSiparis = {kod: KOD, girdi: g, odenebilir: !!(hazir && d.sonuc==='uygun' && !r.kargoAyrica)}; // doğrudan kartla ödeme: tutar sunucuda yeniden hesaplanır
+  window.IPLSiparis = {kod: KOD, girdi: g, odenebilir: !!(hazir && d.sonuc==='uygun' && !r.kargoAyrica && !r.kargoYok)}; // doğrudan kartla ödeme: tutar sunucuda yeniden hesaplanır
   $('devam').disabled = !hazir;
   $('devam').style.display = r.durum==='teklif' ? 'none' : '';
   $('devamNot').style.display = r.durum==='teklif' ? 'none' : '';

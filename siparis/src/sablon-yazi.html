@@ -238,7 +238,7 @@ function ciz(){
   $('ozetIc').innerHTML = h;
   if (m==='dosya') $('dosyaSonuc').innerHTML = dosya ? '<div class="msg warn">'+esc(dosya)+' alındı. Kesim dosyaları operatörümüz tarafından kontrol edilir; ölçü ve harf yüksekliği dosyayla uyuşmazsa sizinle iletişime geçilir.</div>' : '';
   var hazir = r.durum==='tamam' && (m==='yaz' || dosya) && $('onay').checked;
-  window.IPLSiparis = {kod: KOD, girdi: g, odenebilir: !!(hazir && m==='yaz' && !r.kargoAyrica)}; // doğrudan kartla ödeme: tutar sunucuda yeniden hesaplanır
+  window.IPLSiparis = {kod: KOD, girdi: g, odenebilir: !!(hazir && m==='yaz' && !r.kargoAyrica && !r.kargoYok)}; // doğrudan kartla ödeme: tutar sunucuda yeniden hesaplanır
   $('devam').disabled = !hazir;
   $('devam').style.display = r.durum==='teklif' ? 'none' : '';
   $('devamNot').style.display = r.durum==='teklif' ? 'none' : '';
