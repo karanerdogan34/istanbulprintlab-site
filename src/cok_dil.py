@@ -161,13 +161,14 @@ FX_JS = ('<script>(function(){var L=document.querySelectorAll("[data-tl]");if(!L
          '<style>.ukart small .fx{display:block;font-size:12.5px;opacity:.9;margin-top:2px}</style>')
 
 
-def kart_fiyatlari(s, dil):
+def kart_fiyatlari(s, dil, C=None):
     """Ana sayfa ürün kartları: yurt dışı fiyatı (KDV hariç Türkiye fiyatı x1,2, KDV yok) ve euro/dolar karşılığı"""
     def f(m):
         tl = float(m.group(1).replace('.', '')) * YD_CARPAN
-        ek = m.group(2)
+        ek = html.unescape(m.group(2))
         onek = ONEK.get(dil, '') if "'den" in ek else ''
-        birim = re.sub(r"\+ KDV\s*|'den", '', ek).strip()
+        temel = ek.replace("'den", '').strip()
+        birim = (C or {}).get(temel) or re.sub(r"\+ KDV\s*", '', temel).strip()
         return '<small data-tl="%.2f"><span>%s%s ₺</span>%s' % (tl, onek, _sayi(tl, dil), (' <span>%s</span>' % birim) if birim else '')
     s = re.sub(r'<small><span>([\d.]+) ₺</span> <span>([^<]*)</span>', f, s)
     return s.replace('</body>', FX_JS + '</body>', 1)
@@ -188,7 +189,7 @@ def uret(dist, diller, yerel, rtl_css):
                 if not C.get(t):
                     eksik.setdefault(dil, set()).add(t)
             if k == 'index.html':
-                s = kart_fiyatlari(s, dil)
+                s = kart_fiyatlari(s, dil, C)
             s = cevir(s, C)
             yol = '/' + k.replace('index.html', '')
             # dil, yön, dil değişkeni

@@ -107,6 +107,8 @@ def cevir(s, dil, C):
 RTL_CSS = ('<style>html[dir=rtl] body{font-family:"Noto Naskh Arabic","Vazirmatn","Segoe UI",Tahoma,Arial,sans-serif}'
            'html[dir=rtl] input[type=number],html[dir=rtl] input[type=tel],html[dir=rtl] input[type=email],html[dir=rtl] [dir=ltr]{direction:ltr;text-align:right}'
            'html[dir=rtl] body>a[href="#icerik"]:not(:focus){left:auto!important;right:-9999px}'
+           'html[dir=rtl] :not(a)[style*="left:-9999px"]{left:auto!important;right:-9999px!important}'
+           'html[dir=rtl] .logo,html[dir=rtl] header.site .logo{direction:ltr;unicode-bidi:isolate}'
            'html[dir=rtl] .mTotal,html[dir=rtl] .mFx,html[dir=rtl] a[href^="tel:"]{direction:ltr;unicode-bidi:isolate;display:inline-block}</style>')
 
 
