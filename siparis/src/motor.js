@@ -41,11 +41,11 @@
     var kisa = Math.min(en, boy), uzun = Math.max(en, boy);
     var netEn = (malz && malz.net_en) || cfg.net_en;
     if (cfg.max_boy && (kisa > cfg.net_en || uzun > cfg.max_boy)) {
-      teklif = 'Tek parça en fazla ' + cfg.net_en + ' × ' + cfg.max_boy + ' cm üretilir. Daha büyük işler birden fazla parçadan oluşur; bunun için teklif alın.';
+      teklif = 'Tek parça en fazla ' + cfg.net_en + ' × ' + cfg.max_boy + ' cm basılabilir. Daha büyük işleri parça parça üretiriz; bize yazın, size özel fiyat verelim.';
     } else if (kisa > netEn) {
-      teklif = 'Bu ölçü tek parça üretilemez: iki kenar da ' + netEn + ' cm\'yi aşıyor. Kenarlardan en az biri en fazla ' + netEn + ' cm olmalı. Daha büyük işler parçalı üretilir; bunun için teklif alın.';
+      teklif = 'Bu ölçü tek parça basılamaz: iki kenar da ' + netEn + ' cm\'den büyük. Kenarlardan biri en fazla ' + netEn + ' cm olmalı. Daha büyük işleri parça parça üretiriz; bize yazın, size özel fiyat verelim.';
     } else if (uzun > genel.tek_parca_max_boy) {
-      teklif = 'Tek parça en fazla ' + (genel.tek_parca_max_boy / 100) + ' metre üretilir. Daha uzun işler parçalı üretilir; bunun için teklif alın.';
+      teklif = 'Tek parça en fazla ' + (genel.tek_parca_max_boy / 100) + ' metre basılabilir. Daha uzun işleri parça parça üretiriz; bize yazın, size özel fiyat verelim.';
     }
     if (malz && malz.uyari) uyarilar.push(malz.uyari);
     if (teklif) return {durum: 'teklif', mesaj: teklif, uyarilar: uyarilar};
@@ -105,8 +105,8 @@
     if (sekil === 'dikdortgen' && !(boy > 0)) hatalar.push({alan: 'boy', mesaj: 'Yüksekliği santimetre olarak girin.'});
     if (!(adet >= 1) || Math.floor(adet) !== adet) hatalar.push({alan: 'adet', mesaj: 'Adet 1 veya daha büyük bir tam sayı olmalı.'});
     if (hatalar.length) return {durum: 'hata', hatalar: hatalar};
-    if (Math.min(en, boy) < K.min_cm) return {durum: 'teklif', mesaj: K.min_cm + ' cm\'den küçük kesimler standart fiyatlandırmanın dışındadır. Bu iş için teklif alın.', uyarilar: []};
-    if (adet > K.max_adet) return {durum: 'teklif', mesaj: K.max_adet + ' adetten fazla kesimli sticker siparişleri teklifle fiyatlandırılır. Bu iş için teklif alın.', uyarilar: []};
+    if (Math.min(en, boy) < K.min_cm) return {durum: 'teklif', mesaj: K.min_cm + ' cm\'den küçük kesimler için sitede hazır fiyat yok; bize yazın, size özel fiyat verelim.', uyarilar: []};
+    if (adet > K.max_adet) return {durum: 'teklif', mesaj: K.max_adet + ' adetten fazla sticker için bize yazın, size özel fiyat verelim.', uyarilar: []};
     var r = ruloHesapla(cfg, genel, {malzeme: g.malzeme, laminasyon: g.laminasyon, en: en, boy: boy, adet: adet});
     if (r.durum === 'tamam') { r.kalemler.sekil = sekil; r.kalemler.parca = sekil === 'yuvarlak' ? ('Ø ' + en + ' cm') : (en + ' × ' + boy + ' cm'); }
     return r;
@@ -125,14 +125,14 @@
     if (!renk) hatalar.push({alan: 'renk', mesaj: 'Renk seçin.'});
     if (hatalar.length) return {durum: 'hata', hatalar: hatalar};
     if (harf > boy) return {durum: 'hata', hatalar: [{alan: 'harf', mesaj: 'Harf yüksekliği yazının toplam yüksekliğinden büyük olamaz.'}]};
-    if (renk.teklif) return {durum: 'teklif', mesaj: (renk.kod === 'diger' ? 'Listede olmayan renkler stok durumuna göre fiyatlandırılır. İstediğiniz rengi belirterek teklif alın.' : renk.ad + ' kesim folyosu standart fiyatlandırmanın dışındadır. Bu iş için teklif alın.'), uyarilar: []};
-    if (g.stil === 'el') return {durum: 'teklif', mesaj: 'El yazısı, ince ve birbirine bağlı hatlar ile girift logolar ayrıca fiyatlandırılır. Bu iş için teklif alın.', uyarilar: []};
+    if (renk.teklif) return {durum: 'teklif', mesaj: (renk.kod === 'diger' ? 'Listede olmayan renkler stok durumuna göre fiyatlandırılır. İstediğiniz rengi yazarak bize ulaşın, fiyat verelim.' : renk.ad + ' kesim folyosu için sitede hazır fiyat yok; bize yazın, size özel fiyat verelim.'), uyarilar: []};
+    if (g.stil === 'el') return {durum: 'teklif', mesaj: 'El yazısı, ince ve birbirine bağlı harfler ile karmaşık logolar için sitede hazır fiyat yok; bize yazın, size özel fiyat verelim.', uyarilar: []};
     var kisa = Math.min(en, boy), uzun = Math.max(en, boy);
-    if (kisa > cfg.max_en) return {durum: 'teklif', mesaj: cfg.max_en + ' cm\'yi aşan işler renkli kesim folyosuyla tek parça üretilemez; bu iş baskes (baskı + kesim) olmak zorundadır. Bu iş için teklif alın.', uyarilar: []};
-    if (uzun > genel.tek_parca_max_boy) return {durum: 'teklif', mesaj: 'Tek parça en fazla ' + (genel.tek_parca_max_boy / 100) + ' metre üretilir. Daha uzun işler için teklif alın.', uyarilar: []};
+    if (kisa > cfg.max_en) return {durum: 'teklif', mesaj: cfg.max_en + ' cm\'yi aşan işler renkli kesim folyosuyla tek parça kesilemez; bu işin baskılı kesimle yapılması gerekir. Bize yazın, size özel fiyat verelim.', uyarilar: []};
+    if (uzun > genel.tek_parca_max_boy) return {durum: 'teklif', mesaj: 'Tek parça en fazla ' + (genel.tek_parca_max_boy / 100) + ' metre basılabilir. Daha uzun işler için bize yazın, size özel fiyat verelim.', uyarilar: []};
     var kademe = null;
     for (var k = 0; k < cfg.kademeler.length; k++) if (harf >= cfg.kademeler[k].min_harf) { kademe = cfg.kademeler[k]; break; }
-    if (!kademe) return {durum: 'teklif', mesaj: cfg.kademeler[cfg.kademeler.length - 1].min_harf + ' cm\'den küçük harfler standart fiyatlandırmanın dışındadır. Bu iş için teklif alın.', uyarilar: []};
+    if (!kademe) return {durum: 'teklif', mesaj: cfg.kademeler[cfg.kademeler.length - 1].min_harf + ' cm\'den küçük harfler için sitede hazır fiyat yok; bize yazın, size özel fiyat verelim.', uyarilar: []};
     var m2 = en * boy / 10000 * adet;
     var baski = yuvarla(m2 * kademe.m2);
     var tamamlama = baski < genel.asgari_baski ? yuvarla(genel.asgari_baski - baski) : 0;
@@ -180,7 +180,7 @@
     if (!(boy > 0)) hatalar.push({alan: 'boy', mesaj: 'Tasarımın yüksekliğini santimetre olarak girin.'});
     if (!(adet >= 1) || Math.floor(adet) !== adet) hatalar.push({alan: 'adet', mesaj: 'Adet 1 veya daha büyük bir tam sayı olmalı.'});
     if (hatalar.length) return {durum: 'hata', hatalar: hatalar};
-    if (Math.min(en, boy) < cfg.min_cm) return {durum: 'teklif', mesaj: cfg.min_cm + ' cm\'den küçük tasarımlar standart fiyatlandırmanın dışındadır. Bu iş için teklif alın.', uyarilar: []};
+    if (Math.min(en, boy) < cfg.min_cm) return {durum: 'teklif', mesaj: cfg.min_cm + ' cm\'den küçük tasarımlar için sitede hazır fiyat yok; bize yazın, size özel fiyat verelim.', uyarilar: []};
     if (cfg.tabaka) { // sıcak DTF: sabit ölçülü tabaka, tabaka başına fiyat
       var T = cfg.tabaka, a = cfg.aralik_cm, en2 = null;
       [[en, boy, false], [boy, en, true]].forEach(function (o) {
@@ -188,7 +188,7 @@
         var sut = Math.floor((T.en + a) / (o[0] + a)), sir = Math.floor((T.boy + a) / (o[1] + a)), kap = sut * sir;
         if (!en2 || kap > en2.kap) en2 = {sutun: sut, sira: sir, kap: kap, pw: o[0], ph: o[1], dondu: o[2]};
       });
-      if (!en2) return {durum: 'teklif', mesaj: 'Sıcak DTF\'de tek parça en fazla ' + T.en + ' × ' + T.boy + ' cm olabilir. Daha büyük tasarımlar için teklif alın.', uyarilar: []};
+      if (!en2) return {durum: 'teklif', mesaj: 'Sıcak DTF\'de tek parça en fazla ' + T.en + ' × ' + T.boy + ' cm olabilir. Daha büyük tasarımlar için bize yazın, size özel fiyat verelim.', uyarilar: []};
       var tabaka = Math.ceil(adet / en2.kap);
       var bs = yuvarla(tabaka * T.fiyat), tm = bs < genel.asgari_baski ? yuvarla(genel.asgari_baski - bs) : 0;
       var at = yuvarla(bs + tm), kd = yuvarla(at * genel.kdv_orani);
@@ -197,10 +197,10 @@
         araToplam: at, kdv: kd, toplam: yuvarla(at + kd), m2: yuvarla(tabaka * T.en * T.boy / 10000),
         kargoUcretsiz: at >= genel.kargo_ucretsiz_esik && !(tabaka * T.en * T.boy / 10000 > genel.kargo_max_m2), kargoAyrica: tabaka * T.en * T.boy / 10000 > genel.kargo_max_m2, kargoMaxM2: genel.kargo_max_m2};
     }
-    if (Math.min(en, boy) > cfg.rulo_en) return {durum: 'teklif', mesaj: 'UV DTF en fazla ' + cfg.rulo_en + ' cm enindeki ruloya basılır; tasarımın kenarlarından en az biri ' + cfg.rulo_en + ' cm veya daha kısa olmalı. Daha büyük işler için teklif alın.', uyarilar: []};
+    if (Math.min(en, boy) > cfg.rulo_en) return {durum: 'teklif', mesaj: 'UV DTF en fazla ' + cfg.rulo_en + ' cm enindeki ruloya basılır; tasarımın kenarlarından en az biri ' + cfg.rulo_en + ' cm veya daha kısa olmalı. Daha büyük işler için bize yazın, size özel fiyat verelim.', uyarilar: []};
     var y = dtfYerlesim(cfg.rulo_en, cfg.aralik_cm, en, boy, adet);
     var uzunluk = Math.ceil(y.uzunluk - 1e-9); // tam santimetreye yukarı
-    if (uzunluk > genel.tek_parca_max_boy) return {durum: 'teklif', mesaj: 'Bu sipariş ' + (uzunluk / 100).toLocaleString('tr-TR') + ' metre rulo gerektiriyor. Tek seferde en fazla ' + (genel.tek_parca_max_boy / 100) + ' metre basılır; daha uzun işler için teklif alın.', uyarilar: []};
+    if (uzunluk > genel.tek_parca_max_boy) return {durum: 'teklif', mesaj: 'Bu sipariş ' + (uzunluk / 100).toLocaleString('tr-TR') + ' metre rulo gerektiriyor. Tek seferde en fazla ' + (genel.tek_parca_max_boy / 100) + ' metre basılabilir; daha uzun işler için bize yazın, size özel fiyat verelim.', uyarilar: []};
     var baski = yuvarla(uzunluk / 100 * cfg.metre_fiyat);
     var tamamlama = baski < genel.asgari_baski ? yuvarla(genel.asgari_baski - baski) : 0;
     var araToplam = yuvarla(baski + tamamlama), kdv = yuvarla(araToplam * genel.kdv_orani);
@@ -222,7 +222,7 @@
     if (hatalar.length) return {durum: 'hata', hatalar: hatalar};
     if (malz.teklif) return {durum: 'teklif', mesaj: malz.ad + ' standart fiyatlandırmanın dışındadır. Duvar ölçünüzü ve görselinizi WhatsApp\'tan gönderin, fiyatı size iletelim.', uyarilar: []};
     var p = cfg.emniyet_cm || 0, uEn = en + 2 * p, uBoy = boy + 2 * p;
-    if (uBoy > genel.tek_parca_max_boy || uEn > genel.tek_parca_max_boy) return {durum: 'teklif', mesaj: 'Duvarın kenarları en fazla ' + (genel.tek_parca_max_boy / 100) + ' metre olabilir. Daha büyük işler için teklif alın.', uyarilar: []};
+    if (uBoy > genel.tek_parca_max_boy || uEn > genel.tek_parca_max_boy) return {durum: 'teklif', mesaj: 'Duvarın kenarları en fazla ' + (genel.tek_parca_max_boy / 100) + ' metre olabilir. Daha büyük işler için bize yazın, size özel fiyat verelim.', uyarilar: []};
     var serit = Math.ceil(uEn / malz.serit_en - 1e-9), seritEn = uEn / serit;
     var m2 = uEn * uBoy / 10000;
     var baski = yuvarla(m2 * malz.m2);

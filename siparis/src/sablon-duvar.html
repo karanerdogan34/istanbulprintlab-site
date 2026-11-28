@@ -157,7 +157,7 @@ function ciz(){
     h = '<p class="small" style="margin:0">Duvar ölçünüzü girdiğinizde fiyat burada görünür.</p>'; var oy = !dolu && ornekFiyat(g); if (oy) h += '<div class="ornek"><span>Örnek: '+esc(ornekMetni())+'</span><b>'+tl(oy)+' <small>KDV dahil</small></b><button type="button" class="btn ghost" data-ornek>Bu ölçüyle hesapla</button></div>'; $('mTop').textContent = '—';
   } else if (r.durum==='teklif') {
     var txt = encodeURIComponent('Merhaba, '+C.ad+' için teklif almak istiyorum: '+(mz?mz.ad+', ':'')+'duvar '+g.en+' × '+g.boy+' cm.');
-    h = '<div class="msg warn" style="margin-top:0">'+esc(r.mesaj)+'</div><a class="btn ghost" href="'+WA+txt+'" target="_blank" rel="noopener">WhatsApp ile teklif iste</a><p class="small">WhatsApp: +90 532 523 73 64</p>';
+    h = '<div class="msg warn" style="margin-top:0">'+esc(r.mesaj)+'</div><a class="btn ghost" href="'+WA+txt+'" target="_blank" rel="noopener">WhatsApp\'tan fiyat isteyin</a><p class="small">WhatsApp: +90 532 523 73 64</p>';
     $('mTop').textContent = 'Teklif';
   } else {
     var k = r.kalemler;
@@ -167,14 +167,14 @@ function ciz(){
     h += '<div class="line"><span>Alan</span><span>'+k.m2.toLocaleString('tr-TR')+' m²</span></div>';
     h += '<div class="line"><span>Şerit</span><span>'+k.serit+' adet</span></div>';
     h += '<div class="line"><span>Baskı ('+tl0(k.birimM2)+' / m²)</span><span>'+tl(k.baski)+'</span></div>';
-    if (k.asgariFarki > 0) h += '<div class="line"><span>Asgari baskı tutarı farkı</span><span>'+tl(k.asgariFarki)+'</span></div>';
+    if (k.asgariFarki > 0) h += '<div class="line"><span>En az sipariş tutarına tamamlama</span><span>'+tl(k.asgariFarki)+'</span></div>';
     h += '<div class="line total"><span>Ara toplam (KDV hariç)</span><span>'+tl(r.araToplam)+'</span></div>';
     h += '<div class="line"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
     h += '<div class="line big"><span>Toplam</span><span>'+tl(r.toplam)+'</span></div>';
     h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+IPLMotor.kargoYazi(r)+'</span></div>';
     if (r.kargoUcret > 0) h += '<div class="line big"><span>Kargo dahil toplam</span><span>'+tl(r.genelToplam)+'</span></div>';
     if (r.kargoAyrica) h += '<p class="small">Sipariş alanı '+r.kargoMaxM2+' m² sınırının üzerinde olduğu için ücretsiz kargo uygulanmaz; kargo ücreti alıcıya aittir. Dilerseniz Kadıköy\'deki atölyemizden teslim alabilirsiniz.</p>';
-    if (k.asgariFarki > 0) h += '<p class="small">Asgari baskı tutarı '+tl0(G.asgari_baski)+' + KDV\'dir.</p>';
+    if (k.asgariFarki > 0) h += '<p class="small">En az sipariş tutarı '+tl0(G.asgari_baski)+' + KDV\'dir; siparişiniz bunun altındaysa aradaki fark eklenir.</p>';
     $('mTop').textContent = tl(r.genelToplam || r.toplam);
   }
   $('ozetIc').innerHTML = h;

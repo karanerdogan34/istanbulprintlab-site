@@ -216,7 +216,7 @@ function ciz(){
     $('mTop').textContent='—';
   } else if (r.durum==='teklif') {
     var ozet = (m==='yaz' && g._o ? '"'+g._o.satirlar.join(' / ')+'", '+g._o.font+', ' : '')+g.en+' × '+g.boy+' cm, en küçük harf '+g.harf+' cm, '+renk().ad+', '+g.adet+' adet';
-    h = '<div class="msg warn" style="margin-top:0">'+esc(r.mesaj)+'</div><a class="btn ghost" href="'+WA+encodeURIComponent('Merhaba, folyo yazı kesim için teklif almak istiyorum: '+ozet+'.')+'" target="_blank" rel="noopener">WhatsApp ile teklif iste</a><p class="small">WhatsApp: +90 532 523 73 64</p>';
+    h = '<div class="msg warn" style="margin-top:0">'+esc(r.mesaj)+'</div><a class="btn ghost" href="'+WA+encodeURIComponent('Merhaba, folyo yazı kesim için teklif almak istiyorum: '+ozet+'.')+'" target="_blank" rel="noopener">WhatsApp\'tan fiyat isteyin</a><p class="small">WhatsApp: +90 532 523 73 64</p>';
     $('mTop').textContent='Teklif';
   } else {
     var k = r.kalemler;

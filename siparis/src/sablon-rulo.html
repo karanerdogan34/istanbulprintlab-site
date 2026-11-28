@@ -81,7 +81,7 @@ __CSS__</style>
 
    <section class="step">
     <h2><span class="n">04</span>Baskı dosyası</h2>
-    <label class="drop" id="drop"><input type="file" id="dosya" accept=".pdf,.jpg,.jpeg,.png,.tif,.tiff"><b>Dosyanızı seçin veya buraya sürükleyin</b><span class="small">PDF, JPG, PNG veya TIFF. Yazılar kontura çevrilmiş olmalı. PNG'deki şeffaf alanlar baskısız kalır.</span></label>
+    <label class="drop" id="drop"><input type="file" id="dosya" accept=".pdf,.jpg,.jpeg,.png,.tif,.tiff"><b>Dosyanızı seçin veya buraya sürükleyin</b><span class="small">PDF, JPG, PNG veya TIFF yükleyin. Dosya ne kadar netse baskı o kadar güzel olur. PDF'te yazıları kontura (eğriye) çevirin; PNG'de şeffaf bırakılan yerler basılmaz.</span></label>
     <div id="dosyaSonuc"></div>
    </section>
 
@@ -144,7 +144,7 @@ if (C.laminasyon) {
     var alt = l==='yok' ? 'Ek ücret yok' : '+ '+tl0(Math.round(minM2*(C.laminasyon.carpan-1)*100)/100)+' + KDV / m²';
     return '<label class="opt"><input type="radio" name="lam" value="'+l+'"'+(i===0?' checked':'')+'><b>'+LAD[l]+'</b><small class="lamFiyat" data-l="'+l+'">'+alt+'</small></label>';
   }).join('');
-  $('lamNot').textContent = C.lamNot || 'Laminasyon baskıyı çizilmeye, neme ve UV ışığına karşı korur. Laminasyonlu işlerde mürekkebin kuruması beklendiği için teslim süresi uzar.';
+  $('lamNot').textContent = C.lamNot || 'Laminasyon, baskının üstüne yapılan şeffaf koruyucu kaplamadır: çizilmeye, suya ve güneşe karşı korur. Mürekkebin kuruması beklendiği için laminasyonlu işler biraz daha geç hazırlanır.';
 } else { $('s-lam').style.display='none'; }
 
 // kesim şekli
@@ -216,7 +216,7 @@ function kgCiz(){
 if (C.kusgozu) { $('s-kg').style.display=''; $('kgOner').addEventListener('click', function(){ var en=IPLMotor.sayi($('en').value), boy=IPLMotor.sayi($('boy').value); if (en>0&&boy>0){ $('kusgozu').value=kgOneri(en,boy); ciz(); } }); }
 numarala();
 function olcuNotYaz(){ var mz=document.querySelector('input[name=malzeme]:checked'); var m=C.malzemeler.filter(function(x){return mz&&x.kod===mz.value;})[0]; var ne=(m&&m.net_en)||C.net_en;
-$('olcuNot').textContent = C.max_boy ? ('Tek parça en fazla '+C.net_en+' × '+C.max_boy+' cm üretilir. Daha büyük işler birden fazla parçadan oluşur; bunlar için teklif alınır.') : C.kesim ? ('Tek bir sticker\'ın ölçüsünü girin. Her sticker en az '+C.kesim.min_cm+' cm olmalı; en fazla '+C.kesim.max_adet+' adet sipariş verilebilir. Daha küçük ölçüler ve daha fazla adet için teklif alın.') : 'Kenarlardan biri en fazla '+ne+' cm, diğeri en fazla '+(G.tek_parca_max_boy/100)+' metre olabilir. Daha büyük ve daha uzun işler parçalı üretilir; bunlar için teklif alınır.'; }
+$('olcuNot').textContent = C.max_boy ? ('Tek parça en fazla '+C.net_en+' × '+C.max_boy+' cm olabilir. Daha büyük işleri parça parça üretiriz; bunun için bize yazın, fiyat verelim.') : C.kesim ? ('Bir tane sticker\'ın ölçüsünü yazın. Her sticker en az '+C.kesim.min_cm+' cm olmalı ve en fazla '+C.kesim.max_adet+' adet sipariş verebilirsiniz. Daha küçük ya da daha fazla sticker için bize yazın, fiyat verelim.') : 'Bir kenar en fazla '+ne+' cm, diğer kenar en fazla '+(G.tek_parca_max_boy/100)+' metre olabilir. Daha büyük işleri parça parça üretiriz; bunun için bize yazın, fiyat verelim.'; }
 olcuNotYaz(); $('malzemeler').addEventListener('change', olcuNotYaz);
 
 // bilgi kartları
@@ -304,7 +304,7 @@ function ciz(){
   } else if (r.durum === 'teklif') {
     var olc = g.sekil ? (SAD[g.sekil]+(g.sekil==='ozel'?'':(g.sekil==='yuvarlak'?', çap '+g.en+' cm':', '+g.en+' × '+g.boy+' cm'))) : (g.en+' × '+g.boy+' cm');
     var txt = encodeURIComponent('Merhaba, '+C.ad+' için teklif almak istiyorum: '+olc+', '+g.adet+' adet.');
-    h = '<div class="msg warn" style="margin-top:0">'+esc(r.mesaj)+'</div><a class="btn ghost" href="'+WA+txt+'" target="_blank" rel="noopener">WhatsApp ile teklif iste</a><p class="small">WhatsApp: +90 532 523 73 64</p>';
+    h = '<div class="msg warn" style="margin-top:0">'+esc(r.mesaj)+'</div><a class="btn ghost" href="'+WA+txt+'" target="_blank" rel="noopener">WhatsApp\'tan fiyat isteyin</a><p class="small">WhatsApp: +90 532 523 73 64</p>';
     $('mTop').textContent = 'Teklif';
   } else {
     var k = r.kalemler;
@@ -312,7 +312,7 @@ function ciz(){
     var alanNot = k.parca ? '<p class="small">Alan, her sticker\'ın kesim kutusu üzerinden hesaplanır (genişlik × yükseklik; yuvarlakta çap × çap).</p>' : '';
     h += '<div class="line"><span>Alan</span><span>'+k.m2.toLocaleString('tr-TR')+' m²</span></div>';
     h += '<div class="line"><span>Baskı ('+tl0(k.birimM2)+' / m²)</span><span>'+tl(k.baski)+'</span></div>';
-    if (k.asgariFarki > 0) h += '<div class="line"><span>Asgari baskı tutarı farkı</span><span>'+tl(k.asgariFarki)+'</span></div>';
+    if (k.asgariFarki > 0) h += '<div class="line"><span>En az sipariş tutarına tamamlama</span><span>'+tl(k.asgariFarki)+'</span></div>';
     if (k.cerceve > 0) h += '<div class="line"><span>Çerçeve ('+esc(k.cerceveAd)+(g.adet>1?' × '+g.adet:'')+')</span><span>'+tl(k.cerceve)+'</span></div>';
     if (k.kusgozu > 0) h += '<div class="line"><span>Kuşgözü ('+k.kusgozuAdet+' × '+tl0(C.kusgozu.fiyat)+')</span><span>'+tl(k.kusgozu)+'</span></div>';
     if (k.laminasyon > 0) h += '<div class="line"><span>Laminasyon ('+tl0(Math.round(k.birimM2*(C.laminasyon.carpan-1)*100)/100)+' / m²)</span><span>'+tl(k.laminasyon)+'</span></div>';
@@ -324,9 +324,9 @@ function ciz(){
     if (r.kargoUcret > 0) h += '<div class="line big"><span>Kargo dahil toplam</span><span>'+tl(r.genelToplam)+'</span></div>';
     if (r.kargoAyrica) h += '<p class="small">'+k.m2.toLocaleString('tr-TR')+' m² ile '+r.kargoMaxM2+' m² sınırının üzerinde olduğu için ücretsiz kargo uygulanmaz; kargo ücreti alıcıya aittir. Dilerseniz Kadıköy\'deki atölyemizden teslim alabilirsiniz.</p>';
     h += alanNot;
-    if (k.asgariFarki > 0 && k.cerceve > 0) h += '<p class="small">Asgari sipariş tutarı '+tl0(G.asgari_baski)+' + KDV\'dir; çerçeveli siparişlerde baskı ve çerçeve toplamına uygulanır.</p>';
+    if (k.asgariFarki > 0 && k.cerceve > 0) h += '<p class="small">En az sipariş tutarı '+tl0(G.asgari_baski)+' + KDV\'dir; çerçeveli siparişlerde baskı ile çerçeve birlikte sayılır, altındaysa aradaki fark eklenir.</p>';
     else if (k.asgariFarki > 0) { var ek=[]; if (C.laminasyon) ek.push('laminasyon'); if (C.kusgozu) ek.push('kuşgözü');
-      h += '<p class="small">Asgari baskı tutarı '+tl0(G.asgari_baski)+' + KDV\'dir'+(ek.length?'; '+ek.join(' ve ')+' bedeli bu tutarın üzerine eklenir':'')+'.</p>'; }
+      h += '<p class="small">En az sipariş tutarı '+tl0(G.asgari_baski)+' + KDV\'dir; siparişiniz bunun altındaysa aradaki fark eklenir'+(ek.length?'. '+ek.join(' ve ').replace(/^./,function(c){return c.toUpperCase()})+' ücreti bunun üstüne ayrıca eklenir':'')+'.</p>'; }
     $('mTop').textContent = tl(r.genelToplam || r.toplam);
   }
   var cerVarMi = C.cerceve && document.querySelector('input[name=cerVar]:checked').value==='var';
