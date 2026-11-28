@@ -86,7 +86,7 @@ URUN_GORSEL_ALT = {  # ürün kartı fotoğrafları: ürün, kullanıldığı ye
     'folyo-baski': 'Butik vitrin camını baştan sona kaplayan baskılı folyo', 'branda-baski': 'Şantiyeyi saran baskılı branda inşaat paravanı',
     'sticker-etiket-baski': 'Dizüstü bilgisayara yapıştırılan kesimli sticker', 'one-way-vision-baski': 'Ofis camında delikli one way vision baskı',
     'folyo-yazi-kesim': 'Kafe vitrininde beyaz folyo yazı kesim ve açılış saatleri', 'foreks-baski': 'Ofis duvarında distans vidalı foreks levhalar',
-    'fotoblok-baski': 'AVM koridorunda ayakta duran dekupe fotoblok figür', 'afis-baski': 'Kuşgözlerinden iple korkuluğa gerdirilmiş branda afiş',
+    'fotoblok-baski': 'AVM koridorunda ayakta duran dekupe fotoblok figür', 'afis-baski': 'Balkon korkuluğuna dört köşesinden iple gerdirilmiş SATILIK DAİRE yazılı branda afiş',
     'kartvizit-baski': 'Elde tutulan kalın kartvizit destesi', 'poster-baski': 'Oturma odası duvarında çerçevesiz poster baskı',
     'mesh-baski': 'Bina cephesini kaplayan delikli mesh baskı', 'soguk-dtf-baski': 'Kupaya uygulanan UV DTF baskı, taşıyıcı film soyulurken',
     'sicak-dtf-baski': 'Tişörte ütüyle uygulanan sıcak DTF transfer baskı', 'duvar-kagidi-baski': 'Çocuk odası duvarında baskılı duvar kağıdı',
