@@ -808,6 +808,7 @@ def main():
     print('Yeni tasarım sayfaları, çevirisi eksik metin:', cok_dil.uret(DIST, dict({'en': ('English', 'ltr')}, **diller.DILLER), dict(diller.YEREL, en='en-GB'), diller.RTL_CSS))
     diller.site_haritasi(DIST, diller.baglantilar(DIST))
     diller.guven_ekle(DIST)
+    print('Ülke kargo bölümü:', ulke_kargo.ekle(DIST))
     diller.isletme_sema(DIST)
     eksik = ic_baglanti_kontrol()
     if eksik:
@@ -867,7 +868,8 @@ SITE = 'https://www.istanbulprintlab.com'
 
 # ---------- Çerez onayı + Google Consent Mode + PostHog (src/cerez_onay.py) ----------
 import cerez_onay  # noqa: E402
-import cok_dil  # noqa: E402
+import cok_dil
+import ulke_kargo  # noqa: E402
 CEREZ = dict(
     bant=False,  # True yapılırsa sağ alttaki çerez onay bandı geri gelir
     anahtar='ipl_cerez', posthog='phc_sXf3DbVV3R6LBHcQTHi7T4boryXwiLoVidPvEoB3XPY7',  # herkese açık proje anahtarı
