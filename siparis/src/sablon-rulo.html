@@ -16,7 +16,7 @@ __CSS__</style>
 <header class="site"><div class="wrap"><a class="logo" href="/">IstanbulPrintLab®</a><span class="small" style="margin:0">Kadıköy, İstanbul</span></div></header>
 
 <main class="wrap">
- <div class="crumb"><a href="/#urunler">Ürünler</a> / __BASLIK__</div>
+ <div class="crumb"><a href="/#urunler">Ürünler</a> / <span>__BASLIK__</span></div>
  <section class="hero">
   <h1>__BASLIK__</h1>
   <p class="lead">__ACIKLAMA__</p>
@@ -137,7 +137,7 @@ var tl = function(x){return x.toLocaleString('tr-TR',{minimumFractionDigits:2,ma
 var esc = function(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
 // Yabancı dil sayfaları: teslimat yeri seçilir. Yurt dışı = KDV hariç Türkiye fiyatı x yurtdisi_carpan, KDV yok, kargo ayrıca (motor hesaplar).
 var DIL = window.IPL_DIL || 'tr', YABANCI = DIL !== 'tr', YD = YABANCI;
-var tlYal = function(x){return x.toLocaleString('tr-TR')+' ₺';};
+var tlYal = function(x){var k=Math.abs(x-Math.round(x))>0.004;return x.toLocaleString('tr-TR',{minimumFractionDigits:k?2:0,maximumFractionDigits:2})+' ₺';};
 var tl0 = function(x){return tlYal(Math.round(x*(YD ? (G.yurtdisi_carpan||1.2) : 1)*100)/100);}; // yapılandırmadaki birim fiyatlar
 var P0 = function(x){return tl0(x)+(YD ? '' : ' + KDV');};
 var DAHIL = function(){return YD ? 'KDV yok' : 'KDV dahil';};

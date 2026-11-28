@@ -183,7 +183,7 @@
       b.disabled = true; b.textContent = 'Ödeme sayfası açılıyor…'; e.textContent = ''; e.style.color = '';
       olay('odeme_tiklandi', { talep: t.no });
       postJSON('talep-odeme', { no: t.no, anahtar: t.anahtar }).then(function (j) {
-        if (j.link) { try { window.top.location.href = j.link; } catch (x) { location.href = j.link; } return; }
+        if (j.link) { var L = j.link; if (window.IPL_DIL && window.IPL_DIL !== 'tr') L = L.replace('/odeme/', '/' + window.IPL_DIL + '/odeme/'); try { window.top.location.href = L; } catch (x) { location.href = L; } return; }
         b.disabled = !!j.odendi; b.textContent = j.odendi ? 'Ödeme alındı' : 'Kartla öde';
         e.textContent = j.message || 'Ödeme sayfası açılamadı. Lütfen tekrar deneyin ya da WhatsApp\'tan yazın.'; e.style.color = 'var(--bad)';
       }, function () { b.disabled = false; b.textContent = 'Kartla öde'; e.textContent = 'Bağlantı hatası, lütfen tekrar deneyin.'; e.style.color = 'var(--bad)'; });
