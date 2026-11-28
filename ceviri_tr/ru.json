@@ -762,5 +762,14 @@
  "adet": "шт.",
  "laminasyon": "ламинация",
  "kuşgözü": "люверсы",
- "kesim": "резка"
+ "kesim": "резка",
+ "Başlangıç fiyatı: ": "от ",
+ " / tabaka": " / лист",
+ " / metre": " / метр",
+ "Kuşgözü yerleşimi": "Расположение люверсов",
+ ". Bu karakteri değiştirin ya da başka bir font seçin.": ". Замените этот символ или выберите другой шрифт.",
+ ". Bu karakteri değiştirin ya da başka bir yazı tipi seçin.": ". Замените этот символ или выберите другой шрифт.",
+ " / m²": " / м²",
+ "mat selefon": "матовая ламинация",
+ "parlak selefon": "глянцевая ламинация"
 }

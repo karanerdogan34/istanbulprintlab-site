@@ -762,3 +762,439 @@
 767	lamination
 768	eyelets
 769	cut
+770	Cut Vinyl Lettering and Transfer — Order | IstanbulPrintLab
+771	Cut vinyl lettering and transfer
+772	Lettering and simple logos cut from coloured vinyl for shop windows, glass, doors, vehicles and signs. Delivered ready to apply with transfer tape. Type your text on the site or upload your cut file.
+773	How will you send your text?
+774	I will type it on the site
+775	Choose the text, font and letter height
+776	I will upload my cut file
+777	Vector file: PDF, AI, EPS, SVG, DXF
+778	Text and font
+779	Your text (each line is written separately)
+780	Capital letter height (cm)
+781	Total width:
+782	Total height:
+783	Smallest letter:
+784	Sizes are calculated automatically from the font and letter height you choose. If you use lowercase letters, the smallest letter height is set by the lowercase letters.
+785	Cut file and size
+786	Choose your cut file or drag it here
+787	PDF, AI, EPS, SVG or DXF. Text must be turned into outlines and in vector form.
+788	Total width (cm)
+789	Total height (cm)
+790	Smallest letter (cm)
+791	Plain text / simple logo
+792	Bold, simple lines
+793	Handwriting / thin lines
+794	Colour
+795	Type how many copies of the same text you want.
+796	I have checked and approve the content, spelling, sizes and colour of the text. I know there may be small differences between the screen and the vinyl colour.
+797	Our operator checks every job before cutting. Prices include transfer tape; installation is not included. Within Türkiye: shipping is 200 ₺ for orders under 6,000 ₺ (VAT included) and free for 6,000 ₺ and over; for orders over 16 m² the shipping cost is told separately. You can also pick up your order at our workshop in Kadıköy.
+798	IstanbulPrintLab · Cutting and transfer in our workshop in Kadıköy.
+799	e.g. SMITH TRANSPORT\n+44 7700 900000
+800	e.g. 12
+801	e.g. 30
+802	Letters 10 cm and over
+803	Letters 5–10 cm
+804	Black
+805	White
+806	Red
+807	Navy
+808	Blue
+809	Yellow
+810	Green
+811	Orange
+812	Grey
+813	Other colour
+814	Gold
+815	Silver
+816	Transfer tape included
+817	Letters are weeded and put on transfer tape, so they go on the surface in one go with the right spacing.
+818	Letters under 5 cm, handwriting and thin joined lines, complex logos, special colours like gold and silver, and jobs over 124 cm (which must be printed and cut) are priced by quote.
+819	Logos and emblems
+820	Logos and emblems with simple lines can also be cut; the smallest part must be at least 10 cm. Upload your cut file in vector form (PDF, AI, EPS, SVG or DXF).
+821	How do I measure?
+822	Total width is measured from the far left of the text to the far right; total height from the top to the bottom. For letter height, measure the smallest capital letter.
+823	Coloured cut vinyl
+824	Ready to apply
+825	— letters under this size, handwriting and thin joined lines, complex logos, special colours like gold and silver, and jobs over 124 cm
+826	Your price appears here when you enter your text and letter height.
+827	Your price appears here when you enter the sizes.
+828	cm, smallest letter
+829	Hello, I would like a quote for cut vinyl lettering:
+830	Size
+831	Cutting + transfer (
+832	Minimum amount difference
+833	Order area
+834	The price is calculated from the sizes you entered. Our operator checks your file; if the sizes in the file are different, we send you the updated price for approval. Nothing is produced without your approval.
+835	price applied. The area is calculated from the total width × height of the text.
+836	Minimum order amount
+837	received. Our operator checks cut files; if the size or letter height does not match the file, we contact you.
+838	Type your phone number and send; your choices and estimated price reach us.
+839	Enter your text and letter height.
+840	Enter the sizes.
+841	Upload your cut file.
+842	This file type is not accepted. Upload a vector file: PDF, AI, EPS, SVG or DXF.
+843	Business Card Printing — Order | IstanbulPrintLab
+844	Business card printing
+845	Business cards on 350 g matte coated paper with matte or gloss lamination. Choose a ready template and type your details, or upload your company design as a PDF; the price is on the screen right away.
+846	Design
+847	I will use a ready template
+848	Choose a template and type your details
+849	I will upload my own PDF
+850	Ready company design
+851	Printed sides
+852	One side
+853	Front only
+854	Two sides
+855	Front and back
+856	Template and details
+857	Font
+858	Background colour
+859	Accent colour
+860	Full name
+861	Job title
+862	Company
+863	Website
+864	Address
+865	Add a logo (optional)
+866	PNG (transparent background) or JPG
+867	Preview (85 × 55 mm)
+868	For two sides, your logo (or company name if there is no logo) and website are placed on the back automatically, in the background colour you chose.
+869	Your PDF file
+870	Choose your PDF file or drag it here
+871	File size 91 × 61 mm (85 × 55 mm + 3 mm bleed on each side). Keep important text at least 3 mm inside the cut line, with text turned into outlines. For two sides, page 1 is the front and page 2 the back.
+872	Lamination
+873	Matte lamination
+874	Included in the price
+875	Gloss lamination
+876	I have checked and approve the accuracy and spelling of all details on the card (name, phone, email, address). I know there may be small colour differences between the screen and the print.
+877	Download print file (PDF)
+878	The price includes 350 g matte coated paper and lamination. Special cards (thicker paper, embossing, varnish, foil, special cut) are priced by quote. Shipping is free for business card orders within Türkiye. You can also pick up your order at our workshop in Kadıköy.
+879	IstanbulPrintLab · Kadıköy, Istanbul
+880	e.g. Anna Smith
+881	e.g. Sales Manager
+882	e.g. Smith Architects
+883	e.g. +44 7700 900000
+884	e.g. anna@company.com
+885	e.g. www.company.com
+886	e.g. 10 High Street, London
+887	The text engine could not be loaded.
+888	The font could not be loaded:
+889	The logo could not be read.
+890	Paper and lamination
+891	Business cards are printed on 350 g matte coated paper; matte or gloss lamination is included in the price. The standard size is 85 × 55 mm.
+892	If you have a company design
+893	Upload your ready company business card as a PDF: file size 91 × 61 mm (85 × 55 mm + 3 mm bleed on each side), important text at least 3 mm inside the cut line, text turned into outlines. For two sides, page 1 must be the front and page 2 the back.
+894	Special cards such as thicker paper, embossing, varnish, foil and special cuts are priced by quote. Write to us on WhatsApp (+90 532 523 73 64).
+895	Shipping is free for business card orders within Türkiye. You can also pick up your order at our workshop in Kadıköy.
+896	350 g matte coated paper
+897	Matte or gloss lamination included
+898	Cream
+899	Light grey
+900	Anthracite
+901	Burgundy
+902	Mustard
+903	The accent colour you chose is not visible enough on this background; accents are printed in
+904	. You can choose a different accent colour.
+905	Anna Smith
+906	Sales Manager
+907	Smith Architects
+908	10 High Street, London
+909	Simple
+910	Centred
+911	Colourful
+912	Side stripe
+913	Top band
+914	Monogram
+915	Two columns
+916	Underline
+917	Corner
+918	Big name
+919	· per card
+920	Front
+921	Back
+922	phone or email
+923	valid email
+924	the text shown in red does not fit on the card; shorten it or choose another template
+925	Missing or wrong:
+926	Your logo is low resolution (
+927	pixels); it may look blurry in print. Upload a larger logo; otherwise your order will be checked by our operator.
+928	two sides
+929	one side
+930	Paper
+931	350 g matte coated paper,
+932	Font
+933	Template
+934	received. Our operator checks PDF files for size, bleed and text; if there is a problem, we contact you before production.
+935	Type your phone number and send; the business card you designed reaches us as a print file (PDF).
+936	Type your phone number and send; your choices, estimated price and file reach us.
+937	Enter your full name and at least one contact detail.
+938	Upload your PDF file.
+939	Only upload a PDF file.
+940	Preparing the print file…
+941	The font you chose does not have this character
+942	The print file could not be prepared:
+943	Refresh the page and try again.
+944	UV DTF Printing — Order | IstanbulPrintLab
+945	UV DTF printing
+946	Ready-to-stick UV DTF transfers with no background. For smooth surfaces such as glass, metal, ceramic, acrylic and hard plastic. Type your design size and quantity; the layout and price appear right away.
+947	Design size and quantity
+948	A PNG with a transparent background or a PDF is recommended; transparent areas stay unprinted. Upload a single design; we repeat it for the quantity.
+949	Prices do not include design or application. Within Türkiye: shipping is 200 ₺ for orders under 6,000 ₺ (VAT included) and free for 6,000 ₺ and over; for orders over 16 m² the shipping cost is told separately. You can also pick up your order at our workshop in Kadıköy.
+950	Priced by the metre
+951	Where can it be applied?
+952	How is it applied?
+953	The surface must be clean, dry and free of grease. Separate the design from the bottom film, place it on the surface, rub firmly, then slowly lift the top film.
+954	Use a PNG with a transparent background or a PDF: transparent areas stay unprinted. In JPG files the background is printed too. For images, at least 100 PPI at print size is recommended; turn text into outlines. If you made your own layout, enter the size of the whole page (width at most 40 cm).
+955	40 cm roll width
+956	No background, print only
+957	Glass, metal, ceramic, hard plastic
+958	Type the size of one design and how many you want. Designs are placed automatically on
+959	cm sheets with
+960	cm gaps; you pay for the number of sheets needed. One design can be at most
+961	cm, the smallest side
+962	cm. If you made your own layout, enter the size of the whole sheet and leave quantity at 1.
+963	cm wide roll with
+964	cm gaps; you pay for the length used. One side of the design can be at most
+965	cm; the smallest side
+966	cm. If you made your own layout, enter the size of the whole page and leave quantity at 1.
+967	on one sheet
+968	pcs fit (
+969	; the design was rotated on the sheet, this does not affect application
+970	sheets (
+971	The preview shows the first sheet.
+972	side by side
+973	(the design was rotated on the roll; this does not affect application)
+974	Roll used:
+975	cm ×
+976	The preview shows the first 120 cm.
+977	JPG files have no transparency: the design's background is printed as a rectangle too. To print only your design, upload a PNG with a transparent background or a PDF. Your file will be checked by our operator.
+978	This PNG has no transparent area: the background is printed as a rectangle too. To print only your design, upload a PNG with the background removed (transparent). Your file will be checked by our operator.
+979	Sheets (
+980	Roll length (
+981	cm wide)
+982	; if your order is below this, the difference is added.
+983	This file type is not accepted. Upload PNG, PDF, JPG or TIFF.
+984	DTF Heat Transfer — Order | IstanbulPrintLab
+985	DTF heat transfer printing
+986	DTF transfers ironed onto T-shirts, sweatshirts, bags and fabric products. Type your design size and quantity; the layout and price appear right away.
+987	Priced by the sheet
+988	DTF heat transfers are printed on 30 × 60 cm sheets. Your designs are placed automatically on the sheet with 1 cm gaps; the screen shows how many sheets you need. One design can be at most 30 × 60 cm.
+989	The transfer is applied to fabric with a home iron; no special machine is needed. Iron temperature, time and how to peel the film are sent with your order.
+990	Use a PNG with a transparent background or a PDF: transparent areas stay unprinted. In JPG files the background is printed too. For images, at least 100 PPI at print size is recommended; turn text into outlines. If you made your own layout, enter the size of the whole sheet (at most 30 × 60 cm).
+991	30 × 60 cm sheet
+992	Ironed onto fabric
+993	T-shirts, sweatshirts, bags
+994	Wallpaper Printing — Order | IstanbulPrintLab
+995	Wallpaper printing
+996	Printed wallpaper made to your wall size for hotel rooms, offices, children's rooms, hospital rooms, classrooms, shops and restaurants. Type your wall size and choose the material; the panel plan and price appear right away.
+997	Wall size
+998	Wall width (cm)
+999	Wall height (cm)
+1000	PDF, JPG, PNG or TIFF. Upload one image for the whole wall; we split it into panels.
+1001	I confirm that I measured the wall on site, and I have checked and approve the sizes, images and layout I chose. I know there may be small colour differences between the screen and the print.
+1002	Your price appears here when you enter your wall size.
+1003	Prices do not include design, paste or installation. Within Türkiye: shipping is 200 ₺ for orders under 6,000 ₺ (VAT included) and free for 6,000 ₺ and over; for orders over 16 m² the shipping cost is told separately. You can also pick up your order at our workshop in Kadıköy.
+1004	e.g. 320
+1005	e.g. 260
+1006	Non-woven, textured vinyl (240 g)
+1007	Sand or linen textured vinyl surface on a non-woven base. Hung with paste; the paste goes on the wall.
+1008	Premium non-woven, cedar texture (280 g)
+1009	Thicker vinyl surface with a stronger texture on a non-woven base. Hung with paste.
+1010	Textile backed (400 g)
+1011	Fabric-textured, tear-resistant thick surface. Hung with paste; the wide roll means fewer seams.
+1012	Self-adhesive, PVC-free
+1013	No paste needed; peel off the backing and stick it on a smooth, clean wall.
+1014	Self-adhesive fabric (350 g)
+1015	Fabric-textured surface; no paste needed.
+1016	Self-adhesive premium texture
+1017	Premium textured surface; no paste needed.
+1018	Paper-based wallpaper
+1019	Gold / silver metallic (premium)
+1020	How is it calculated?
+1021	5 cm cutting allowance is added to each side of your wall size, and the price is calculated from the m² of this production size. The print is split into equal panels based on the roll width of the material you choose; the number of panels is shown on the screen.
+1022	Where is it used?
+1023	Hotel rooms and lobbies, offices and meeting rooms, children's rooms and nurseries, hospital and clinic rooms, classrooms and corridors, shops, cafés and restaurants, home and living room walls.
+1024	Original ink, suitable for children's rooms
+1025	In our Kadıköy workshop we use original Mimaki CS250 inks certified GREENGUARD Gold. Our ink has passed chemical emission tests by UL Solutions for a school classroom setting: harmful emissions such as formaldehyde and volatile organic compounds (VOC) are below the strict limits set for places where children are. This means it can be used with peace of mind in children's rooms, nurseries and schools. (Certificate no.: 187835-420)
+1026	Installation
+1027	Step-by-step installation instructions for each material appear right below it when you choose it. Panels are sent numbered in order. Prices do not include paste or installation.
+1028	Prepare your image as one piece for the whole wall; we split it into panels. Keep important parts (text, faces, logos) at least 10 cm inside the edges. Because wallpaper is seen from a distance, 72 PPI or more at print size is enough.
+1029	Made to your wall size
+1030	6 material options
+1031	Enter the width and height of the wall in centimetres.
+1032	cm cutting allowance is added to each side; the price is calculated from this production size. Sides can be at most
+1033	metres.
+1034	Panel plan
+1035	Panel plan:
+1036	panels, each about
+1037	Production size:
+1038	cm (wall
+1039	cm + on each side
+1040	cm cutting allowance).
+1041	The dashed line shows the wall edge, the red lines show where panels meet. Do not place important parts such as text or faces on the seams.
+1042	First type the wall size to see if your file is good enough to print.
+1043	✗ Your file is not good enough to print: at this size it will come out blurry. Upload a sharper (larger) file. If you need help, write to us on WhatsApp.
+1044	The shape of your file is different from your wall: the image is cropped at the edges to fill the wall. If you do not want cropping, prepare the file for the wall size.
+1045	Installation information is sent with the quote.
+1046	Wall
+1047	Production (with cutting allowance)
+1048	Panels
+1049	Hello, the file I uploaded for wallpaper is not good enough to print, can you help me?
+1050	Enter the wall size.
+1051	Invitation Printing — Order | IstanbulPrintLab
+1052	Invitation printing
+1053	13 × 18 cm invitations for weddings, engagements, henna nights, circumcision parties, birthdays and corporate events. Choose a template and type your details; the preview and price appear right away.
+1054	Event date
+1055	Date
+1056	Time
+1057	If you have a ready design
+1058	Location, QR code and programme on the back
+1059	Font for the names
+1060	Font for the text
+1061	Band and accent colour
+1062	Bands, frames, lines and the heading are printed in this colour. For a colour not on the list, pick any colour from the last box. If you want gold foil invitations,
+1063	ask for a quote on WhatsApp
+1064	; the colours here are print colours and do not give a metallic shine.
+1065	Type of invitation
+1066	Heading
+1067	1st name
+1068	2nd name (optional)
+1069	Invitation text
+1070	Venue name
+1071	RSVP / contact
+1072	Location link (becomes a QR code on the back)
+1073	Programme / note (back)
+1074	Preview (13 × 18 cm)
+1075	Long texts move to the next line automatically. Text shown in red goes into the cutting margin; shorten it or choose another template.
+1076	File size 136 × 186 mm (130 × 180 mm + 3 mm bleed on each side). Text turned into outlines, important text at least 5 mm inside the cut line. For two sides, page 1 is the front and page 2 the back.
+1077	Elegant, non-reflective look
+1078	Vivid, glossy surface
+1079	Envelopes are not included. The invitation fits a 14 × 20 cm envelope.
+1080	I have checked the front and back of my invitation. I approve printing after checking the names, date, time, venue, address and invitation text one by one. After approval it is printed exactly like this. I know there may be small colour differences between the screen and the print.
+1081	The price includes 350 g matte coated card and lamination; envelopes are not included. Within Türkiye: shipping is 200 ₺ for orders under 6,000 ₺ (VAT included) and free for 6,000 ₺ and over. You can also pick up your order at our workshop in Kadıköy.
+1082	e.g. Anna
+1083	e.g. James
+1084	e.g. The Garden Hall
+1085	e.g. RSVP: +44 7700 900000
+1086	e.g. https://maps.app.goo.gl/...
+1087	e.g. 7 pm Welcome · 8 pm Ceremony · 9 pm Dinner
+1088	Invitations are printed on 350 g matte coated card and covered with matte or gloss lamination; they feel thick and sturdy. Envelopes are not included; you can choose envelopes in any colour and style yourself. A 13 × 18 cm invitation fits easily into a 14 × 20 cm envelope.
+1089	When is it delivered?
+1090	Invitations are shipped 3 business days after your order and approval; shipping within Türkiye usually takes 1–2 business days. If your event is soon, write to us on WhatsApp (+90 532 523 73 64) before ordering.
+1091	Do you have your own design?
+1092	You can upload a PDF file: 136 × 186 mm (130 × 180 mm + 3 mm bleed on each side), text turned into outlines. Keep important text at least 5 mm inside the cut line. For two sides, page 1 is the front and page 2 the back.
+1093	Special invitations
+1094	Other sizes, textured, pearl or kraft paper, foil, folded and special-cut invitations are priced by quote. Write to us on WhatsApp.
+1095	350 g matte coated, laminated
+1096	Shipped in 3 business days
+1097	Gold (mustard)
+1098	Golden yellow
+1099	Silver grey
+1100	Powder pink
+1101	Dusty rose
+1102	Purple
+1103	Custom colour
+1104	Choose a custom colour
+1105	Hello, I would like a quote for gold foil invitations.
+1106	Wedding
+1107	You are invited to our wedding
+1108	We would be honoured to have you with us on this happy day when we join our lives.
+1109	Civil ceremony
+1110	You are invited to our civil ceremony
+1111	We would love to have you with us at our ceremony and the cocktail reception afterwards.
+1112	Engagement
+1113	You are invited to our engagement
+1114	We would be happy to have you with us on this beautiful day.
+1115	Henna night
+1116	You are invited to our henna night
+1117	We would love to share our joy with you at our henna night.
+1118	Circumcision
+1119	You are invited to our son's circumcision celebration
+1120	We would be happy to have you with us at our son's circumcision celebration.
+1121	Birthday
+1122	You are invited to a birthday party
+1123	We would love to have you with us to celebrate this special day together.
+1124	Baby shower
+1125	You are invited to our baby shower
+1126	As we get ready to welcome our baby, we would love to share this joy with you.
+1127	Mevlid
+1128	You are invited to our mevlid
+1129	We kindly ask you to join the mevlid and look forward to your prayers.
+1130	Opening
+1131	You are invited to our opening
+1132	We would be pleased to have you with us at the opening of our new address.
+1133	Corporate event
+1134	You are invited to our event
+1135	We would be pleased to have you with us at our event.
+1136	You are invited
+1137	We would be happy to have you with us on our special day.
+1138	Anna &amp; James
+1139	Saturday, 21 November 2026
+1140	January
+1141	February
+1142	March
+1143	April
+1144	May
+1145	June
+1146	July
+1147	August
+1148	September
+1149	October
+1150	November
+1151	December
+1152	Sunday
+1153	Monday
+1154	Tuesday
+1155	Wednesday
+1156	Thursday
+1157	Friday
+1158	Saturday
+1159	Choose the event date.
+1160	The date you chose is in the past. Check the event date.
+1161	Your event is soon. Invitations are shipped in
+1162	business days, shipping takes 1–
+1163	business days; it may not arrive in time. Please write to us on WhatsApp before ordering.
+1164	Estimated shipping date:
+1165	(if the order is approved today).
+1166	Anna
+1167	James
+1168	The Garden Hall
+1169	10 High Street, London
+1170	RSVP: +44 7700 900000
+1171	7 pm Welcome · 8 pm Ceremony · 9 pm Dinner
+1172	Classic
+1173	Double frame
+1174	Modern
+1175	Big date
+1176	Centred landscape
+1177	Bottom band
+1178	Scan the code with your phone for the location
+1179	Portrait
+1180	Landscape
+1181	— I would like to place an urgent invitation order for my event on this date.
+1182	Write on WhatsApp
+1183	business days; your event date is checked against delivery.
+1184	venue name
+1185	the text shown in red goes into the cutting margin; shorten it or choose another template
+1186	13 × 18 cm,
+1187	Event
+1188	Names
+1189	Venue
+1190	QR link
+1191	Spelling check
+1192	Type your phone number and send; the invitation you designed reaches us as a print file (PDF).
+1193	The event date is too soon for delivery; write to us on WhatsApp.
+1194	Choose a valid event date.
+1195	Enter the names and venue details.
+1196	The font you chose does not have this character
+1197	From
+1198	/ sheet
+1199	/ metre
+1200	Eyelet layout
+1201	. Change this character or choose another font.
+1202	. Change this character or choose another font.
+1203	/ m²
+1204	matte lamination
+1205	gloss lamination

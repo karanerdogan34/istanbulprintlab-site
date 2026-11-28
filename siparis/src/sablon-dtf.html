@@ -52,6 +52,14 @@ __CSS__
     <h2><span class="n">03</span>Onay</h2>
     <label class="chk"><input type="checkbox" id="onay"><span>Seçtiğim ölçüleri, metinleri, görselleri ve yerleşimi kontrol edip onaylıyorum. Ekran ile baskı arasında minimal renk farklılıkları olabileceğini biliyorum.</span></label>
    </section>
+   <section class="step" id="s-ulke" style="display:none">
+    <h2><span class="n">00</span>Teslimat yeri</h2>
+    <div class="opts" id="ulkeler">
+     <label class="opt"><input type="radio" name="ulke" value="yd" checked><b>Yurt dışına gönderim</b><small>KDV yok · euro ve dolar karşılığı gösterilir · kargo ücreti ayrıca</small></label>
+     <label class="opt"><input type="radio" name="ulke" value="tr"><b>Türkiye içinde teslim</b><small>Türk lirası fiyatı + KDV · Türkiye içi kargo kuralları geçerli</small></label>
+    </div>
+    <p class="hint">Yurt dışında ürün bedelini sitede hemen ödersiniz. Kargoyu biz ayarlarız: en uygun kargo firmasını bulup kargo ücretini size ayrıca bildiririz.</p>
+   </section>
   </form>
 
   <aside class="sum" id="ozet" aria-live="polite">
@@ -59,14 +67,14 @@ __CSS__
    <div id="ozetIc"><p class="small" style="margin:0">Ölçünüzü girdiğinizde fiyat burada görünür.</p></div>
    <button class="btn" id="devam" type="button" disabled>Sipariş talebini gönder</button>
    <p class="small" id="devamNot">Dosya kontrolü ve onay tamamlandığında sipariş talebinizi gönderebilirsiniz.</p>
-   <p class="small">Fiyatlara tasarım ve uygulama dahil değildir. __KARGO_METNI__</p>
+   <p class="small" id="kargoNot">Fiyatlara tasarım ve uygulama dahil değildir. __KARGO_METNI__</p>
   </aside>
  </div>
 </main>
 
 <section class="info"><div class="wrap grid" id="bilgi"></div></section>
 <footer><div class="wrap">IstanbulPrintLab · Kadıköy, İstanbul</div></footer>
-<div class="mbar"><div><span class="small" style="margin:0;display:block">KDV dahil</span><b id="mTop">—</b></div><a href="#ozet">Özete git ↓</a></div>
+<div class="mbar"><div><span class="small" style="margin:0;display:block" id="mKdv">KDV dahil</span><b id="mTop">—</b></div><a href="#ozet">Özete git ↓</a></div>
 
 <script>
 __MOTOR__
@@ -79,14 +87,28 @@ var KOD = '__URUN__';
 var C = F.urunler[KOD], G = F.genel;
 var WA = 'https://wa.me/905325237364?text=';
 var $ = function(id){return document.getElementById(id);};
-var tl = function(x){return x.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})+' ₺';};
-var tl0 = function(x){return x.toLocaleString('tr-TR')+' ₺';};
+var tl = function(x){return x.toLocaleString(SAYI_YEREL,{minimumFractionDigits:2,maximumFractionDigits:2})+' ₺';};
+var DIL = window.IPL_DIL || 'tr', YABANCI = DIL !== 'tr', YD = YABANCI, SAYI_YEREL = YABANCI ? (window.IPL_YEREL || 'en-GB') : 'tr-TR';
+var tlYal = function(x){var k=Math.abs(x-Math.round(x))>0.004;return x.toLocaleString(SAYI_YEREL,{minimumFractionDigits:k?2:0,maximumFractionDigits:2})+' ₺';};
+var tl0 = function(x){return tlYal(Math.round(x*(YD ? (G.yurtdisi_carpan||1.2) : 1)*100)/100);}; // yapılandırmadaki birim fiyatlar (yurt dışında x1,2)
+var P0 = function(x){return tl0(x)+(YD ? '' : ' + KDV');};
+var DAHIL = function(){return YD ? 'KDV yok' : 'KDV dahil';};
+var FX = null, YEREL = window.IPL_YEREL || 'en-GB';
+var doviz = function(x){ if (!FX || !x) return ''; var f=function(v){return Math.round(v).toLocaleString(YEREL);}; return '≈ € '+f(x/FX.EUR)+' · $ '+f(x/FX.USD); };
+var ydCiz = function(){ try { if (typeof chipsYaz === 'function') chipsYaz(); ciz(); } catch (x) {} };
+if (YABANCI) fetch('/api/kur',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.text();}).then(function(x){
+  var d=new DOMParser().parseFromString(x,'application/xml'),gk=function(c){var e=d.querySelector('Currency[CurrencyCode="'+c+'"] ForexSelling');return e?parseFloat(e.textContent):0;};
+  var E2=gk('EUR'),U2=gk('USD'),T=d.querySelector('Tarih_Date'); if(E2>0&&U2>0){ FX={EUR:E2,USD:U2,tarih:T?(T.getAttribute('Tarih')||''):''}; ydCiz(); }
+}).catch(function(){});
+var _girdiTR = girdi; girdi = function(){ var g = _girdiTR.apply(this, arguments); if (YD && g && typeof g === 'object') g.yurtdisi = true; return g; };
+document.addEventListener('DOMContentLoaded', function(){});
 var esc = function(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
-var metre = function(cm){ return (cm/100).toLocaleString('tr-TR',{maximumFractionDigits:2})+' metre'; };
+var metre = function(cm){ return (cm/100).toLocaleString(SAYI_YEREL,{maximumFractionDigits:2})+' metre'; };
 
 var TAB = C.tabaka || null;
-var chips = [{t: TAB ? tl0(TAB.fiyat)+' + KDV / tabaka' : tl0(C.metre_fiyat)+' + KDV / metre', ink:true}].concat((C.chips||[]).map(function(t){return {t:t};}));
-$('chips').innerHTML = chips.map(function(c){return '<span class="chip'+(c.ink?' ink':'')+'">'+esc(c.t)+'</span>';}).join('');
+var chips = [{t: TAB ? P0(TAB.fiyat)+' / tabaka' : P0(C.metre_fiyat)+' / metre', ink:true}].concat((C.chips||[]).map(function(t){return {t:t};}));
+function chipsYaz(){ $('chips').innerHTML = chips.map(function(c){return '<span class="chip'+(c.ink?' ink':'')+'">'+esc(c.t)+'</span>';}).join(''); }
+chipsYaz();
 $('bilgi').innerHTML = (C.bilgi||[]).map(function(b){return '<div><h3>'+esc(b.b)+'</h3><p>'+b.m+'</p></div>';}).join('');
 $('olcuNot').textContent = TAB ? ('Tek bir tasarımın ölçüsünü ve kaç adet istediğinizi girin. Tasarımlar '+TAB.en+' × '+TAB.boy+' cm tabakalara aralarında '+C.aralik_cm+' cm boşlukla otomatik yerleştirilir; gereken tabaka sayısı kadar ödersiniz. Tek parça tasarım en fazla '+TAB.en+' × '+TAB.boy+' cm, en küçük kenar '+C.min_cm+' cm\'dir. Kendi yerleşiminizi yaptıysanız tabakanın tamamının ölçüsünü girip adedi 1 bırakın.') : 'Tek bir tasarımın ölçüsünü ve kaç adet istediğinizi girin. Tasarımlar '+C.rulo_en+' cm enindeki ruloya aralarında '+C.aralik_cm+' cm boşlukla otomatik yerleştirilir; kullanılan uzunluk kadar ödersiniz. Tasarımın kenarlarından biri en fazla '+C.rulo_en+' cm olmalı; en küçük kenar '+C.min_cm+' cm\'dir. Kendi yerleşiminizi yaptıysanız sayfanın tamamının ölçüsünü girip adedi 1 bırakın.';
 
@@ -153,7 +175,7 @@ function ciz(){
   var dolu = g.en.trim()!=='' || g.boy.trim()!=='', h = '';
   if (r.durum==='hata') {
     if (dolu) { r.hatalar.forEach(function(e){ if ($(e.alan)) $(e.alan).setAttribute('aria-invalid','true'); }); $('olcuErr').textContent = r.hatalar.map(function(e){return e.mesaj;}).join(' '); }
-    h = '<p class="small" style="margin:0">Ölçünüzü girdiğinizde fiyat burada görünür.</p>'; var oy = !dolu && ornekFiyat(g); if (oy) h += '<div class="ornek"><span>Örnek: '+esc(ornekMetni())+'</span><b>'+tl(oy)+' <small>KDV dahil</small></b><button type="button" class="btn ghost" data-ornek>Bu ölçüyle hesapla</button></div>'; $('mTop').textContent = '—';
+    h = '<p class="small" style="margin:0">Ölçünüzü girdiğinizde fiyat burada görünür.</p>'; var oy = !dolu && ornekFiyat(g); if (oy) h += '<div class="ornek"><span>Örnek: '+esc(ornekMetni())+'</span><b>'+tl(oy)+' <small>'+DAHIL()+'</small></b><button type="button" class="btn ghost" data-ornek>Bu ölçüyle hesapla</button></div>'; $('mTop').textContent = '—';
   } else if (r.durum==='teklif') {
     var txt = encodeURIComponent('Merhaba, '+C.ad+' için teklif almak istiyorum: '+g.en+' × '+g.boy+' cm, '+g.adet+' adet.');
     h = '<div class="msg warn" style="margin-top:0">'+esc(r.mesaj)+'</div><a class="btn ghost" href="'+WA+txt+'" target="_blank" rel="noopener">WhatsApp\'tan fiyat isteyin</a><p class="small">WhatsApp: +90 532 523 73 64</p>';
@@ -166,14 +188,14 @@ function ciz(){
     else { h += '<div class="line"><span>Rulo uzunluğu ('+k.ruloEn+' cm en)</span><span>'+metre(k.uzunluk)+'</span></div>';
       h += '<div class="line"><span>Baskı ('+tl0(k.birimMetre)+' / metre)</span><span>'+tl(k.baski)+'</span></div>'; }
     if (k.asgariFarki > 0) h += '<div class="line"><span>En az sipariş tutarına tamamlama</span><span>'+tl(k.asgariFarki)+'</span></div>';
-    h += '<div class="line total"><span>Ara toplam (KDV hariç)</span><span>'+tl(r.araToplam)+'</span></div>';
-    h += '<div class="line"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
-    h += '<div class="line big"><span>Toplam</span><span>'+tl(r.toplam)+'</span></div>';
+    if (!r.yurtdisi) h += '<div class=\"line total\"><span>Ara toplam (KDV hariç)</span><span>'+tl(r.araToplam)+'</span></div>';
+    if (!r.yurtdisi) h += '<div class=\"line\"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
+    if (r.yurtdisi) { h += '<div class="line big"><span>Toplam (KDV yok)</span><span>'+tl(r.toplam)+'</span></div>'; if (FX) h += '<div class="line"><span>Euro / dolar karşılığı</span><span>'+doviz(r.toplam)+'</span></div><p class="small">TCMB günlük kuru ('+esc(FX.tarih)+'). Ödeme Türk lirası ile alınır.</p>'; h += '<p class="small">Şimdi yalnızca ürün bedelini ödersiniz. Yurt dışı kargo ücreti alıcıya aittir: en uygun kargo firmasını biz buluruz, kargo ücretini size ayrıca bildiririz. Gümrük vergisi ve yerel vergiler varsa alıcı öder.</p>'; } else h += '<div class="line big"><span>Toplam</span><span>'+tl(r.toplam)+'</span></div>';
     h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+IPLMotor.kargoYazi(r)+'</span></div>';
     if (r.kargoUcret > 0) h += '<div class="line big"><span>Kargo dahil toplam</span><span>'+tl(r.genelToplam)+'</span></div>';
     if (r.kargoAyrica) h += '<p class="small">Sipariş alanı '+r.kargoMaxM2+' m² sınırının üzerinde olduğu için ücretsiz kargo uygulanmaz; kargo ücreti alıcıya aittir. Dilerseniz Kadıköy\'deki atölyemizden teslim alabilirsiniz.</p>';
-    if (k.asgariFarki > 0) h += '<p class="small">En az sipariş tutarı '+tl0(G.asgari_baski)+' + KDV\'dir; siparişiniz bunun altındaysa aradaki fark eklenir.</p>';
-    $('mTop').textContent = tl(r.genelToplam || r.toplam);
+    if (k.asgariFarki > 0) h += '<p class="small">En az sipariş tutarı '+P0(G.asgari_baski)+'\'dir; siparişiniz bunun altındaysa aradaki fark eklenir.</p>';
+    $('mTop').textContent = tl(r.genelToplam || r.toplam); if ($('mKdv')) $('mKdv').textContent = DAHIL(); if ($('kargoNot')) $('kargoNot').style.display = YD ? 'none' : '';
   }
   $('ozetIc').innerHTML = h;
   yerlesimCiz(r);
@@ -226,6 +248,7 @@ var drop = $('drop');
 ['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('on');});});
 drop.addEventListener('drop', function(e){ dosyaAl(e.dataTransfer.files[0]); });
 ciz();
+if (YABANCI) { $('s-ulke').style.display = ''; $('ulkeler').addEventListener('change', function(){ YD = document.querySelector('input[name=ulke]:checked').value === 'yd'; ydCiz(); }); }
 })();
 </script>
 <script>__WA__</script>

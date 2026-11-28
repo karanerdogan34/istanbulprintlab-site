@@ -95,6 +95,14 @@ textarea.yazi:focus{outline:none;border-color:var(--ink)}
     <h2><span class="n">05</span>Onay</h2>
     <label class="chk"><input type="checkbox" id="onay"><span>Yazının içeriğini, yazımını, ölçülerini ve rengini kontrol edip onaylıyorum. Ekran ile folyo rengi arasında minimal farklılıklar olabileceğini biliyorum.</span></label>
    </section>
+   <section class="step" id="s-ulke" style="display:none">
+    <h2><span class="n">00</span>Teslimat yeri</h2>
+    <div class="opts" id="ulkeler">
+     <label class="opt"><input type="radio" name="ulke" value="yd" checked><b>Yurt dışına gönderim</b><small>KDV yok · euro ve dolar karşılığı gösterilir · kargo ücreti ayrıca</small></label>
+     <label class="opt"><input type="radio" name="ulke" value="tr"><b>Türkiye içinde teslim</b><small>Türk lirası fiyatı + KDV · Türkiye içi kargo kuralları geçerli</small></label>
+    </div>
+    <p class="hint">Yurt dışında ürün bedelini sitede hemen ödersiniz. Kargoyu biz ayarlarız: en uygun kargo firmasını bulup kargo ücretini size ayrıca bildiririz.</p>
+   </section>
   </form>
 
   <aside class="sum" id="ozet" aria-live="polite">
@@ -102,14 +110,14 @@ textarea.yazi:focus{outline:none;border-color:var(--ink)}
    <div id="ozetIc"></div>
    <button class="btn" id="devam" type="button" disabled>Sipariş talebini gönder</button>
    <p class="small" id="devamNot"></p>
-   <p class="small">Her iş kesimden önce operatörümüz tarafından kontrol edilir. Fiyatlara transfer bandı dahildir; uygulama (montaj) dahil değildir. __KARGO_METNI__</p>
+   <p class="small" id="kargoNot">Her iş kesimden önce operatörümüz tarafından kontrol edilir. Fiyatlara transfer bandı dahildir; uygulama (montaj) dahil değildir. __KARGO_METNI__</p>
   </aside>
  </div>
 </main>
 
 <section class="info"><div class="wrap grid" id="bilgi"></div></section>
 <footer><div class="wrap">IstanbulPrintLab · Kadıköy'deki atölyemizde kesim ve transfer.</div></footer>
-<div class="mbar"><div><span class="small" style="margin:0;display:block">KDV dahil</span><b id="mTop">—</b></div><a href="#ozet">Özete git ↓</a></div>
+<div class="mbar"><div><span class="small" style="margin:0;display:block" id="mKdv">KDV dahil</span><b id="mTop">—</b></div><a href="#ozet">Özete git ↓</a></div>
 
 <script>
 __MOTOR__
@@ -122,13 +130,26 @@ var KOD = '__URUN__';
 var C = F.urunler[KOD], G = F.genel;
 var WA = 'https://wa.me/905325237364?text=';
 var $ = function(id){return document.getElementById(id);};
-var tl = function(x){return x.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})+' ₺';};
-var tl0 = function(x){return x.toLocaleString('tr-TR')+' ₺';};
+var tl = function(x){return x.toLocaleString(SAYI_YEREL,{minimumFractionDigits:2,maximumFractionDigits:2})+' ₺';};
+var DIL = window.IPL_DIL || 'tr', YABANCI = DIL !== 'tr', YD = YABANCI, SAYI_YEREL = YABANCI ? (window.IPL_YEREL || 'en-GB') : 'tr-TR';
+var tlYal = function(x){var k=Math.abs(x-Math.round(x))>0.004;return x.toLocaleString(SAYI_YEREL,{minimumFractionDigits:k?2:0,maximumFractionDigits:2})+' ₺';};
+var tl0 = function(x){return tlYal(Math.round(x*(YD ? (G.yurtdisi_carpan||1.2) : 1)*100)/100);}; // yapılandırmadaki birim fiyatlar (yurt dışında x1,2)
+var P0 = function(x){return tl0(x)+(YD ? '' : ' + KDV');};
+var DAHIL = function(){return YD ? 'KDV yok' : 'KDV dahil';};
+var FX = null, YEREL = window.IPL_YEREL || 'en-GB';
+var doviz = function(x){ if (!FX || !x) return ''; var f=function(v){return Math.round(v).toLocaleString(YEREL);}; return '≈ € '+f(x/FX.EUR)+' · $ '+f(x/FX.USD); };
+var ydCiz = function(){ try { if (typeof chipsYaz === 'function') chipsYaz(); ciz(); } catch (x) {} };
+if (YABANCI) fetch('/api/kur',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.text();}).then(function(x){
+  var d=new DOMParser().parseFromString(x,'application/xml'),gk=function(c){var e=d.querySelector('Currency[CurrencyCode="'+c+'"] ForexSelling');return e?parseFloat(e.textContent):0;};
+  var E2=gk('EUR'),U2=gk('USD'),T=d.querySelector('Tarih_Date'); if(E2>0&&U2>0){ FX={EUR:E2,USD:U2,tarih:T?(T.getAttribute('Tarih')||''):''}; ydCiz(); }
+}).catch(function(){});
+var _girdiTR = girdi; girdi = function(){ var g = _girdiTR.apply(this, arguments); if (YD && g && typeof g === 'object') g.yurtdisi = true; return g; };
+document.addEventListener('DOMContentLoaded', function(){});
 var esc = function(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
 var r1 = function(x){return Math.round(x*10)/10;};
-var sy = function(x){return (typeof x==='number'?x:IPLMotor.sayi(x)).toLocaleString('tr-TR');};
+var sy = function(x){return (typeof x==='number'?x:IPLMotor.sayi(x)).toLocaleString(SAYI_YEREL);};
 
-$('chips').innerHTML = [{t: tl0(C.kademeler[0].m2)+' + KDV / m²', ink:true}].concat((C.chips||[]).map(function(t){return {t:t};}))
+$('chips').innerHTML = [{t: P0(C.kademeler[0].m2)+' / m²', ink:true}].concat((C.chips||[]).map(function(t){return {t:t};}))
   .map(function(c){return '<span class="chip'+(c.ink?' ink':'')+'">'+esc(c.t)+'</span>';}).join('');
 $('fontlar').innerHTML = C.fontlar.map(function(f,i){
   return '<label class="opt"><input type="radio" name="font" value="'+esc(f)+'"'+(i===0?' checked':'')+'><b style="font-family:\''+esc(f)+'\'">Abc 123</b><small>'+esc(f)+'</small></label>';
@@ -222,18 +243,18 @@ function ciz(){
     var k = r.kalemler;
     h += '<div class="line"><span>Ölçü</span><span>'+sy(g.en)+' × '+sy(g.boy)+' cm</span></div>';
     h += '<div class="line"><span>Renk</span><span style="font-family:inherit">'+esc(k.renk)+'</span></div>';
-    h += '<div class="line"><span>Alan</span><span>'+k.m2.toLocaleString('tr-TR')+' m²</span></div>';
+    h += '<div class="line"><span>Alan</span><span>'+k.m2.toLocaleString(SAYI_YEREL)+' m²</span></div>';
     h += '<div class="line"><span>Kesim + transfer ('+tl0(k.birimM2)+' / m²)</span><span>'+tl(k.baski)+'</span></div>';
     if (k.asgariFarki>0) h += '<div class="line"><span>Asgari tutar farkı</span><span>'+tl(k.asgariFarki)+'</span></div>';
-    h += '<div class="line total"><span>Ara toplam (KDV hariç)</span><span>'+tl(r.araToplam)+'</span></div>';
-    h += '<div class="line"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
-    h += '<div class="line big"><span>Toplam</span><span>'+tl(r.toplam)+'</span></div>';
+    if (!r.yurtdisi) h += '<div class=\"line total\"><span>Ara toplam (KDV hariç)</span><span>'+tl(r.araToplam)+'</span></div>';
+    if (!r.yurtdisi) h += '<div class=\"line\"><span>KDV (%'+Math.round(G.kdv_orani*100)+')</span><span>'+tl(r.kdv)+'</span></div>';
+    if (r.yurtdisi) { h += '<div class="line big"><span>Toplam (KDV yok)</span><span>'+tl(r.toplam)+'</span></div>'; if (FX) h += '<div class="line"><span>Euro / dolar karşılığı</span><span>'+doviz(r.toplam)+'</span></div><p class="small">TCMB günlük kuru ('+esc(FX.tarih)+'). Ödeme Türk lirası ile alınır.</p>'; h += '<p class="small">Şimdi yalnızca ürün bedelini ödersiniz. Yurt dışı kargo ücreti alıcıya aittir: en uygun kargo firmasını biz buluruz, kargo ücretini size ayrıca bildiririz. Gümrük vergisi ve yerel vergiler varsa alıcı öder.</p>'; } else h += '<div class="line big"><span>Toplam</span><span>'+tl(r.toplam)+'</span></div>';
     h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+IPLMotor.kargoYazi(r)+'</span></div>';
     if (r.kargoUcret > 0) h += '<div class="line big"><span>Kargo dahil toplam</span><span>'+tl(r.genelToplam)+'</span></div>';
     if (r.kargoAyrica) h += '<p class="small">Sipariş alanı '+r.kargoMaxM2+' m² sınırının üzerinde olduğu için ücretsiz kargo uygulanmaz; kargo ücreti alıcıya aittir. Dilerseniz Kadıköy\'deki atölyemizden teslim alabilirsiniz.</p>';
     if (m==='dosya') h += '<div class="msg warn">Fiyat girdiğiniz ölçülere göre hesaplandı. Operatörümüz dosyanızı kontrol eder; dosyadaki ölçüler farklıysa güncel fiyatı onayınıza sunarız, onayınız olmadan üretime başlanmaz.</div>';
-    h += '<p class="small">'+esc(k.kademe)+' fiyatı uygulandı. Alan, yazının toplam genişliği × yüksekliği üzerinden hesaplanır.'+(k.asgariFarki>0?' Asgari sipariş tutarı '+tl0(G.asgari_baski)+' + KDV\'dir.':'')+'</p>';
-    $('mTop').textContent = tl(r.genelToplam || r.toplam);
+    h += '<p class="small">'+esc(k.kademe)+' fiyatı uygulandı. Alan, yazının toplam genişliği × yüksekliği üzerinden hesaplanır.'+(k.asgariFarki>0?' Asgari sipariş tutarı '+P0(G.asgari_baski)+'\'dir.':'')+'</p>';
+    $('mTop').textContent = tl(r.genelToplam || r.toplam); if ($('mKdv')) $('mKdv').textContent = DAHIL(); if ($('kargoNot')) $('kargoNot').style.display = YD ? 'none' : '';
   }
   $('ozetIc').innerHTML = h;
   if (m==='dosya') $('dosyaSonuc').innerHTML = dosya ? '<div class="msg warn">'+esc(dosya)+' alındı. Kesim dosyaları operatörümüz tarafından kontrol edilir; ölçü ve harf yüksekliği dosyayla uyuşmazsa sizinle iletişime geçilir.</div>' : '';
@@ -262,6 +283,7 @@ if (document.fonts && document.fonts.ready) {
   Promise.all(C.fontlar.map(function(f){ return document.fonts.load('200px "'+f+'"'); })).then(ciz, ciz);
 }
 ciz();
+if (YABANCI) { $('s-ulke').style.display = ''; $('ulkeler').addEventListener('change', function(){ YD = document.querySelector('input[name=ulke]:checked').value === 'yd'; ydCiz(); }); }
 })();
 </script>
 <script>__WA__</script>

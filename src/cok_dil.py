@@ -10,7 +10,7 @@ METIN_RE = re.compile(r'>([^<>]*[A-Za-zÇĞİÖŞÜçğıöşü][^<>]*)<')
 OZ_RE = re.compile(r'\b(content|alt|title|placeholder|aria-label|data-ad|data-etiket)="([^"]*[A-Za-zÇĞİÖŞÜçğıöşü][^"]*)"')
 JS_STR = re.compile(r"'((?:[^'\\\n]|\\.)*)'")
 LD_RE = re.compile(r'"(name|text|description|headline|alternateName|caption)":\s*"((?:[^"\\]|\\.)*)"')
-KOD_GIBI = re.compile(r'[{}=<>]|^[\w.#\-\[\]:()]+$|^\s*$|https?:|^/')
+KOD_GIBI = re.compile(r'[{}=<>]|^[\w.#\-\[\]:()]+$|^\s*$|https?:|^/(?! )')
 KENAR = re.compile(r'^(\s*)(.*?)(\s*)$', re.S)
 # yapılandırma (fiyat dosyası) içindeki görünen metinler
 CFG_RE = re.compile(r'"(ad|not|uyari|b|m|aciklama|ozel_mesaj|lamNot|malzeme_baslik|kargo_metni|mesaj)":\s*"((?:[^"\\]|\\.)*)"')
@@ -181,8 +181,9 @@ def uret(dist, diller, yerel, rtl_css):
     harita = _tr_en_haritasi(dist)
     kaynaklar = ['index.html', 'odeme/index.html'] + sorted(f[len(dist) + 1:] for f in glob.glob('%s/siparis/*/index.html' % dist))
     eksik = {}
+    EN = sozluk('en')
     for dil, (ad, yon) in diller.items():
-        C = sozluk(dil)
+        C = sozluk(dil) if dil == 'en' else dict(EN, **sozluk(dil))  # bir dilde eksik kalan metin Türkçe değil İngilizce görünür
         for k in kaynaklar:
             s = open(os.path.join(dist, k), encoding='utf-8').read()
             for t in metinler(s):
