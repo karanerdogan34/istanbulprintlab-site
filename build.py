@@ -809,6 +809,7 @@ def main():
     diller.site_haritasi(DIST, diller.baglantilar(DIST))
     diller.guven_ekle(DIST)
     print('Ülke kargo bölümü:', ulke_kargo.ekle(DIST))
+    print('Google yorumları:', ulke_kargo.yorum_ekle(DIST))
     diller.isletme_sema(DIST)
     eksik = ic_baglanti_kontrol()
     if eksik:

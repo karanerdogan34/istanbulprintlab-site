@@ -148,3 +148,54 @@ def ekle(dist):
         open(p, 'w', encoding='utf-8').write(s)
         n += 1
     return n
+
+
+# Google Haritalar'daki gerçek yorumlar (28.11.2026 itibarıyla 2 yorum, 5,0). Metinler aynen; yabancı dillerde çeviri olduğu belirtilir.
+YORUM_TR = [('Sıla Ç.', 'Hızlı ve güzel işçilik. Her konuda yardımcı olmaya çalışıyorlar, iletişim kurmak çok kolay. Ürünler büyük bir emekle paketlenip teslim ediliyor. Teşekkür ederim :)'),
+            ('Abdullah A.', 'Çok güzel baskılar ve zamanında teslim ediyorlar çok beğendim tavsiye ederim')]
+HARITA = 'https://maps.google.com/?cid=11540116692720624947'
+YORUM = {
+'tr': ('Google yorumları', 'Google Haritalar’da 5,0 puan (2 yorum)', None, 'Tüm yorumları Google’da görün'),
+'en': ('Google reviews', 'Rated 5.0 on Google Maps (2 reviews)', ['Fast and lovely workmanship. They try to help with everything and they are very easy to talk to. Products are packed with great care. Thank you :)', 'Very nice prints and they deliver on time. I liked it a lot, I recommend them.'], 'See all reviews on Google', 'Translated from Turkish'),
+'ru': ('Отзывы в Google', 'Оценка 5,0 на Google Картах (2 отзыва)', ['Быстрая и красивая работа. Стараются помочь во всём, с ними очень легко общаться. Заказ упаковывают с большой заботой. Спасибо :)', 'Очень хорошая печать и сдают вовремя. Мне очень понравилось, рекомендую.'], 'Все отзывы в Google', 'Перевод с турецкого'),
+'de': ('Google-Bewertungen', '5,0 Sterne auf Google Maps (2 Bewertungen)', ['Schnelle und schöne Arbeit. Sie helfen bei allem und sind sehr gut erreichbar. Die Produkte werden mit viel Sorgfalt verpackt. Danke :)', 'Sehr schöne Drucke und pünktliche Lieferung. Hat mir sehr gefallen, ich empfehle sie.'], 'Alle Bewertungen bei Google', 'Aus dem Türkischen übersetzt'),
+'fr': ('Avis Google', 'Note de 5,0 sur Google Maps (2 avis)', ['Travail rapide et soigné. Ils essaient d’aider en tout et sont très faciles à joindre. Les produits sont emballés avec beaucoup de soin. Merci :)', 'Très belles impressions et livraison à temps. J’ai beaucoup aimé, je recommande.'], 'Voir tous les avis sur Google', 'Traduit du turc'),
+'es': ('Reseñas de Google', 'Valoración 5,0 en Google Maps (2 reseñas)', ['Trabajo rápido y bonito. Intentan ayudar en todo y es muy fácil comunicarse con ellos. Los productos se embalan con mucho cuidado. Gracias :)', 'Impresiones muy bonitas y entregan a tiempo. Me gustó mucho, los recomiendo.'], 'Ver todas las reseñas en Google', 'Traducido del turco'),
+'it': ('Recensioni Google', 'Valutazione 5,0 su Google Maps (2 recensioni)', ['Lavoro veloce e curato. Cercano di aiutare in tutto ed è facilissimo comunicare con loro. I prodotti sono imballati con grande cura. Grazie :)', 'Stampe molto belle e consegna puntuale. Mi è piaciuto molto, li consiglio.'], 'Vedi tutte le recensioni su Google', 'Tradotto dal turco'),
+'ar': ('تقييمات Google', 'تقييم 5.0 على خرائط Google (تقييمان)', ['عمل سريع وجميل. يحاولون المساعدة في كل شيء والتواصل معهم سهل جدًا. تُغلَّف المنتجات بعناية كبيرة. شكرًا :)', 'طباعة جميلة جدًا ويسلّمون في الموعد. أعجبني كثيرًا وأنصح بهم.'], 'كل التقييمات على Google', 'مترجم من التركية'),
+'fa': ('نظرات Google', 'امتیاز 5.0 در نقشه Google (2 نظر)', ['کار سریع و زیبا. در همه چیز کمک می‌کنند و ارتباط با آن‌ها بسیار آسان است. محصولات با دقت زیاد بسته‌بندی می‌شوند. ممنون :)', 'چاپ‌های بسیار خوب و تحویل به‌موقع. خیلی پسندیدم، توصیه می‌کنم.'], 'همه نظرات در Google', 'ترجمه از ترکی'),
+'ur': ('Google ریویوز', 'Google Maps پر 5.0 ریٹنگ (2 ریویوز)', ['تیز اور خوبصورت کام۔ ہر معاملے میں مدد کی کوشش کرتے ہیں، ان سے بات کرنا بہت آسان ہے۔ مصنوعات بڑی محنت سے پیک کی جاتی ہیں۔ شکریہ :)', 'بہت اچھے پرنٹ اور وقت پر ترسیل۔ بہت پسند آیا، میں سفارش کرتا ہوں۔'], 'تمام ریویوز Google پر دیکھیں', 'ترکی سے ترجمہ'),
+}
+
+
+def yorum_bolum(dil):
+    v = YORUM[dil]
+    h, alt, metin, link = v[0], v[1], v[2], v[3]
+    kart = ''
+    for i, (ad, tr) in enumerate(YORUM_TR):
+        t = tr if metin is None else metin[i]
+        kart += '<div class="uk-k"><p style="font-size:15px">★★★★★</p><p style="margin-top:6px">“%s”</p><p class="muted" style="margin-top:8px;font-size:14px">— %s · Google</p></div>' % (_esc(t), _esc(ad))
+    not_ = '' if metin is None else ' · ' + _esc(v[4])
+    return ('<section id="google-yorumlar" class="wrap sec" style="padding-bottom:64px"><h2 class="h2">%s</h2>'
+            '<p class="muted" style="margin-top:12px">%s%s</p><div class="uk-grid">%s</div>'
+            '<p style="margin-top:16px"><a href="%s" target="_blank" rel="noopener">%s</a></p></section>') % (_esc(h), _esc(alt), not_, kart, HARITA, _esc(link))
+
+
+def yorum_ekle(dist):
+    n = 0
+    for dil in YORUM:
+        p = os.path.join(dist, 'index.html') if dil == 'tr' else os.path.join(dist, dil, 'index.html')
+        if not os.path.exists(p):
+            continue
+        s = open(p, encoding='utf-8').read()
+        if 'id="google-yorumlar"' in s:
+            continue
+        hedef = '<section class="wrap" id="sss"'
+        if hedef not in s:
+            continue
+        s = s.replace(hedef, yorum_bolum(dil) + hedef, 1)
+        if '.uk-grid{' not in s:
+            s = s.replace('</head>', CSS + '</head>', 1)
+        open(p, 'w', encoding='utf-8').write(s)
+        n += 1
+    return n
