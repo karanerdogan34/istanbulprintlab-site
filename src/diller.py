@@ -109,7 +109,7 @@ RTL_CSS = ('<style>html[dir=rtl] body{font-family:"Noto Naskh Arabic","Vazirmatn
            'html[dir=rtl] body>a[href="#icerik"]:not(:focus){left:auto!important;right:-9999px}'
            'html[dir=rtl] :not(a)[style*="left:-9999px"]{left:auto!important;right:-9999px!important}'
            'html[dir=rtl] .logo,html[dir=rtl] header.site .logo{direction:ltr;unicode-bidi:isolate}'
-           'html[dir=rtl] .mTotal,html[dir=rtl] .mFx,html[dir=rtl] a[href^="tel:"]{direction:ltr;unicode-bidi:isolate;display:inline-block}</style>')
+           'html[dir=rtl] .mTotal,html[dir=rtl] .mFx,html[dir=rtl] a[href^="tel:"]{direction:ltr;unicode-bidi:isolate;display:inline-block}html[dir=rtl] .quickbar a[href^="tel:"],html[dir=rtl] a[href^="tel:"].ic{display:flex}</style>')
 
 
 def en_sayfalar(dist):

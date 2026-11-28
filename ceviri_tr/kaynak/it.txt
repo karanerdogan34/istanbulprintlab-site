@@ -1226,3 +1226,4 @@
 1235	Non spedito con corriere; consegna a Istanbul o ritiro nel nostro laboratorio di Kadıköy
 1236	Spedito 3 giorni lavorativi dopo l’approvazione
 1210	IVA turca esclusa
+1207	Consegna
