@@ -762,3 +762,439 @@
 767	Laminierung
 768	Ösen
 769	Schnitt
+770	Folienbeschriftung mit Übertragungsfolie — Bestellung | IstanbulPrintLab
+771	Folienbeschriftung mit Übertragungsfolie
+772	Schriftzüge und einfache Logos aus farbiger Folie für Schaufenster, Glas, Türen, Fahrzeuge und Schilder. Geliefert fertig zum Aufkleben auf Übertragungsfolie. Schreiben Sie Ihren Text auf der Seite oder laden Sie Ihre Schneidedatei hoch.
+773	Wie senden Sie den Text?
+774	Ich schreibe ihn auf der Seite
+775	Text, Schrift und Buchstabenhöhe wählen
+776	Ich lade meine Schneidedatei hoch
+777	Vektordatei: PDF, AI, EPS, SVG, DXF
+778	Text und Schrift
+779	Ihr Text (jede Zeile separat)
+780	Höhe der Großbuchstaben (cm)
+781	Gesamtbreite:
+782	Gesamthöhe:
+783	Kleinster Buchstabe:
+784	Die Maße werden automatisch aus Schrift und Buchstabenhöhe berechnet. Bei Kleinbuchstaben bestimmen diese die kleinste Höhe.
+785	Schneidedatei und Größe
+786	Schneidedatei wählen oder hierher ziehen
+787	PDF, AI, EPS, SVG oder DXF. Text muss in Pfade umgewandelt und als Vektor vorliegen.
+788	Gesamtbreite (cm)
+789	Gesamthöhe (cm)
+790	Kleinster Buchstabe (cm)
+791	Einfacher Text / einfaches Logo
+792	Kräftige, einfache Linien
+793	Handschrift / dünne Linien
+794	Farbe
+795	Wie viele Stück desselben Textes möchten Sie?
+796	Ich habe Inhalt, Schreibweise, Maße und Farbe geprüft und gebe sie frei. Mir ist bewusst, dass die Folienfarbe leicht vom Bildschirm abweichen kann.
+797	Unser Mitarbeiter prüft jeden Auftrag vor dem Schneiden. Übertragungsfolie ist im Preis enthalten, Montage nicht. Innerhalb der Türkei: Versand 200 ₺ unter 6.000 ₺ (inkl. MwSt.), ab 6.000 ₺ kostenlos; über 16 m² teilen wir die Versandkosten separat mit. Sie können Ihre Bestellung auch in unserer Werkstatt in Kadıköy abholen.
+798	IstanbulPrintLab · Schneiden und Übertragen in unserer Werkstatt in Kadıköy.
+799	z. B. MÜLLER TRANSPORTE\n+49 170 0000000
+800	z. B. 12
+801	z. B. 30
+802	Buchstaben ab 10 cm
+803	Buchstaben 5–10 cm
+804	Schwarz
+805	Weiß
+806	Rot
+807	Marineblau
+808	Blau
+809	Gelb
+810	Grün
+811	Orange
+812	Grau
+813	Andere Farbe
+814	Gold
+815	Silber
+816	Übertragungsfolie inklusive
+817	Die Buchstaben werden entgittert und auf Übertragungsfolie gesetzt, so kleben sie in einem Schritt mit richtigem Abstand.
+818	Buchstaben unter 5 cm, Handschrift und dünne verbundene Linien, komplexe Logos, Sonderfarben wie Gold und Silber sowie Arbeiten über 124 cm (Druck mit Konturschnitt nötig) auf Anfrage.
+819	Logos und Embleme
+820	Logos und Embleme mit einfachen Linien können auch geschnitten werden; das kleinste Detail muss mindestens 10 cm groß sein. Laden Sie Ihre Schneidedatei als Vektor hoch (PDF, AI, EPS, SVG oder DXF).
+821	Wie messe ich?
+822	Die Gesamtbreite reicht vom äußersten linken bis zum äußersten rechten Punkt des Textes, die Gesamthöhe von oben bis unten. Für die Buchstabenhöhe messen Sie den kleinsten Großbuchstaben.
+823	Farbige Schneidefolie
+824	Fertig zum Aufkleben
+825	— Buchstaben unter dieser Größe, Handschrift und dünne verbundene Linien, komplexe Logos, Sonderfarben wie Gold und Silber sowie Arbeiten über 124 cm
+826	Ihr Preis erscheint hier, sobald Sie Text und Buchstabenhöhe eingeben.
+827	Ihr Preis erscheint hier, sobald Sie die Maße eingeben.
+828	cm, kleinster Buchstabe
+829	Hallo, ich möchte ein Angebot für eine Folienbeschriftung:
+830	Größe
+831	Schneiden + Übertragen (
+832	Differenz zum Mindestbetrag
+833	Auftragsfläche
+834	Der Preis basiert auf Ihren Maßen. Unser Mitarbeiter prüft Ihre Datei; weichen die Maße ab, senden wir Ihnen den neuen Preis zur Freigabe. Ohne Ihre Freigabe wird nichts produziert.
+835	Preis angewendet. Die Fläche ergibt sich aus Gesamtbreite × Gesamthöhe des Textes.
+836	Mindestbestellwert
+837	erhalten. Unser Mitarbeiter prüft Schneidedateien; passen Größe oder Buchstabenhöhe nicht zur Datei, melden wir uns.
+838	Telefonnummer eingeben und senden; Ihre Auswahl und der geschätzte Preis erreichen uns.
+839	Geben Sie Text und Buchstabenhöhe ein.
+840	Geben Sie die Maße ein.
+841	Laden Sie Ihre Schneidedatei hoch.
+842	Dieser Dateityp wird nicht angenommen. Laden Sie eine Vektordatei hoch: PDF, AI, EPS, SVG oder DXF.
+843	Visitenkarten drucken — Bestellung | IstanbulPrintLab
+844	Visitenkarten drucken
+845	Visitenkarten auf 350 g mattem Bilderdruckpapier mit matter oder glänzender Kaschierung. Wählen Sie eine Vorlage und tragen Sie Ihre Daten ein oder laden Sie Ihr Firmendesign als PDF hoch; der Preis steht sofort da.
+846	Design
+847	Ich nutze eine fertige Vorlage
+848	Vorlage wählen und Daten eintragen
+849	Ich lade mein eigenes PDF hoch
+850	Fertiges Firmendesign
+851	Bedruckte Seiten
+852	Einseitig
+853	Nur Vorderseite
+854	Beidseitig
+855	Vorder- und Rückseite
+856	Vorlage und Daten
+857	Schrift
+858	Hintergrundfarbe
+859	Akzentfarbe
+860	Vor- und Nachname
+861	Position
+862	Firma
+863	Website
+864	Adresse
+865	Logo hinzufügen (optional)
+866	PNG (transparenter Hintergrund) oder JPG
+867	Vorschau (85 × 55 mm)
+868	Bei beidseitigem Druck kommen Ihr Logo (oder der Firmenname) und Ihre Website automatisch in der gewählten Hintergrundfarbe auf die Rückseite.
+869	Ihre PDF-Datei
+870	PDF-Datei wählen oder hierher ziehen
+871	Dateigröße 91 × 61 mm (85 × 55 mm + 3 mm Beschnitt je Seite). Wichtige Texte mindestens 3 mm innerhalb der Schnittlinie, Text in Pfade umgewandelt. Beidseitig: Seite 1 vorne, Seite 2 hinten.
+872	Kaschierung
+873	Matte Kaschierung
+874	Im Preis enthalten
+875	Glänzende Kaschierung
+876	Ich habe alle Angaben auf der Karte (Name, Telefon, E-Mail, Adresse) auf Richtigkeit und Schreibweise geprüft und gebe sie frei. Mir ist bewusst, dass Farben zwischen Bildschirm und Druck leicht abweichen können.
+877	Druckdatei herunterladen (PDF)
+878	Im Preis enthalten sind 350 g mattes Bilderdruckpapier und Kaschierung. Sonderkarten (dickeres Papier, Prägung, Lack, Folie, Sonderschnitt) auf Anfrage. Der Versand von Visitenkarten innerhalb der Türkei ist kostenlos. Abholung auch in unserer Werkstatt in Kadıköy.
+879	IstanbulPrintLab · Kadıköy, Istanbul
+880	z. B. Anna Schmidt
+881	z. B. Vertriebsleiterin
+882	z. B. Schmidt Architekten
+883	z. B. +49 170 0000000
+884	z. B. anna@firma.de
+885	z. B. www.firma.de
+886	z. B. Hauptstraße 10, Berlin
+887	Das Textmodul konnte nicht geladen werden.
+888	Die Schrift konnte nicht geladen werden:
+889	Das Logo konnte nicht gelesen werden.
+890	Papier und Kaschierung
+891	Visitenkarten werden auf 350 g mattem Bilderdruckpapier gedruckt; matte oder glänzende Kaschierung ist im Preis enthalten. Standardgröße 85 × 55 mm.
+892	Wenn Sie ein Firmendesign haben
+893	Laden Sie Ihre fertige Visitenkarte als PDF hoch: 91 × 61 mm (85 × 55 mm + 3 mm Beschnitt je Seite), wichtige Texte mindestens 3 mm innerhalb der Schnittlinie, Text in Pfade umgewandelt. Beidseitig: Seite 1 vorne, Seite 2 hinten.
+894	Sonderkarten wie dickeres Papier, Prägung, Lack, Folie und Sonderschnitt auf Anfrage. Schreiben Sie uns per WhatsApp (+90 532 523 73 64).
+895	Der Versand von Visitenkarten innerhalb der Türkei ist kostenlos. Abholung auch in unserer Werkstatt in Kadıköy.
+896	350 g mattes Bilderdruckpapier
+897	Matte oder glänzende Kaschierung inklusive
+898	Creme
+899	Hellgrau
+900	Anthrazit
+901	Bordeaux
+902	Senfgelb
+903	Die gewählte Akzentfarbe ist auf diesem Hintergrund nicht gut sichtbar; Akzente werden gedruckt in
+904	. Sie können eine andere Akzentfarbe wählen.
+905	Anna Schmidt
+906	Vertriebsleiterin
+907	Schmidt Architekten
+908	Hauptstraße 10, Berlin
+909	Schlicht
+910	Zentriert
+911	Farbig
+912	Seitenstreifen
+913	Oberer Balken
+914	Monogramm
+915	Zwei Spalten
+916	Unterstrich
+917	Ecke
+918	Großer Name
+919	· pro Karte
+920	Vorderseite
+921	Rückseite
+922	Telefon oder E-Mail
+923	gültige E-Mail
+924	der rot markierte Text passt nicht auf die Karte; kürzen Sie ihn oder wählen Sie eine andere Vorlage
+925	Fehlt oder fehlerhaft:
+926	Ihr Logo hat eine geringe Auflösung (
+927	Pixel); es kann im Druck unscharf wirken. Laden Sie ein größeres Logo hoch, sonst prüft unser Mitarbeiter Ihre Bestellung.
+928	beidseitig
+929	einseitig
+930	Papier
+931	350 g mattes Bilderdruckpapier,
+932	Schrift
+933	Vorlage
+934	erhalten. Unser Mitarbeiter prüft PDF-Dateien auf Größe, Beschnitt und Text; bei Problemen melden wir uns vor der Produktion.
+935	Telefonnummer eingeben und senden; Ihre gestaltete Visitenkarte erreicht uns als Druckdatei (PDF).
+936	Telefonnummer eingeben und senden; Ihre Auswahl, der geschätzte Preis und die Datei erreichen uns.
+937	Geben Sie Ihren Namen und mindestens eine Kontaktangabe ein.
+938	Laden Sie Ihre PDF-Datei hoch.
+939	Laden Sie nur eine PDF-Datei hoch.
+940	Druckdatei wird vorbereitet…
+941	Die gewählte Schrift enthält dieses Zeichen nicht
+942	Die Druckdatei konnte nicht vorbereitet werden:
+943	Laden Sie die Seite neu und versuchen Sie es erneut.
+944	UV-DTF-Druck — Bestellung | IstanbulPrintLab
+945	UV-DTF-Druck
+946	Klebefertige UV-DTF-Aufkleber ohne Hintergrund. Für glatte Flächen wie Glas, Metall, Keramik, Acryl und Hartplastik. Geben Sie Motivgröße und Menge ein; Anordnung und Preis erscheinen sofort.
+947	Motivgröße und Menge
+948	Empfohlen: PNG mit transparentem Hintergrund oder PDF; transparente Bereiche werden nicht gedruckt. Laden Sie ein Motiv hoch, wir vervielfältigen es nach Menge.
+949	Die Preise enthalten weder Design noch Anbringung. Innerhalb der Türkei: Versand 200 ₺ unter 6.000 ₺ (inkl. MwSt.), ab 6.000 ₺ kostenlos; über 16 m² teilen wir die Versandkosten separat mit. Abholung auch in unserer Werkstatt in Kadıköy.
+950	Preis pro Meter
+951	Wo wird es angebracht?
+952	Wie wird es angebracht?
+953	Die Fläche muss sauber, trocken und fettfrei sein. Motiv von der unteren Folie lösen, auf die Fläche legen, fest andrücken und die obere Folie langsam abziehen.
+954	Verwenden Sie PNG mit transparentem Hintergrund oder PDF: transparente Bereiche werden nicht gedruckt. Bei JPG wird der Hintergrund mitgedruckt. Für Bilder empfehlen wir mindestens 100 PPI in Druckgröße; Text in Pfade umwandeln. Bei eigener Anordnung geben Sie die Größe der ganzen Seite ein (Breite max. 40 cm).
+955	40 cm Rollenbreite
+956	Ohne Hintergrund, nur das Motiv
+957	Glas, Metall, Keramik, Hartplastik
+958	Geben Sie die Größe eines Motivs und die gewünschte Menge ein. Die Motive werden automatisch auf Bögen von
+959	cm mit
+960	cm Abstand angeordnet; Sie zahlen die benötigte Bogenzahl. Ein Motiv maximal
+961	cm, kürzeste Seite
+962	cm. Bei eigener Anordnung geben Sie die Größe des ganzen Bogens ein und lassen die Menge auf 1.
+963	cm breiten Rolle mit
+964	cm Abstand; Sie zahlen die verbrauchte Länge. Eine Motivseite maximal
+965	cm; kürzeste Seite
+966	cm. Bei eigener Anordnung geben Sie die Größe der ganzen Seite ein und lassen die Menge auf 1.
+967	auf einen Bogen
+968	Stück passen (
+969	; das Motiv wurde auf dem Bogen gedreht, das hat keinen Einfluss auf die Anbringung
+970	Bögen (
+971	Die Vorschau zeigt den ersten Bogen.
+972	nebeneinander
+973	(das Motiv wurde auf der Rolle gedreht; kein Einfluss auf die Anbringung)
+974	Verbrauchte Rolle:
+975	cm ×
+976	Die Vorschau zeigt die ersten 120 cm.
+977	JPG-Dateien haben keine Transparenz: Der Hintergrund des Motivs wird als Rechteck mitgedruckt. Um nur das Motiv zu drucken, laden Sie PNG mit transparentem Hintergrund oder PDF hoch. Unser Mitarbeiter prüft Ihre Datei.
+978	Diese PNG hat keine transparenten Bereiche: Der Hintergrund wird als Rechteck mitgedruckt. Um nur das Motiv zu drucken, laden Sie eine PNG mit entferntem (transparentem) Hintergrund hoch. Unser Mitarbeiter prüft Ihre Datei.
+979	Bögen (
+980	Rollenlänge (
+981	cm breit)
+982	; liegt Ihre Bestellung darunter, wird die Differenz addiert.
+983	Dieser Dateityp wird nicht angenommen. Laden Sie PNG, PDF, JPG oder TIFF hoch.
+984	DTF-Transfer — Bestellung | IstanbulPrintLab
+985	DTF-Transferdruck
+986	DTF-Transfers zum Aufbügeln auf T-Shirts, Sweatshirts, Taschen und Textilien. Geben Sie Motivgröße und Menge ein; Anordnung und Preis erscheinen sofort.
+987	Preis pro Bogen
+988	DTF-Transfers werden auf Bögen von 30 × 60 cm gedruckt. Ihre Motive werden automatisch mit 1 cm Abstand angeordnet; der Bildschirm zeigt, wie viele Bögen Sie brauchen. Ein Motiv maximal 30 × 60 cm.
+989	Der Transfer wird mit einem Haushaltsbügeleisen auf den Stoff gebracht; keine Spezialmaschine nötig. Temperatur, Zeit und das Abziehen der Folie senden wir mit Ihrer Bestellung.
+990	Verwenden Sie PNG mit transparentem Hintergrund oder PDF: transparente Bereiche werden nicht gedruckt. Bei JPG wird der Hintergrund mitgedruckt. Für Bilder empfehlen wir mindestens 100 PPI; Text in Pfade umwandeln. Bei eigener Anordnung geben Sie die Größe des ganzen Bogens ein (max. 30 × 60 cm).
+991	Bogen 30 × 60 cm
+992	Zum Aufbügeln auf Stoff
+993	T-Shirts, Sweatshirts, Taschen
+994	Fototapete drucken — Bestellung | IstanbulPrintLab
+995	Fototapete drucken
+996	Bedruckte Tapete nach Ihrem Wandmaß für Hotelzimmer, Büros, Kinderzimmer, Patientenzimmer, Klassenräume, Geschäfte und Restaurants. Geben Sie das Wandmaß ein und wählen Sie das Material; Bahnenplan und Preis erscheinen sofort.
+997	Wandmaß
+998	Wandbreite (cm)
+999	Wandhöhe (cm)
+1000	PDF, JPG, PNG oder TIFF. Laden Sie ein Bild für die ganze Wand hoch, wir teilen es in Bahnen.
+1001	Ich bestätige, dass ich die Wand vor Ort gemessen und die gewählten Maße, Bilder und die Anordnung geprüft habe und sie freigebe. Mir ist bewusst, dass Farben zwischen Bildschirm und Druck leicht abweichen können.
+1002	Ihr Preis erscheint hier, sobald Sie das Wandmaß eingeben.
+1003	Die Preise enthalten weder Design, Kleister noch Montage. Innerhalb der Türkei: Versand 200 ₺ unter 6.000 ₺ (inkl. MwSt.), ab 6.000 ₺ kostenlos; über 16 m² teilen wir die Versandkosten separat mit. Abholung auch in unserer Werkstatt in Kadıköy.
+1004	z. B. 320
+1005	z. B. 260
+1006	Vlies, strukturiertes Vinyl (240 g)
+1007	Vinyloberfläche mit Sand- oder Leinenstruktur auf Vliesträger. Wird mit Kleister angebracht; der Kleister kommt an die Wand.
+1008	Premium-Vlies, Zedernstruktur (280 g)
+1009	Dickere Vinyloberfläche mit stärkerer Struktur auf Vliesträger. Wird mit Kleister angebracht.
+1010	Mit Textilrücken (400 g)
+1011	Dicke, reißfeste Oberfläche mit Stoffstruktur. Wird mit Kleister angebracht; die breite Rolle bedeutet weniger Nähte.
+1012	Selbstklebend, PVC-frei
+1013	Kein Kleister nötig; Trägerpapier abziehen und auf eine glatte, saubere Wand kleben.
+1014	Selbstklebender Stoff (350 g)
+1015	Oberfläche mit Stoffstruktur; kein Kleister nötig.
+1016	Selbstklebend, Premium-Struktur
+1017	Hochwertige strukturierte Oberfläche; kein Kleister nötig.
+1018	Papiertapete
+1019	Gold / Silber metallic (Premium)
+1020	Wie wird berechnet?
+1021	Zu jeder Seite Ihres Wandmaßes kommen 5 cm Schnittzugabe; der Preis ergibt sich aus den m² dieser Produktionsgröße. Der Druck wird nach der Rollenbreite des gewählten Materials in gleiche Bahnen geteilt; die Bahnenzahl steht auf dem Bildschirm.
+1022	Wo wird sie eingesetzt?
+1023	Hotelzimmer und Lobbys, Büros und Besprechungsräume, Kinderzimmer und Kitas, Patienten- und Praxisräume, Klassenräume und Flure, Geschäfte, Cafés und Restaurants, Wohnungs- und Wohnzimmerwände.
+1024	Originaltinte, geeignet für Kinderzimmer
+1025	In unserer Werkstatt in Kadıköy verwenden wir originale Mimaki-CS250-Tinten mit GREENGUARD-Gold-Zertifikat. Unsere Tinte hat die Emissionsprüfungen von UL Solutions für ein Klassenzimmer-Szenario bestanden: Schadstoffemissionen wie Formaldehyd und flüchtige organische Verbindungen (VOC) liegen unter den strengen Grenzwerten für Orte, an denen sich Kinder aufhalten. Sie kann daher unbesorgt in Kinderzimmern, Kitas und Schulen eingesetzt werden. (Zertifikat-Nr.: 187835-420)
+1026	Montage
+1027	Eine Schritt-für-Schritt-Montageanleitung erscheint für jedes Material direkt darunter, sobald Sie es wählen. Die Bahnen werden der Reihe nach nummeriert verschickt. Kleister und Montage sind nicht im Preis enthalten.
+1028	Bereiten Sie Ihr Bild als ein Stück für die ganze Wand vor, wir teilen es in Bahnen. Halten Sie wichtige Elemente (Text, Gesichter, Logos) mindestens 10 cm vom Rand entfernt. Da Tapeten aus der Entfernung betrachtet werden, reichen 72 PPI oder mehr in Druckgröße.
+1029	Nach Ihrem Wandmaß
+1030	6 Materialoptionen
+1031	Geben Sie Breite und Höhe der Wand in Zentimetern ein. Zu jeder Seite kommen
+1032	cm Schnittzugabe; der Preis ergibt sich aus dieser Produktionsgröße. Seiten maximal
+1033	Meter.
+1034	Bahnenplan
+1035	Bahnenplan:
+1036	Bahnen, je etwa
+1037	Produktionsgröße:
+1038	cm (Wand
+1039	cm + je Seite
+1040	cm Schnittzugabe).
+1041	Die gestrichelte Linie zeigt den Wandrand, die roten Linien die Bahnenstöße. Platzieren Sie wichtige Elemente wie Text oder Gesichter nicht auf den Stößen.
+1042	Geben Sie zuerst das Wandmaß ein, um zu sehen, ob Ihre Datei für den Druck geeignet ist.
+1043	✗ Ihre Datei ist nicht druckgeeignet: In dieser Größe wird sie unscharf. Laden Sie eine schärfere (größere) Datei hoch. Wenn Sie Hilfe brauchen, schreiben Sie uns per WhatsApp.
+1044	Das Format Ihrer Datei weicht von Ihrer Wand ab: Das Bild wird an den Rändern beschnitten, um die Wand zu füllen. Wenn Sie keinen Beschnitt möchten, bereiten Sie die Datei im Wandmaß vor.
+1045	Montageinformationen erhalten Sie mit dem Angebot.
+1046	Wand
+1047	Produktion (mit Schnittzugabe)
+1048	Bahnen
+1049	Hallo, meine hochgeladene Datei für die Tapete ist nicht druckgeeignet, können Sie helfen?
+1050	Geben Sie das Wandmaß ein.
+1051	Einladungen drucken — Bestellung | IstanbulPrintLab
+1052	Einladungen drucken
+1053	Einladungen 13 × 18 cm für Hochzeit, Verlobung, Henna-Abend, Beschneidungsfeier, Geburtstag und Firmenfeiern. Wählen Sie eine Vorlage und tragen Sie Ihre Daten ein; Vorschau und Preis erscheinen sofort.
+1054	Veranstaltungsdatum
+1055	Datum
+1056	Uhrzeit
+1057	Wenn Sie ein fertiges Design haben
+1058	Ort, QR-Code und Programm auf der Rückseite
+1059	Schrift für die Namen
+1060	Schrift für den Text
+1061	Band- und Akzentfarbe
+1062	Bänder, Rahmen, Linien und Überschrift werden in dieser Farbe gedruckt. Für eine Farbe außerhalb der Liste wählen Sie im letzten Feld eine beliebige. Für Einladungen mit Goldfolie
+1063	fragen Sie per WhatsApp an
+1064	; die Farben hier sind Druckfarben und haben keinen Metallglanz.
+1065	Art der Einladung
+1066	Überschrift
+1067	1. Name
+1068	2. Name (optional)
+1069	Einladungstext
+1070	Name des Ortes
+1071	Zusage / Kontakt
+1072	Link zum Ort (wird zum QR-Code auf der Rückseite)
+1073	Programm / Hinweis (Rückseite)
+1074	Vorschau (13 × 18 cm)
+1075	Lange Texte werden automatisch umbrochen. Rot markierter Text ragt in den Schnittrand; kürzen Sie ihn oder wählen Sie eine andere Vorlage.
+1076	Dateigröße 136 × 186 mm (130 × 180 mm + 3 mm Beschnitt je Seite). Text in Pfade umgewandelt, wichtige Texte mindestens 5 mm innerhalb der Schnittlinie. Beidseitig: Seite 1 vorne, Seite 2 hinten.
+1077	Edler Look ohne Spiegelung
+1078	Lebendige, glänzende Oberfläche
+1079	Umschläge sind nicht enthalten. Die Einladung passt in einen Umschlag 14 × 20 cm.
+1080	Ich habe Vorder- und Rückseite meiner Einladung geprüft. Ich gebe den Druck frei, nachdem ich Namen, Datum, Uhrzeit, Ort, Adresse und Text einzeln geprüft habe. Nach der Freigabe wird genau so gedruckt. Mir ist bewusst, dass Farben zwischen Bildschirm und Druck leicht abweichen können.
+1081	Im Preis enthalten sind 350 g matter Bilderdruckkarton und Kaschierung; Umschläge nicht. Innerhalb der Türkei: Versand 200 ₺ unter 6.000 ₺ (inkl. MwSt.), ab 6.000 ₺ kostenlos. Abholung auch in unserer Werkstatt in Kadıköy.
+1082	z. B. Anna
+1083	z. B. Jonas
+1084	z. B. Gartensaal
+1085	z. B. Zusage: +49 170 0000000
+1086	z. B. https://maps.app.goo.gl/...
+1087	z. B. 19 Uhr Empfang · 20 Uhr Trauung · 21 Uhr Essen
+1088	Einladungen werden auf 350 g mattem Bilderdruckkarton gedruckt und matt oder glänzend kaschiert; sie fühlen sich dick und stabil an. Umschläge sind nicht enthalten; Farbe und Modell können Sie selbst wählen. Eine 13 × 18 cm Einladung passt problemlos in einen Umschlag 14 × 20 cm.
+1089	Wann wird geliefert?
+1090	Einladungen werden 3 Werktage nach Bestellung und Freigabe verschickt; der Versand innerhalb der Türkei dauert meist 1–2 Werktage. Wenn Ihre Feier bald ist, schreiben Sie uns vor der Bestellung per WhatsApp (+90 532 523 73 64).
+1091	Haben Sie ein eigenes Design?
+1092	Sie können ein PDF hochladen: 136 × 186 mm (130 × 180 mm + 3 mm Beschnitt je Seite), Text in Pfade umgewandelt. Wichtige Texte mindestens 5 mm innerhalb der Schnittlinie. Beidseitig: Seite 1 vorne, Seite 2 hinten.
+1093	Besondere Einladungen
+1094	Andere Größen, strukturiertes, Perlmutt- oder Kraftpapier, Folie, gefaltete und sondergeschnittene Einladungen auf Anfrage. Schreiben Sie uns per WhatsApp.
+1095	350 g matt, kaschiert
+1096	Versand in 3 Werktagen
+1097	Gold (Senf)
+1098	Goldgelb
+1099	Silbergrau
+1100	Puderrosa
+1101	Altrosa
+1102	Lila
+1103	Eigene Farbe
+1104	Eigene Farbe wählen
+1105	Hallo, ich möchte ein Angebot für Einladungen mit Goldfolie.
+1106	Hochzeit
+1107	Sie sind herzlich zu unserer Hochzeit eingeladen
+1108	Wir würden uns freuen, Sie an diesem glücklichen Tag, an dem wir unser Leben verbinden, bei uns zu haben.
+1109	Standesamt
+1110	Sie sind herzlich zu unserer standesamtlichen Trauung eingeladen
+1111	Wir freuen uns, Sie bei der Trauung und dem anschließenden Empfang zu sehen.
+1112	Verlobung
+1113	Sie sind herzlich zu unserer Verlobung eingeladen
+1114	Wir würden uns freuen, Sie an diesem schönen Tag bei uns zu haben.
+1115	Henna-Abend
+1116	Sie sind herzlich zu unserem Henna-Abend eingeladen
+1117	Wir möchten unsere Freude am Henna-Abend mit Ihnen teilen.
+1118	Beschneidungsfeier
+1119	Sie sind herzlich zur Beschneidungsfeier unseres Sohnes eingeladen
+1120	Wir freuen uns, Sie bei der Beschneidungsfeier unseres Sohnes zu sehen.
+1121	Geburtstag
+1122	Sie sind herzlich zu einer Geburtstagsfeier eingeladen
+1123	Wir würden diesen besonderen Tag gern mit Ihnen feiern.
+1124	Babyparty
+1125	Sie sind herzlich zu unserer Babyparty eingeladen
+1126	Während wir uns auf unser Baby vorbereiten, möchten wir diese Freude mit Ihnen teilen.
+1127	Mevlid
+1128	Sie sind herzlich zu unserem Mevlid eingeladen
+1129	Wir bitten Sie, am Mevlid teilzunehmen, und freuen uns auf Ihre Gebete.
+1130	Eröffnung
+1131	Sie sind herzlich zu unserer Eröffnung eingeladen
+1132	Wir freuen uns, Sie bei der Eröffnung unserer neuen Adresse zu begrüßen.
+1133	Firmenveranstaltung
+1134	Sie sind herzlich zu unserer Veranstaltung eingeladen
+1135	Wir freuen uns, Sie bei unserer Veranstaltung zu begrüßen.
+1136	Sie sind herzlich eingeladen
+1137	Wir würden uns freuen, Sie an unserem besonderen Tag bei uns zu haben.
+1138	Anna &amp; Jonas
+1139	Samstag, 21. November 2026
+1140	Januar
+1141	Februar
+1142	März
+1143	April
+1144	Mai
+1145	Juni
+1146	Juli
+1147	August
+1148	September
+1149	Oktober
+1150	November
+1151	Dezember
+1152	Sonntag
+1153	Montag
+1154	Dienstag
+1155	Mittwoch
+1156	Donnerstag
+1157	Freitag
+1158	Samstag
+1159	Wählen Sie das Veranstaltungsdatum.
+1160	Das gewählte Datum liegt in der Vergangenheit. Prüfen Sie das Veranstaltungsdatum.
+1161	Ihre Feier ist bald. Einladungen werden in
+1162	Werktagen verschickt, der Versand dauert 1–
+1163	Werktage; sie kommen eventuell nicht rechtzeitig an. Bitte schreiben Sie uns vor der Bestellung per WhatsApp.
+1164	Voraussichtliches Versanddatum:
+1165	(bei Freigabe heute).
+1166	Anna
+1167	Jonas
+1168	Gartensaal
+1169	Hauptstraße 10, Berlin
+1170	Zusage: +49 170 0000000
+1171	19 Uhr Empfang · 20 Uhr Trauung · 21 Uhr Essen
+1172	Klassisch
+1173	Doppelrahmen
+1174	Modern
+1175	Großes Datum
+1176	Zentriert quer
+1177	Unteres Band
+1178	Code mit dem Handy scannen, um den Ort zu öffnen
+1179	Hochformat
+1180	Querformat
+1181	— Ich möchte dringend Einladungen für meine Feier an diesem Datum bestellen.
+1182	Per WhatsApp schreiben
+1183	Werktage; Ihr Veranstaltungsdatum wird mit der Lieferzeit abgeglichen.
+1184	Name des Ortes
+1185	der rot markierte Text ragt in den Schnittrand; kürzen Sie ihn oder wählen Sie eine andere Vorlage
+1186	13 × 18 cm,
+1187	Anlass
+1188	Namen
+1189	Ort
+1190	QR-Link
+1191	Rechtschreibprüfung
+1192	Telefonnummer eingeben und senden; Ihre gestaltete Einladung erreicht uns als Druckdatei (PDF).
+1193	Das Veranstaltungsdatum ist zu nah für die Lieferung; schreiben Sie uns per WhatsApp.
+1194	Wählen Sie ein gültiges Veranstaltungsdatum.
+1195	Geben Sie Namen und Ortsangaben ein.
+1196	Die gewählte Schrift enthält dieses Zeichen nicht
+1197	ab
+1198	/ Bogen
+1199	/ Meter
+1200	Ösenanordnung
+1201	. Ändern Sie dieses Zeichen oder wählen Sie eine andere Schrift.
+1202	. Ändern Sie dieses Zeichen oder wählen Sie eine andere Schrift.
+1203	/ m²
+1204	matte Kaschierung
+1205	glänzende Kaschierung

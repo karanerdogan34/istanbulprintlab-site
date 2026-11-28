@@ -1023,8 +1023,8 @@
 1028	Prepare your image as one piece for the whole wall; we split it into panels. Keep important parts (text, faces, logos) at least 10 cm inside the edges. Because wallpaper is seen from a distance, 72 PPI or more at print size is enough.
 1029	Made to your wall size
 1030	6 material options
-1031	Enter the width and height of the wall in centimetres.
-1032	cm cutting allowance is added to each side; the price is calculated from this production size. Sides can be at most
+1031	Enter the width and height of the wall in centimetres. Each side gets
+1032	cm cutting allowance; the price is calculated from this production size. Sides can be at most
 1033	metres.
 1034	Panel plan
 1035	Panel plan:

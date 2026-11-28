@@ -762,3 +762,439 @@
 767	pelliculage
 768	œillets
 769	découpe
+770	Lettrage adhésif découpé avec transfert — Commande | IstanbulPrintLab
+771	Lettrage adhésif découpé avec film de transfert
+772	Textes et logos simples découpés dans du vinyle de couleur pour vitrines, vitres, portes, véhicules et enseignes. Livrés prêts à poser sur film de transfert. Écrivez votre texte sur le site ou téléchargez votre fichier de découpe.
+773	Comment envoyez-vous le texte ?
+774	Je l’écris sur le site
+775	Choisissez le texte, la police et la hauteur des lettres
+776	Je télécharge mon fichier de découpe
+777	Fichier vectoriel : PDF, AI, EPS, SVG, DXF
+778	Texte et police
+779	Votre texte (chaque ligne séparément)
+780	Hauteur des majuscules (cm)
+781	Largeur totale :
+782	Hauteur totale :
+783	Plus petite lettre :
+784	Les dimensions sont calculées automatiquement selon la police et la hauteur des lettres. Avec des minuscules, la plus petite hauteur est donnée par les minuscules.
+785	Fichier de découpe et taille
+786	Choisissez votre fichier de découpe ou glissez-le ici
+787	PDF, AI, EPS, SVG ou DXF. Le texte doit être vectorisé (converti en tracés).
+788	Largeur totale (cm)
+789	Hauteur totale (cm)
+790	Plus petite lettre (cm)
+791	Texte simple / logo simple
+792	Traits épais et simples
+793	Écriture manuscrite / traits fins
+794	Couleur
+795	Indiquez combien d’exemplaires du même texte vous voulez.
+796	J’ai vérifié et j’approuve le contenu, l’orthographe, les dimensions et la couleur du texte. Je sais que la couleur du vinyle peut légèrement différer de l’écran.
+797	Notre opérateur vérifie chaque travail avant la découpe. Le film de transfert est inclus, la pose ne l’est pas. En Turquie : livraison 200 ₺ pour les commandes de moins de 6 000 ₺ (TVA incluse), gratuite à partir de 6 000 ₺ ; au-delà de 16 m², les frais de livraison sont communiqués à part. Vous pouvez aussi retirer votre commande dans notre atelier à Kadıköy.
+798	IstanbulPrintLab · Découpe et transfert dans notre atelier à Kadıköy.
+799	ex. DUPONT TRANSPORTS\n+33 6 00 00 00 00
+800	ex. 12
+801	ex. 30
+802	Lettres de 10 cm et plus
+803	Lettres de 5 à 10 cm
+804	Noir
+805	Blanc
+806	Rouge
+807	Bleu marine
+808	Bleu
+809	Jaune
+810	Vert
+811	Orange
+812	Gris
+813	Autre couleur
+814	Or
+815	Argent
+816	Film de transfert inclus
+817	Les lettres sont échenillées et posées sur film de transfert : elles se collent en une fois avec le bon espacement.
+818	Les lettres de moins de 5 cm, l’écriture manuscrite et les traits fins reliés, les logos complexes, les couleurs spéciales comme l’or et l’argent, et les travaux de plus de 124 cm (impression avec découpe nécessaire) sont sur devis.
+819	Logos et emblèmes
+820	Les logos et emblèmes aux traits simples peuvent aussi être découpés ; le plus petit détail doit mesurer au moins 10 cm. Téléchargez votre fichier de découpe en vectoriel (PDF, AI, EPS, SVG ou DXF).
+821	Comment mesurer ?
+822	La largeur totale va du point le plus à gauche du texte au point le plus à droite ; la hauteur totale du haut vers le bas. Pour la hauteur des lettres, mesurez la plus petite majuscule.
+823	Vinyle de découpe coloré
+824	Prêt à poser
+825	— lettres plus petites que cette taille, écriture manuscrite et traits fins reliés, logos complexes, couleurs spéciales comme l’or et l’argent, et travaux de plus de 124 cm
+826	Votre prix s’affiche ici quand vous saisissez le texte et la hauteur des lettres.
+827	Votre prix s’affiche ici quand vous saisissez les dimensions.
+828	cm, plus petite lettre
+829	Bonjour, je voudrais un devis pour un lettrage adhésif découpé :
+830	Taille
+831	Découpe + transfert (
+832	Complément au montant minimum
+833	Surface de la commande
+834	Le prix est calculé selon les dimensions saisies. Notre opérateur vérifie votre fichier ; si les dimensions du fichier diffèrent, nous vous envoyons le nouveau prix pour accord. Rien n’est produit sans votre accord.
+835	appliqué. La surface est calculée à partir de la largeur × hauteur totales du texte.
+836	Montant minimum de commande
+837	reçu. Notre opérateur vérifie les fichiers de découpe ; si la taille ou la hauteur des lettres ne correspond pas au fichier, nous vous contactons.
+838	Saisissez votre numéro de téléphone et envoyez ; vos choix et le prix estimé nous parviennent.
+839	Saisissez le texte et la hauteur des lettres.
+840	Saisissez les dimensions.
+841	Téléchargez votre fichier de découpe.
+842	Ce type de fichier n’est pas accepté. Téléchargez un fichier vectoriel : PDF, AI, EPS, SVG ou DXF.
+843	Impression de cartes de visite — Commande | IstanbulPrintLab
+844	Impression de cartes de visite
+845	Cartes de visite sur papier couché mat 350 g avec pelliculage mat ou brillant. Choisissez un modèle et saisissez vos informations, ou téléchargez votre maquette en PDF ; le prix s’affiche aussitôt.
+846	Design
+847	J’utilise un modèle prêt
+848	Choisissez un modèle et saisissez vos informations
+849	Je télécharge mon propre PDF
+850	Maquette d’entreprise prête
+851	Faces imprimées
+852	Recto
+853	Recto seulement
+854	Recto verso
+855	Recto et verso
+856	Modèle et informations
+857	Police
+858	Couleur de fond
+859	Couleur d’accent
+860	Nom et prénom
+861	Fonction
+862	Entreprise
+863	Site web
+864	Adresse
+865	Ajouter un logo (facultatif)
+866	PNG (fond transparent) ou JPG
+867	Aperçu (85 × 55 mm)
+868	En recto verso, votre logo (ou le nom de l’entreprise) et votre site sont placés automatiquement au verso, dans la couleur de fond choisie.
+869	Votre fichier PDF
+870	Choisissez votre fichier PDF ou glissez-le ici
+871	Format du fichier 91 × 61 mm (85 × 55 mm + 3 mm de fond perdu de chaque côté). Textes importants à au moins 3 mm du trait de coupe, texte vectorisé. En recto verso : page 1 recto, page 2 verso.
+872	Pelliculage
+873	Pelliculage mat
+874	Inclus dans le prix
+875	Pelliculage brillant
+876	J’ai vérifié l’exactitude et l’orthographe de toutes les informations de la carte (nom, téléphone, e-mail, adresse) et je les approuve. Je sais que les couleurs peuvent légèrement différer entre l’écran et l’impression.
+877	Télécharger le fichier d’impression (PDF)
+878	Le prix comprend le papier couché mat 350 g et le pelliculage. Les cartes spéciales (papier plus épais, gaufrage, vernis, dorure, découpe spéciale) sont sur devis. La livraison des cartes de visite est gratuite en Turquie. Retrait possible dans notre atelier à Kadıköy.
+879	IstanbulPrintLab · Kadıköy, Istanbul
+880	ex. Claire Martin
+881	ex. Responsable commerciale
+882	ex. Martin Architectes
+883	ex. +33 6 00 00 00 00
+884	ex. claire@entreprise.fr
+885	ex. www.entreprise.fr
+886	ex. 10 rue de la Paix, Paris
+887	Le module de texte n’a pas pu être chargé.
+888	La police n’a pas pu être chargée :
+889	Le logo n’a pas pu être lu.
+890	Papier et pelliculage
+891	Les cartes de visite sont imprimées sur papier couché mat 350 g ; le pelliculage mat ou brillant est inclus. Format standard 85 × 55 mm.
+892	Si vous avez une maquette d’entreprise
+893	Téléchargez votre carte prête en PDF : 91 × 61 mm (85 × 55 mm + 3 mm de fond perdu de chaque côté), textes importants à au moins 3 mm du trait de coupe, texte vectorisé. En recto verso : page 1 recto, page 2 verso.
+894	Les cartes spéciales (papier plus épais, gaufrage, vernis, dorure, découpe spéciale) sont sur devis. Écrivez-nous sur WhatsApp (+90 532 523 73 64).
+895	La livraison des cartes de visite est gratuite en Turquie. Retrait possible dans notre atelier à Kadıköy.
+896	Papier couché mat 350 g
+897	Pelliculage mat ou brillant inclus
+898	Crème
+899	Gris clair
+900	Anthracite
+901	Bordeaux
+902	Moutarde
+903	La couleur d’accent choisie n’est pas assez visible sur ce fond ; les accents seront imprimés en
+904	. Vous pouvez choisir une autre couleur d’accent.
+905	Claire Martin
+906	Responsable commerciale
+907	Martin Architectes
+908	10 rue de la Paix, Paris
+909	Sobre
+910	Centré
+911	Coloré
+912	Bande latérale
+913	Bandeau supérieur
+914	Monogramme
+915	Deux colonnes
+916	Souligné
+917	Coin
+918	Grand nom
+919	· par carte
+920	Recto
+921	Verso
+922	téléphone ou e-mail
+923	e-mail valide
+924	le texte en rouge ne tient pas sur la carte ; raccourcissez-le ou choisissez un autre modèle
+925	Manquant ou incorrect :
+926	Votre logo est en basse résolution (
+927	pixels) ; il peut paraître flou à l’impression. Téléchargez un logo plus grand, sinon votre commande sera vérifiée par notre opérateur.
+928	recto verso
+929	recto
+930	Papier
+931	couché mat 350 g,
+932	Police
+933	Modèle
+934	reçu. Notre opérateur vérifie la taille, le fond perdu et le texte des PDF ; en cas de problème, nous vous contactons avant la production.
+935	Saisissez votre numéro et envoyez ; la carte que vous avez créée nous parvient en fichier d’impression (PDF).
+936	Saisissez votre numéro et envoyez ; vos choix, le prix estimé et le fichier nous parviennent.
+937	Saisissez votre nom et au moins un moyen de contact.
+938	Téléchargez votre fichier PDF.
+939	Téléchargez uniquement un fichier PDF.
+940	Préparation du fichier d’impression…
+941	La police choisie ne contient pas ce caractère
+942	Le fichier d’impression n’a pas pu être préparé :
+943	Actualisez la page et réessayez.
+944	Impression UV DTF — Commande | IstanbulPrintLab
+945	Impression UV DTF
+946	Autocollants UV DTF prêts à coller, sans fond. Pour surfaces lisses : verre, métal, céramique, acrylique, plastique rigide. Saisissez la taille du motif et la quantité ; la disposition et le prix s’affichent aussitôt.
+947	Taille du motif et quantité
+948	PNG à fond transparent ou PDF recommandé ; les zones transparentes ne sont pas imprimées. Téléchargez un seul motif, nous le répétons selon la quantité.
+949	Les prix n’incluent ni la création ni la pose. En Turquie : livraison 200 ₺ pour les commandes de moins de 6 000 ₺ (TVA incluse), gratuite à partir de 6 000 ₺ ; au-delà de 16 m², les frais sont communiqués à part. Retrait possible dans notre atelier à Kadıköy.
+950	Prix au mètre
+951	Où l’appliquer ?
+952	Comment l’appliquer ?
+953	La surface doit être propre, sèche et dégraissée. Séparez le motif du film inférieur, posez-le, frottez fermement puis retirez lentement le film supérieur.
+954	Utilisez un PNG à fond transparent ou un PDF : les zones transparentes ne sont pas imprimées. En JPG, le fond est imprimé aussi. Pour les images, au moins 100 PPI à la taille d’impression ; vectorisez le texte. Si vous avez fait votre propre mise en page, saisissez la taille de la page entière (largeur 40 cm max.).
+955	Laize de 40 cm
+956	Sans fond, motif seul
+957	Verre, métal, céramique, plastique rigide
+958	Saisissez la taille d’un motif et la quantité voulue. Les motifs sont disposés automatiquement sur des planches de
+959	cm avec
+960	cm d’écart ; vous payez le nombre de planches nécessaires. Un motif au maximum
+961	cm, plus petit côté
+962	cm. Si vous avez fait votre propre mise en page, saisissez la taille de la planche entière et laissez la quantité à 1.
+963	cm de large avec
+964	cm d’écart ; vous payez la longueur utilisée. Un côté du motif au maximum
+965	cm ; plus petit côté
+966	cm. Si vous avez fait votre propre mise en page, saisissez la taille de la page entière et laissez la quantité à 1.
+967	sur une planche
+968	pièces tiennent (
+969	; le motif a été tourné sur la planche, sans effet sur la pose
+970	planches (
+971	L’aperçu montre la première planche.
+972	côte à côte
+973	(le motif a été tourné sur le rouleau ; sans effet sur la pose)
+974	Rouleau utilisé :
+975	cm ×
+976	L’aperçu montre les 120 premiers cm.
+977	Les JPG n’ont pas de transparence : le fond du motif sera imprimé en rectangle. Pour n’imprimer que le motif, téléchargez un PNG à fond transparent ou un PDF. Votre fichier sera vérifié par notre opérateur.
+978	Ce PNG n’a pas de zone transparente : le fond sera imprimé en rectangle. Pour n’imprimer que le motif, téléchargez un PNG détouré (fond transparent). Votre fichier sera vérifié par notre opérateur.
+979	Planches (
+980	Longueur de rouleau (
+981	cm de large)
+982	; si votre commande est inférieure, la différence est ajoutée.
+983	Ce type de fichier n’est pas accepté. Téléchargez PNG, PDF, JPG ou TIFF.
+984	Transfert DTF — Commande | IstanbulPrintLab
+985	Impression de transferts DTF
+986	Transferts DTF à appliquer au fer sur t-shirts, sweats, sacs et textiles. Saisissez la taille du motif et la quantité ; la disposition et le prix s’affichent aussitôt.
+987	Prix à la planche
+988	Les transferts DTF sont imprimés sur des planches de 30 × 60 cm. Vos motifs sont disposés automatiquement avec 1 cm d’écart ; l’écran indique le nombre de planches nécessaires. Un motif au maximum 30 × 60 cm.
+989	Le transfert s’applique sur le tissu avec un fer à repasser domestique ; aucune machine spéciale n’est nécessaire. Température, durée et méthode de retrait du film sont envoyées avec votre commande.
+990	Utilisez un PNG à fond transparent ou un PDF : les zones transparentes ne sont pas imprimées. En JPG, le fond est imprimé aussi. Pour les images, au moins 100 PPI ; vectorisez le texte. Si vous avez fait votre propre mise en page, saisissez la taille de la planche entière (30 × 60 cm max.).
+991	Planche 30 × 60 cm
+992	S’applique au fer sur tissu
+993	T-shirts, sweats, sacs
+994	Impression de papier peint — Commande | IstanbulPrintLab
+995	Impression de papier peint
+996	Papier peint imprimé aux dimensions de votre mur pour chambres d’hôtel, bureaux, chambres d’enfants, chambres d’hôpital, salles de classe, boutiques et restaurants. Saisissez la taille du mur et choisissez le matériau ; le plan des lés et le prix s’affichent aussitôt.
+997	Dimensions du mur
+998	Largeur du mur (cm)
+999	Hauteur du mur (cm)
+1000	PDF, JPG, PNG ou TIFF. Téléchargez une seule image pour tout le mur ; nous la découpons en lés.
+1001	Je confirme avoir mesuré le mur sur place, et avoir vérifié et approuvé les dimensions, images et disposition choisies. Je sais que les couleurs peuvent légèrement différer entre l’écran et l’impression.
+1002	Votre prix s’affiche ici quand vous saisissez la taille du mur.
+1003	Les prix n’incluent ni la création, ni la colle, ni la pose. En Turquie : livraison 200 ₺ pour les commandes de moins de 6 000 ₺ (TVA incluse), gratuite à partir de 6 000 ₺ ; au-delà de 16 m², les frais sont communiqués à part. Retrait possible dans notre atelier à Kadıköy.
+1004	ex. 320
+1005	ex. 260
+1006	Intissé, vinyle texturé (240 g)
+1007	Surface vinyle texture sable ou lin sur support intissé. Se pose à la colle ; la colle s’applique sur le mur.
+1008	Intissé premium, texture cèdre (280 g)
+1009	Surface vinyle plus épaisse, texture plus marquée, sur support intissé. Se pose à la colle.
+1010	Dos textile (400 g)
+1011	Surface épaisse texture tissu, résistante à la déchirure. Se pose à la colle ; le rouleau large donne moins de raccords.
+1012	Autocollant, sans PVC
+1013	Pas de colle ; retirez le dos et collez sur un mur lisse et propre.
+1014	Tissu autocollant (350 g)
+1015	Surface texture tissu ; pas de colle.
+1016	Autocollant texture premium
+1017	Surface texturée premium ; pas de colle.
+1018	Papier peint papier
+1019	Or / argent métallisé (premium)
+1020	Comment est calculé le prix ?
+1021	5 cm de marge de coupe sont ajoutés à chaque côté de votre mur, et le prix est calculé sur les m² de cette taille de production. L’impression est divisée en lés égaux selon la laize du matériau choisi ; le nombre de lés s’affiche à l’écran.
+1022	Où l’utiliser ?
+1023	Chambres et halls d’hôtel, bureaux et salles de réunion, chambres d’enfants et crèches, chambres d’hôpital et de clinique, salles de classe et couloirs, boutiques, cafés et restaurants, murs de maison et de salon.
+1024	Encre d’origine, adaptée aux chambres d’enfants
+1025	Dans notre atelier à Kadıköy, nous utilisons des encres d’origine Mimaki CS250 certifiées GREENGUARD Gold. Notre encre a passé les tests d’émissions chimiques d’UL Solutions pour un scénario de salle de classe : les émissions nocives comme le formaldéhyde et les composés organiques volatils (COV) sont inférieures aux limites strictes fixées pour les lieux où se trouvent des enfants. Elle peut donc être utilisée en toute tranquillité dans les chambres d’enfants, crèches et écoles. (Certificat n° 187835-420)
+1026	Pose
+1027	Les instructions de pose étape par étape s’affichent sous chaque matériau dès que vous le choisissez. Les lés sont envoyés numérotés dans l’ordre. Colle et pose non incluses.
+1028	Préparez votre image d’un seul tenant pour tout le mur ; nous la découpons en lés. Gardez les éléments importants (texte, visages, logos) à au moins 10 cm des bords. Le papier peint se regardant de loin, 72 PPI ou plus à la taille d’impression suffisent.
+1029	Aux dimensions de votre mur
+1030	6 choix de matériaux
+1031	Saisissez la largeur et la hauteur du mur en centimètres. Chaque côté reçoit
+1032	cm de marge de coupe ; le prix est calculé sur cette taille de production. Côtés au maximum
+1033	mètres.
+1034	Plan des lés
+1035	Plan des lés :
+1036	lés, chacun d’environ
+1037	Taille de production :
+1038	cm (mur
+1039	cm + de chaque côté
+1040	cm de marge de coupe).
+1041	Le pointillé montre le bord du mur, les lignes rouges les raccords entre lés. Ne placez pas d’éléments importants comme du texte ou des visages sur les raccords.
+1042	Saisissez d’abord la taille du mur pour voir si votre fichier convient à l’impression.
+1043	✗ Votre fichier ne convient pas à l’impression : à cette taille, il sera flou. Téléchargez un fichier plus net (plus grand). Besoin d’aide ? Écrivez-nous sur WhatsApp.
+1044	Le format de votre fichier diffère de votre mur : l’image sera recadrée sur les bords pour remplir le mur. Si vous ne voulez pas de recadrage, préparez le fichier aux dimensions du mur.
+1045	Les informations de pose sont envoyées avec le devis.
+1046	Mur
+1047	Production (avec marge de coupe)
+1048	Lés
+1049	Bonjour, le fichier que j’ai téléchargé pour le papier peint ne convient pas à l’impression, pouvez-vous m’aider ?
+1050	Saisissez la taille du mur.
+1051	Impression de faire-part — Commande | IstanbulPrintLab
+1052	Impression de faire-part et invitations
+1053	Faire-part 13 × 18 cm pour mariages, fiançailles, soirées henné, circoncisions, anniversaires et événements d’entreprise. Choisissez un modèle et saisissez vos informations ; l’aperçu et le prix s’affichent aussitôt.
+1054	Date de l’événement
+1055	Date
+1056	Heure
+1057	Si vous avez une maquette prête
+1058	Lieu, QR code et programme au verso
+1059	Police des prénoms
+1060	Police du texte
+1061	Couleur des bandes et accents
+1062	Bandes, cadres, lignes et titre sont imprimés dans cette couleur. Pour une couleur hors liste, choisissez-la dans la dernière case. Pour des faire-part avec dorure,
+1063	demandez un devis sur WhatsApp
+1064	 ; les couleurs ici sont des couleurs d’impression, sans éclat métallique.
+1065	Type d’invitation
+1066	Titre
+1067	1er prénom
+1068	2e prénom (facultatif)
+1069	Texte de l’invitation
+1070	Nom du lieu
+1071	RSVP / contact
+1072	Lien du lieu (devient un QR code au verso)
+1073	Programme / note (verso)
+1074	Aperçu (13 × 18 cm)
+1075	Les textes longs passent à la ligne automatiquement. Le texte en rouge déborde dans la marge de coupe ; raccourcissez-le ou choisissez un autre modèle.
+1076	Format du fichier 136 × 186 mm (130 × 180 mm + 3 mm de fond perdu de chaque côté). Texte vectorisé, textes importants à au moins 5 mm du trait de coupe. En recto verso : page 1 recto, page 2 verso.
+1077	Aspect élégant sans reflet
+1078	Surface vive et brillante
+1079	Enveloppes non incluses. Le faire-part entre dans une enveloppe 14 × 20 cm.
+1080	J’ai vérifié le recto et le verso de mon faire-part. J’approuve l’impression après avoir vérifié un par un les noms, la date, l’heure, le lieu, l’adresse et le texte. Après accord, il est imprimé exactement ainsi. Je sais que les couleurs peuvent légèrement différer entre l’écran et l’impression.
+1081	Le prix comprend le carton couché mat 350 g et le pelliculage ; enveloppes non incluses. En Turquie : livraison 200 ₺ pour les commandes de moins de 6 000 ₺ (TVA incluse), gratuite à partir de 6 000 ₺. Retrait possible dans notre atelier à Kadıköy.
+1082	ex. Claire
+1083	ex. Julien
+1084	ex. Salle du Jardin
+1085	ex. RSVP : +33 6 00 00 00 00
+1086	ex. https://maps.app.goo.gl/...
+1087	ex. 19 h Accueil · 20 h Cérémonie · 21 h Dîner
+1088	Les faire-part sont imprimés sur carton couché mat 350 g et pelliculés mat ou brillant ; ils sont épais et rigides. Enveloppes non incluses ; vous pouvez les choisir dans la couleur et le modèle de votre choix. Un faire-part 13 × 18 cm entre facilement dans une enveloppe 14 × 20 cm.
+1089	Quand est-ce livré ?
+1090	Les faire-part sont expédiés 3 jours ouvrés après la commande et votre accord ; la livraison en Turquie prend généralement 1 à 2 jours ouvrés. Si votre événement est proche, écrivez-nous sur WhatsApp (+90 532 523 73 64) avant de commander.
+1091	Vous avez votre propre maquette ?
+1092	Vous pouvez télécharger un PDF : 136 × 186 mm (130 × 180 mm + 3 mm de fond perdu de chaque côté), texte vectorisé. Textes importants à au moins 5 mm du trait de coupe. En recto verso : page 1 recto, page 2 verso.
+1093	Faire-part spéciaux
+1094	Autres formats, papiers texturés, nacrés ou kraft, dorure, faire-part pliés ou à découpe spéciale : sur devis. Écrivez-nous sur WhatsApp.
+1095	Couché mat 350 g, pelliculé
+1096	Expédié en 3 jours ouvrés
+1097	Or (moutarde)
+1098	Jaune doré
+1099	Gris argenté
+1100	Rose poudré
+1101	Vieux rose
+1102	Violet
+1103	Couleur personnalisée
+1104	Choisir une couleur personnalisée
+1105	Bonjour, je voudrais un devis pour des faire-part avec dorure.
+1106	Mariage
+1107	Vous êtes invités à notre mariage
+1108	Nous serions heureux de vous avoir à nos côtés en ce beau jour où nous unissons nos vies.
+1109	Mariage civil
+1110	Vous êtes invités à notre mariage civil
+1111	Nous serions ravis de vous voir à la cérémonie et au cocktail qui suivra.
+1112	Fiançailles
+1113	Vous êtes invités à nos fiançailles
+1114	Nous serions heureux de vous avoir à nos côtés en ce beau jour.
+1115	Soirée henné
+1116	Vous êtes invités à notre soirée henné
+1117	Nous aimerions partager notre joie avec vous lors de notre soirée henné.
+1118	Circoncision
+1119	Vous êtes invités à la fête de circoncision de notre fils
+1120	Nous serions heureux de vous voir à la fête de circoncision de notre fils.
+1121	Anniversaire
+1122	Vous êtes invités à une fête d’anniversaire
+1123	Nous serions ravis de fêter ce jour spécial avec vous.
+1124	Baby shower
+1125	Vous êtes invités à notre baby shower
+1126	Alors que nous nous préparons à accueillir notre bébé, nous aimerions partager cette joie avec vous.
+1127	Mevlid
+1128	Vous êtes invités à notre mevlid
+1129	Nous vous prions d’honorer de votre présence notre mevlid et comptons sur vos prières.
+1130	Inauguration
+1131	Vous êtes invités à notre inauguration
+1132	Nous serions ravis de vous accueillir à l’inauguration de notre nouvelle adresse.
+1133	Événement d’entreprise
+1134	Vous êtes invités à notre événement
+1135	Nous serions ravis de vous accueillir à notre événement.
+1136	Vous êtes invités
+1137	Nous serions heureux de vous avoir à nos côtés en ce jour spécial.
+1138	Claire &amp; Julien
+1139	Samedi 21 novembre 2026
+1140	janvier
+1141	février
+1142	mars
+1143	avril
+1144	mai
+1145	juin
+1146	juillet
+1147	août
+1148	septembre
+1149	octobre
+1150	novembre
+1151	décembre
+1152	Dimanche
+1153	Lundi
+1154	Mardi
+1155	Mercredi
+1156	Jeudi
+1157	Vendredi
+1158	Samedi
+1159	Choisissez la date de l’événement.
+1160	La date choisie est passée. Vérifiez la date de l’événement.
+1161	Votre événement est proche. Les faire-part sont expédiés en
+1162	jours ouvrés, la livraison prend 1 à
+1163	jours ouvrés ; ils risquent de ne pas arriver à temps. Écrivez-nous sur WhatsApp avant de commander.
+1164	Date d’expédition estimée :
+1165	(si la commande est approuvée aujourd’hui).
+1166	Claire
+1167	Julien
+1168	Salle du Jardin
+1169	10 rue de la Paix, Paris
+1170	RSVP : +33 6 00 00 00 00
+1171	19 h Accueil · 20 h Cérémonie · 21 h Dîner
+1172	Classique
+1173	Double cadre
+1174	Moderne
+1175	Grande date
+1176	Paysage centré
+1177	Bandeau inférieur
+1178	Scannez le code avec votre téléphone pour le lieu
+1179	Portrait
+1180	Paysage
+1181	— je voudrais passer une commande urgente de faire-part pour mon événement à cette date.
+1182	Écrire sur WhatsApp
+1183	jours ouvrés ; la date de votre événement est comparée au délai de livraison.
+1184	nom du lieu
+1185	le texte en rouge déborde dans la marge de coupe ; raccourcissez-le ou choisissez un autre modèle
+1186	13 × 18 cm,
+1187	Événement
+1188	Prénoms
+1189	Lieu
+1190	Lien QR
+1191	Vérification orthographique
+1192	Saisissez votre numéro et envoyez ; le faire-part que vous avez créé nous parvient en fichier d’impression (PDF).
+1193	La date de l’événement est trop proche pour la livraison ; écrivez-nous sur WhatsApp.
+1194	Choisissez une date d’événement valide.
+1195	Saisissez les prénoms et les informations du lieu.
+1196	La police choisie ne contient pas ce caractère
+1197	à partir de
+1198	/ planche
+1199	/ mètre
+1200	Disposition des œillets
+1201	. Changez ce caractère ou choisissez une autre police.
+1202	. Changez ce caractère ou choisissez une autre police.
+1203	/ m²
+1204	pelliculage mat
+1205	pelliculage brillant

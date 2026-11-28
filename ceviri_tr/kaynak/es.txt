@@ -762,3 +762,439 @@
 767	laminado
 768	ojales
 769	corte
+770	Rotulación en vinilo de corte con transferencia — Pedido | IstanbulPrintLab
+771	Rotulación en vinilo de corte con transportador
+772	Textos y logotipos sencillos cortados en vinilo de color para escaparates, cristales, puertas, vehículos y letreros. Se entregan listos para pegar sobre papel transportador. Escriba su texto en la web o suba su archivo de corte.
+773	¿Cómo enviará el texto?
+774	Lo escribo en la web
+775	Elija el texto, la fuente y la altura de las letras
+776	Subo mi archivo de corte
+777	Archivo vectorial: PDF, AI, EPS, SVG, DXF
+778	Texto y fuente
+779	Su texto (cada línea por separado)
+780	Altura de las mayúsculas (cm)
+781	Ancho total:
+782	Alto total:
+783	Letra más pequeña:
+784	Las medidas se calculan automáticamente según la fuente y la altura de letra elegidas. Si usa minúsculas, la altura más pequeña la marcan las minúsculas.
+785	Archivo de corte y tamaño
+786	Elija su archivo de corte o arrástrelo aquí
+787	PDF, AI, EPS, SVG o DXF. El texto debe estar trazado (convertido en curvas) y en vectorial.
+788	Ancho total (cm)
+789	Alto total (cm)
+790	Letra más pequeña (cm)
+791	Texto sencillo / logotipo sencillo
+792	Trazos gruesos y sencillos
+793	Letra manuscrita / trazos finos
+794	Color
+795	Indique cuántas copias del mismo texto quiere.
+796	He revisado y apruebo el contenido, la ortografía, las medidas y el color del texto. Sé que el color del vinilo puede variar ligeramente respecto a la pantalla.
+797	Nuestro operario revisa cada trabajo antes de cortar. El transportador está incluido; la instalación no. En Turquía: envío 200 ₺ para pedidos de menos de 6.000 ₺ (IVA incluido) y gratis desde 6.000 ₺; para más de 16 m² le indicamos el envío aparte. También puede recoger su pedido en nuestro taller de Kadıköy.
+798	IstanbulPrintLab · Corte y transferencia en nuestro taller de Kadıköy.
+799	p. ej. TRANSPORTES GARCÍA\n+34 600 000 000
+800	p. ej. 12
+801	p. ej. 30
+802	Letras de 10 cm o más
+803	Letras de 5–10 cm
+804	Negro
+805	Blanco
+806	Rojo
+807	Azul marino
+808	Azul
+809	Amarillo
+810	Verde
+811	Naranja
+812	Gris
+813	Otro color
+814	Oro
+815	Plata
+816	Transportador incluido
+817	Las letras se pelan y se colocan sobre papel transportador, así se pegan de una vez con el espaciado correcto.
+818	Las letras de menos de 5 cm, la letra manuscrita y los trazos finos unidos, los logotipos complejos, los colores especiales como oro y plata, y los trabajos de más de 124 cm (requieren impresión y corte) se presupuestan aparte.
+819	Logotipos y emblemas
+820	Los logotipos y emblemas de líneas sencillas también se pueden cortar; el detalle más pequeño debe medir al menos 10 cm. Suba su archivo de corte en vectorial (PDF, AI, EPS, SVG o DXF).
+821	¿Cómo mido?
+822	El ancho total va del punto más a la izquierda del texto al más a la derecha; el alto total, de arriba abajo. Para la altura de letra, mida la mayúscula más pequeña.
+823	Vinilo de corte de color
+824	Listo para pegar
+825	— letras de menos de este tamaño, letra manuscrita y trazos finos unidos, logotipos complejos, colores especiales como oro y plata, y trabajos de más de 124 cm
+826	Su precio aparece aquí cuando escriba el texto y la altura de las letras.
+827	Su precio aparece aquí cuando escriba las medidas.
+828	cm, letra más pequeña
+829	Hola, quiero un presupuesto de rotulación en vinilo de corte:
+830	Tamaño
+831	Corte + transferencia (
+832	Diferencia hasta el importe mínimo
+833	Superficie del pedido
+834	El precio se calcula con las medidas que ha indicado. Nuestro operario revisa su archivo; si las medidas del archivo son distintas, le enviamos el nuevo precio para su aprobación. No producimos nada sin su aprobación.
+835	aplicado. La superficie se calcula con el ancho × alto total del texto.
+836	Pedido mínimo
+837	recibido. Nuestro operario revisa los archivos de corte; si el tamaño o la altura de letra no coinciden con el archivo, le contactamos.
+838	Escriba su teléfono y envíe; sus opciones y el precio estimado nos llegan.
+839	Escriba el texto y la altura de las letras.
+840	Escriba las medidas.
+841	Suba su archivo de corte.
+842	Este tipo de archivo no se acepta. Suba un archivo vectorial: PDF, AI, EPS, SVG o DXF.
+843	Impresión de tarjetas de visita — Pedido | IstanbulPrintLab
+844	Impresión de tarjetas de visita
+845	Tarjetas de visita en papel estucado mate de 350 g con plastificado mate o brillo. Elija una plantilla y escriba sus datos, o suba el diseño de su empresa en PDF; el precio aparece al momento.
+846	Diseño
+847	Usaré una plantilla
+848	Elija una plantilla y escriba sus datos
+849	Subiré mi propio PDF
+850	Diseño de empresa listo
+851	Caras impresas
+852	Una cara
+853	Solo anverso
+854	Dos caras
+855	Anverso y reverso
+856	Plantilla y datos
+857	Fuente
+858	Color de fondo
+859	Color de acento
+860	Nombre y apellidos
+861	Cargo
+862	Empresa
+863	Web
+864	Dirección
+865	Añadir logotipo (opcional)
+866	PNG (fondo transparente) o JPG
+867	Vista previa (85 × 55 mm)
+868	A dos caras, su logotipo (o el nombre de la empresa) y su web se colocan automáticamente en el reverso, en el color de fondo elegido.
+869	Su archivo PDF
+870	Elija su archivo PDF o arrástrelo aquí
+871	Tamaño del archivo 91 × 61 mm (85 × 55 mm + 3 mm de sangrado por lado). Textos importantes al menos a 3 mm de la línea de corte, texto trazado. A dos caras: página 1 anverso, página 2 reverso.
+872	Plastificado
+873	Plastificado mate
+874	Incluido en el precio
+875	Plastificado brillo
+876	He revisado la exactitud y la ortografía de todos los datos de la tarjeta (nombre, teléfono, correo, dirección) y los apruebo. Sé que los colores pueden variar ligeramente entre la pantalla y la impresión.
+877	Descargar archivo de impresión (PDF)
+878	El precio incluye papel estucado mate de 350 g y plastificado. Las tarjetas especiales (papel más grueso, relieve, barniz, stamping, troquelado) se presupuestan aparte. El envío de tarjetas de visita es gratis en Turquía. También puede recogerlas en nuestro taller de Kadıköy.
+879	IstanbulPrintLab · Kadıköy, Estambul
+880	p. ej. Lucía García
+881	p. ej. Directora comercial
+882	p. ej. García Arquitectos
+883	p. ej. +34 600 000 000
+884	p. ej. lucia@empresa.es
+885	p. ej. www.empresa.es
+886	p. ej. Calle Mayor 10, Madrid
+887	No se pudo cargar el módulo de texto.
+888	No se pudo cargar la fuente:
+889	No se pudo leer el logotipo.
+890	Papel y plastificado
+891	Las tarjetas se imprimen en papel estucado mate de 350 g; el plastificado mate o brillo está incluido. Tamaño estándar 85 × 55 mm.
+892	Si tiene un diseño de empresa
+893	Suba su tarjeta lista en PDF: 91 × 61 mm (85 × 55 mm + 3 mm de sangrado por lado), textos importantes al menos a 3 mm de la línea de corte, texto trazado. A dos caras: página 1 anverso, página 2 reverso.
+894	Las tarjetas especiales (papel más grueso, relieve, barniz, stamping, troquelado) se presupuestan aparte. Escríbanos por WhatsApp (+90 532 523 73 64).
+895	El envío de tarjetas de visita es gratis en Turquía. También puede recogerlas en nuestro taller de Kadıköy.
+896	Papel estucado mate 350 g
+897	Plastificado mate o brillo incluido
+898	Crema
+899	Gris claro
+900	Antracita
+901	Burdeos
+902	Mostaza
+903	El color de acento elegido no se ve bien sobre este fondo; los acentos se imprimirán en
+904	. Puede elegir otro color de acento.
+905	Lucía García
+906	Directora comercial
+907	García Arquitectos
+908	Calle Mayor 10, Madrid
+909	Sencilla
+910	Centrada
+911	Colorida
+912	Franja lateral
+913	Banda superior
+914	Monograma
+915	Dos columnas
+916	Subrayado
+917	Esquina
+918	Nombre grande
+919	· por tarjeta
+920	Anverso
+921	Reverso
+922	teléfono o correo
+923	correo válido
+924	el texto en rojo no cabe en la tarjeta; acórtelo o elija otra plantilla
+925	Falta o hay error:
+926	Su logotipo tiene baja resolución (
+927	píxeles); puede verse borroso al imprimir. Suba un logotipo más grande; si no, nuestro operario revisará su pedido.
+928	dos caras
+929	una cara
+930	Papel
+931	estucado mate 350 g,
+932	Fuente
+933	Plantilla
+934	recibido. Nuestro operario revisa el tamaño, el sangrado y el texto de los PDF; si hay un problema, le contactamos antes de producir.
+935	Escriba su teléfono y envíe; la tarjeta que ha diseñado nos llega como archivo de impresión (PDF).
+936	Escriba su teléfono y envíe; sus opciones, el precio estimado y el archivo nos llegan.
+937	Escriba su nombre y al menos un dato de contacto.
+938	Suba su archivo PDF.
+939	Suba solo un archivo PDF.
+940	Preparando el archivo de impresión…
+941	La fuente elegida no tiene este carácter
+942	No se pudo preparar el archivo de impresión:
+943	Actualice la página e inténtelo de nuevo.
+944	Impresión UV DTF — Pedido | IstanbulPrintLab
+945	Impresión UV DTF
+946	Pegatinas UV DTF listas para pegar, sin fondo. Para superficies lisas: cristal, metal, cerámica, metacrilato y plástico rígido. Escriba el tamaño del diseño y la cantidad; la disposición y el precio aparecen al momento.
+947	Tamaño del diseño y cantidad
+948	Recomendado: PNG con fondo transparente o PDF; las zonas transparentes no se imprimen. Suba un solo diseño y lo repetimos según la cantidad.
+949	Los precios no incluyen diseño ni aplicación. En Turquía: envío 200 ₺ para pedidos de menos de 6.000 ₺ (IVA incluido) y gratis desde 6.000 ₺; para más de 16 m² le indicamos el envío aparte. También puede recoger su pedido en nuestro taller de Kadıköy.
+950	Precio por metro
+951	¿Dónde se aplica?
+952	¿Cómo se aplica?
+953	La superficie debe estar limpia, seca y sin grasa. Separe el diseño del film inferior, colóquelo, frote con firmeza y retire despacio el film superior.
+954	Use PNG con fondo transparente o PDF: las zonas transparentes no se imprimen. En JPG también se imprime el fondo. Para imágenes, al menos 100 PPI al tamaño de impresión; trace el texto. Si ha hecho su propia composición, escriba el tamaño de la página completa (ancho máx. 40 cm).
+955	Ancho de rollo 40 cm
+956	Sin fondo, solo el diseño
+957	Cristal, metal, cerámica, plástico rígido
+958	Escriba el tamaño de un diseño y la cantidad que quiere. Los diseños se colocan automáticamente en hojas de
+959	cm con
+960	cm de separación; paga las hojas necesarias. Un diseño como máximo
+961	cm, lado más corto
+962	cm. Si ha hecho su propia composición, escriba el tamaño de la hoja completa y deje la cantidad en 1.
+963	cm de ancho con
+964	cm de separación; paga la longitud usada. Un lado del diseño como máximo
+965	cm; lado más corto
+966	cm. Si ha hecho su propia composición, escriba el tamaño de la página completa y deje la cantidad en 1.
+967	en una hoja
+968	unidades caben (
+969	; el diseño se ha girado en la hoja, no afecta a la aplicación
+970	hojas (
+971	La vista previa muestra la primera hoja.
+972	en fila
+973	(el diseño se ha girado en el rollo; no afecta a la aplicación)
+974	Rollo usado:
+975	cm ×
+976	La vista previa muestra los primeros 120 cm.
+977	Los JPG no tienen transparencia: el fondo del diseño también se imprime como un rectángulo. Para imprimir solo el diseño, suba un PNG con fondo transparente o un PDF. Nuestro operario revisará su archivo.
+978	Este PNG no tiene zonas transparentes: el fondo también se imprime como un rectángulo. Para imprimir solo el diseño, suba un PNG con el fondo eliminado (transparente). Nuestro operario revisará su archivo.
+979	Hojas (
+980	Longitud de rollo (
+981	cm de ancho)
+982	; si su pedido es menor, se añade la diferencia.
+983	Este tipo de archivo no se acepta. Suba PNG, PDF, JPG o TIFF.
+984	Transfer DTF — Pedido | IstanbulPrintLab
+985	Impresión de transfer DTF
+986	Transfers DTF para planchar en camisetas, sudaderas, bolsas y textiles. Escriba el tamaño del diseño y la cantidad; la disposición y el precio aparecen al momento.
+987	Precio por hoja
+988	Los transfers DTF se imprimen en hojas de 30 × 60 cm. Sus diseños se colocan automáticamente con 1 cm de separación; la pantalla muestra cuántas hojas necesita. Un diseño como máximo 30 × 60 cm.
+989	El transfer se aplica a la tela con una plancha doméstica; no hace falta máquina especial. Le enviamos con el pedido la temperatura, el tiempo y cómo retirar el film.
+990	Use PNG con fondo transparente o PDF: las zonas transparentes no se imprimen. En JPG también se imprime el fondo. Para imágenes, al menos 100 PPI; trace el texto. Si ha hecho su propia composición, escriba el tamaño de la hoja completa (máx. 30 × 60 cm).
+991	Hoja de 30 × 60 cm
+992	Se plancha sobre tela
+993	Camisetas, sudaderas, bolsas
+994	Impresión de papel pintado — Pedido | IstanbulPrintLab
+995	Impresión de papel pintado
+996	Papel pintado impreso a la medida de su pared para habitaciones de hotel, oficinas, habitaciones infantiles, habitaciones de hospital, aulas, tiendas y restaurantes. Escriba la medida de la pared y elija el material; el plan de paños y el precio aparecen al momento.
+997	Medida de la pared
+998	Ancho de la pared (cm)
+999	Alto de la pared (cm)
+1000	PDF, JPG, PNG o TIFF. Suba una sola imagen para toda la pared; nosotros la dividimos en paños.
+1001	Confirmo que he medido la pared en el lugar y que he revisado y apruebo las medidas, imágenes y disposición elegidas. Sé que los colores pueden variar ligeramente entre la pantalla y la impresión.
+1002	Su precio aparece aquí cuando escriba la medida de la pared.
+1003	Los precios no incluyen diseño, cola ni instalación. En Turquía: envío 200 ₺ para pedidos de menos de 6.000 ₺ (IVA incluido) y gratis desde 6.000 ₺; para más de 16 m² le indicamos el envío aparte. También puede recoger su pedido en nuestro taller de Kadıköy.
+1004	p. ej. 320
+1005	p. ej. 260
+1006	Tejido no tejido, vinilo texturizado (240 g)
+1007	Superficie de vinilo con textura de arena o lino sobre base de tejido no tejido. Se coloca con cola; la cola va en la pared.
+1008	No tejido premium, textura cedro (280 g)
+1009	Superficie de vinilo más gruesa con textura más marcada sobre base no tejida. Se coloca con cola.
+1010	Con base textil (400 g)
+1011	Superficie gruesa con textura de tela, resistente al desgarro. Se coloca con cola; el rollo ancho significa menos juntas.
+1012	Autoadhesivo, sin PVC
+1013	Sin cola; retire el protector y péguelo en una pared lisa y limpia.
+1014	Tela autoadhesiva (350 g)
+1015	Superficie con textura de tela; sin cola.
+1016	Autoadhesivo con textura premium
+1017	Superficie texturizada premium; sin cola.
+1018	Papel pintado de papel
+1019	Oro / plata metalizado (premium)
+1020	¿Cómo se calcula?
+1021	Se añaden 5 cm de margen de corte a cada lado de la pared y el precio se calcula con los m² de este tamaño de producción. La impresión se divide en paños iguales según el ancho de rollo del material elegido; el número de paños aparece en pantalla.
+1022	¿Dónde se usa?
+1023	Habitaciones y vestíbulos de hotel, oficinas y salas de reuniones, habitaciones infantiles y guarderías, habitaciones de hospital y clínica, aulas y pasillos, tiendas, cafeterías y restaurantes, paredes de casa y salón.
+1024	Tinta original, apta para habitaciones infantiles
+1025	En nuestro taller de Kadıköy usamos tintas originales Mimaki CS250 con certificado GREENGUARD Gold. Nuestra tinta ha superado las pruebas de emisiones químicas de UL Solutions para un aula escolar: las emisiones nocivas como el formaldehído y los compuestos orgánicos volátiles (COV) están por debajo de los estrictos límites fijados para lugares con niños. Por eso puede usarse con tranquilidad en habitaciones infantiles, guarderías y colegios. (Certificado n.º 187835-420)
+1026	Instalación
+1027	Las instrucciones de instalación paso a paso de cada material aparecen justo debajo al elegirlo. Los paños se envían numerados en orden. Cola e instalación no incluidas.
+1028	Prepare su imagen en una sola pieza para toda la pared; nosotros la dividimos en paños. Deje los elementos importantes (texto, caras, logotipos) al menos a 10 cm de los bordes. Como el papel pintado se ve de lejos, bastan 72 PPI o más al tamaño de impresión.
+1029	A la medida de su pared
+1030	6 opciones de material
+1031	Escriba el ancho y el alto de la pared en centímetros. A cada lado se añaden
+1032	cm de margen de corte; el precio se calcula con este tamaño de producción. Lados como máximo
+1033	metros.
+1034	Plan de paños
+1035	Plan de paños:
+1036	paños, cada uno de unos
+1037	Tamaño de producción:
+1038	cm (pared
+1039	cm + en cada lado
+1040	cm de margen de corte).
+1041	La línea discontinua muestra el borde de la pared; las rojas, dónde se unen los paños. No ponga elementos importantes como textos o caras sobre las juntas.
+1042	Escriba primero la medida de la pared para ver si su archivo sirve para imprimir.
+1043	✗ Su archivo no sirve para imprimir: a este tamaño saldrá borroso. Suba un archivo más nítido (más grande). Si necesita ayuda, escríbanos por WhatsApp.
+1044	La forma de su archivo es distinta a la de su pared: la imagen se recortará por los bordes para llenar la pared. Si no quiere recortes, prepare el archivo a la medida de la pared.
+1045	La información de instalación se envía con el presupuesto.
+1046	Pared
+1047	Producción (con margen de corte)
+1048	Paños
+1049	Hola, el archivo que he subido para el papel pintado no sirve para imprimir, ¿me pueden ayudar?
+1050	Escriba la medida de la pared.
+1051	Impresión de invitaciones — Pedido | IstanbulPrintLab
+1052	Impresión de invitaciones
+1053	Invitaciones de 13 × 18 cm para bodas, pedidas, noches de henna, circuncisiones, cumpleaños y eventos de empresa. Elija una plantilla y escriba sus datos; la vista previa y el precio aparecen al momento.
+1054	Fecha del evento
+1055	Fecha
+1056	Hora
+1057	Si tiene un diseño listo
+1058	Lugar, código QR y programa en el reverso
+1059	Fuente de los nombres
+1060	Fuente del texto
+1061	Color de banda y acento
+1062	Bandas, marcos, líneas y título se imprimen en este color. Para un color que no esté en la lista, elíjalo en la última casilla. Si quiere invitaciones con stamping dorado,
+1063	pida presupuesto por WhatsApp
+1064	; los colores aquí son de impresión y no dan brillo metálico.
+1065	Tipo de invitación
+1066	Título
+1067	1.er nombre
+1068	2.º nombre (opcional)
+1069	Texto de la invitación
+1070	Nombre del lugar
+1071	Confirmación / contacto
+1072	Enlace al lugar (se convierte en código QR en el reverso)
+1073	Programa / nota (reverso)
+1074	Vista previa (13 × 18 cm)
+1075	Los textos largos pasan a la línea siguiente automáticamente. El texto en rojo entra en el margen de corte; acórtelo o elija otra plantilla.
+1076	Tamaño del archivo 136 × 186 mm (130 × 180 mm + 3 mm de sangrado por lado). Texto trazado, textos importantes al menos a 5 mm de la línea de corte. A dos caras: página 1 anverso, página 2 reverso.
+1077	Aspecto elegante sin reflejos
+1078	Superficie viva y brillante
+1079	Sobres no incluidos. La invitación cabe en un sobre de 14 × 20 cm.
+1080	He revisado el anverso y el reverso de mi invitación. Apruebo la impresión tras revisar uno por uno los nombres, la fecha, la hora, el lugar, la dirección y el texto. Tras la aprobación se imprime exactamente así. Sé que los colores pueden variar ligeramente entre la pantalla y la impresión.
+1081	El precio incluye cartulina estucada mate de 350 g y plastificado; sobres no incluidos. En Turquía: envío 200 ₺ para pedidos de menos de 6.000 ₺ (IVA incluido) y gratis desde 6.000 ₺. También puede recoger su pedido en nuestro taller de Kadıköy.
+1082	p. ej. Lucía
+1083	p. ej. Pablo
+1084	p. ej. Salón del Jardín
+1085	p. ej. Confirmar: +34 600 000 000
+1086	p. ej. https://maps.app.goo.gl/...
+1087	p. ej. 19:00 Recepción · 20:00 Ceremonia · 21:00 Cena
+1088	Las invitaciones se imprimen en cartulina estucada mate de 350 g y se plastifican en mate o brillo; son gruesas y firmes. Sobres no incluidos; puede elegirlos del color y modelo que quiera. Una invitación de 13 × 18 cm cabe fácilmente en un sobre de 14 × 20 cm.
+1089	¿Cuándo se entrega?
+1090	Las invitaciones se envían 3 días laborables después del pedido y la aprobación; el envío en Turquía suele tardar 1–2 días laborables. Si su evento es pronto, escríbanos por WhatsApp (+90 532 523 73 64) antes de pedir.
+1091	¿Tiene su propio diseño?
+1092	Puede subir un PDF: 136 × 186 mm (130 × 180 mm + 3 mm de sangrado por lado), texto trazado. Textos importantes al menos a 5 mm de la línea de corte. A dos caras: página 1 anverso, página 2 reverso.
+1093	Invitaciones especiales
+1094	Otros tamaños, papeles texturizados, perlados o kraft, stamping, invitaciones plegadas y troqueladas: con presupuesto. Escríbanos por WhatsApp.
+1095	Estucado mate 350 g, plastificado
+1096	Envío en 3 días laborables
+1097	Oro (mostaza)
+1098	Amarillo dorado
+1099	Gris plata
+1100	Rosa empolvado
+1101	Rosa palo
+1102	Morado
+1103	Color personalizado
+1104	Elegir un color personalizado
+1105	Hola, quiero un presupuesto de invitaciones con stamping dorado.
+1106	Boda
+1107	Están invitados a nuestra boda
+1108	Nos encantaría tenerles a nuestro lado en este día feliz en que unimos nuestras vidas.
+1109	Boda civil
+1110	Están invitados a nuestra boda civil
+1111	Nos encantaría verles en la ceremonia y el cóctel posterior.
+1112	Pedida
+1113	Están invitados a nuestra pedida
+1114	Nos haría felices tenerles a nuestro lado en este bonito día.
+1115	Noche de henna
+1116	Están invitados a nuestra noche de henna
+1117	Queremos compartir nuestra alegría con ustedes en nuestra noche de henna.
+1118	Circuncisión
+1119	Están invitados a la fiesta de circuncisión de nuestro hijo
+1120	Nos haría felices verles en la fiesta de circuncisión de nuestro hijo.
+1121	Cumpleaños
+1122	Están invitados a una fiesta de cumpleaños
+1123	Nos encantaría celebrar este día especial con ustedes.
+1124	Baby shower
+1125	Están invitados a nuestro baby shower
+1126	Mientras nos preparamos para recibir a nuestro bebé, queremos compartir esta alegría con ustedes.
+1127	Mevlid
+1128	Están invitados a nuestro mevlid
+1129	Les rogamos que nos honren con su presencia en el mevlid y esperamos sus oraciones.
+1130	Inauguración
+1131	Están invitados a nuestra inauguración
+1132	Nos encantaría verles en la inauguración de nuestra nueva dirección.
+1133	Evento de empresa
+1134	Están invitados a nuestro evento
+1135	Nos encantaría verles en nuestro evento.
+1136	Están invitados
+1137	Nos haría felices tenerles a nuestro lado en nuestro día especial.
+1138	Lucía &amp; Pablo
+1139	Sábado, 21 de noviembre de 2026
+1140	enero
+1141	febrero
+1142	marzo
+1143	abril
+1144	mayo
+1145	junio
+1146	julio
+1147	agosto
+1148	septiembre
+1149	octubre
+1150	noviembre
+1151	diciembre
+1152	Domingo
+1153	Lunes
+1154	Martes
+1155	Miércoles
+1156	Jueves
+1157	Viernes
+1158	Sábado
+1159	Elija la fecha del evento.
+1160	La fecha elegida ya ha pasado. Revise la fecha del evento.
+1161	Su evento es pronto. Las invitaciones se envían en
+1162	días laborables y el envío tarda 1–
+1163	días laborables; puede que no lleguen a tiempo. Escríbanos por WhatsApp antes de pedir.
+1164	Fecha estimada de envío:
+1165	(si el pedido se aprueba hoy).
+1166	Lucía
+1167	Pablo
+1168	Salón del Jardín
+1169	Calle Mayor 10, Madrid
+1170	Confirmar: +34 600 000 000
+1171	19:00 Recepción · 20:00 Ceremonia · 21:00 Cena
+1172	Clásica
+1173	Doble marco
+1174	Moderna
+1175	Fecha grande
+1176	Horizontal centrada
+1177	Banda inferior
+1178	Escanee el código con el móvil para ver el lugar
+1179	Vertical
+1180	Horizontal
+1181	— quiero hacer un pedido urgente de invitaciones para mi evento en esta fecha.
+1182	Escribir por WhatsApp
+1183	días laborables; la fecha del evento se compara con el plazo de entrega.
+1184	nombre del lugar
+1185	el texto en rojo entra en el margen de corte; acórtelo o elija otra plantilla
+1186	13 × 18 cm,
+1187	Evento
+1188	Nombres
+1189	Lugar
+1190	Enlace QR
+1191	Revisión ortográfica
+1192	Escriba su teléfono y envíe; la invitación que ha diseñado nos llega como archivo de impresión (PDF).
+1193	La fecha del evento está demasiado cerca para la entrega; escríbanos por WhatsApp.
+1194	Elija una fecha de evento válida.
+1195	Escriba los nombres y los datos del lugar.
+1196	La fuente elegida no tiene este carácter
+1197	desde
+1198	/ hoja
+1199	/ metro
+1200	Disposición de ojales
+1201	. Cambie este carácter o elija otra fuente.
+1202	. Cambie este carácter o elija otra fuente.
+1203	/ m²
+1204	plastificado mate
+1205	plastificado brillo
