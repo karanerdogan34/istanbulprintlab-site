@@ -1203,7 +1203,7 @@
  "Kargoya veriliş": "وقت",
  "Fiyatlar": "قیمتیں",
  "Asgari sipariş": "کم از کم آرڈر",
- "KDV hariç": "ٹیکس کے بغیر",
+ "KDV hariç": "ترک ٹیکس کے بغیر",
  "Tek parça en fazla 150 cm × 49 m": "ایک ٹکڑا زیادہ سے زیادہ 150 سینٹی میٹر × 49 میٹر",
  "1–2 iş gününde kargoda": "1–2 کاروباری دن میں روانگی",
  "Tek parça en fazla 160 cm × 49 m": "ایک ٹکڑا زیادہ سے زیادہ 160 سینٹی میٹر × 49 میٹر",
@@ -1219,5 +1219,9 @@
  "Duvar kenarları en fazla 49 metre": "دیوار کے اطراف زیادہ سے زیادہ 49 میٹر",
  "PVC foreks levha, 3–10 mm": "PVC فوریکس بورڈ، 3–10 ملی میٹر",
  "Fotoblok levha, 3–10 mm": "فوم بورڈ (فوٹو بلاک)، 3–10 ملی میٹر",
- "Örnek:": "مثال:"
+ "Örnek:": "مثال:",
+ "Onaydan sonra 1–2 iş gününde kargoda": "منظوری کے بعد 1–2 کاروباری دن میں روانگی",
+ "Sticker başına en az 4 cm, sipariş başına en fazla 250 adet": "ہر اسٹیکر کم از کم 4 سینٹی میٹر، فی آرڈر زیادہ سے زیادہ 250 عدد",
+ "Kargoyla gönderilmez; İstanbul içi teslimat ya da Kadıköy atölyeden teslim alma": "کوریئر سے نہیں بھیجا جاتا؛ استنبول میں ترسیل یا قادی کوئے ورکشاپ سے وصولی",
+ "Onaydan sonra 3 iş gününde kargoda": "منظوری کے بعد 3 کاروباری دن میں روانگی"
 }

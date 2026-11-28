@@ -10,18 +10,18 @@ def _satirlar(k, u, G):
     t = u['tur']
     malz = [m['ad'] for m in u.get('malzemeler', [])]
     olcu = None
-    kargo = '1–2 iş gününde kargoda'
+    kargo = 'Onaydan sonra 1–2 iş gününde kargoda'
     if t == 'rulo':
         boy = u.get('max_boy')
         if u.get('kesim'):
-            olcu = 'Sticker başına en az %d cm, en fazla %d adet' % (u['kesim']['min_cm'], u['kesim']['max_adet'])
+            olcu = 'Sticker başına en az %d cm, sipariş başına en fazla %d adet' % (u['kesim']['min_cm'], u['kesim']['max_adet'])
         elif boy:
             olcu = 'Tek parça en fazla %d × %d cm' % (u['net_en'], boy)
         else:
             olcu = 'Tek parça en fazla %d cm × %d m' % (u['net_en'], G['tek_parca_max_boy'] // 100)
         if k in ('foreks-baski', 'fotoblok-baski'):
             malz = ['PVC foreks levha, 3–10 mm' if k == 'foreks-baski' else 'Fotoblok levha, 3–10 mm']
-            kargo = 'Kargoyla gönderilmez; İstanbul içi teslim'
+            kargo = 'Kargoyla gönderilmez; İstanbul içi teslimat ya da Kadıköy atölyeden teslim alma'
     elif t == 'yazi':
         malz = ['Renkli kesim folyosu']
         olcu = 'Harf yüksekliği en az 5 cm, toplam en en fazla %d cm' % u['max_en']
@@ -40,7 +40,7 @@ def _satirlar(k, u, G):
     elif t == 'davetiye':
         malz = ['350 gr mat kuşe, selefonlu']
         olcu = '13 × 18 cm'
-        kargo = '%d iş gününde kargoda' % u.get('uretim_is_gunu', 3)
+        kargo = 'Onaydan sonra %d iş gününde kargoda' % u.get('uretim_is_gunu', 3)
     return malz, olcu, kargo
 
 

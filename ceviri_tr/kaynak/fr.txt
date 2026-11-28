@@ -1221,3 +1221,8 @@
 1096	Expédié en 3 jours ouvrés
 1207	Délai
 1232	Exemple :
+1233	Expédié 1 à 2 jours ouvrés après validation
+1234	Chaque autocollant au moins 4 cm, jusqu’à 250 pièces par commande
+1235	Pas d’envoi par coursier ; livraison dans Istanbul ou retrait à notre atelier de Kadıköy
+1236	Expédié 3 jours ouvrés après validation
+1210	hors TVA turque

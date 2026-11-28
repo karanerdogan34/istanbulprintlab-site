@@ -1221,3 +1221,8 @@
 1096	Se envía en 3 días laborables
 1207	Plazo
 1232	Ejemplo:
+1233	Se envía 1–2 días laborables tras la aprobación
+1234	Cada pegatina de al menos 4 cm, hasta 250 unidades por pedido
+1235	No se envía por mensajería; entrega en Estambul o recogida en nuestro taller de Kadıköy
+1236	Se envía 3 días laborables tras la aprobación
+1210	sin IVA turco

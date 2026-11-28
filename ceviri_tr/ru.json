@@ -1203,7 +1203,7 @@
  "Kargoya veriliş": "Срок",
  "Fiyatlar": "Цены",
  "Asgari sipariş": "Минимальный заказ",
- "KDV hariç": "без НДС",
+ "KDV hariç": "без НДС Турции",
  "Tek parça en fazla 150 cm × 49 m": "Одна деталь до 150 см × 49 м",
  "1–2 iş gününde kargoda": "Отправка за 1–2 рабочих дня",
  "Tek parça en fazla 160 cm × 49 m": "Одна деталь до 160 см × 49 м",
@@ -1219,5 +1219,9 @@
  "Duvar kenarları en fazla 49 metre": "Стороны стены до 49 метров",
  "PVC foreks levha, 3–10 mm": "ПВХ-пластик, 3–10 мм",
  "Fotoblok levha, 3–10 mm": "Пенокартон (фотоблок), 3–10 мм",
- "Örnek:": "Пример:"
+ "Örnek:": "Пример:",
+ "Onaydan sonra 1–2 iş gününde kargoda": "Отправка через 1–2 рабочих дня после подтверждения",
+ "Sticker başına en az 4 cm, sipariş başına en fazla 250 adet": "Каждая наклейка от 4 см, до 250 шт. в одном заказе",
+ "Kargoyla gönderilmez; İstanbul içi teslimat ya da Kadıköy atölyeden teslim alma": "Курьером не отправляется; доставка по Стамбулу или самовывоз из мастерской в Кадыкёе",
+ "Onaydan sonra 3 iş gününde kargoda": "Отправка через 3 рабочих дня после подтверждения"
 }

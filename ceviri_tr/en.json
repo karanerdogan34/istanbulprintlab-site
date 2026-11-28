@@ -1203,7 +1203,7 @@
  "Kargoya veriliş": "Dispatch",
  "Fiyatlar": "Prices",
  "Asgari sipariş": "Minimum order",
- "KDV hariç": "excl. VAT",
+ "KDV hariç": "excl. Turkish VAT",
  "Tek parça en fazla 150 cm × 49 m": "Single piece up to 150 cm × 49 m",
  "1–2 iş gününde kargoda": "Ships in 1–2 business days",
  "Tek parça en fazla 160 cm × 49 m": "Single piece up to 160 cm × 49 m",
@@ -1219,5 +1219,9 @@
  "Duvar kenarları en fazla 49 metre": "Wall sides up to 49 metres",
  "PVC foreks levha, 3–10 mm": "PVC foam board, 3–10 mm",
  "Fotoblok levha, 3–10 mm": "Foam board (photo block), 3–10 mm",
- "Örnek:": "Example:"
+ "Örnek:": "Example:",
+ "Onaydan sonra 1–2 iş gününde kargoda": "Ships in 1–2 business days after approval",
+ "Sticker başına en az 4 cm, sipariş başına en fazla 250 adet": "Each sticker at least 4 cm, up to 250 pieces per order",
+ "Kargoyla gönderilmez; İstanbul içi teslimat ya da Kadıköy atölyeden teslim alma": "Not sent by courier; delivery within Istanbul or pick-up at our Kadıköy workshop",
+ "Onaydan sonra 3 iş gününde kargoda": "Ships in 3 business days after approval"
 }

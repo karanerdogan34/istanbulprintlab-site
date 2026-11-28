@@ -1203,7 +1203,7 @@
  "Kargoya veriliş": "Tempi",
  "Fiyatlar": "Prezzi",
  "Asgari sipariş": "Ordine minimo",
- "KDV hariç": "IVA esclusa",
+ "KDV hariç": "IVA turca esclusa",
  "Tek parça en fazla 150 cm × 49 m": "Pezzo unico fino a 150 cm × 49 m",
  "1–2 iş gününde kargoda": "Spedito in 1–2 giorni lavorativi",
  "Tek parça en fazla 160 cm × 49 m": "Pezzo unico fino a 160 cm × 49 m",
@@ -1219,5 +1219,9 @@
  "Duvar kenarları en fazla 49 metre": "Lati della parete fino a 49 metri",
  "PVC foreks levha, 3–10 mm": "Forex (PVC espanso), 3–10 mm",
  "Fotoblok levha, 3–10 mm": "Pannello in schiuma (fotoblocco), 3–10 mm",
- "Örnek:": "Esempio:"
+ "Örnek:": "Esempio:",
+ "Onaydan sonra 1–2 iş gününde kargoda": "Spedito 1–2 giorni lavorativi dopo l’approvazione",
+ "Sticker başına en az 4 cm, sipariş başına en fazla 250 adet": "Ogni adesivo almeno 4 cm, fino a 250 pezzi per ordine",
+ "Kargoyla gönderilmez; İstanbul içi teslimat ya da Kadıköy atölyeden teslim alma": "Non spedito con corriere; consegna a Istanbul o ritiro nel nostro laboratorio di Kadıköy",
+ "Onaydan sonra 3 iş gününde kargoda": "Spedito 3 giorni lavorativi dopo l’approvazione"
 }

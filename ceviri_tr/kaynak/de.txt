@@ -1221,3 +1221,8 @@
 1096	Versand in 3 Werktagen
 1207	Lieferzeit
 1232	Beispiel:
+1233	Versand 1–2 Werktage nach Freigabe
+1234	Jeder Aufkleber mind. 4 cm, bis 250 Stück pro Bestellung
+1235	Kein Kurierversand; Lieferung in Istanbul oder Abholung in unserer Werkstatt in Kadıköy
+1236	Versand 3 Werktage nach Freigabe
+1210	ohne türkische MwSt.

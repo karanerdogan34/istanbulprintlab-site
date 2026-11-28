@@ -1221,3 +1221,8 @@
 1096	Ships in 3 business days
 1207	Dispatch
 1232	Example:
+1233	Ships in 1–2 business days after approval
+1234	Each sticker at least 4 cm, up to 250 pieces per order
+1235	Not sent by courier; delivery within Istanbul or pick-up at our Kadıköy workshop
+1236	Ships in 3 business days after approval
+1210	excl. Turkish VAT

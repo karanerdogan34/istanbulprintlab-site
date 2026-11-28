@@ -1203,7 +1203,7 @@
  "Kargoya veriliş": "Plazo",
  "Fiyatlar": "Precios",
  "Asgari sipariş": "Pedido mínimo",
- "KDV hariç": "sin IVA",
+ "KDV hariç": "sin IVA turco",
  "Tek parça en fazla 150 cm × 49 m": "Pieza única hasta 150 cm × 49 m",
  "1–2 iş gününde kargoda": "Se envía en 1–2 días laborables",
  "Tek parça en fazla 160 cm × 49 m": "Pieza única hasta 160 cm × 49 m",
@@ -1219,5 +1219,9 @@
  "Duvar kenarları en fazla 49 metre": "Lados de la pared hasta 49 metros",
  "PVC foreks levha, 3–10 mm": "PVC espumado, 3–10 mm",
  "Fotoblok levha, 3–10 mm": "Cartón pluma (fotobloque), 3–10 mm",
- "Örnek:": "Ejemplo:"
+ "Örnek:": "Ejemplo:",
+ "Onaydan sonra 1–2 iş gününde kargoda": "Se envía 1–2 días laborables tras la aprobación",
+ "Sticker başına en az 4 cm, sipariş başına en fazla 250 adet": "Cada pegatina de al menos 4 cm, hasta 250 unidades por pedido",
+ "Kargoyla gönderilmez; İstanbul içi teslimat ya da Kadıköy atölyeden teslim alma": "No se envía por mensajería; entrega en Estambul o recogida en nuestro taller de Kadıköy",
+ "Onaydan sonra 3 iş gününde kargoda": "Se envía 3 días laborables tras la aprobación"
 }

@@ -1221,3 +1221,8 @@
 1096	Spedito in 3 giorni lavorativi
 1207	Tempi
 1232	Esempio:
+1233	Spedito 1–2 giorni lavorativi dopo l’approvazione
+1234	Ogni adesivo almeno 4 cm, fino a 250 pezzi per ordine
+1235	Non spedito con corriere; consegna a Istanbul o ritiro nel nostro laboratorio di Kadıköy
+1236	Spedito 3 giorni lavorativi dopo l’approvazione
+1210	IVA turca esclusa
