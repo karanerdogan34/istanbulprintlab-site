@@ -2,6 +2,7 @@
  "_aciklama": "IPL web-to-print merkezi fiyat ve kural yapılandırması. Tüm tutarlar TL, KDV hariç. Ölçüler cm. Fiyat değişikliği yalnızca Karan Bey onayıyla yapılır.",
  "genel": {
   "kdv_orani": 0.2,
+  "yurtdisi_carpan": 1.2,
   "asgari_baski": 999,
   "kargo_ucretsiz_esik": 6000,
   "kargo_ucreti": 200,

@@ -23,7 +23,7 @@ export function tutarHesapla(k) {
   if (r.kargoAyrica) return { neden: 'kargo' };
   const toplam = Number(r.genelToplam || r.toplam), kargo = Number(r.kargoUcret || 0);
   if (!(toplam >= 1) || toplam > 1000000) return { neden: 'hesap' };
-  return { kurus: Math.round(toplam * 100), kargoKurus: Math.round(kargo * 100), nakliye: !!r.kargoYok, aciklama: String(k.urunAd || 'Baskı siparişi').slice(0, 100) };
+  return { kurus: Math.round(toplam * 100), kargoKurus: Math.round(kargo * 100), nakliye: !!r.kargoYok, yurtdisi: !!r.kargoYurtdisi, aciklama: String(k.urunAd || 'Baskı siparişi').slice(0, 100) };
 }
 
 export default async (req) => {
@@ -77,6 +77,7 @@ export default async (req) => {
 
   const veri = { i: id, n: no, a: t.aciklama, k: t.kurus, t: 12, b: Date.now() + 3 * GUN };
   if (t.kargoKurus > 0) veri.kg = t.kargoKurus;
+  if (t.yurtdisi) { veri.yd = 1; veri.a = ('Yurt dışı · ' + veri.a).slice(0, 100); } // KDV yok, kargo hariç; kargo ücreti ayrıca bildirilir
   if (t.nakliye) veri.ny = 1; // kargoyla gönderilmeyen ürün (foreks, fotoblok): ödeme sayfasında teslimat uyarısı gösterilir
   // Ödemeye esas sipariş kaydı (sonradan değişmez): ürün, seçimler, tutar, kargo ve Drive'daki dosya kimliği
   await linkYaz(id, { ...veri, durum: 'bekliyor', olusturma: new Date().toISOString(), test: a.test === '1', kaynak: 'hesaplayici',

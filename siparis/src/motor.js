@@ -261,10 +261,24 @@
     else if (cfg.tur === 'dtf') r = dtfHesapla(cfg, G, girdi);
     else if (cfg.tur === 'duvar') r = duvarHesapla(cfg, G, girdi);
     else return {durum: 'hata', hatalar: [{alan: 'urun', mesaj: 'Bu ürün türü henüz tanımlı değil.'}]};
+    if (girdi && girdi.yurtdisi && r && r.durum === 'tamam') return yurtdisiUygula(G, r);
     return kargoUygula(cfg, G, r);
   }
 
+  // Yurt dışına gönderilen siparişler: KDV hariç Türkiye fiyatının %20 üstü, KDV yok (doğarsa ayrıca), kargo alıcıya ait ve ayrıca bildirilir.
+  // Ürün bedeli (kargo hariç) sitede hemen ödenir; yurt dışı kargo ücreti en uygun firma bulunduktan sonra ayrıca bildirilir.
+  function yurtdisiUygula(genel, r) {
+    var c = genel.yurtdisi_carpan || 1.2, k = r.kalemler || {};
+    ['baski', 'asgariFarki', 'laminasyon', 'kusgozu', 'cerceve', 'birim', 'adetBasi'].forEach(function (a) { if (typeof k[a] === 'number') k[a] = yuvarla(k[a] * c); });
+    r.araToplam = yuvarla(r.araToplam * c); r.kdv = 0; r.toplam = r.araToplam;
+    r.yurtdisi = true; r.yurtdisiCarpan = c;
+    r.kargoYok = false; r.kargoUcretsiz = false; r.kargoAyrica = false; r.kargoYurtdisi = true; r.kargoUcret = 0; // ürün bedeli hemen ödenir, kargo sonra
+    r.genelToplam = r.toplam;
+    return r;
+  }
+
   function kargoYazi(r) {
+    if (r.kargoYurtdisi) return 'Fiyata dahil değil · yurt dışı kargo ücreti ayrıca bildirilir';
     if (r.kargoYok) return 'Kargoyla gönderilmez · atölyeden ücretsiz teslim veya nakliye (bedeli önceden bildirilir)';
     if (r.kargoUcretsiz) return 'Ücretsiz';
     if (r.kargoAyrica) return 'Ayrıca bildirilir';
