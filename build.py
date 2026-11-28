@@ -811,6 +811,7 @@ def main():
     diller.guven_ekle(DIST)
     print('Ülke kargo bölümü:', ulke_kargo.ekle(DIST))
     print('Google yorumları:', ulke_kargo.yorum_ekle(DIST))
+    print('Eski sayfalara yeni panel:', eski_panel.uygula(DIST, ['en'] + list(diller.DILLER)))
     diller.isletme_sema(DIST)
     eksik = ic_baglanti_kontrol()
     if eksik:
@@ -873,6 +874,7 @@ import cerez_onay  # noqa: E402
 import cok_dil
 import ulke_kargo  # noqa: E402
 import bilgi_kutusu  # noqa: E402
+import eski_panel  # noqa: E402
 CEREZ = dict(
     bant=False,  # True yapılırsa sağ alttaki çerez onay bandı geri gelir
     anahtar='ipl_cerez', posthog='phc_sXf3DbVV3R6LBHcQTHi7T4boryXwiLoVidPvEoB3XPY7',  # herkese açık proje anahtarı
