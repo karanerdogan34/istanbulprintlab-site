@@ -812,6 +812,7 @@ def main():
     print('Ülke kargo bölümü:', ulke_kargo.ekle(DIST))
     print('Google yorumları:', ulke_kargo.yorum_ekle(DIST))
     print('Eski sayfalara yeni panel:', eski_panel.uygula(DIST, ['en'] + list(diller.DILLER)))
+    print('RTL sayı aralıkları:', eski_panel.rtl_sayilar(DIST))
     diller.isletme_sema(DIST)
     eksik = ic_baglanti_kontrol()
     if eksik:

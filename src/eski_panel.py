@@ -1,6 +1,6 @@
 """Eski tasarım yabancı dil ürün sayfalarındaki eski 'teklif isteği' hesaplayıcısını, Türkçe sayfalardaki gibi
 yeni sipariş paneliyle (yurt dışı fiyat kuralı dahil) değiştirir."""
-import os, re
+import glob, os, re
 
 FORM = {'banners': 'branda-baski', 'display-boards': 'foreks-baski', 'foam-boards': 'fotoblok-baski',
         'mesh-banners': 'mesh-baski', 'one-way-vision': 'one-way-vision-baski', 'printed-vinyl': 'folyo-baski',
@@ -58,6 +58,7 @@ def uygula(dist, diller):
                 c = 0
                 if i > 0 and j > 0:
                     blok = s[i:j]
+                    blok = re.sub(r'<table class="spec">.*?</table>\s*', '', blok, count=1, flags=re.S)
                     blok2 = re.sub(r'<div class="row"><a class="btn" href="/[a-z]{2}/#en-quote".*?</div>\s*(<p class="note">.*?</p>\s*)*', '', blok, count=1, flags=re.S)
                     s = s[:i] + blok2 + s[j:]; j = s.find('</section>', i)
                     son = s.rfind('</div>', i, j)
@@ -83,4 +84,23 @@ def uygula(dist, diller):
             t2 = t.replace('<b>1.199 TRY</b>', '<b>%s TRY</b>' % yeni)
             if t2 != t:
                 open(p, 'w', encoding='utf-8').write(t2)
+    return n
+
+
+LRI, PDI = '\u2066', '\u2069'
+ARALIK = re.compile(r'(?<![\d\u2066])(\d+(?:[.,]\d+)?)(\s*[–×]\s*)(\d+(?:[.,]\d+)?)(?![\d\u2069])')
+
+
+def rtl_sayilar(dist, diller=('ar', 'fa', 'ur')):
+    """Sağdan sola dillerde '1–2', '150 × 300' gibi aralıkların ters görünmemesi için soldan sağa yalıtım işareti ekler."""
+    n = 0
+    for dil in diller:
+        for f in glob.glob(os.path.join(dist, dil, '**', '*.html'), recursive=True) + glob.glob(os.path.join(dist, dil, '**', '*.js'), recursive=True):
+            s = open(f, encoding='utf-8').read()
+            parca = re.split(r'(<script type="application/ld\+json">.*?</script>|<head>.*?</head>)', s, flags=re.S)
+            for i in range(0, len(parca), 2):
+                parca[i] = ARALIK.sub(lambda m: LRI + m.group(1) + m.group(2) + m.group(3) + PDI, parca[i])
+            s2 = ''.join(parca)
+            if s2 != s:
+                open(f, 'w', encoding='utf-8').write(s2); n += 1
     return n
