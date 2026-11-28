@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
-"""Ek diller: /en/ sayfalarından /ar/ /ru/ /fr/ /de/ /ur/ sayfalarını üretir.
+"""Ek diller: /en/ sayfalarından /ru/ /ar/ /de/ /fr/ /es/ /it/ /ur/ /fa/ sayfalarını üretir.
 Çeviriler ceviri/<dil>.json dosyalarında (İngilizce metin -> hedef dil). Çevirisi olmayan metin İngilizce kalır.
 Mantık (hesaplayıcı, döviz, formlar) İngilizce sayfalarla aynıdır; yalnızca görünen metin, dil/yön ve bağlantılar değişir.
 """
 import glob, html, json, os, re
 
-DILLER = {  # kod: (adı kendi dilinde, yön)
-    'ar': ('العربية', 'rtl'), 'ru': ('Русский', 'ltr'), 'fr': ('Français', 'ltr'),
-    'de': ('Deutsch', 'ltr'), 'ur': ('اردو', 'rtl'),
+DILLER = {  # kod: (adı kendi dilinde, yön) — sıra dil seçicideki sıradır
+    'ru': ('Русский', 'ltr'), 'ar': ('العربية', 'rtl'), 'de': ('Deutsch', 'ltr'),
+    'fr': ('Français', 'ltr'), 'es': ('Español', 'ltr'), 'it': ('Italiano', 'ltr'),
+    'ur': ('اردو', 'rtl'), 'fa': ('فارسی', 'rtl'),
 }
 SITE = 'https://www.istanbulprintlab.com'
-YEREL = {'ar': 'ar-AE-u-nu-latn', 'ru': 'ru-RU', 'fr': 'fr-FR', 'de': 'de-DE', 'ur': 'en-PK'}
+YEREL = {'ar': 'ar-AE-u-nu-latn', 'ru': 'ru-RU', 'fr': 'fr-FR', 'de': 'de-DE', 'ur': 'en-PK',
+         'es': 'es-ES', 'it': 'it-IT', 'fa': 'fa-IR-u-nu-latn'}
+OG = {'ar': 'ar_AE', 'ru': 'ru_RU', 'fr': 'fr_FR', 'de': 'de_DE', 'ur': 'ur_PK', 'es': 'es_ES', 'it': 'it_IT', 'fa': 'fa_IR'}
 METIN_RE = re.compile(r'>([^<>]*[A-Za-z][^<>]*)<')
 OZ_RE = re.compile(r'\b(content|alt|title|placeholder|aria-label|data-name|value)="([^"]*[A-Za-z][^"]*)"')
 JS_RE = re.compile(r"EN\s*\?\s*\(?\s*'((?:[^'\\]|\\.)*)'")
@@ -95,13 +98,13 @@ def cevir(s, dil, C):
     fx_yeni = ("(function(v){return v.toLocaleString('%s',{minimumFractionDigits:v<100?2:0,maximumFractionDigits:v<100?2:0})})" % YEREL[dil])
     s = s.replace(fx_eski, "'≈ €'+%s(t/FX.EUR)+' · $'+%s(t/FX.USD)" % (fx_yeni, fx_yeni))
     s = s.replace('"inLanguage": "en"', '"inLanguage": "%s"' % dil)
-    s = re.sub(r'<meta property="og:locale" content="[^"]*">', '<meta property="og:locale" content="%s">' % dil, s)
+    s = re.sub(r'<meta property="og:locale" content="[^"]*">', '<meta property="og:locale" content="%s">' % OG[dil], s)
     if yon == 'rtl':
         s = s.replace('</head>', RTL_CSS + '</head>', 1)
     return s
 
 
-RTL_CSS = ('<style>html[dir=rtl] body{font-family:"Noto Naskh Arabic","Segoe UI",Tahoma,Arial,sans-serif}'
+RTL_CSS = ('<style>html[dir=rtl] body{font-family:"Noto Naskh Arabic","Vazirmatn","Segoe UI",Tahoma,Arial,sans-serif}'
            'html[dir=rtl] input[type=number],html[dir=rtl] input[type=tel],html[dir=rtl] input[type=email],html[dir=rtl] [dir=ltr]{direction:ltr;text-align:right}'
            'html[dir=rtl] body>a[href="#icerik"]:not(:focus){left:auto!important;right:-9999px}'
            'html[dir=rtl] .mTotal,html[dir=rtl] .mFx,html[dir=rtl] a[href^="tel:"]{direction:ltr;unicode-bidi:isolate;display:inline-block}</style>')
@@ -142,8 +145,10 @@ def uret(dist, kok='ceviri'):
 
 # ---------- dil seçici, hreflang, site haritası (bütün dillerdeki sayfalar derlendikten sonra) ----------
 TUM = ['tr', 'en'] + list(DILLER)
-KISA = {'tr': 'TR', 'en': 'EN', 'ar': 'AR', 'ru': 'RU', 'fr': 'FR', 'de': 'DE', 'ur': 'UR'}
-SECICI_CSS = ('<style>.dilsec{position:relative;display:inline-block;overflow:visible!important}.dilsec>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px}'
+KISA = dict({'tr': 'TR', 'en': 'EN'}, **{k: k.upper() for k in DILLER})
+SECICI_CSS = ('<style>.dilsec{position:relative;display:inline-block;overflow:visible!important;border:0!important;padding:0!important;margin:0!important;background:none!important}'
+              '.dilsec .kod{display:none}@media (max-width:760px){.dilsec .ad{display:none}.dilsec .kod{display:inline}}'
+              '.dilsec>summary svg{flex:none}.dilsec>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px}'
               '.dilsec>summary::-webkit-details-marker{display:none}.dilsec>summary::after{content:"▾";font-size:11px}'
               '.dilsec>div{position:absolute;top:calc(100% + 8px);inset-inline-end:0;background:#fff;border:1px solid #E4E4E0;border-radius:8px;padding:6px;z-index:120;'
               'display:grid;min-width:150px;box-shadow:0 8px 24px rgba(0,0,0,.08)}.dilsec>div a{padding:8px 10px;border-radius:6px;text-decoration:none;color:#0B0B0B;white-space:nowrap}'
@@ -169,7 +174,9 @@ def _karsiliklar(dist):
 
 def _secici(g, aktif):
     linkler = ''.join('<a href="%s" hreflang="%s" lang="%s"%s>%s</a>' % (g[d], d, d, ' aria-current="true"' if d == aktif else '', ADLAR[d]) for d in TUM if d in g)
-    return '<details class="dilsec"><summary aria-label="Language">%s</summary><div>%s</div></details>' % (KISA[aktif], linkler)
+    return ('<details class="dilsec"><summary aria-label="Dil / Language"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">'
+            '<circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5z"/></svg>'
+            '<span class="ad">%s</span><span class="kod">%s</span></summary><div>%s</div></details>') % (ADLAR[aktif], KISA[aktif], linkler)
 
 
 def baglantilar(dist):
@@ -225,3 +232,53 @@ def site_haritasi(dist, gruplar):
                 yeni.append('<url>%s%s</url>' % (loc, a))
     s = s.replace('</urlset>', '\n'.join(yeni) + '\n</urlset>')
     open(p, 'w', encoding='utf-8').write(s)
+
+
+# ---------- her dilde güven satırı: Kadıköy adresi, orijinal mürekkep, WhatsApp ----------
+ADRES = 'Fikirtepe Mah. Dispanser Sok. No:50/A-B, Kadıköy / İstanbul'
+WA = '+90 532 523 73 64'
+GUVEN = {
+    'en': ('Our print workshop in Kadıköy, Istanbul', 'Original Mimaki ink, GREENGUARD Gold certified', 'Message us on WhatsApp'),
+    'ru': ('Наша типография в Кадыкёе, Стамбул', 'Оригинальные чернила Mimaki с сертификатом GREENGUARD Gold', 'Пишите нам в WhatsApp'),
+    'ar': ('مطبعتنا في قاضي كوي، إسطنبول', 'حبر Mimaki أصلي حاصل على شهادة GREENGUARD Gold', 'راسلنا على واتساب'),
+    'de': ('Unsere Druckwerkstatt in Kadıköy, Istanbul', 'Original-Mimaki-Tinte mit GREENGUARD-Gold-Zertifikat', 'Schreiben Sie uns auf WhatsApp'),
+    'fr': ('Notre atelier d’impression à Kadıköy, Istanbul', 'Encre Mimaki d’origine certifiée GREENGUARD Gold', 'Écrivez-nous sur WhatsApp'),
+    'es': ('Nuestro taller de impresión en Kadıköy, Estambul', 'Tinta original Mimaki con certificado GREENGUARD Gold', 'Escríbanos por WhatsApp'),
+    'it': ('Il nostro laboratorio di stampa a Kadıköy, Istanbul', 'Inchiostro originale Mimaki con certificazione GREENGUARD Gold', 'Scriveteci su WhatsApp'),
+    'ur': ('قاضی کوئے، استنبول میں ہماری پرنٹنگ ورکشاپ', 'GREENGUARD Gold سرٹیفائیڈ اصل Mimaki سیاہی', 'ہمیں واٹس ایپ پر لکھیں'),
+    'fa': ('کارگاه چاپ ما در قاضی‌کوی، استانبول', 'جوهر اصل Mimaki با گواهی GREENGUARD Gold', 'در واتس‌اپ به ما پیام دهید'),
+}
+GUVEN_CSS = ('<style>.guven{background:#F4F4F1;border-bottom:1px solid #E4E4E0;font-size:13.5px;line-height:1.5;color:#3d3b38}'
+             '.guven .wrap{display:flex;flex-wrap:wrap;gap:4px 18px;padding-top:8px;padding-bottom:8px}.guven a{color:#0B0B0B;font-weight:600}'
+             '@media (min-width:761px){.guven bdi{white-space:nowrap}}</style>')
+
+
+def guven_ekle(dist):
+    for dil, (atolye, murekkep, yaz) in GUVEN.items():
+        for f in glob.glob('%s/%s/**/index.html' % (dist, dil), recursive=True):
+            s = open(f, encoding='utf-8').read()
+            if 'class="guven"' in s or '<main id="icerik">' not in s:
+                continue
+            serit = ('<div class="guven"><div class="wrap"><span>%s: <bdi dir="ltr">%s</bdi></span><span>%s</span>'
+                     '<span>%s: <a href="https://wa.me/905325237364" dir="ltr">%s</a></span></div></div>') % (atolye, ADRES, murekkep, yaz, WA)
+            s = s.replace('<main id="icerik">', '<main id="icerik">' + serit, 1).replace('</head>', GUVEN_CSS + '</head>', 1)
+            open(f, 'w', encoding='utf-8').write(s)
+
+
+# ---------- işletme yapısal verisi: hizmet bölgesi dünya geneli, 10 hizmet dili ----------
+DIL_ADLARI_EN = {'tr': 'Turkish', 'en': 'English', 'ru': 'Russian', 'ar': 'Arabic', 'de': 'German', 'fr': 'French',
+                 'es': 'Spanish', 'it': 'Italian', 'ur': 'Urdu', 'fa': 'Persian'}
+
+
+def isletme_sema(dist):
+    diller_ = [DIL_ADLARI_EN[d] for d in TUM]
+    ek = ('"areaServed":{"@type":"Place","name":"Worldwide"},"knowsLanguage":%s,'
+          '"contactPoint":{"@type":"ContactPoint","telephone":"+90 532 523 73 64","contactType":"customer service",'
+          '"areaServed":"Worldwide","availableLanguage":%s},') % (json.dumps(TUM), json.dumps(diller_))
+    for f in glob.glob('%s/**/*.html' % dist, recursive=True):
+        s = open(f, encoding='utf-8').read()
+        if '"@type":"LocalBusiness","@id"' not in s or '"knowsLanguage"' in s:
+            continue
+        s = s.replace('"@type":"LocalBusiness","@id":"https://www.istanbulprintlab.com/#isletme",',
+                      '"@type":"LocalBusiness","@id":"https://www.istanbulprintlab.com/#isletme",' + ek, 1)
+        open(f, 'w', encoding='utf-8').write(s)

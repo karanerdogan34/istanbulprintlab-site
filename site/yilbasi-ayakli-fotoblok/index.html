@@ -429,7 +429,7 @@ main{counter-reset:sec}
 </div>
 </section>
 <section class="wrap" id="avm-form" style="padding-bottom:40px;max-width:1000px">
-<div class="shead"><div><span class="eyebrow">AVM ve zincir mağazalar</span><h2 class="h2" style="margin-top:12px">Yılbaşı sipariş formu</h2></div><p class="lead">Mağaza ve figür bilgilerini bir kerede yazın; numaralı teklifinizi aynı gün gönderelim.</p></div>
+<div class="shead"><div><span class="eyebrow">AVM ve zincir mağazalar</span><h2 class="h2" style="margin-top:12px">Yılbaşı sipariş formu</h2></div><p class="lead">Mağaza ve figür bilgilerini bir kerede yazın; numaralı teklifinizi 1–2 iş günü içinde gönderelim.</p></div>
 <form name="yilbasi-avm" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="fgrid" id="avmForm" style="background:#fff;padding:32px;border-radius:6px;border:1px solid var(--line)"><input type="hidden" name="form-name" value="yilbasi-avm"><p hidden><label>Boş bırakın <input name="bot-field"></label></p>
 <label class="f">Firma / marka adı<input name="firma_marka" class="inp" required autocomplete="organization"></label>
 <label class="f">AVM ve mağaza<input name="avm_magaza" class="inp" placeholder="ör. Akasya AVM, zemin kat"></label>
@@ -768,7 +768,7 @@ function send(form,okMsg,before){if(!form||!form.nodeType)return;var EN=!!form.c
     .then(function(){if(btn)btn.disabled=false})});
 }
 send($('#quoteForm'),'Talebiniz bize ulaştı. En kısa sürede dönüş yapacağız; acele işler için +90 532 523 73 64.');
-send($('#avmForm'),'Yılbaşı talebiniz bize ulaştı. Numaralı teklifinizi aynı gün gönderiyoruz; acele işler için +90 532 523 73 64.');
+send($('#avmForm'),'Yılbaşı talebiniz bize ulaştı. Numaralı teklifinizi 1–2 iş günü içinde gönderiyoruz; acele işler için +90 532 523 73 64.');
 (function(){var q=document.getElementById('qP');if(!q)return;var p=location.pathname,m=[[/sticker|etiket/,'Sticker / etiket'],[/cam-filmi|one-way/,'Ofis cam filmi / kumlama'],[/folyo/,'Folyo / cam yazısı'],[/branda|afis|mesh/,'Afiş / branda'],[/poster/,'Poster / çerçeve'],[/fotoblok|dekupe|foreks/,'Fotoblok / dekupe figür'],[/roll-up/,'Roll-up / foreks'],[/duvar-kagidi/,'Duvar kağıdı'],[/takvim/,'2027 ajanda takvim']];for(var i=0;i<m.length;i++){if(m[i][0].test(p)){q.value=m[i][1];break}}})();
 send($('#numuneForm'),'Numune talebiniz bize ulaştı. İçerik ve koşulları size bildireceğiz.');
 send($('#b2bForm'),'Başvurunuz bize ulaştı. Çalışma koşullarını size bildireceğiz.');

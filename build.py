@@ -594,7 +594,8 @@ def llms_txt():
         '',
         "> İstanbul Kadıköy'de dijital baskı atölyesi. Sticker, etiket, folyo, branda, afiş, poster, foreks, fotoblok, one way vision, duvar kağıdı, kartvizit, davetiye ve DTF baskı yapar. Müşteri sitede ürünü seçer, ölçüsünü yazar, dosyasını yükler; fiyatı anında görür ve kartla öder.",
         '',
-        "IstanbulPrintLab is a digital print workshop in Kadıköy, Istanbul, Türkiye. Customers get an instant price on the website and pay online; orders ship across Türkiye and worldwide.",
+        "- Kadıköy, İstanbul'da baskı merkezi. 10 dilde hizmet: Türkçe, İngilizce, Rusça, Arapça, Almanca, Fransızca, İspanyolca, İtalyanca, Urduca, Farsça.",
+        '- Türkiye geneline kargo ve dünya geneline gönderim. Siparişler Kadıköy\'deki atölyeden teslim de alınabilir.',
         '',
         '## Nasıl sipariş verilir',
         '- Ürünü seçin, ölçüyü yazın, baskı dosyasını yükleyin. Fiyat anında ekranda görünür.',
@@ -621,6 +622,32 @@ def llms_txt():
         '- Çalışma saatleri: Pazartesi–Cumartesi 09:00–19:00',
         '- Instagram: https://www.instagram.com/istanbulprintlab',
         '- Site: %s/' % taban,
+        '',
+        '---',
+        '',
+        '# IstanbulPrintLab (English)',
+        '',
+        "> A print shop in Kadıköy, Istanbul, Türkiye. We print stickers, labels, printed vinyl, PVC banners, mesh banners, posters, foam boards, rigid display boards, one way vision window film, wallpaper, business cards, invitations and DTF transfers in our own workshop.",
+        '',
+        '- Service in 10 languages: Turkish, English, Russian, Arabic, German, French, Spanish, Italian, Urdu and Persian. Each language has its own pages: %s/en/, /ru/, /ar/, /de/, /fr/, /es/, /it/, /ur/, /fa/.' % taban,
+        '- We ship across Türkiye and worldwide. Orders can also be picked up at our workshop in Kadıköy.',
+        '- Standard print jobs ship 1–2 business days after the file and payment are approved. Delivery time abroad depends on the country and the carrier.',
+        '',
+        '## How to order',
+        '- Choose a product, type your size and upload your print file. The price appears right away.',
+        '- The site checks whether the file is good enough to print. If it is not, upload a new file or ask us on WhatsApp.',
+        '',
+        '## How prices work',
+        '- Turkish prices on the Turkish pages are shown without VAT (KDV); VAT is added at checkout. Minimum order: %s + VAT.' % tl(G['asgari_baski']),
+        '- Orders shipped outside Türkiye: prices are 20% above the Turkish price without VAT, shown in euros and US dollars at the daily rate of the Central Bank of the Republic of Türkiye (TCMB). VAT is added only if it applies.',
+        '- International shipping is paid by the buyer. We find the cheapest suitable carrier and tell you the shipping cost before you pay.',
+        '- We print with original Mimaki ink certified GREENGUARD Gold.',
+        '',
+        '## Contact',
+        '- Workshop: Fikirtepe Mah. Dispanser Sok. No:50/A-B, Kadıköy / Istanbul, Türkiye',
+        '- Phone and WhatsApp: +90 532 523 73 64',
+        '- Email: info@istanbulprintlab.com',
+        '- Opening hours: Monday–Saturday 09:00–19:00 (GMT+3)',
         '',
     ])
     yaz('%s/llms.txt' % DIST, metin)
@@ -779,6 +806,8 @@ def main():
     sss_ekle()
     llms_txt()
     diller.site_haritasi(DIST, diller.baglantilar(DIST))
+    diller.guven_ekle(DIST)
+    diller.isletme_sema(DIST)
     eksik = ic_baglanti_kontrol()
     if eksik:
         raise S.IcerikHatasi('Sitede kırık iç bağlantı var: %s' % ', '.join(sorted(eksik)[:10]))
@@ -840,7 +869,7 @@ import cerez_onay  # noqa: E402
 CEREZ = dict(
     bant=False,  # True yapılırsa sağ alttaki çerez onay bandı geri gelir
     anahtar='ipl_cerez', posthog='phc_sXf3DbVV3R6LBHcQTHi7T4boryXwiLoVidPvEoB3XPY7',  # herkese açık proje anahtarı
-    diller=['tr', 'en'], yedek='tr', politika={'tr': '/cerez-politikasi/', 'en': '/en/privacy/', 'ar': '/ar/privacy/', 'ru': '/ru/privacy/', 'fr': '/fr/privacy/', 'de': '/de/privacy/', 'ur': '/ur/privacy/'},
+    diller=['tr', 'en'], yedek='tr', politika={'tr': '/cerez-politikasi/', 'en': '/en/privacy/', 'ar': '/ar/privacy/', 'ru': '/ru/privacy/', 'fr': '/fr/privacy/', 'de': '/de/privacy/', 'ur': '/ur/privacy/', 'es': '/es/privacy/', 'it': '/it/privacy/', 'fa': '/fa/privacy/'},
     renk=dict(zemin='#FFFFFF', yazi='#0B0B0B', cizgi='#E4E4E0', vurgu='#0B0B0B', vurgu_yazi='#FFFFFF'))
 ESKI_IZIN = "gtag('consent','default',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});"
 

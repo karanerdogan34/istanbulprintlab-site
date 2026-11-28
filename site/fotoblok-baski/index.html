@@ -612,7 +612,7 @@ function send(form,okMsg,before){if(!form||!form.nodeType)return;var EN=!!form.c
     .then(function(){if(btn)btn.disabled=false})});
 }
 send($('#quoteForm'),'Talebiniz bize ulaştı. En kısa sürede dönüş yapacağız; acele işler için +90 532 523 73 64.');
-send($('#avmForm'),'Yılbaşı talebiniz bize ulaştı. Numaralı teklifinizi aynı gün gönderiyoruz; acele işler için +90 532 523 73 64.');
+send($('#avmForm'),'Yılbaşı talebiniz bize ulaştı. Numaralı teklifinizi 1–2 iş günü içinde gönderiyoruz; acele işler için +90 532 523 73 64.');
 (function(){var q=document.getElementById('qP');if(!q)return;var p=location.pathname,m=[[/sticker|etiket/,'Sticker / etiket'],[/cam-filmi|one-way/,'Ofis cam filmi / kumlama'],[/folyo/,'Folyo / cam yazısı'],[/branda|afis|mesh/,'Afiş / branda'],[/poster/,'Poster / çerçeve'],[/fotoblok|dekupe|foreks/,'Fotoblok / dekupe figür'],[/roll-up/,'Roll-up / foreks'],[/duvar-kagidi/,'Duvar kağıdı'],[/takvim/,'2027 ajanda takvim']];for(var i=0;i<m.length;i++){if(m[i][0].test(p)){q.value=m[i][1];break}}})();
 send($('#numuneForm'),'Numune talebiniz bize ulaştı. İçerik ve koşulları size bildireceğiz.');
 send($('#b2bForm'),'Başvurunuz bize ulaştı. Çalışma koşullarını size bildireceğiz.');

@@ -426,7 +426,7 @@ main{counter-reset:sec}
 <tr><th scope="row">Christmas</th><td>Last order date for Christmas delivery: <b>15 December</b></td></tr>
 </tbody></table>
 <div class="row"><a class="btn" href="https://wa.me/905325237364?text=Hello%2C%20I%20would%20like%20a%20quote%20for%20die-cut%20standing%20figures." style="flex:1">Get a price on WhatsApp</a><a class="btn ghost" href="/en/#en-quote">Quote form</a></div>
-<p class="note">Send us your design, size and quantity — we reply in English with a numbered quote the same day.</p>
+<p class="note">Send us your design, size and quantity — we reply in English with a numbered quote within 1–2 business days.</p>
 </div>
 </section>
 </div>
@@ -717,7 +717,7 @@ function send(form,okMsg,before){if(!form||!form.nodeType)return;var EN=!!form.c
     .then(function(){if(btn)btn.disabled=false})});
 }
 send($('#quoteForm'),'Talebiniz bize ulaştı. En kısa sürede dönüş yapacağız; acele işler için +90 532 523 73 64.');
-send($('#avmForm'),'Yılbaşı talebiniz bize ulaştı. Numaralı teklifinizi aynı gün gönderiyoruz; acele işler için +90 532 523 73 64.');
+send($('#avmForm'),'Yılbaşı talebiniz bize ulaştı. Numaralı teklifinizi 1–2 iş günü içinde gönderiyoruz; acele işler için +90 532 523 73 64.');
 (function(){var q=document.getElementById('qP');if(!q)return;var p=location.pathname,m=[[/sticker|etiket/,'Sticker / etiket'],[/cam-filmi|one-way/,'Ofis cam filmi / kumlama'],[/folyo/,'Folyo / cam yazısı'],[/branda|afis|mesh/,'Afiş / branda'],[/poster/,'Poster / çerçeve'],[/fotoblok|dekupe|foreks/,'Fotoblok / dekupe figür'],[/roll-up/,'Roll-up / foreks'],[/duvar-kagidi/,'Duvar kağıdı'],[/takvim/,'2027 ajanda takvim']];for(var i=0;i<m.length;i++){if(m[i][0].test(p)){q.value=m[i][1];break}}})();
 send($('#numuneForm'),'Numune talebiniz bize ulaştı. İçerik ve koşulları size bildireceğiz.');
 send($('#b2bForm'),'Başvurunuz bize ulaştı. Çalışma koşullarını size bildireceğiz.');
