@@ -1,0 +1,764 @@
+0	Aufkleber, Etiketten und Schnelldruck in Istanbul | IstanbulPrintLab
+1	Schnelldruck in Istanbul: Aufkleber, Etiketten, Fotoblöcke, Banner und Plakate aus unserer Werkstatt in Kadıköy. Standardaufträge in 1–2 Werktagen fertig. Preis online berechnen.
+2	Digitaldruck mit Mimaki in der IstanbulPrintLab-Werkstatt in Kadıköy
+3	Wie bestelle ich?
+4	Wann ist meine Bestellung fertig?
+5	Standard-Druckaufträge sind 1–2 Werktage nach Freigabe der Datei und Zahlungseingang fertig. Bei großen Mengen, Montage oder Sonderaufträgen steht die Zeit im Angebot.
+6	Ist der Preis im Rechner endgültig?
+7	Wie kann ich bezahlen?
+8	Sie können mit Karte (über PayTR) oder per Überweisung bezahlen. Druckfertige Bestellungen bezahlen Sie direkt beim Bestellen auf der Website. Da jeder Auftrag individuell gefertigt wird, gibt es keine Zahlung bei Lieferung.
+9	Welche Dateiformate akzeptieren Sie?
+10	Am liebsten PDF, AI, EPS und SVG. Texte in Pfade umwandeln, die Schneidelinie auf eine eigene Ebene. PNG, JPG und TIFF mit mindestens 150 dpi in Originalgröße. Beim Hochladen auf der Produktseite prüfen wir das automatisch.
+11	Wie lange halten Aufkleber und Drucke im Freien?
+12	Aufkleber und Folien auf Außenfolie behalten viele Jahre ihre Farbe. Wir drucken mit Tinte, die Sonne, Regen und Wetter standhält.
+13	Was passiert, wenn der Druck einen Fehler hat?
+14	Ich habe Sie über Google gefunden.
+15	Zum Inhalt springen
+16	Gefertigt in unserer Werkstatt in Kadıköy · Standardaufträge 1–2 Werktage nach Datei- und Zahlungsfreigabe
+17	Bestellstatus
+18	Leistungen
+19	Preis
+20	Weihnachten
+21	Glasfolie
+22	Angebot
+23	Datei-Ratgeber
+24	Bestellstatus
+25	Kontakt und Angebot
+26	Sprache
+27	IstanbulPrintLab Startseite
+28	Hauptmenü
+29	Menü öffnen
+30	Mobiles Menü
+31	Schneller Digitaldruck in Istanbul
+32	Produkt wählen, Preis sofort sehen,
+33	online bestellen.
+34	1 Wählen
+35	2 Größe
+36	3 Bezahlen
+37	Originaltinte mit GREENGUARD-Gold-Zertifikat · Gefertigt in Kadıköy · Sofortpreis · Dateiprüfung vor dem Druck
+38	Bestellen in drei Schritten
+39	Produkte: Preis berechnen und bestellen
+40	Selbstklebende Folie
+41	/ m²
+42	PVC-Banner
+43	Aufkleber / Etiketten
+44	One-Way-Vision-Folie
+45	Folienschriften (Plotterschnitt)
+46	/ m²
+47	PVC-Hartschaumplatte (Forex)
+48	Nur Istanbul · Abholung in der Werkstatt oder Lieferung per Transporter
+49	Fotoblock (Schaumplatte)
+50	Bannerschild
+51	ab
+52	Poster
+53	Mesh-Banner
+54	/ Meter
+55	DTF-Transfer
+56	/ Bogen
+57	Fototapete
+58	Bedruckte Folie auf einem Boutique-Schaufenster
+59	Bedrucktes Banner um eine Baustelle
+60	Konturgeschnittener Aufkleber auf einem Laptop
+61	Gelochte One-Way-Vision-Folie an einem Bürofenster
+62	Weiße Folienschrift und Öffnungszeiten am Café-Schaufenster
+63	PVC-Platten mit Abstandshaltern an einer Bürowand
+64	Konturgeschnittene Fotoblock-Figur in einem Einkaufszentrum
+65	Banner „VON PRIVAT ZU VERKAUFEN“, an vier Ecken an einem Balkon befestigt
+66	Ein Stapel dicker Visitenkarten in der Hand
+67	Poster ohne Rahmen an einer Wohnzimmerwand
+68	Gelochtes Mesh-Banner an einer Gebäudefassade
+69	UV-DTF auf einer Tasse, die Trägerfolie wird abgezogen
+70	DTF-Transfer, mit dem Bügeleisen auf ein T-Shirt gebracht
+71	Fototapete an der Wand eines Kinderzimmers
+72	Hochzeitseinladung mit Umschlag und Wachssiegel
+73	Preise für Lieferung ins Ausland, ohne MwSt. · Mindestbestellwert 1.198,80 ₺ · Produkt antippen, Größe eingeben, Preis sofort sehen.
+74	Unsicher? Fragen Sie uns per WhatsApp
+75	Fester Preis – jetzt bestellen
+76	Beliebte Produkte
+77	Saisonprodukt
+78	Jahresplaner-Poster 2027
+79	70×100 cm · 12 Farben · mit Rahmen 61×91 cm
+80	Poster 1.198,80 ₺ · mit Rahmen 3.999 ₺ (Preise für Lieferung ins Ausland)
+81	Ansehen und bestellen
+82	Fertigprodukt
+83	Roll-up-Banner
+84	85×200 cm · Druck auf 400 g europäischem Banner, mit Mechanik und Tragetasche
+85	4.798,80 ₺ (Preis für Lieferung ins Ausland)
+86	Bestellanfrage senden
+87	Jahresplaner 2027 mit Rahmen
+88	Roll-up-Banner 85×200 cm
+89	Liefer- und Versandbedingungen
+90	Weihnachten · Einkaufszentren und Geschäfte
+91	Weihnachtliche Fotoblock-Aufsteller und Konturfiguren
+92	Letzter Bestelltag: 15. Dezember
+93	– für Lieferung vor Neujahr
+94	Konturfigur
+95	Preise ab 999 ₺
+96	In Istanbuler Einkaufszentren nach Ladenschluss:
+97	Nachtmontage
+98	Serienfertigung desselben Designs für Filialketten, Lieferung an jede Filiale
+99	Bestellformular für Einkaufszentren
+100	Preis per WhatsApp
+101	Büros · Bürotürme · Balkone und Fenster
+102	Glasfolie für Büros und Milchglasfolie
+103	Vollflächig matt
+104	Mattierter Streifen
+105	Ausgeschnittenes Logo
+106	Druck auf Ultra-Clear
+107	Glas ohne Folie
+108	Vollflächig matt: Das Glas wirkt mattiert, lässt Licht durch, aber man kann nicht hineinsehen.
+109	Seite zur Glasfolie
+110	Maße per WhatsApp senden
+111	Unsere Projekte und Referenzen
+112	Arbeiten, die wir vermessen, gefertigt und vor Ort montiert haben: Schaufenster, Glasbeschriftung, Bauzaunbanner, Schilder und mehr. Diese Arbeiten werden nach Größe per Angebot berechnet.
+113	Fotoblock-Aufsteller mit Weihnachtsgruß in einem Einkaufszentrum
+114	Folienart
+115	Beispiel einer Glasfolie an einer Glastrennwand
+116	Auf Anfrage
+117	Glasfolie und Mattierung
+118	Sichtschutz und professioneller Auftritt für Bürotrennwände, Schaufenster und Fenster.
+119	Folierung
+120	Bedruckte oder farbige Folie für Wände, Türen, Möbel und Schaufenster.
+121	Glasbeschriftung
+122	Schaufenstergestaltung
+123	Weihnachts- und Festdekoration
+124	Messeprojekte
+125	Standplatten, Fotoblöcke, Roll-ups, Banner und Leitsysteme.
+126	Bauzaungestaltung
+127	Banner, Mesh und Folie mit Projektbildern für Bauzäune.
+128	Messingschilder
+129	Tür- und Namensschilder für Büros, Praxen und Boutiquen.
+130	Leitsysteme
+131	Fertige Aufsteller
+132	Begrüßungstafeln für Ladeneingänge, Hotellobbys und Veranstaltungen.
+133	Konturgeschnittene Figuren in Form von Figuren, Maskottchen und Produkten.
+134	Reklamİstanbul →
+135	Große Fassaden- und Schilderprojekte
+136	Für Fassadenverkleidung, Leuchtreklame und Großprojekte: Reklamİstanbul.
+137	Milchglasfolie und Logo an einem Schaufenster
+138	Folierung von Schließfächern
+139	Folienschrift und Zeichnungen an einem Schaufenster
+140	Gestaltetes Schaufenster in einem Einkaufszentrum
+141	Weihnachtlicher Fotoblock-Aufsteller im Einkaufszentrum
+142	Beleuchtetes Produktdisplay für Milka
+143	Bauzaungestaltung für Birgen İnşaat
+144	Wegweiser „Meeting Room“ mit Messingrahmen
+145	Wegweiser aus Edelstahlbuchstaben an einer Marmorwand
+146	Beleuchteter Aufsteller in einem Geschäft
+147	Acrylfigur nach Maß für Hugo Boss
+148	Große beleuchtete Birgen-Buchstaben aus unserer Werkstatt
+149	Alle Projekte ansehen
+150	Fotogalerie →
+151	Ihr Auftrag ist nicht dabei? Erzählen Sie uns von Ihrem Projekt →
+152	Einige unserer Referenzen
+153	Häufige Fragen
+154	Unsere Werkstatt und Branchen →
+155	Lassen Sie uns Ihr Projekt gemeinsam umsetzen.
+156	Leer lassen
+157	1 · Ihr Auftrag
+158	2 · Kontakt
+159	Glasfolie / Mattierung
+160	Folie / Glasbeschriftung
+161	Bannerschild / Banner
+162	Poster / Rahmen
+163	Fotoblock / Konturfigur
+164	Roll-up / PVC-Platte
+165	Jahresplaner 2027
+166	Größe und Menge
+167	Ihr Projekt in Kürze
+168	(optional)
+169	Vor- und Nachname
+170	(für das Angebot)
+171	Angebot anfragen
+172	Kadıköy / Istanbul
+173	Mo–Sa 09:00–19:00
+174	Aufkleber und Etiketten
+175	Logo-Aufkleber
+176	Transparente Aufkleber
+177	Rollenetiketten
+178	Weihnachtliche Fotoblock-Aufsteller
+179	Kinderzimmer-Tapete
+180	Druck für Schulen
+181	Glasfolie und Mattierung für Büros
+182	Folienschnitt und Glasbeschriftung
+183	Banner und Mesh
+184	Poster und Rahmen
+185	Roll-up-Druck
+186	Preisrechner
+187	Materialfinder
+188	Schneidevorlage
+189	Ratgeber Druckdaten
+190	Ratgeber Glasfolie
+191	Geschäftskunden
+192	Alle Ratgeber
+193	Unsere Einsatzgebiete in Istanbul
+194	Datenschutz (KVKK)
+195	Cookie-Richtlinie
+196	Vorabinformation
+197	Fernabsatzvertrag
+198	Rückgabe und Umtausch
+199	Lieferung und Versand
+200	Preis berechnen
+201	z. B. 5×5 cm, 500 Stück
+202	Schneller Kontakt
+203	Anrufen
+204	Per WhatsApp schreiben
+205	IstanbulPrintLab — Digitaldruck, Aufkleber und Etiketten in Istanbul
+206	Aufkleber und Etiketten — Preis berechnen | IstanbulPrintLab
+207	Bannerdruck — Preis berechnen | IstanbulPrintLab
+208	Mesh-Banner — Preis berechnen | IstanbulPrintLab
+209	One-Way-Vision-Folie — Preis berechnen | IstanbulPrintLab
+210	Bedruckte Folie — Preis berechnen | IstanbulPrintLab
+211	Projekt Antre Gourmet | IstanbulPrintLab
+212	Sendungsverfolgung | IstanbulPrintLab
+213	Geschäftskonto | IstanbulPrintLab
+214	Glasfolie und Milchglasfolie für Büros — Istanbul | IstanbulPrintLab
+215	Video anhalten
+216	Video abspielen
+217	Bedruckte Aufkleber / Etiketten
+218	Bedruckte Folie mit Konturschnitt für Produkt- und Verpackungsetiketten. Transparente Folie für transparente Verpackungen, weiße Folie für Papier- und Kartonschachteln.
+219	Preis berechnen
+220	Milchglasfolie oder Folienschrift
+221	Glasfolien-Optionen ansehen
+222	One Way Vision (gelochte Fensterfolie)
+223	Von außen ist das ganze Motiv zu sehen, von innen sieht man weiter hinaus. Für Kampagnen auf Schaufenstern und Autoscheiben.
+224	Poster, PVC-Platte oder Wandfolie
+225	Angebot anfragen
+226	Bannerschild-Druck
+227	Günstiges, robustes Banner für Aktionen und Ankündigungen. Mit Saum und Ösen zum Aufhängen.
+228	Mesh-Banner oder Außenfolie
+229	Roll-up und PVC-Platte
+230	Robuste Außenfolie wird gewählt.
+231	mm (+3 mm Beschnitt)
+232	SVG-Code kopiert. Fügen Sie ihn in Illustrator in ein neues Dokument ein.
+233	Ihr Browser unterstützt das Kopieren nicht.
+234	passt nicht (152 cm
+235	Breite, Höhe und Menge eingeben.
+236	Ein Teil kann höchstens 152 cm breit sein. Für größere Aufträge fragen Sie ein Angebot an.
+237	Stk./Reihe ·
+238	· gedreht
+239	+ MwSt.
+240	₺ + MwSt.
+241	Kostenlos (ab 6.000 ₺ inkl. MwSt.)
+242	200 ₺ (inkl. MwSt.) · Abholung in der Werkstatt möglich
+243	Mindestbestellwert 999 ₺ + MwSt. angewendet.
+244	Bei diesem Auftrag wird der Endpreis nach der Dateiprüfung per Angebot festgelegt (Schnittdetails unter 4 cm, Konturschnitt oder mehr als 250 Stück).
+245	Hallo, ich möchte ein Angebot für Aufkleberdruck:
+246	cm,
+247	Stk.,
+248	, Laminierung:
+249	Schnitt. Geschätzter Preis:
+250	Konturschnitt
+251	Quadrat/Rechteck
+252	Kreis/Oval/Ellipse
+253	Ihr Design
+254	cm ·
+255	cm angezeigt →
+256	Rollenlänge ≈
+257	Druckfertig
+258	Prüfung nötig
+259	Korrektur nötig
+260	OK
+261	Dateiprüfung:
+262	Dieser Dateityp wird nicht akzeptiert. Laden Sie PDF, AI, EPS, SVG, PNG, JPG oder TIFF hoch.
+263	Dateityp in Ordnung (
+264	px → in Ihrer Größe etwa
+265	In Ihrer Größe etwa
+266	In Ihrer Größe nur
+267	Das Seitenverhältnis des Bildes (
+268	) weicht von Ihrer Größe ab (
+269	Das Seitenverhältnis passt zu Ihrer Größe
+270	Texte sind in Pfade umgewandelt
+271	Die Zeichnung hat etwa
+272	Anzahl der Vektorpunkte in Ordnung (
+273	Dokumentbreite (
+274	mm) passt zu Ihrer Größe
+275	Dokumentbreite
+276	mm. Wird beim Druck skaliert.
+277	Die Datei ist kein gültiges PDF.
+278	Schriftdefinitionen gefunden. Am sichersten ist es, Texte in Pfade umzuwandeln.
+279	Seitengröße
+280	mm. Wenn es ein einzelnes Design ist, prüfen Sie die Größe.
+281	CMYK-Farben gefunden
+282	Unser Team prüft, ob die Schneidelinie auf einer eigenen Ebene liegt.
+283	Bitte füllen Sie die Pflichtfelder aus.
+284	Senden fehlgeschlagen. Bitte
+285	schreiben Sie per WhatsApp
+286	oder rufen Sie +90 532 523 73 64 an.
+287	Ihre Musteranfrage ist bei uns eingegangen. Wir teilen Ihnen Inhalt und Bedingungen mit.
+288	Ihre Bewerbung ist bei uns eingegangen. Wir teilen Ihnen die Konditionen mit.
+289	Ihre Angebotsanfrage ist bei uns eingegangen. Nach der Dateiprüfung senden wir Ihnen den Endpreis und die Freigabedetails.
+290	Schnitt,
+291	, geschätzter Preis
+292	+ MwSt. (inkl. MwSt.
+293	inkl. MwSt. ·
+294	(mindestens 1 m²)
+295	Ihre Anfrage ist eingegangen. Wir erstellen Ihr Angebot nach den Maßen und rufen Sie an.
+296	· gesamt
+297	Ein Teil kann höchstens 152 cm breit sein.
+298	Ein Teil kann höchstens
+299	m²)
+300	Kein Paketversand · nur Istanbul: Abholung oder Lieferung per Transporter
+301	Hallo,
+302	– ich möchte ein Angebot:
+303	Produktdetails
+304	01 Wählen
+305	02 Größe
+306	03 Bezahlen
+307	Rechner wird geöffnet…
+308	Gesamt · inkl. MwSt.
+309	Zur Bestellung
+310	Preis berechnen und bestellen
+311	Weniger anzeigen
+312	Alle Projekte ansehen (
+313	Bedruckte Folie — Bestellung | IstanbulPrintLab
+314	Kadıköy, Istanbul
+315	Selbstklebende Folie
+316	Ohne Rahmen
+317	Eigene Größe eingeben
+318	Mit Rahmen
+319	5 Standardgrößen, 3 Farben
+320	Rahmenfarbe
+321	Rahmengröße (das Poster wird in dieser Größe gedruckt)
+322	Schnittform
+323	Breite (cm)
+324	Höhe (cm)
+325	Stück pro Teil
+326	Empfehlung übernehmen
+327	Druckdatei
+328	Datei auswählen oder hierher ziehen
+329	Ich hole in der Werkstatt ab
+330	Ich möchte eine Sonderlieferung
+331	Kosten werden separat mitgeteilt
+332	Wohin liefern?
+333	Versand ins Ausland
+334	Ohne MwSt. · in Euro und Dollar angezeigt · Versand separat
+335	Lieferung innerhalb der Türkei
+336	Preis in Lira + MwSt. · türkische Versandregeln gelten
+337	Bei Bestellungen ins Ausland bezahlen Sie auf der Website nur das Produkt. Den Versand organisieren wir: Wir suchen den günstigsten passenden Versanddienst und teilen Ihnen die Versandkosten separat mit.
+338	Ich habe die gewählten Maße, Texte, Bilder und das Layout geprüft und gebe sie frei. Mir ist bekannt, dass es zwischen Bildschirm und Druck kleine Farbunterschiede geben kann.
+339	Bestellübersicht
+340	Ihr Preis erscheint hier, sobald Sie die Größe eingeben.
+341	Bestellanfrage senden
+342	Sie können die Bestellanfrage senden, wenn Dateiprüfung und Freigabe erledigt sind.
+343	Design und Montage sind im Preis nicht enthalten. Innerhalb der Türkei: Versand 200 ₺ bei Bestellungen unter 6.000 ₺ (inkl. MwSt.), ab 6.000 ₺ kostenlos; bei Bestellungen über 16 m² werden die Versandkosten separat mitgeteilt. Sie können Ihre Bestellung auch in unserer Werkstatt in Kadıköy abholen.
+344	IstanbulPrintLab · Gefertigt in unserer Werkstatt in Kadıköy auf einer Mimaki CJV200 mit GREENGUARD-Gold-zertifizierten Original-Mimaki-CS250-Tinten.
+345	inkl. MwSt.
+346	Zur Übersicht ↓
+347	z. B. 120
+348	z. B. 80
+349	Wählen Sie eine Rahmengröße.
+350	Wählen Sie eine Rahmenfarbe.
+351	Geben Sie die Breite in Zentimetern ein (z. B. 120).
+352	Geben Sie die Höhe in Zentimetern ein (z. B. 80).
+353	Die Menge muss eine ganze Zahl ab 1 sein.
+354	Wählen Sie ein Material.
+355	Wählen Sie eine Laminierung.
+356	Diese Größe kann nicht in einem Stück gedruckt werden: Beide Seiten sind größer als
+357	cm. Eine Seite darf höchstens
+358	Die Anzahl der Ösen muss eine ganze Zahl ab 0 sein.
+359	Es müssen mindestens 4 Ösen sein (eine pro Ecke), oder geben Sie 0 ein.
+360	den Durchmesser
+361	die Seitenlänge
+362	die Breite
+363	in Zentimetern ein.
+364	Geben Sie die Höhe in Zentimetern ein.
+365	Für mehr Aufkleber schreiben Sie uns, wir machen Ihnen einen Sonderpreis.
+366	Geben Sie die Gesamtbreite des Textes in Zentimetern ein.
+367	Geben Sie die Gesamthöhe des Textes in Zentimetern ein.
+368	Geben Sie die Höhe des kleinsten Buchstabens in Zentimetern ein.
+369	Wählen Sie eine Farbe.
+370	Die Buchstabenhöhe darf nicht größer sein als die Gesamthöhe des Textes.
+371	Farben, die nicht in der Liste stehen, werden je nach Lager berechnet. Schreiben Sie uns die gewünschte Farbe, wir nennen Ihnen den Preis.
+372	Meter können gedruckt werden. Für längere Aufträge schreiben Sie uns, wir machen Ihnen einen Sonderpreis.
+373	Wählen Sie eine Menge.
+374	Die Anzahl verschiedener Namen/Designs muss mindestens 1 sein.
+375	Geben Sie die Breite des Designs in Zentimetern ein.
+376	Geben Sie die Höhe des Designs in Zentimetern ein.
+377	Beim DTF-Transfer darf ein Teil höchstens
+378	cm groß sein. Für größere Designs schreiben Sie uns, wir machen Ihnen einen Sonderpreis.
+379	UV-DTF höchstens
+380	cm oder kürzer sein. Für größere Aufträge schreiben Sie uns, wir machen Ihnen einen Sonderpreis.
+381	Diese Bestellung benötigt
+382	Meter Rolle. Auf einmal können höchstens
+383	Geben Sie die Wandbreite in Zentimetern ein (z. B. 320).
+384	Geben Sie die Wandhöhe in Zentimetern ein (z. B. 260).
+385	liegt außerhalb der Standardpreise. Senden Sie Wandmaß und Bild per WhatsApp, wir nennen Ihnen den Preis.
+386	Die Wandseiten dürfen höchstens
+387	Meter lang sein. Für größere Aufträge schreiben Sie uns, wir machen Ihnen einen Sonderpreis.
+388	Produkt nicht gefunden.
+389	Dieser Produkttyp ist noch nicht eingerichtet.
+390	Nicht enthalten · separat mitgeteilt
+391	Kein Paketversand · kostenlose Abholung in der Werkstatt oder Lieferung (Kosten vorab mitgeteilt)
+392	Kostenlos
+393	Wird separat mitgeteilt
+394	₺ (inkl. MwSt.)
+395	Zahlt der Empfänger
+396	Oracal weiß matt
+397	Oracal weiß glänzend
+398	Oracal transparent glänzend
+399	Originaltinte, zertifizierte Produktion
+400	Wir verwenden Originaltinte mit GREENGUARD-Gold-Zertifikat für geringe chemische Emissionen – geeignet selbst für Kinderzimmer.
+401	Hochwertiger Druck mit 8–10 Durchgängen
+402	Möchten Sie einen Schnittauftrag?
+403	Gold, Silber, Ultra-Clear
+404	Spezialfolien liegen außerhalb der Standardpreise. Senden Sie Größe und Datei per WhatsApp (+90 532 523 73 64), wir nennen Ihnen den Preis.
+405	Wie bereite ich meine Datei vor?
+406	Oracal-Folie
+407	Innen und außen
+408	Ohne MwSt.
+409	Ohne Laminierung
+410	Matte Laminierung
+411	Glänzende Laminierung
+412	Transparente Laminierung
+413	Ohne Aufpreis
+414	Laminierung ist eine transparente Schutzschicht auf dem Druck: Sie schützt vor Kratzern, Wasser und Sonne. Laminierte Aufträge dauern etwas länger, weil die Tinte erst trocknen muss.
+415	Quadrat
+416	Rechteck
+417	Rund
+418	Freie Form
+419	Seitenlänge eingeben
+420	Breite und Höhe
+421	Durchmesser eingeben
+422	Auf Anfrage
+423	Quadrat / Rechteck
+424	Sonderform (CNC)
+425	Durchmesser (cm)
+426	Seite (cm)
+427	Menge (Anzahl Aufkleber)
+428	z. B. 10
+429	z. B. 5
+430	Rahmen
+431	Sobald Sie die Größe eingeben, erscheinen hier die empfohlene Ösenzahl und ihre Position.
+432	Empfohlen für diese Größe:
+433	Stk. (etwa alle
+434	cm eine). Jede Öse
+435	, mit Banner-Verstärkung auf der Rückseite.
+436	Die gestrichelte Linie zeigt den sicheren Bereich: Halten Sie Texte und wichtige Elemente mindestens
+437	cm vom Rand entfernt.
+438	Geben Sie die Größe eines Aufklebers ein. Jeder Aufkleber muss mindestens
+439	cm groß sein, und Sie können höchstens
+440	Stück bestellen. Für kleinere oder mehr Aufkleber schreiben Sie uns, wir nennen Ihnen den Preis.
+441	Eine Seite darf höchstens
+442	cm, die andere höchstens
+443	Geben Sie zuerst die Größe ein, um zu sehen, ob Ihre Datei druckfähig ist.
+444	✓ Ihre Datei ist druckfähig. Sie können die Bestellung senden und sofort bezahlen.
+445	✗ Ihre Datei ist nicht druckfähig: In dieser Größe wird der Druck unscharf. Laden Sie eine schärfere (größere) Datei hoch oder verkleinern Sie die Größe. Wenn Sie Hilfe brauchen, schreiben Sie uns per WhatsApp.
+446	Datei und eingegebene Größe sind verkehrt herum: eines quer, das andere hoch. Tauschen Sie Breite und Höhe oder korrigieren Sie die Datei.
+447	Die Form Ihrer Datei weicht von der eingegebenen Größe ab: Ränder können abgeschnitten werden oder leer bleiben. Bereiten Sie die Datei für diese Größe vor oder korrigieren Sie die Größe.
+448	Ihre Datei ist scharf genug, aber prüfen Sie bitte eine Sache:
+449	Mit dieser Größe berechnen
+450	, Durchmesser
+451	Preis per WhatsApp anfragen
+452	WhatsApp: +90 532 523 73 64
+453	Angebot
+454	Aufkleber
+455	Fläche
+456	Druck (
+457	Ausgleich auf Mindestbestellwert
+458	Rahmen (
+459	Ösen (
+460	Laminierung (
+461	Gesamt (ohne MwSt.)
+462	In Euro / Dollar
+463	Tageskurs der Zentralbank der Türkei (
+464	). Bezahlt wird in türkischer Lira.
+465	Zwischensumme (ohne MwSt.)
+466	MwSt. (
+467	Gesamt
+468	Lieferung
+469	Sonderlieferung (Kosten separat)
+470	Abholung in der Werkstatt
+471	Versand
+472	Gesamt mit Versand
+473	Jetzt bezahlen Sie nur das Produkt. Den Versand ins Ausland zahlt der Empfänger: Wir suchen den günstigsten passenden Versanddienst und teilen Ihnen die Kosten separat mit. Zölle und lokale Steuern trägt gegebenenfalls der Empfänger.
+474	m² über der Grenze von
+475	Mindestbestellwert
+476	– diese Kosten kommen noch hinzu
+477	Beispielgröße übernehmen:
+478	– die hochgeladene Datei ist nicht druckfähig, können Sie mir helfen?
+479	Schreiben Sie uns per WhatsApp
+480	Die Vorschau zeigt den runden Schnitt: Ecken außerhalb des Kreises werden abgeschnitten. Halten Sie wichtige Elemente im Kreis.
+481	– ich möchte einen Preis für eine Sonderlieferung:
+482	Stk. Lieferadresse:
+483	Angebot für Sonderlieferung anfragen
+484	Geben Sie die Größe ein.
+485	Laden Sie Ihre Druckdatei hoch.
+486	Setzen Sie das Häkchen zur Freigabe.
+487	Geben Sie Ihre Telefonnummer ein und senden Sie. Wir prüfen Ihre Bestellung und senden Ihnen einen Zahlungslink.
+488	Ihre Datei ist nicht druckfähig. Laden Sie eine neue Datei hoch oder schreiben Sie uns per WhatsApp.
+489	Dieser Dateityp wird nicht akzeptiert. Laden Sie PDF, JPG, PNG oder TIFF hoch.
+490	Ihre Telefonnummer (mit Ländervorwahl)
+491	Ihr Name
+492	Ihre Nummer wird nur verwendet, um Sie wegen Ihrer Bestellung zu kontaktieren (
+493	Sonderfarbe
+494	Hallo, ich habe über istanbulprintlab.com die Bestellanfrage Nummer
+495	gesendet.
+496	Hallo, ich möchte über istanbulprintlab.com eine Bestellanfrage senden.
+497	Preisschätzung:
+498	Druckdatei: auf der Website gestaltet (PDF wird von der Website hochgeladen).
+499	Meine Druckdatei ist das auf der Website gestaltete PDF.
+500	Druckdatei:
+501	Ich habe meine Auswahl und Texte geprüft und gebe sie frei.
+502	Bestellung abschließen und bezahlen
+503	Ihre Anfrage ist eingegangen.
+504	Ihre Anfragenummer:
+505	Wir prüfen Ihre Anfrage und rufen Sie zurück.
+506	Ihre Datei wird hochgeladen… Bitte schließen Sie diese Seite nicht.
+507	Sie können uns auch per WhatsApp schreiben
+508	Ihre Bestellung ist bereit, die Zahlungsseite wird geöffnet.
+509	Ihre Bestellnummer:
+510	Mit Karte bezahlen
+511	Zahlungsseite wird geöffnet…
+512	Zahlung erhalten
+513	Die Zahlungsseite konnte nicht geöffnet werden. Bitte versuchen Sie es erneut oder schreiben Sie per WhatsApp.
+514	Verbindungsfehler, bitte erneut versuchen.
+515	Ihre Datei wird hochgeladen… %
+516	– bitte schließen Sie diese Seite nicht.
+517	Zeitüberschreitung
+518	Datei konnte nicht geprüft werden
+519	Die Verbindung ist langsam, der Upload läuft noch… bitte schließen Sie diese Seite nicht.
+520	Status nicht verfügbar
+521	Bitte geben Sie Ihre Telefonnummer ein, damit wir Sie erreichen können.
+522	Die Datei ist größer als 300 MB (
+523	Ihre Anfrage konnte nicht gesendet werden.
+524	Bitte versuchen Sie es erneut oder schreiben Sie per WhatsApp.
+525	Ihre Bestellung ist eingegangen.
+526	Nach dem Hochladen Ihrer Datei gelangen Sie zur Zahlungsseite.
+527	Zahlungsseite wird geöffnet…
+528	Datei-Upload wird vorbereitet…
+529	Ihre Datei ist ebenfalls angekommen. Vielen Dank.
+530	Verbindungsfehler, Ihre Anfrage wurde nicht gesendet. Bitte versuchen Sie es erneut.
+531	Ihre Datei ist druckfähig. Nach dem Senden der Bestellung können Sie sofort mit Karte bezahlen.
+532	Bannerdruck — Bestellung | IstanbulPrintLab
+533	Bannerdruck
+534	Banner mit weißer Rückseite
+535	Banner mit schwarzer Rückseite
+536	400 g europäisches Banner
+537	Ösen
+538	Jede Öse wird mit zusätzlicher Banner-Verstärkung auf der Rückseite gesetzt. Die Ösen beginnen an den Ecken und werden in gleichen Abständen entlang der Ränder gesetzt. Wenn Sie keine Ösen möchten, geben Sie 0 ein.
+539	Außen
+540	Aufkleber / Etiketten — Bestellung | IstanbulPrintLab
+541	Aufkleber- und Etikettendruck
+542	Sonder- und komplexe Schnitte wie Sterne oder Logokonturen werden separat berechnet. Senden Sie Ihre Datei per WhatsApp, wir nennen Ihnen den Preis.
+543	Welche Aufträge auf Anfrage?
+544	Schnitte unter 4 cm, Bestellungen über 250 Stück, Sonder- und komplexe Schnitte, Rollenetiketten, Papier- und PP-Aufkleber und andere Spezialmaterialien werden per Angebot berechnet. Senden Sie Größe und Datei per WhatsApp (+90 532 523 73 64).
+545	Möchten Sie Druck ohne Schnitt?
+546	Quadrat-, Rechteck- und Rundschnitt
+547	One Way Vision — Bestellung | IstanbulPrintLab
+548	One-Way-Vision-Druck
+549	Oracal One Way Vision
+550	Wie funktioniert das?
+551	Die gelochte Folie ist außen bedruckt und innen schwarz; sie wird für die Außenseite der Scheibe gedruckt. Tagsüber sieht man von außen das Motiv, von innen sieht man hinaus. Abends, wenn es innen heller ist, kann man von außen hineinsehen. Für die Anbringung innen fragen Sie uns per WhatsApp.
+552	Design-Tipp
+553	Wegen der Löcher sind dünne Schriften und kleine Details aus der Ferne schwer lesbar. Große Schrift, kräftige Linien und leuchtende Farben wirken besser.
+554	Außen Motiv, innen Durchsicht
+555	PVC-Hartschaumplatte (Forex) — Bestellung | IstanbulPrintLab
+556	Druck auf PVC-Hartschaumplatten (Forex)
+557	Stärke
+558	Formen außer Quadrat und Rechteck werden per CNC geschnitten und separat berechnet. Senden Sie Ihre Datei per WhatsApp, wir nennen Ihnen den Preis.
+559	Die richtige Stärke
+560	Formen außer Quadrat und Rechteck, Figuren und Buchstaben werden per CNC gefertigt und per Angebot berechnet.
+561	Quadrat- und Rechteckschnitt
+562	Ein Teil bis 150 × 300 cm
+563	Fotoblock (Schaumplatte) — Bestellung | IstanbulPrintLab
+564	Fotoblock-Druck (Schaumplatte)
+565	Formen außer Quadrat und Rechteck, Figuren und Konturschnitte werden per CNC gefertigt und per Angebot berechnet.
+566	Bannerschild — Bestellung | IstanbulPrintLab
+567	Bannerschild-Druck
+568	Banner (400 g)
+569	Blueback-Plakatpapier
+570	Blueback eignet sich für kurze Außenkampagnen (etwa 4–6 Wochen). Für lange Nutzung wählen Sie Banner.
+571	Satinpapier (240 g)
+572	Welches Material soll ich wählen?
+573	Suchen Sie dünneres Papier?
+574	Papiere unter 240 g liegen außerhalb der Standardpreise. Senden Sie Größe und Menge per WhatsApp (+90 532 523 73 64), wir nennen Ihnen den Preis.
+575	Banner, Blueback, Satin
+576	Ihre eigene Größe
+577	– dünnere Papiere liegen außerhalb der Standardpreise. Senden Sie Größe und Menge per WhatsApp
+578	Mesh-Banner — Bestellung | IstanbulPrintLab
+579	Mesh-Banner-Druck
+580	Mesh-Banner
+581	Jede Öse wird mit zusätzlicher Verstärkung auf der Rückseite gesetzt. Die Ösen beginnen an den Ecken und werden in gleichen Abständen entlang der Ränder gesetzt. Wenn Sie keine Ösen möchten, geben Sie 0 ein.
+582	Säumen und Schweißen
+583	Randsaum und das Verbinden von Bahnen (Schweißen) für Fassaden werden per Angebot berechnet. Senden Sie Ihre Größe per WhatsApp (+90 532 523 73 64).
+584	Gelocht, lässt Wind durch
+585	Ösen optional
+586	Posterdruck — Bestellung | IstanbulPrintLab
+587	Posterdruck
+592	Poster mit Rahmen
+593	Bei Postern ohne Rahmen darf eine Seite höchstens 102 cm und die andere höchstens 49 Meter lang sein.
+594	240 g Satinpapier
+595	Rahmen optional
+596	Sichere Zahlung | IstanbulPrintLab
+597	Sichere Kartenzahlung bei IstanbulPrintLab.
+598	Bestellstatus | IstanbulPrintLab
+599	Fragen Sie nach Ihrer Bestellung: Geben Sie Bestellnummer und Telefon ein, wir melden uns.
+600	Sichere Zahlung
+601	Zahlungsdaten werden geladen…
+602	Bestell-Nr.
+603	Bestellung ins Ausland:
+604	Produktbetrag
+605	Versand / Lieferung
+606	Zu zahlender Betrag
+607	Wir sehen Ihre Kartendaten nie. Sie bezahlen auf der sicheren Seite des lizenzierten Zahlungsdienstes PayTR mit einem Code per SMS (3D Secure).
+608	Vor- und Nachname / Firmenname
+609	Rechnungs- / Lieferadresse
+610	Rechnungsart
+611	Firma
+612	Türkische ID-Nr. (optional)
+613	Firmenname
+614	Finanzamt
+615	Steuernummer
+616	Ihre Daten werden nur für Bestellung, Rechnung und Lieferung verwendet (
+617	Datenschutzhinweis (KVKK)
+618	Rückgabe- und Umtauschbedingungen
+619	die Vorabinformation
+620	den Fernabsatzvertrag
+621	– gelesen und akzeptiert.
+622	Bestätigen und zur Zahlung
+623	WhatsApp: +90 532 523 73 64
+624	Der Zahlungslink fehlt. Bitte verwenden Sie den Link, den wir Ihnen gesendet haben, oder schreiben Sie uns per WhatsApp.
+625	Ungültiger Link.
+626	Hier können Sie die folgende Bestellung sicher mit Karte bezahlen.
+627	(TESTMODUS – keine echte Abbuchung)
+628	Diese Bestellung wird in einer Zahlung beglichen.
+629	Zahlungsoptionen werden auf der Zahlungsseite je nach Karte angezeigt
+630	(höchstens
+631	Zahlungsdaten konnten nicht geladen werden. Bitte laden Sie die Seite neu oder schreiben Sie uns per WhatsApp.
+632	Zahlungsseite wird vorbereitet…
+633	Die Zahlungsseite konnte nicht geöffnet werden.
+634	Sichere Zahlung mit PayTR
+636	Tippen Sie auf das Foto Ihres Produkts; geben Sie im sich öffnenden Fenster Ihre Größe ein, der Preis erscheint sofort. Laden Sie Ihre Datei hoch und geben Sie sie frei, geben Sie Ihre Telefonnummer ein und senden Sie die Bestellung. Besteht Ihre Datei die erste Prüfung, bezahlen Sie sofort mit Karte; muss etwas korrigiert werden, melden wir uns und lösen es gemeinsam.
+637	Der Rechner berechnet den Preis nach Größe, Menge und Material; der gezahlte Betrag ist endgültig. Vor der Produktion wird Ihre Datei technisch geprüft. Muss etwas korrigiert werden, melden wir uns; kann der Auftrag so nicht gefertigt werden, erstatten wir Ihre Zahlung vollständig.
+638	Wenn Sie ein Problem bemerken, etwa einen Druckfehler, eine andere als die freigegebene Größe oder einen Transportschaden, schreiben Sie uns nach Erhalt mit Fotos; wir prüfen es und antworten spätestens innerhalb von 2 Werktagen. Ihre gesetzlichen Rechte nach türkischem Gesetz Nr. 6502 bleiben unberührt. Individuell gefertigte Artikel sind von Widerruf und Rückgabe ausgeschlossen.
+639	Projekte
+640	Über uns
+641	Produkt wählen, Größe eingeben, Datei hochladen – der Preis steht sofort auf dem Bildschirm, bezahlt ist in wenigen Minuten. Gedruckt in unserer Werkstatt in Kadıköy und in 1–2 Werktagen versandt.
+642	Visitenkarten
+643	Einladungen
+644	Für Lieferung ins Ausland sind die Preise ohne MwSt. angegeben, der Versand wird separat berechnet. PVC-Platten und Fotoblöcke werden nicht per Paket verschickt; Lieferung per Transporter oder Abholung in unserer Werkstatt in Kadıköy.
+645	Sichtschutz für Glastrennwände, Besprechungs- und Chefzimmer, Balkone und Fenster. Mattierung, Streifen, ausgeschnittenes Logo oder Druck auf Ultra-Clear-Folie; Aufmaß, Fertigung und Montage aus einer Hand.
+646	Markenname, Logo und Öffnungszeiten; Schnitt und Montage vor Ort.
+647	Aktions-, Saison- und Eröffnungsschaufenster; Montage im Einkaufszentrum außerhalb der Öffnungszeiten.
+648	Aufsteller, Schaufenster- und Ladendekoration; Serienfertigung für Filialketten.
+649	Etagen, Räume, WC, Parkplatz und Notausgang; Forex, Verbundplatte, Acryl.
+650	Zwei kurze Schritte. Ihre Anfrage erreicht uns sofort, wir melden uns so schnell wie möglich; bei eiligen Aufträgen rufen Sie direkt an.
+651	Produkt
+652	Sonstiges
+653	Weiter
+654	Telefon
+655	E-Mail
+656	Zurück
+657	Leistungen
+658	Werkzeuge
+659	Unternehmen
+660	Branchen
+661	Milchglasfolie für Sichtschutz, Streifen oder ausgeschnittenes Logo; einfarbige Folienschrift für Glastüren und Schaufenster.
+662	Poster für kurze Zeit; Druck auf PVC-Platte für eine stabile Tafel; bedruckte Folie für große Wände.
+663	Mesh-Banner für windige Fassaden und Baustellen; Außenfolie für glatte Flächen.
+664	Tragbarer Roll-up-Aufsteller; PVC-Platten für Tische und Leitsysteme; Namensschilder und Tischaufsteller.
+665	Kopieren fehlgeschlagen; Ihr Browser hat es nicht erlaubt.
+666	Die automatische Prüfung ist eine erste Einschätzung; unser Team prüft Ihre Datei vor der Produktion erneut und sendet einen digitalen Proof.
+667	MB; Grenze 100 MB. Speichern Sie kleiner oder senden Sie per E-Mail.
+668	dpi. Druckbar, kann aber aus der Nähe weich wirken; 150 dpi empfohlen.
+669	dpi. Wird im Druck unscharf; laden Sie ein größeres Bild oder eine Vektordatei hoch.
+670	) weicht ab; Ränder können beschnitten werden oder leer bleiben.
+671	Ein Pixelbild hat keine Konturschnittlinie; für Konturschnitt ist eine Vektorlinie nötig. Fehlt sie, meldet sich unser Team.
+672	Das Bild lässt sich nicht öffnen; die Datei ist möglicherweise beschädigt.
+673	Textobjekte sind nicht in Pfade umgewandelt. Wandeln Sie Texte in Pfade um, sonst können sie klein und fehlerhaft gedruckt werden.
+674	Punkte. Vereinfachen Sie die Schneidelinie; Linien mit vielen Punkten verlangsamen den Schnitt.
+675	eingebettete Pixelbilder; stellen Sie sicher, dass sie in Originalgröße mindestens 150 dpi haben.
+676	mm; Ihre Größe
+677	Keine eingebetteten Schriften gefunden; Texte scheinen in Pfade umgewandelt
+678	mm; passt zu Ihrer Größe
+679	Farben sind RGB; für den Druck werden sie in CMYK umgewandelt, leuchtende Töne können abweichen.
+680	Datei erhalten; die genaue Prüfung übernimmt unser Team.
+681	Ihre Datei ist größer als 8 MB und wurde dem Formular nicht angehängt; senden Sie sie per WhatsApp oder E-Mail.
+682	Ihre Anfrage ist eingegangen. Wir melden uns so schnell wie möglich; bei eiligen Aufträgen rufen Sie +90 532 523 73 64 an.
+683	Ihre Weihnachtsanfrage ist eingegangen. Wir senden Ihr nummeriertes Angebot innerhalb von 1–2 Werktagen; bei eiligen Aufträgen rufen Sie +90 532 523 73 64 an.
+684	Ihre Anfrage ist eingegangen; wir teilen Ihnen den Status Ihrer Bestellung mit.
+685	cm; größere Maße können nicht in einem Stück gefertigt werden.
+686	Schließen
+688	Produkte
+689	Bedruckte Klebefolie für Wände, Schaufenster, Türen und glatte Flächen. Größe eingeben, Datei hochladen – Preis und Dateiprüfung sofort auf dem Bildschirm.
+690	Material
+691	Laminierung
+692	Menge
+693	Laden Sie PDF, JPG, PNG oder TIFF hoch. Je schärfer die Datei, desto besser der Druck. In PDFs Texte in Pfade umwandeln; transparente Bereiche in PNGs werden nicht gedruckt.
+694	Kadıköy
+695	Freigabe
+696	cm gedruckt werden. Größere Aufträge fertigen wir in Teilen; schreiben Sie uns, wir machen Ihnen einen Sonderpreis.
+697	cm sein. Größere Aufträge fertigen wir in Teilen; schreiben Sie uns, wir machen Ihnen einen Sonderpreis.
+698	Meter gedruckt werden. Längere Aufträge fertigen wir in Teilen; schreiben Sie uns, wir machen Ihnen einen Sonderpreis.
+699	cm: Für so kleine Schnitte gibt es keinen festen Preis auf der Website; schreiben Sie uns, wir machen Ihnen einen Sonderpreis.
+700	– für diese Schneidefolie gibt es keinen festen Preis auf der Website; schreiben Sie uns, wir machen Ihnen einen Sonderpreis.
+701	Für Handschrift, dünne verbundene Buchstaben und komplexe Logos gibt es keinen festen Preis auf der Website; schreiben Sie uns, wir machen Ihnen einen Sonderpreis.
+702	cm: So große Aufträge können nicht in einem Stück aus farbiger Folie geschnitten werden; sie müssen bedruckt und geschnitten werden. Schreiben Sie uns, wir machen Ihnen einen Sonderpreis.
+703	cm: Für so kleine Buchstaben gibt es keinen festen Preis auf der Website; schreiben Sie uns, wir machen Ihnen einen Sonderpreis.
+704	cm: Für so kleine Designs gibt es keinen festen Preis auf der Website; schreiben Sie uns, wir machen Ihnen einen Sonderpreis.
+705	cm breite Rolle gedruckt; mindestens eine Seite des Designs muss
+706	Meter gedruckt werden; für längere Aufträge schreiben Sie uns, wir machen Ihnen einen Sonderpreis.
+707	Auf transparenter Folie wird keine weiße Tinte verwendet: Helle Farben und weiße Flächen bleiben transparent, und die Farben werden von der Untergrundfarbe beeinflusst.
+708	Wir drucken auf einer Mimaki CJV200 im Qualitätsmodus mit 8–10 Durchgängen. Im Vergleich zu schnellen Modi mit 2–3 Durchgängen sind die Farben satter, Texte und feine Details schärfer, ohne Streifen. Wir verwenden Markenfolie von Oracal. Deshalb sind unsere Preise nicht die günstigsten am Markt; bei der Qualität sparen wir nicht.
+709	Bereiten Sie die Datei in Druckgröße vor und wandeln Sie Texte in Pfade um. Für Bilder empfehlen wir mindestens 100 PPI in Druckgröße. PDF- und TIFF-Dateien prüft unser Operator.
+710	cm sein. Größere Aufträge fertigen wir in Teilen; schreiben Sie uns, wir nennen Ihnen den Preis.
+711	Meter lang sein. Größere Aufträge fertigen wir in Teilen; schreiben Sie uns, wir nennen Ihnen den Preis.
+712	Diesen Dateityp (PDF/TIFF) können wir nicht automatisch prüfen; wir sehen uns Ihre Datei selbst an. Senden Sie Ihre Bestellung: Ist die Datei druckfähig, senden wir Ihnen einen Zahlungslink; wenn nicht, melden wir uns.
+713	Ihre Datei ist für diese Größe etwas niedrig aufgelöst: Druck ist möglich, kann aber aus der Nähe leicht unscharf wirken. Wenn Sie eine schärfere Datei haben, laden Sie sie hoch. Fahren Sie mit dieser Datei fort, prüfen wir sie zuerst; bezahlt wird nach der Prüfung.
+714	Sie können korrigieren und neu hochladen oder so senden; dann prüfen wir zuerst, bezahlt wird nach der Prüfung.
+715	Die Fläche wird aus dem Schnittrahmen jedes Aufklebers berechnet (Breite × Höhe; bei runden Durchmesser × Durchmesser).
+716	m², daher gilt kein kostenloser Versand; die Versandkosten trägt der Käufer. Sie können auch in unserer Werkstatt in Kadıköy abholen.
+717	; bei Bestellungen mit Rahmen zählen Druck und Rahmen zusammen, liegt die Summe darunter, wird die Differenz addiert.
+718	; liegt Ihre Bestellung darunter, wird die Differenz addiert
+719	Die Kosten für die Sonderlieferung teilen wir vor der Bestellung mit. Für ein Lieferangebot schreiben Sie uns per WhatsApp; nach Ihrer Zustimmung senden wir die Zahlungsdaten.
+720	Geben Sie Ihre Telefonnummer ein und senden Sie; die Zahlungsseite öffnet sich gleich danach. Jetzt bezahlen Sie nur das Produkt, die Versandkosten teilen wir separat mit.
+721	Geben Sie Ihre Telefonnummer ein und senden Sie; die Zahlungsseite öffnet sich gleich danach.
+722	Senden Sie Ihre Bestellung; wir prüfen Ihre Datei und senden Ihnen einen Zahlungslink. Bezahlt wird nach der Prüfung.
+723	Die erste Dateiprüfung hat eine Warnung ergeben; die Datei muss geprüft werden.
+724	Sie können mit Karte bezahlen. Vor der Produktion wird Ihre Datei abschließend technisch geprüft; steht dem Druck etwas im Weg, melden wir uns.
+725	MB); sendet sie per WhatsApp/WeTransfer.
+726	Ihre Datei ist größer als 300 MB und konnte nicht über die Website hochgeladen werden. Bitte senden Sie sie per WhatsApp oder WeTransfer; Ihre Anfrage ist eingegangen.
+727	Wir konnten Ihre Datei gerade nicht über die Website empfangen. Ihre Anfrage ist eingegangen; bitte senden Sie die Datei über den WhatsApp-Button unten.
+728	Ihre Datei konnte nicht hochgeladen werden. Ihre Anfrage ist eingegangen; Sie können die Datei über den WhatsApp-Button unten senden.
+729	400 g europäisches Banner für Fassaden, Gerüste, Ladenfronten und Veranstaltungsflächen. Größe und Ösenzahl eingeben, Datei hochladen – Preis sofort auf dem Bildschirm.
+730	Verhindert, dass Licht von hinten den Druck beeinflusst. Einseitig bedruckt; nicht für Leuchtkästen oder Hinterleuchtung geeignet.
+731	Wir drucken auf einer Mimaki CJV200 im Qualitätsmodus mit 8–10 Durchgängen. Im Vergleich zu schnellen Modi mit 2–3 Durchgängen sind die Farben satter, Texte und feine Details schärfer, ohne Streifen. Wir verwenden importiertes europäisches 400-g-Banner. Deshalb sind unsere Preise nicht die günstigsten am Markt; bei der Qualität sparen wir nicht.
+732	Wir verwenden robustes Banner, das sich nicht von Hand reißen lässt. Es wird nicht umgeschlagen oder gesäumt; das Banner wird an der Schneidelinie geschnitten geliefert.
+733	Bereiten Sie die Datei in Druckgröße vor und wandeln Sie Texte in Pfade um. Für Banner, die aus der Ferne gesehen werden, reichen 72 PPI in Druckgröße; für Aufträge unter 1 Meter, die aus der Nähe gesehen werden, empfehlen wir mindestens 100 PPI. Halten Sie Texte und wichtige Elemente 3 cm von den Rändern mit Ösen fern.
+734	Geschnittene Aufkleber und Etiketten für Produkte, Verpackungen, Schaufenster und Aktionen. Form, Größe und Menge wählen, Datei hochladen – Preis sofort auf dem Bildschirm.
+735	Bereiten Sie die Datei in der Größe eines Aufklebers vor und wandeln Sie Texte in Pfade um. Halten Sie Texte und wichtige Bilder mindestens 3 mm innerhalb der Schneidelinie; bei randabfallenden Designs Beschnitt anlegen. Für Bilder empfehlen wir mindestens 100 PPI in Druckgröße.
+736	Gelochte Fensterfolie für Schaufenster, Büro- und Autoscheiben: Von außen sieht man das Motiv, von innen sieht man weiter hinaus. Größe eingeben, Datei hochladen – Preis sofort auf dem Bildschirm.
+737	Eine für gelochte Folie geeignete transparente Laminierung wird aufgebracht; sie schützt vor Kratzern, Feuchtigkeit und UV-Licht. Laminierte Aufträge dauern länger, weil die Tinte erst trocknen muss.
+738	Wir drucken auf einer Mimaki CJV200 im Qualitätsmodus mit 8–10 Durchgängen. Im Vergleich zu schnellen Modi mit 2–3 Durchgängen sind die Farben satter, Texte und feine Details schärfer, ohne Streifen. Wir verwenden Oracal-One-Way-Vision-Folie. Deshalb sind unsere Preise nicht die günstigsten am Markt; bei der Qualität sparen wir nicht.
+739	Bereiten Sie die Datei in der Größe der Scheibe vor und wandeln Sie Texte in Pfade um. Für Bilder empfehlen wir mindestens 100 PPI in Druckgröße. PDF- und TIFF-Dateien prüft unser Operator.
+740	Bedruckte PVC-Hartschaumplatten (Forex) für Geschäfte, Büros, Messen und Veranstaltungen. Stärke und Größe wählen, Datei hochladen – Preis sofort auf dem Bildschirm.
+741	Design und Montage sind im Preis nicht enthalten. Dieses Produkt wird nicht per Paket verschickt, weil es beschädigt werden kann. Sie können es in unserer Werkstatt in Kadıköy abholen oder per Transporter liefern lassen; die Lieferkosten werden vor der Bestellung mitgeteilt und vom Käufer getragen. Füße und Aufhängungen sind nicht im Preis enthalten.
+742	Dieses Produkt wird nicht per Paket verschickt, weil es beschädigt werden kann. Sie können es in unserer Werkstatt in Kadıköy abholen oder per Transporter liefern lassen; die Lieferkosten werden vor der Bestellung mitgeteilt und vom Käufer getragen. Füße und Aufhängungen sind nicht im Preis enthalten.
+743	Wir drucken auf einer Mimaki CJV200 im Qualitätsmodus mit 8–10 Durchgängen. Im Vergleich zu schnellen Modi mit 2–3 Durchgängen sind die Farben satter, Texte und feine Details schärfer, ohne Streifen. Deshalb sind unsere Preise nicht die günstigsten am Markt; bei der Qualität sparen wir nicht.
+744	3 mm ist leicht und für die Wandmontage geeignet. 5 mm ist die beliebteste Stärke. Platten mit 8 und 10 mm sind stabiler und ebener. Zum Aufstellen braucht es eine Stütze oder einen Fuß, der nicht im Preis enthalten ist.
+745	PVC-Platten werden nicht per Paket verschickt. Sie können sie in unserer Werkstatt in Kadıköy abholen oder per Transporter liefern lassen; die Lieferkosten werden vorab mitgeteilt und vom Käufer getragen. Platten werden in einem Stück geliefert; organisieren Sie vor der Abholung ein passend großes Fahrzeug.
+746	Bedruckte Fotoblöcke für Fotos, Bilder, Aktionen und Dekoration. Stärke und Größe wählen, Datei hochladen – Preis sofort auf dem Bildschirm.
+747	Fotoblöcke werden nicht per Paket verschickt. Sie können sie in unserer Werkstatt in Kadıköy abholen oder per Transporter liefern lassen; die Lieferkosten werden vorab mitgeteilt und vom Käufer getragen. Platten werden in einem Stück geliefert; organisieren Sie vor der Abholung ein passend großes Fahrzeug.
+748	Bannerschilder für Aktionen, Ankündigungen, Veranstaltungen und Schaufenster. Material wählen, eigene Größe eingeben, Datei hochladen – Preis sofort auf dem Bildschirm.
+749	Robustes europäisches Banner für lange Nutzung innen und außen. Bannerschilder werden geschnitten geliefert; Ösen sind nicht enthalten. Für Banner mit Ösen nutzen Sie die Seite Bannerdruck.
+750	Satinpapier ist nur für innen; im Freien hält es Regen und Sonne nicht stand.
+751	Bereiten Sie die Datei in Druckgröße vor und wandeln Sie Texte in Pfade um. Für Schilder, die aus der Ferne gesehen werden, reichen 72 PPI in Druckgröße; für Aufträge unter 1 Meter, die aus der Nähe gesehen werden, empfehlen wir mindestens 100 PPI.
+752	Gelochter Mesh-Druck für Gerüste, Baustellen, Fassaden und windige Flächen. Größe und Ösenzahl eingeben, Datei hochladen – Preis sofort auf dem Bildschirm.
+753	Dank der Lochung lässt es Wind durch und hilft, die Windlast zu senken; die übliche Wahl für Gerüste, Baustellen und Fassaden.
+754	Bereiten Sie die Datei in Druckgröße vor und wandeln Sie Texte in Pfade um. Für Mesh-Drucke, die aus der Ferne gesehen werden, reichen 72 PPI; für Aufträge unter 1 Meter, die aus der Nähe gesehen werden, empfehlen wir mindestens 100 PPI. Wegen der Löcher sind dünne Schriften aus der Nähe schwer lesbar; wählen Sie große Schrift und kräftige Linien.
+755	Poster auf 240 g Satinpapier für Zuhause, Büro, Geschäft und Veranstaltungen. Eigene Größe eingeben oder mit Rahmen bestellen; Datei hochladen – Preis sofort auf dem Bildschirm.
+756	Poster mit Rahmen gibt es in 30 × 40, 40 × 50, 50 × 70 und 61 × 91 cm, mit schwarzem oder weißem Rahmen. Der Rahmen hat eine Plexiglasfront, Rückwand und Aufhänger und wird in Schutzverpackung verschickt. Das Poster wird in der gewählten Rahmengröße gedruckt; der Rahmenrand verdeckt auf jeder Seite einige Millimeter, platzieren Sie wichtige Elemente daher nicht zu nah am Rand. Der Rahmenpreis kommt zum Druck hinzu; bei Bestellungen mit Rahmen gilt der Mindestbetrag für Druck und Rahmen zusammen.
+757	Bereiten Sie die Datei in Postergröße vor und wandeln Sie Texte in Pfade um. Für Bilder empfehlen wir mindestens 100 PPI in Druckgröße.
+758	Beschreibung
+759	Lieferung:
+760	Dieses Produkt ist groß und wird daher nicht per Paket verschickt. Sie können es in unserer Werkstatt in Kadıköy abholen oder per Transporter liefern lassen. Die Lieferkosten sind in diesem Betrag nicht enthalten; wenn Sie Lieferung wünschen, nennen wir Ihnen die Kosten vor Produktionsbeginn.
+761	Dieser Betrag ist nur der Produktpreis und enthält keine MwSt. Der Versand ist nicht enthalten; wir suchen den günstigsten passenden Versanddienst und teilen Ihnen die Versandkosten separat mit.
+762	Privatperson
+763	). Für speziell für Sie gedruckte Artikel besteht kein Widerrufsrecht; Ihre gesetzlichen Rechte bei mangelhafter Ware bleiben unberührt (
+764	und
+765	+49 151 23456789
+766	Stk.
+767	Laminierung
+768	Ösen
+769	Schnitt
