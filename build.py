@@ -414,8 +414,100 @@ def urun_fiyat_sayi(u):
     return None
 
 
+KISACA_STIL = ('<style>.kisaca{margin:18px 0 4px;border:1px solid var(--line,#DCD3C2);border-radius:12px;background:#fff}'
+               '.kisaca caption{caption-side:top;text-align:left;font-weight:600;padding:10px 0 6px;font-size:15px}'
+               '.kisaca{width:100%;border-collapse:separate;font-size:15px}.kisaca th,.kisaca td{padding:8px 0;border-bottom:1px solid var(--line,#E7DFD2);vertical-align:top;text-align:left}'
+               '.conf>.kisaca{order:1}.kisaca tr:last-child th,.kisaca tr:last-child td{border-bottom:0}.kisaca th{width:38%;font-weight:500;color:var(--mute,#6B6258);padding-left:14px;padding-right:12px}.kisaca td{padding-right:14px}</style>')
+
+
+def kisaca_satirlari(yol, kod, F, C, G):
+    """Ürün sayfası 'Kısaca' kutusu: fiyat, en az sipariş, ölçü, teslim, malzeme — hepsi fiyat dosyasından."""
+    def tl(x):
+        return ('{:,.0f}'.format(x)).replace(',', '.') + ' ₺'
+    asgari = '%s + KDV' % tl(G['asgari_baski'])
+    std = 'Dosya ve ödeme onayından sonra 1–2 iş gününde kargoda'
+    if not kod:
+        if yol == 'roll-up-baski':
+            return [('Fiyat', '%s + KDV (85 × 200 cm, mekanizma ve çanta dahil)' % tl(C['rollup'])), ('Teslim', std)]
+        return [('Fiyat', "%s + KDV'den başlar; ölçüye ve kesime göre değişir" % tl(C['dekupe'])), ('Teslim', 'Ölçüye göre; sipariş onayında bildirilir')]
+    u = F[kod]
+    t = u['tur']
+    bf = baslangic_fiyati(u).replace("'den", "'den başlar")
+    satir = [('Fiyat', bf)]
+    if t in ('kartvizit', 'davetiye'):
+        p = u['paketler'][0]
+        satir.append(('En az sipariş', '%s adet (%s + KDV)' % (p['adet'], tl(min(p['tek'], p['cift'])))))
+    else:
+        satir.append(('En az sipariş', asgari))
+    if t == 'rulo':
+        if u.get('max_boy'):
+            olcu = 'Tek parça en fazla %s × %s cm' % (u['net_en'], u['max_boy'])
+        elif u.get('kesim'):
+            olcu = 'Her sticker en az %s cm; en fazla %s adet. Genişlik en fazla %s cm' % (u['kesim']['min_cm'], u['kesim']['max_adet'], u['net_en'])
+        else:
+            olcu = 'Bir kenar en fazla %s cm, diğer kenar en fazla %s metre' % (u['net_en'], G['tek_parca_max_boy'] // 100)
+    elif t == 'yazi':
+        olcu = 'Genişlik en fazla %s cm; harf yüksekliği en az %s cm' % (u['max_en'], min(k['min_harf'] for k in u['kademeler']))
+    elif t == 'dtf':
+        olcu = ('Tek parça en fazla %s × %s cm; en küçük tasarım %s cm' % (u['tabaka']['en'], u['tabaka']['boy'], u['min_cm'])) if u.get('tabaka') else \
+               ('Genişlik en fazla %s cm, uzunluk en fazla %s metre; en küçük tasarım %s cm' % (u['rulo_en'], G['tek_parca_max_boy'] // 100, u['min_cm']))
+    elif t == 'duvar':
+        olcu = 'Duvarınızın ölçüsünde; kenarlar en fazla %s metre' % (G['tek_parca_max_boy'] // 100)
+    elif t == 'kartvizit':
+        olcu = u.get('olcu', '')
+    elif t == 'davetiye':
+        o = u['olcu']
+        olcu = '%s × %s cm' % (('%g' % (o['en'] / 10)), ('%g' % (o['boy'] / 10)))
+    else:
+        olcu = ''
+    if olcu:
+        satir.append(('Ölçü', olcu))
+    if u.get('kargo_yok'):
+        tes = "1–2 iş gününde hazır; Kadıköy'deki atölyemizden teslim ya da nakliye (kargoyla gönderilmez)"
+    elif t == 'davetiye':
+        tes = 'Onaydan sonra %s iş gününde kargoda' % u.get('uretim_is_gunu', 3)
+    elif t == 'duvar':
+        tes = 'Malzeme siparişinize özel alınır; teslim süresi sipariş onayında bildirilir'
+    elif t == 'kartvizit':
+        tes = std + '; kargo ücretsiz'
+    else:
+        tes = std
+    if u.get('laminasyon') and not u.get('kargo_yok'):
+        tes += ' (laminasyonlu işler kuruma için biraz daha geç)'
+    satir.append(('Teslim', tes))
+    if u.get('malzemeler'):
+        satir.append(('Malzeme', ', '.join(m['ad'] for m in u['malzemeler'])))
+    elif u.get('kagit'):
+        satir.append(('Malzeme', u['kagit']))
+    return satir
+
+
+def kisaca_ekle(s, satir):
+    """Kutuyu hesaplayıcının altına, sayfadaki teknik tablonun hemen önüne koyar; sayfanın üst kısmı değişmez."""
+    if 'class="spec kisaca"' in s:
+        return s
+    tablo = '<table class="spec kisaca"><caption>Kısaca</caption><tbody>%s</tbody></table>' % ''.join(
+        '<tr><th scope="row">%s</th><td>%s</td></tr>' % (E(a), E(b)) for a, b in satir)
+    yer = -1
+    c = s.find('class="sp-cerceve"')
+    if c >= 0:
+        n = s.find('</noscript></div>', c)
+        yer = n + len('</noscript></div>') if n >= 0 else -1
+    if yer < 0:
+        yer = s.find('<table class="spec">')
+    if yer < 0:
+        h = s.find('</h1>')
+        if h < 0:
+            return s
+        pk = s.find('</p>', h)
+        yer = pk + 4 if 0 <= pk < h + 900 else h + 5
+    s = s[:yer] + tablo + s[yer:]
+    return s.replace('</head>', KISACA_STIL + '</head>', 1)
+
+
 def urun_semalari():
     F = js('siparis/src/fiyatlar.json')['urunler']
+    F_genel = js('siparis/src/fiyatlar.json')['genel']
     C = js('content/fiyatlar.json')
     taban = 'https://www.istanbulprintlab.com'
     for yol, kod in URUN_SEMA.items():
@@ -459,6 +551,7 @@ def urun_semalari():
         # sayfada elle yazılmış (eski fiyatlı) Product bloğu varsa kaldır, güncelini ekle
         s = re.sub(r'<script type="application/ld\+json">\s*\{[^<]*?"@type":\s*"Product"[^<]*?</script>\n?', '', s)
         s = s.replace('</head>', '<script type="application/ld+json">%s</script>\n</head>' % json.dumps(sema, ensure_ascii=False), 1)
+        s = kisaca_ekle(s, kisaca_satirlari(yol, kod, F, C, F_genel))
         open(f, 'w', encoding='utf-8').write(s)
 
 
