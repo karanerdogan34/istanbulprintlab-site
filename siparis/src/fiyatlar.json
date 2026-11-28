@@ -3,7 +3,7 @@
  "genel": {
   "kdv_orani": 0.2,
   "asgari_baski": 999,
-  "kargo_ucretsiz_esik": 1500,
+  "kargo_ucretsiz_esik": 6000,
   "kargo_ucreti": 200,
   "tek_parca_max_boy": 4900,
   "kargo_max_m2": 16

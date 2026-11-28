@@ -6,7 +6,7 @@ import { ayarlar, linkCoz, iframeBelirteci } from '../lib/paytr.mjs';
 import { linkOku, linkAtomik, denemeYaz } from '../lib/kayit.mjs';
 
 const temiz = (s, n) => String(s || '').replace(/[<>\r\n\t]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, n);
-const SOZLESME_SURUMU = '2026-11-26-2'; // doğrudan ödeme ve teknik kontrol/iade maddesi eklendi
+const SOZLESME_SURUMU = '2026-11-28-1'; // 28 Kas: iade/ayıp metinleri sadeleştirildi (önceki 2026-11-26-2)
 const KILIT_MS = 2 * 60e3; // aynı link için iki ödeme penceresinin aynı anda açılmasını önler
 const GECERSIZ = 'Bu ödeme bağlantısı geçersiz veya süresi dolmuş. Lütfen WhatsApp\'tan bizden yeni bağlantı isteyin.';
 
