@@ -1198,3 +1198,26 @@
 1203	/ m²
 1204	pelliculage mat
 1205	pelliculage brillant
+1206	En bref
+1207	Expédition
+1208	Prix
+1209	Commande minimum
+1210	HT
+1211	Pièce unique jusqu’à 150 cm × 49 m
+1212	Expédié en 1 à 2 jours ouvrés
+1213	Pièce unique jusqu’à 160 cm × 49 m
+1214	Chaque autocollant au moins 4 cm, jusqu’à 250 pièces
+1215	Lettres d’au moins 5 cm, largeur totale jusqu’à 124 cm
+1220	Pas d’envoi par coursier ; livraison dans Istanbul
+1221	Pièce unique jusqu’à 102 cm × 49 m
+1222	Papier couché mat 350 g
+1224	Film UV DTF
+1225	Motif d’au moins 2 cm, un côté jusqu’à 40 cm
+1226	Film de transfert DTF
+1227	Motif d’au moins 2 cm, jusqu’à 30 × 60 cm
+1228	Côtés du mur jusqu’à 49 mètres
+1230	Panneau PVC expansé, 3–10 mm
+1231	Carton mousse (photobloc), 3–10 mm
+1096	Expédié en 3 jours ouvrés
+1207	Délai
+1232	Exemple :

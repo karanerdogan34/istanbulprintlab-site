@@ -1198,3 +1198,26 @@
 1203	/ m²
 1204	matte Kaschierung
 1205	glänzende Kaschierung
+1206	Auf einen Blick
+1207	Versand
+1208	Preise
+1209	Mindestbestellwert
+1210	zzgl. MwSt.
+1211	Ein Stück bis 150 cm × 49 m
+1212	Versand in 1–2 Werktagen
+1213	Ein Stück bis 160 cm × 49 m
+1214	Jeder Aufkleber mind. 4 cm, bis 250 Stück
+1215	Buchstaben mind. 5 cm hoch, Gesamtbreite bis 124 cm
+1220	Kein Kurierversand; Lieferung innerhalb Istanbuls
+1221	Ein Stück bis 102 cm × 49 m
+1222	350 g mattes Bilderdruckpapier
+1224	UV-DTF-Folie
+1225	Motiv mind. 2 cm, eine Seite bis 40 cm
+1226	DTF-Transferfolie
+1227	Motiv mind. 2 cm, bis 30 × 60 cm
+1228	Wandseiten bis 49 Meter
+1230	PVC-Hartschaumplatte, 3–10 mm
+1231	Schaumplatte (Fotoblock), 3–10 mm
+1096	Versand in 3 Werktagen
+1207	Lieferzeit
+1232	Beispiel:

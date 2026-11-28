@@ -139,6 +139,7 @@ var esc = function(s){return String(s).replace(/[&<>"']/g,function(c){return {'&
 var DIL = window.IPL_DIL || 'tr', YABANCI = DIL !== 'tr', YD = YABANCI, SAYI_YEREL = YABANCI ? (window.IPL_YEREL || 'en-GB') : 'tr-TR';
 var tlYal = function(x){var k=Math.abs(x-Math.round(x))>0.004;return x.toLocaleString(SAYI_YEREL,{minimumFractionDigits:k?2:0,maximumFractionDigits:2})+' ₺';};
 var tl0 = function(x){return tlYal(Math.round(x*(YD ? (G.yurtdisi_carpan||1.2) : 1)*100)/100);}; // yapılandırmadaki birim fiyatlar
+window.IPL_TL0 = function(x){return tl0(x);};
 var P0 = function(x){return tl0(x)+(YD ? '' : ' + KDV');};
 var DAHIL = function(){return YD ? 'KDV yok' : 'KDV dahil';};
 var FX = null, YEREL = window.IPL_YEREL || 'en-GB';
@@ -331,7 +332,7 @@ function ciz(){
     }
     h = '<p class="small" style="margin:0">Ölçünüzü girdiğinizde fiyat burada görünür.</p>';
     var oy = !dolu && ornekFiyat(g);
-    if (oy) h += '<div class="ornek"><span>Örnek: '+esc(ornekMetni())+'</span><b>'+tl(oy)+' <small>'+DAHIL()+'</small></b><button type="button" class="btn ghost" data-ornek>Bu ölçüyle hesapla</button></div>';
+    if (oy) h += '<div class="ornek"><span><span>Örnek:</span> '+esc(ORNEK.en+' × '+ORNEK.boy+' cm')+(ORNEK.adet!=='1'?', '+esc(ORNEK.adet)+' <span>adet</span>':'')+'</span><b>'+tl(oy)+' <small>'+DAHIL()+'</small></b><button type="button" class="btn ghost" data-ornek>Bu ölçüyle hesapla</button></div>';
     $('mTop').textContent = '—';
   } else if (r.durum === 'teklif') {
     var olc = g.sekil ? (SAD[g.sekil]+(g.sekil==='ozel'?'':(g.sekil==='yuvarlak'?', çap '+g.en+' cm':', '+g.en+' × '+g.boy+' cm'))) : (g.en+' × '+g.boy+' cm');

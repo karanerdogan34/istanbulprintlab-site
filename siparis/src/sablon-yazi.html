@@ -134,6 +134,7 @@ var tl = function(x){return x.toLocaleString(SAYI_YEREL,{minimumFractionDigits:2
 var DIL = window.IPL_DIL || 'tr', YABANCI = DIL !== 'tr', YD = YABANCI, SAYI_YEREL = YABANCI ? (window.IPL_YEREL || 'en-GB') : 'tr-TR';
 var tlYal = function(x){var k=Math.abs(x-Math.round(x))>0.004;return x.toLocaleString(SAYI_YEREL,{minimumFractionDigits:k?2:0,maximumFractionDigits:2})+' ₺';};
 var tl0 = function(x){return tlYal(Math.round(x*(YD ? (G.yurtdisi_carpan||1.2) : 1)*100)/100);}; // yapılandırmadaki birim fiyatlar (yurt dışında x1,2)
+window.IPL_TL0 = function(x){return tl0(x);};
 var P0 = function(x){return tl0(x)+(YD ? '' : ' + KDV');};
 var DAHIL = function(){return YD ? 'KDV yok' : 'KDV dahil';};
 var FX = null, YEREL = window.IPL_YEREL || 'en-GB';

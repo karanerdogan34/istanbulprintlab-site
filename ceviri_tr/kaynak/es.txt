@@ -1198,3 +1198,26 @@
 1203	/ m²
 1204	plastificado mate
 1205	plastificado brillo
+1206	En resumen
+1207	Envío
+1208	Precios
+1209	Pedido mínimo
+1210	sin IVA
+1211	Pieza única hasta 150 cm × 49 m
+1212	Se envía en 1–2 días laborables
+1213	Pieza única hasta 160 cm × 49 m
+1214	Cada pegatina de al menos 4 cm, hasta 250 unidades
+1215	Letras de al menos 5 cm, ancho total hasta 124 cm
+1220	No se envía por mensajería; entrega en Estambul
+1221	Pieza única hasta 102 cm × 49 m
+1222	Papel estucado mate 350 g
+1224	Film UV DTF
+1225	Diseño de al menos 2 cm, un lado hasta 40 cm
+1226	Film de transfer DTF
+1227	Diseño de al menos 2 cm, hasta 30 × 60 cm
+1228	Lados de la pared hasta 49 metros
+1230	PVC espumado, 3–10 mm
+1231	Cartón pluma (fotobloque), 3–10 mm
+1096	Se envía en 3 días laborables
+1207	Plazo
+1232	Ejemplo:

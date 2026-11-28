@@ -1198,3 +1198,26 @@
 1203	/ m²
 1204	matte lamination
 1205	gloss lamination
+1206	Quick facts
+1207	Ships in
+1208	Prices
+1209	Minimum order
+1210	excl. VAT
+1211	Single piece up to 150 cm × 49 m
+1212	Ships in 1–2 business days
+1213	Single piece up to 160 cm × 49 m
+1214	Each sticker at least 4 cm, up to 250 pieces
+1215	Letters at least 5 cm high, total width up to 124 cm
+1220	Not sent by courier; delivery within Istanbul
+1221	Single piece up to 102 cm × 49 m
+1222	350 g matte coated paper
+1224	UV DTF film
+1225	Design at least 2 cm, one side up to 40 cm
+1226	DTF transfer film
+1227	Design at least 2 cm, up to 30 × 60 cm
+1228	Wall sides up to 49 metres
+1230	PVC foam board, 3–10 mm
+1231	Foam board (photo block), 3–10 mm
+1096	Ships in 3 business days
+1207	Dispatch
+1232	Example:

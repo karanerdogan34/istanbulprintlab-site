@@ -1198,3 +1198,26 @@
 1203	/ m²
 1204	plastificazione opaca
 1205	plastificazione lucida
+1206	In breve
+1207	Spedizione
+1208	Prezzi
+1209	Ordine minimo
+1210	IVA esclusa
+1211	Pezzo unico fino a 150 cm × 49 m
+1212	Spedito in 1–2 giorni lavorativi
+1213	Pezzo unico fino a 160 cm × 49 m
+1214	Ogni adesivo almeno 4 cm, fino a 250 pezzi
+1215	Lettere alte almeno 5 cm, larghezza totale fino a 124 cm
+1220	Non spedito con corriere; consegna a Istanbul
+1221	Pezzo unico fino a 102 cm × 49 m
+1222	Carta patinata opaca 350 g
+1224	Pellicola UV DTF
+1225	Soggetto almeno 2 cm, un lato fino a 40 cm
+1226	Pellicola transfer DTF
+1227	Soggetto almeno 2 cm, fino a 30 × 60 cm
+1228	Lati della parete fino a 49 metri
+1230	Forex (PVC espanso), 3–10 mm
+1231	Pannello in schiuma (fotoblocco), 3–10 mm
+1096	Spedito in 3 giorni lavorativi
+1207	Tempi
+1232	Esempio:
