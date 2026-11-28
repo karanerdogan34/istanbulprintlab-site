@@ -414,6 +414,9 @@ body.uf #hizli-siparis{padding-bottom:40px!important;scroll-margin-top:84px}
 .ukart:hover,.ukart:focus-visible{color:var(--ink)}
 @media (hover:hover){.ukartlar:hover .ukart{opacity:.66}.ukartlar .ukart:hover{opacity:1}.ukart:hover .ukutu{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 26px -14px rgba(43,38,34,.5)}}
 .ukart:focus-visible{outline:none}.ukart:focus-visible .ukutu{outline:2px solid var(--kiremit);outline-offset:3px}
+.prj-kartlar.kapali>a:nth-child(n+4){display:none}
+.prj-alt{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;margin-top:24px}
+@media (max-width:760px){.prj-kartlar.kapali>a:nth-child(n+3){display:none}}
 .ukart-et{font-style:normal;font-size:12px;color:var(--mute);margin-top:4px;line-height:1.3}
 .ukart-not{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;font-size:14px;color:var(--mute);margin-top:18px}
 .ukart-not a{color:var(--ink);font-weight:600}
@@ -510,7 +513,7 @@ body.kilit{overflow:hidden}
 </div>
 </section>
 
-<section class="wrap" id="hizli-siparis" aria-label="Ürünler: fiyat hesapla ve sipariş ver" style="padding-bottom:64px">
+<section class="wrap" id="hizli-siparis" aria-label="Ürünler: fiyat hesapla ve sipariş ver" style="padding-bottom:64px"><span id="hizmetler"></span>
 <div class="ukartlar"><!--URUN_DUGMELERI--><!--/URUN_DUGMELERI--></div>
 <p class="ukart-not">Fiyatlar KDV hariç · En az sipariş {{asgari}} ₺ + KDV · Bir ürüne dokunun, ölçünüzü yazın, fiyatı anında görün. <a href="https://wa.me/905325237364" rel="noopener">Emin değil misiniz? WhatsApp'tan sorun</a></p>
 </section>
@@ -522,12 +525,7 @@ body.kilit{overflow:hidden}
 <p class="note" style="margin-top:20px">Ürün fiyatları KDV hariç yazılır; hesaplayıcıda ve ödemede KDV dahil toplam gösterilir. KDV dahil {{kargo_esik}} ₺ altındaki siparişlerde kargo {{kargo_ucreti}} ₺, {{kargo_esik}} ₺ ve üzeri siparişlerde kargo bizden. Foreks ve fotoblok kargoyla gönderilmez; nakliye veya Kadıköy'deki atölyemizden teslim. <a href="/teslimat-ve-kargo/">Teslimat ve kargo koşulları</a></p>
 </section>
 
-<section id="ne-yapiyoruz" class="wrap sec"><span id="hizmetler"></span>
-<div class="shead"><h2 class="h2" style="max-width:640px">Ne yapıyoruz?</h2><p class="lead">Ölçü, üretim ve uygulama gerektiren işlerimiz. Bu hizmetler ölçü ve uygulama koşullarına göre teklifle fiyatlandırılır.</p></div>
-<div class="grid g3 svc nyp"><!--NE_YAPIYORUZ--><!--/NE_YAPIYORUZ-->
-</div>
-<p class="lead" style="margin-top:28px">Listede olmayan bir iş mi? <a class="link" href="#teklif">Projenizi anlatın, teklifinizi gönderelim →</a></p>
-</section>
+
 
 <section class="xmas" id="yilbasi-bant"><div class="wrap sec grid g2" style="align-items:center">
 <img class="ph" src="/img/gercek-fotoblok-avm2.webp" alt="AVM koridorunda yılbaşı mesajlı ayaklı fotoblok figür" loading="lazy" style="height:460px">
@@ -591,9 +589,10 @@ body.kilit{overflow:hidden}
 
 
 
-<section id="projeler" class="wrap sec">
-<div class="shead"><h2 class="h2">Projelerimiz ve referanslarımız</h2><p class="lead">Ürettiğimiz ve uyguladığımız işlerin tamamı galeride.</p></div>
-<div class="grid svc prj" style="grid-template-columns:minmax(0,1fr)"><a href="/galeri/" class="prj-tum"><div class="clip" style="aspect-ratio:21/9"><img class="ph" src="/img/projeler-sevgili-gece.webp" alt="Sevgili Yapı şantiye brandası, gece – tüm projelerimiz" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div><div><span class="tag">Galeri</span><h3>Tüm projeler →</h3><p>Branda, folyo, fotoblok, tabela ve afiş işlerimizin tamamı; son eklenen projeler ve vaka çalışmaları.</p></div></a></div>
+<section id="projeler" class="wrap sec"><span id="ne-yapiyoruz"></span>
+<div class="shead"><h2 class="h2">Projelerimiz ve referanslarımız</h2><p class="lead">Ölçü alıp ürettiğimiz ve yerinde uyguladığımız işler: vitrin, cam yazısı, şantiye paravanı, tabela ve daha fazlası. Bu işler ölçüye göre teklifle fiyatlandırılır.</p></div>
+<div class="grid g3 svc nyp prj-kartlar kapali" id="prjKartlar"><!--NE_YAPIYORUZ--><!--/NE_YAPIYORUZ--></div>
+<div class="prj-alt"><button type="button" class="btn ghost" id="prjAc" aria-expanded="false" aria-controls="prjKartlar">Tüm projelerimizi görün</button><a class="link" href="/galeri/">Fotoğraf galerisi →</a><a class="link" href="#teklif">Listede olmayan bir iş mi? Projenizi anlatın →</a></div>
 <p class="note" style="margin-top:28px;font-size:14px;letter-spacing:.06em;text-transform:uppercase">Referanslarımızdan bazıları</p>
 <div class="refs" style="display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--soft);font-size:17px;margin-top:8px"><!--REFERANSLAR--><!--/REFERANSLAR--></div>
 </section>
@@ -1059,5 +1058,11 @@ var m=/^#hesapla-([a-z0-9-]+)$/.exec(location.hash);
 if(m){var a0=document.querySelector('a.ukart[data-kod="'+m[1]+'"]');if(a0){try{history.replaceState(null,'',location.pathname+location.search)}catch(x){}ac(a0)}}
 })();
 </script>
+<script>(function(){var k=document.getElementById('prjKartlar'),b=document.getElementById('prjAc');if(!k||!b)return;var n=k.children.length;
+function yaz(){var acik=!k.classList.contains('kapali');b.textContent=acik?'Daha az göster':'Tüm projelerimizi görün ('+n+')';b.setAttribute('aria-expanded',acik)}
+if(n<=3){b.hidden=true}else yaz();
+b.addEventListener('click',function(){var acik=k.classList.toggle('kapali');yaz();if(acik)document.getElementById('projeler').scrollIntoView({block:'start'})});
+function hash(){if(location.hash==='#projeler'||location.hash==='#ne-yapiyoruz'){k.classList.remove('kapali');yaz()}}
+window.addEventListener('hashchange',hash);hash();})();</script>
 </body>
 </html>
