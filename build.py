@@ -433,7 +433,7 @@ def kisaca_satirlari(yol, kod, F, C, G):
     u = F[kod]
     t = u['tur']
     bf = baslangic_fiyati(u).replace("'den", "'den başlar")
-    satir = [('Fiyat', bf)]
+    satir = [('Birim fiyat' if t in ('rulo', 'yazi', 'dtf', 'duvar') else 'Fiyat', bf)]
     if t in ('kartvizit', 'davetiye'):
         p = u['paketler'][0]
         satir.append(('En az sipariş', '%s adet (%s + KDV)' % (p['adet'], tl(min(p['tek'], p['cift'])))))
@@ -473,7 +473,7 @@ def kisaca_satirlari(yol, kod, F, C, G):
     else:
         tes = std
     if u.get('laminasyon') and not u.get('kargo_yok'):
-        tes += ' (laminasyonlu işler kuruma için biraz daha geç)'
+        tes += '. Laminasyonlu işlerde süre sipariş onayında bildirilir'
     satir.append(('Teslim', tes))
     if u.get('malzemeler'):
         satir.append(('Malzeme', ', '.join(m['ad'] for m in u['malzemeler'])))
@@ -530,18 +530,20 @@ def urun_semalari():
         ad = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', h1.group(1))).strip() if h1 else yol
         ac = re.search(r'<meta name="description" content="([^"]*)"', s)
         gr = re.search(r'<meta property="og:image" content="([^"]*)"', s)
-        ps = {'@type': 'UnitPriceSpecification', 'price': '%.2f' % fiyat, 'priceCurrency': 'TRY', 'valueAddedTaxIncluded': False}
+        kdv = 1 + F_genel.get('kdv_orani', 0.2)
+        fiyat_kdvli = round(fiyat * kdv, 2)
+        ps = {'@type': 'UnitPriceSpecification', 'price': '%.2f' % fiyat_kdvli, 'priceCurrency': 'TRY', 'valueAddedTaxIncluded': True}
         if birim in ('MTK', 'MTR'):
             ps['unitCode'] = birim
             ps['unitText'] = 'm²' if birim == 'MTK' else 'metre'
+            ps['referenceQuantity'] = {'@type': 'QuantitativeValue', 'value': 1, 'unitCode': birim}
         else:
             ps['unitText'] = birim
-        teklif = {'@type': 'AggregateOffer' if den else 'Offer', 'url': '%s/%s/' % (taban, yol), 'priceCurrency': 'TRY',
+        teklif = {'@type': 'Offer', 'url': '%s/%s/' % (taban, yol), 'priceCurrency': 'TRY', 'price': '%.2f' % fiyat_kdvli,
                   'availability': 'https://schema.org/InStock', 'seller': {'@id': taban + '/#isletme'}, 'priceSpecification': ps}
-        if den:
-            teklif['lowPrice'] = '%.2f' % fiyat
-        else:
-            teklif['price'] = '%.2f' % fiyat
+        if kod and birim in ('MTK', 'MTR', 'tabaka'):
+            teklif['eligibleTransactionVolume'] = {'@type': 'PriceSpecification', 'minPrice': '%.2f' % round(F_genel['asgari_baski'] * kdv, 2),
+                                                   'priceCurrency': 'TRY', 'valueAddedTaxIncluded': True}
         sema = {'@context': 'https://schema.org', '@type': 'Product', 'name': html.unescape(ad), 'brand': {'@type': 'Brand', 'name': 'IstanbulPrintLab'},
                 'url': '%s/%s/' % (taban, yol), 'offers': teklif}
         if ac:
@@ -603,7 +605,7 @@ def llms_txt():
         '## Fiyat kuralları',
         '- Ürün fiyatları KDV hariç yazılır; hesaplayıcıda ve ödemede KDV dahil toplam gösterilir.',
         '- En az sipariş tutarı %s + KDV.' % tl(G['asgari_baski']),
-        '- Kargo: KDV dahil %s altındaki siparişlerde %s; %s ve üzerinde ücretsiz (%s m²\'ye kadar). Foreks ve fotoblok kargoyla gönderilmez; atölyeden teslim veya nakliye.' % (tl(G['kargo_ucretsiz_esik']), tl(G['kargo_ucreti']), tl(G['kargo_ucretsiz_esik']), G['kargo_max_m2']),
+        '- Kargo: KDV dahil %s altındaki siparişlerde %s; %s ve üzerinde ücretsiz (%s m²\'ye kadar). Kartvizitte kargo her zaman ücretsiz. Foreks ve fotoblok kargoyla gönderilmez; atölyeden teslim veya nakliye.' % (tl(G['kargo_ucretsiz_esik']), tl(G['kargo_ucreti']), tl(G['kargo_ucretsiz_esik']), G['kargo_max_m2']),
         '- Orijinal GREENGUARD Gold sertifikalı Mimaki mürekkep kullanılır.',
         '',
         '## Ürünler ve başlangıç fiyatları (KDV hariç)',
@@ -622,6 +624,80 @@ def llms_txt():
         '',
     ])
     yaz('%s/llms.txt' % DIST, metin)
+
+
+def sss_ek_listesi(F, G):
+    """Soru-cevabı olmayan sayfalar için rakamla cevap veren sorular (rakamlar fiyat dosyasından)."""
+    def tl(x):
+        return ('{:,.0f}'.format(x)).replace(',', '.') + ' ₺'
+    std = 'Dosya ve ödeme onayından sonra 1–2 iş gününde kargoya verilir.'
+    asg = 'En az sipariş tutarı %s + KDV.' % tl(G['asgari_baski'])
+    L = {}
+    y = F.get('folyo-yazi-kesim')
+    if y:
+        k = sorted(y['kademeler'], key=lambda x: -x['min_harf'])
+        renk = [r['ad'] for r in y.get('renkler', []) if not r.get('teklif')]
+        L['folyo-yazi-kesim'] = [
+            ('Folyo yazı kesim fiyatı ne kadar?', 'Harfleri %s cm ve üstü olan yazılarda %s + KDV / m², %s–%s cm arası harflerde %s + KDV / m². Aktarma bandı fiyata dahildir. %s %s cm\'den küçük harfler ve el yazısı için bize yazın, size özel fiyat verelim.' % (
+                k[0]['min_harf'], tl(k[0]['m2']), k[-1]['min_harf'], k[0]['min_harf'], tl(k[-1]['m2']), asg, k[-1]['min_harf'])),
+            ('Hangi renkler var?', '%s. Altın, gümüş ve listede olmayan renkler için bize yazın.' % ', '.join(renk)),
+            ('En büyük ne kadar olabilir?', 'Genişlik en fazla %s cm, uzunluk en fazla %s metre.' % (y['max_en'], G['tek_parca_max_boy'] // 100)),
+            ('Kaç günde hazır olur?', std)]
+    y = F.get('kartvizit-baski')
+    if y:
+        pk = '\n'.join('%s adet: tek yön %s, çift yön %s' % (p['adet'], tl(p['tek']), tl(p['cift'])) for p in y['paketler'])
+        L['kartvizit-baski'] = [
+            ('Kartvizit fiyatı ne kadar?', 'Fiyatlar KDV hariçtir; selefon ve kargo dahildir.\n' + pk),
+            ('Kendi tasarımımı yükleyebilir miyim?', 'Evet. Tasarımınızı PDF olarak yükleyin; aynı fiyatlarla basılır. Tasarımınız yoksa sitedeki 10 hazır şablondan birini seçip bilgilerinizi yazın.'),
+            ('Hangi kağıda basılıyor?', '%s; ölçü %s.' % (y.get('kagit', ''), y.get('olcu', ''))),
+            ('Kaç günde elime ulaşır?', std + ' Kargo ücretsizdir.')]
+    y = F.get('soguk-dtf-baski')
+    if y:
+        L['soguk-dtf-baski'] = [
+            ('UV DTF baskı fiyatı ne kadar?', '%s cm genişlikte metresi %s + KDV. %s' % (y['rulo_en'], tl(y['metre_fiyat']), asg)),
+            ('UV DTF nedir, nereye yapışır?', 'Arka planı olmayan, yalnızca tasarımınızın basıldığı transfer sticker\'dır. Kupa, cam, şişe ve sert yüzeylere yapıştırılır, üstteki taşıyıcı film soyulur.'),
+            ('En küçük ve en büyük ölçü nedir?', 'Genişlik en fazla %s cm, uzunluk en fazla %s metre. En küçük tasarım %s cm.' % (y['rulo_en'], G['tek_parca_max_boy'] // 100, y['min_cm'])),
+            ('Kaç günde hazır olur?', std)]
+    y = F.get('sicak-dtf-baski')
+    if y and y.get('tabaka'):
+        t = y['tabaka']
+        L['sicak-dtf-baski'] = [
+            ('Sıcak DTF baskı fiyatı ne kadar?', '%s × %s cm\'lik bir tabaka %s + KDV. %s' % (t['en'], t['boy'], tl(t['fiyat']), asg)),
+            ('Nasıl uygulanır?', 'Ev ütüsüyle tişört, sweatshirt ve kumaşa uygulanır; pres makinesi gerekmez.'),
+            ('En küçük ve en büyük ölçü nedir?', 'Tek parça en fazla %s × %s cm. En küçük tasarım %s cm.' % (t['en'], t['boy'], y['min_cm'])),
+            ('Kaç günde hazır olur?', std)]
+    y = F.get('davetiye-baski')
+    if y:
+        pk = '\n'.join('%s adet: tek yön %s, çift yön %s' % (p['adet'], tl(p['tek']), tl(p['cift'])) for p in y['paketler'])
+        o = y['olcu']
+        L['davetiye-baski'] = [
+            ('Davetiye fiyatı ne kadar?', 'Fiyatlar KDV hariçtir; zarf dahil değildir.\n' + pk),
+            ('Davetiye ölçüsü nedir?', '%s × %s cm; yatay ya da dikey kullanılabilir.' % ('%g' % (o['en'] / 10), '%g' % (o['boy'] / 10))),
+            ('Kendi tasarımımı yükleyebilir miyim?', 'Evet, PDF olarak yükleyin. Tasarımınız yoksa sitedeki hazır şablonlardan birini seçip bilgilerinizi yazın.'),
+            ('Kaç günde hazır olur?', 'Onaydan sonra %s iş gününde kargoya verilir.' % y.get('uretim_is_gunu', 3))]
+    L['pirinc-tabela'] = [
+        ('Pirinç tabela fiyatı ne kadar?', 'Fiyat ölçüye, yazıya ve logo işçiliğine göre değişir. Ölçüyü ve yazıyı WhatsApp\'tan gönderin, size özel fiyat verelim.'),
+        ('Hangi yerler için yapıyorsunuz?', 'Ofis, klinik, hukuk bürosu ve butik mağaza kapıları; isim tabelaları ve "Toplantı Odası" gibi yönlendirme tabelaları.'),
+        ('Nerede üretiliyor?', "Kadıköy'deki atölyemizde, ölçünüze göre üretilir.")]
+    return L
+
+
+def sss_ekle():
+    F = js('siparis/src/fiyatlar.json')
+    for yol, liste in sss_ek_listesi(F['urunler'], F['genel']).items():
+        f = '%s/%s/index.html' % (DIST, yol)
+        if not os.path.exists(f):
+            continue
+        s = open(f, encoding='utf-8').read()
+        if '"FAQPage"' in s or '</main>' not in s:
+            continue
+        bolum = '<section class="wrap" style="padding-bottom:96px;max-width:900px"><h2 class="h2" style="margin-bottom:24px">Sık sorulanlar</h2>%s</section>\n' % ''.join(
+            '<details><summary>%s<span class="plus" aria-hidden="true">+</span></summary><p>%s</p></details>' % (E(q), E(a).replace('\n', '<br>')) for q, a in liste)
+        sema = {'@context': 'https://schema.org', '@type': 'FAQPage', 'inLanguage': 'tr',
+                'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a.replace('.\n', '. ').replace('\n', '; ')}} for q, a in liste]}
+        s = s.replace('</main>', bolum + '</main>', 1)
+        s = s.replace('</head>', '<script type="application/ld+json">%s</script>\n</head>' % json.dumps(sema, ensure_ascii=False), 1)
+        open(f, 'w', encoding='utf-8').write(s)
 
 
 def main():
@@ -700,6 +776,7 @@ def main():
     # yönetim uygulaması, değişikliğin sitede yayına girdiğini bu dosyadan anlar
     yaz('%s/yonetim/surum.json' % DIST, json.dumps({'commit': os.environ.get('COMMIT_REF', '')}))
     urun_semalari()
+    sss_ekle()
     llms_txt()
     diller.site_haritasi(DIST, diller.baglantilar(DIST))
     eksik = ic_baglanti_kontrol()

@@ -78,7 +78,7 @@ export default async (req) => {
   // 2) Deneme kaydı (sözleşme onayının kanıtı dahil) yazılır; kayıt yazılamazsa ödeme başlatılmaz.
   try {
     await denemeYaz(oid, {
-      oid, linkId: v.i, siparisNo: v.n, aciklama: v.a, kurus: v.k, durum: 'baslatildi', zaman: simdi, test: a.test === '1',
+      oid, linkId: v.i, siparisNo: v.n, aciklama: v.a, kurus: v.k, kargoKurus: v.kg || 0, durum: 'baslatildi', zaman: simdi, test: a.test === '1',
       musteri: { ad, eposta, telefon, adres }, fatura,
       sozlesme: { onay: true, zaman: simdi, ip, surum: SOZLESME_SURUMU, belgeler: ['/on-bilgilendirme-formu/', '/mesafeli-satis-sozlesmesi/', '/kvkk/'] },
     });

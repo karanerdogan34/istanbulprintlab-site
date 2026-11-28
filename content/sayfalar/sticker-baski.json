@@ -1,10 +1,10 @@
 {
   "yol": "sticker-baski",
-  "seo_baslik": "Sticker ve Etiket Baskı — Anında Fiyat Hesapla | IstanbulPrintLab",
-  "seo_aciklama": "Sticker ve etiket baskı: ölçü ve adedi girin, fiyatı anında görün. Baskı ve kontur kesim, dosya kontrolü, 1–2 iş gününde hazır. {{sticker}} ₺ + KDV / m² (KDV dahil {{sticker+kdv}} ₺).",
+  "seo_baslik": "Sticker Baskı İstanbul — Anında Fiyat | IstanbulPrintLab",
+  "seo_aciklama": "Sticker baskı İstanbul: ölçü ve adedi yazın, fiyatı anında görün. Kadıköy'de basılır, şeklinde kesilir, 1–2 iş gününde kargoda. {{sticker}} ₺ + KDV / m².",
   "etiket": "Küçük format · İç ve dış mekan",
-  "baslik": "Sticker ve etiket baskı",
-  "giris": "Logonuz, ürün etiketiniz veya kampanya stickerınız; istediğiniz ölçü ve şekilde basılır, kontur kesilir.",
+  "baslik": "İstanbul'da sticker ve etiket baskısı",
+  "giris": "Logonuz, ürün etiketiniz ya da kampanya stickerınız: ölçüsünü ve adedini yazın, fiyatı hemen görün. Kadıköy'deki atölyemizde basar; kare, yuvarlak ya da logonuzun şeklinde keseriz. Çok ince ve karmaşık kesimler için bize yazın. 1–2 iş gününde kargoda.",
   "neden": [
     "Baskı ve kontur kesim aynı Mimaki'de: kesim baskıya oturur",
     "Dosyanız yüklenir yüklenmez otomatik kontrol, ardından ekibimizin kontrolü",
@@ -67,6 +67,16 @@
     }
   ],
   "sss": [
+    {
+      "soru": "İstanbul'da sticker baskı fiyatı ne kadar?",
+      "cevap": "Sticker baskı {{sticker}} ₺ + KDV / m²'dir, kesim dahildir. En az sipariş tutarı {{asgari}} ₺ + KDV. Örnek: 10 × 10 cm'lik 100 sticker yaklaşık 1 m² eder; en az sipariş tutarı nedeniyle {{asgari}} ₺ + KDV olur.",
+      "acik": false
+    },
+    {
+      "soru": "Sticker kaç günde hazır olur?",
+      "cevap": "Dosya ve ödeme onayından sonra 1–2 iş gününde kargoya verilir. Laminasyonlu stickerlar kuruma için biraz daha geç hazırlanır.",
+      "acik": false
+    },
     {
       "soru": "Sticker yaptırmak istiyorum, nasıl sipariş veririm?",
       "cevap": "Ölçü ve adedi hesaplayıcıya girin, fiyatı anında görün. Dosyanız baskıya hazırsa yükleyip kartla, dilerseniz taksitle hemen ödeyin. Dosyanız yoksa logonuzu gönderin, tasarım desteği verelim. Ürünlerinizi Kadıköy'deki atölyemizden teslim alabilir veya kargoyla isteyebilirsiniz.",

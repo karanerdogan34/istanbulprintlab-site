@@ -1,10 +1,10 @@
 {
   "yol": "rulo-etiket-baski",
-  "seo_baslik": "Rulo Etiket Baskı İstanbul — Ürün Etiketi | IstanbulPrintLab",
-  "seo_aciklama": "Rulo etiket baskı: ürün, ambalaj ve kavanoz etiketleri rulo veya tabaka halinde. Oracal folyo, kontur kesim, suya dayanıklı. Hızlı teklif.",
+  "seo_baslik": "Rulo Etiket Baskı ve Bastırma İstanbul | IstanbulPrintLab",
+  "seo_aciklama": "Rulo etiket baskı ve etiket bastırma: ürün, kavanoz ve şişe etiketleri rulo ya da tabaka halinde. Kadıköy'de basılır, şeklinde kesilir, suya dayanıklıdır.",
   "etiket": "Küçük format · Ürün ve ambalaj",
-  "baslik": "Rulo etiket baskı",
-  "giris": "Ürün, ambalaj ve kavanoz etiketlerinizi toplu kullanım için rulo halinde basıp kesiyoruz. Elle yapıştırmaya uygun tabaka da seçebilirsiniz.",
+  "baslik": "Rulo etiket baskısı",
+  "giris": "Etiket bastırmak ya da yaptırmak mı istiyorsunuz? Ürün, kavanoz, şişe ve kutu etiketlerinizi rulo halinde basıp şeklinde keseriz. Az sayıda etiket için tabaka halinde de yaparız; tabaka etiketin fiyatını hemen hesaplayabilirsiniz.",
   "neden": [],
   "fotolar": [
     {
@@ -27,10 +27,25 @@
     },
     {
       "ad": "Fiyat",
-      "deger": "Rulo etiket yalnızca teklifle fiyatlandırılır (sarım ve kesim düzeni işe göre değişir). Tabaka halinde sticker için hesaplayıcıyı kullanabilirsiniz."
+      "deger": "Tabaka etiket: {{sticker}} ₺ + KDV / m² (kesim dahil), fiyatı hesaplayıcıda. Rulo etiket: adede ve sarım düzenine göre size özel fiyat."
     }
   ],
   "sss": [
+    {
+      "soru": "Etiket bastırmak ne kadar tutar?",
+      "cevap": "Tabaka halinde etiket {{sticker}} ₺ + KDV / m²'dir, kesim dahildir; en az sipariş {{asgari}} ₺ + KDV. Rulo etiketin fiyatı adede ve sarım düzenine göre değişir: ölçüyü, adedi ve rulo bilgisini WhatsApp'tan yazın, size özel fiyat verelim.",
+      "acik": false
+    },
+    {
+      "soru": "Etiket kaç günde hazır olur?",
+      "cevap": "Tabaka etiketler dosya ve ödeme onayından sonra 1–2 iş gününde kargoya verilir. Rulo etiketlerde süreyi fiyatla birlikte size yazarız.",
+      "acik": false
+    },
+    {
+      "soru": "Etiket yaptırmak için ne göndermeliyim?",
+      "cevap": "Etiket tasarımınızı PDF ya da yüksek çözünürlüklü PNG olarak, ölçüsü ve adediyle birlikte gönderin. Fiyatlara tasarım dahil değildir.",
+      "acik": false
+    },
     {
       "soru": "Rulo ile tabaka arasındaki fark nedir?",
       "cevap": "Tabaka etiket elle yapıştırmaya uygundur; birçok etiket tek sayfada gelir. Rulo etiket toplu kullanım için sarılı gelir ve hızlı uygulanır.",

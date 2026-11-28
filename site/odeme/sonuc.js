@@ -10,7 +10,11 @@
       var no = String(d.siparisNo || oid), anahtar = 'ipl_purchase_' + no;
       try { if (localStorage.getItem(anahtar)) return; localStorage.setItem(anahtar, '1'); } catch (e) {}
       var p = { transaction_id: no, currency: 'TRY' };
-      if (d.toplam) p.value = Math.round(d.toplam) / 100;
+      if (d.kurus) {
+        var kargo = (d.kargoKurus || 0) / 100, urunKdvli = (d.kurus / 100) - kargo, net = Math.round(urunKdvli / 1.2 * 100) / 100;
+        p.value = net; p.tax = Math.round((urunKdvli - net) * 100) / 100; p.shipping = kargo;
+        p.items = [{ item_id: no, item_name: d.urun || 'Baskı siparişi', price: net, quantity: 1 }];
+      } else if (d.toplam) p.value = Math.round(d.toplam) / 100;
       if (typeof window.gtag === 'function') window.gtag('event', 'purchase', p);
       else { window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'purchase', ecommerce: p }); }
     } catch (e) {}
