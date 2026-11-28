@@ -265,7 +265,7 @@
         urunKod: sip.kod, girdi: sip.girdi, odenebilir: odenebilir };
       return postJSON('talep', veri).then(function (j) {
         if (!j.no) {
-          gonderiliyor = false; btn.disabled = false; btn.textContent = 'Sipariş talebini gönder';
+          gonderiliyor = false; btn.disabled = false; btn.textContent = 'Sipariş talebini gönder'; sonDurum = null;
           if (j.__durum === 400 && j.alan === 'telefon') { tTel.setAttribute('aria-invalid', 'true'); tTel.focus(); }
           hata((j.message || 'Talebiniz gönderilemedi.') + (j.__durum >= 500 || !j.__durum ? ' Lütfen tekrar deneyin ya da WhatsApp\'tan yazın.' : ''));
           return;
@@ -301,7 +301,7 @@
         });
       });
     }).catch(function () {
-      gonderiliyor = false; btn.disabled = false; btn.textContent = 'Sipariş talebini gönder';
+      gonderiliyor = false; btn.disabled = false; btn.textContent = 'Sipariş talebini gönder'; sonDurum = null;
       hata('Bağlantı hatası, talebiniz gönderilemedi. Lütfen tekrar deneyin.');
     });
   });
@@ -314,12 +314,30 @@
       if (ad) try { window.parent.postMessage({ ipl: 'olay', ad: ad, urun: location.pathname }, location.origin); } catch (x) {}
     }, true);
   }
+  // Doğrudan ödenebilen siparişte (fiyat tamam, dosya ön kontrolden geçti) bilgi notu ve düğme buna göre yazılır
+  var notOnay = not.textContent, sonDurum = null;
+  function durumYaz() {
+    if (gonderiliyor || btn.style.display === 'none') return;
+    var o = !!((window.IPLSiparis || {}).odenebilir);
+    if (o === sonDurum) return; sonDurum = o;
+    not.textContent = o ? 'Dosyanız ön kontrolden geçti: siparişinizi gönderdikten sonra kartla, dilerseniz taksitle hemen ödeyebilirsiniz. Üretimden önce son teknik kontrol yapılır.' : notOnay;
+  }
+  setInterval(durumYaz, 600); durumYaz();
+  // Ana sayfadaki panelde: güncel tutar üst sayfanın alt çubuğunda da görünür
+  if (window.parent !== window && document.documentElement.classList.contains('panel')) {
+    var sonFiyat = null;
+    setInterval(function () {
+      var m = document.getElementById('mTop'), v = m ? temiz(m.textContent) : '';
+      if (v !== sonFiyat) { sonFiyat = v; try { window.parent.postMessage({ ipl: 'fiyat', metin: v }, location.origin); } catch (x) {} }
+    }, 500);
+  }
   window.IPLSiparisMesaji = mesaj; // test için
 
   // Sitenin ürün sayfasına gömülüyken yüksekliği üst sayfaya bildir (çerçeve kaydırma çubuğu olmadan uzar)
   if (document.documentElement.classList.contains('gomulu') && window.parent !== window) {
     var son = 0;
-    var bildir = function () { var h = Math.ceil(document.body.getBoundingClientRect().height) + 4; if (Math.abs(h - son) > 2) { son = h; window.parent.postMessage({ ipl: 'yukseklik', h: h, yol: location.pathname }, location.origin); } };
+    var ozetEl = document.getElementById('ozet');
+    var bildir = function () { var h = Math.ceil(document.body.getBoundingClientRect().height) + 4; if (Math.abs(h - son) > 2) { son = h; window.parent.postMessage({ ipl: 'yukseklik', h: h, yol: location.pathname, ozet: ozetEl ? Math.round(ozetEl.getBoundingClientRect().top + window.scrollY) : null }, location.origin); } };
     if (window.ResizeObserver) new ResizeObserver(bildir).observe(document.body);
     window.addEventListener('load', bildir); setInterval(bildir, 1500); bildir();
     // Üst sayfa kaydırıldıkça sipariş özeti görünür alanda kalır (masaüstünde iki sütunlu düzende)

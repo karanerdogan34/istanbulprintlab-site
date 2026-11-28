@@ -82,15 +82,36 @@ def baslangic_fiyati(u):
     return ''
 
 
+URUN_GORSEL_ALT = {  # ürün kartı fotoğrafları: ürün, kullanıldığı yerde ve gerçek ölçeğinde
+    'folyo-baski': 'Butik vitrin camını baştan sona kaplayan baskılı folyo', 'branda-baski': 'Şantiyeyi saran baskılı branda inşaat paravanı',
+    'sticker-etiket-baski': 'Dizüstü bilgisayara yapıştırılan kesimli sticker', 'one-way-vision-baski': 'Ofis camında delikli one way vision baskı',
+    'folyo-yazi-kesim': 'Kafe vitrininde beyaz folyo yazı kesim ve açılış saatleri', 'foreks-baski': 'Ofis duvarında distans vidalı foreks levhalar',
+    'fotoblok-baski': 'AVM koridorunda ayakta duran dekupe fotoblok figür', 'afis-baski': 'Kuşgözlerinden iple korkuluğa gerdirilmiş branda afiş',
+    'kartvizit-baski': 'Elde tutulan kalın kartvizit destesi', 'poster-baski': 'Oturma odası duvarında poster baskı',
+    'mesh-baski': 'Bina cephesini kaplayan delikli mesh baskı', 'soguk-dtf-baski': 'Kupaya uygulanan UV DTF baskı, taşıyıcı film soyulurken',
+    'sicak-dtf-baski': 'Tişörte uygulanan sıcak DTF transfer baskı', 'duvar-kagidi-baski': 'Çocuk odası duvarında baskılı duvar kağıdı',
+    'davetiye-baski': 'Masada zarf ve mühürle düğün davetiyesi'}
+
+
 def urun_dugmeleri_html(A):
     F = js('siparis/src/fiyatlar.json')['urunler']
     liste = A.get('urun_dugmeleri') or [dict(kod=k, yol=y, ad=a, goster=True) for k, y, a in DUGMELER]
     out = []
-    for d in liste:
+    for i, d in enumerate(liste):
         if d.get('goster') is False or d.get('kod') not in F:
             continue
-        fy = baslangic_fiyati(F[d['kod']]).split(' + ', 1)
-        out.append('<a class="pbtn" href="%s"><b>%s</b><small>%s</small></a>' % (S.guvenli_url(d['yol']), E(d.get('ad', '')), ' '.join('<span>%s</span>' % E(x) for x in [fy[0]] + (['+ ' + fy[1]] if len(fy) > 1 else []))))
+        kod = d['kod']
+        fy = baslangic_fiyati(F[kod]).split(' + ', 1)
+        fiyat = ' '.join('<span>%s</span>' % E(x) for x in [fy[0]] + (['+ ' + fy[1]] if len(fy) > 1 else []))
+        g = d.get('gorsel') or ''
+        if g:
+            img = '<img src="%s" alt="%s" loading="lazy" decoding="async" width="720" height="960">' % (S.gorsel(g), S.attr(d.get('gorsel_aciklama') or d.get('ad', '')))
+        else:
+            b = '/img/urun/%s' % kod
+            img = ('<img src="%s-720.jpg" srcset="%s-360.webp 360w, %s-720.webp 720w" sizes="(max-width:760px) 46vw, (max-width:1180px) 30vw, 220px" alt="%s" %s decoding="async" width="720" height="960">'
+                   % (b, b, b, E(URUN_GORSEL_ALT.get(kod, d.get('ad', ''))), 'fetchpriority="high"' if i < 2 else 'loading="lazy"'))
+        out.append('<a class="ukart" href="%s" data-kod="%s" data-ad="%s"><span class="ukutu">%s</span><b>%s</b><small>%s</small></a>' % (
+            S.guvenli_url(d['yol']), E(kod), E(d.get('ad', '')), img, E(d.get('ad', '')), fiyat))
     return '\n' + '\n'.join(out) + '\n'
 
 

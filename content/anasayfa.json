@@ -6,7 +6,7 @@
     "Hızlı tasarla, anında fiyat gör,",
     "kolayca sipariş ver."
   ],
-  "giris": "Ürününüzü seçin, ölçünüzü girin ya da hazır şablonla tasarlayın; fiyatınız anında ekranda, siparişiniz tek mesajla bize ulaşır. 1–2 iş günü içinde teslim alın.",
+  "giris": "Ürününüzü seçin, ölçünüzü yazın, dosyanızı yükleyin; fiyatınız anında ekranda, ödemeniz birkaç dakikada. Kadıköy'deki atölyemizde basılır, 1–2 iş gününde kargoda.",
   "hiz_notu": "GREENGUARD Gold sertifikalı orijinal mürekkep · Kadıköy'de üretim · Anında ön fiyat · Baskı öncesi dosya kontrolü",
   "yilbasi": {
     "goster": true,
@@ -29,7 +29,7 @@
   "sss": [
     {
       "soru": "Nasıl sipariş veririm?",
-      "cevap": "Yukarıdaki düğmelerden ürününüzü seçin, ölçünüzü girin ya da hazır şablonla tasarlayın; fiyatınız anında hesaplanır. \"WhatsApp'tan sipariş talebi gönder\" düğmesine bastığınızda seçimleriniz ve ön fiyat hazır mesaj olarak açılır; dosyanızı ekleyip gönderin. Dosyanızı kontrol edip kesin fiyatı onayınıza sunarız.",
+      "cevap": "Ürününüzün fotoğrafına dokunun; açılan panelde ölçünüzü yazın, fiyatınız anında görünür. Dosyanızı yükleyip onaylayın, telefon numaranızı yazıp siparişi gönderin. Dosyanız ön kontrolden geçtiyse kartla hemen ödersiniz; düzeltme gerekiyorsa size dönüp birlikte çözeriz.",
       "acik": true
     },
     {
@@ -39,12 +39,12 @@
     },
     {
       "soru": "Fiyat hesaplayıcıdaki fiyat kesin mi?",
-      "cevap": "Hesaplayıcı seçtiğiniz ölçü, adet ve malzemeye göre m² üzerinden fiyat verir. Dosya kontrolünde ölçü veya kesim değişirse size yeni fiyatı onaya sunarız; onayınız olmadan üretime geçmeyiz.",
+      "cevap": "Hesaplayıcı seçtiğiniz ölçü, adet ve malzemeye göre fiyat verir; ödediğiniz tutar kesindir. Üretimden önce dosyanız teknik kontrolden geçer. Düzeltme gerekirse size ulaşırız; iş bu haliyle üretilemiyorsa ödemeniz tamamen iade edilir.",
       "acik": true
     },
     {
       "soru": "Hangi ödeme yöntemleri var?",
-      "cevap": "Havale/EFT ile ödeme alıyoruz; kartla ödeme yakında. Kişiye özel üretim nedeniyle kapıda ödeme yoktur.",
+      "cevap": "Kartla (PayTR üzerinden, 12 taksite kadar) ya da havale/EFT ile ödeyebilirsiniz. Baskıya hazır siparişlerde ödemeyi sipariş anında sitede yaparsınız. Kişiye özel üretim nedeniyle kapıda ödeme yoktur.",
       "acik": true
     },
     {
@@ -181,7 +181,7 @@
       "ust_yazi": "Sezon ürünü",
       "baslik": "2027 ajanda takvim poster",
       "aciklama": "70×100 cm · 12 renk · çerçeveli seçenek 61×91 cm",
-      "fiyat": "Poster {{takvim}} ₺ · Çerçeveli {{takvim_cerceveli}} ₺ · KDV dahil",
+      "fiyat": "Poster {{takvim}} ₺ + KDV · Çerçeveli {{takvim_cerceveli}} ₺ (KDV dahil)",
       "baglanti": "/2027-ajanda-takvim/",
       "dugme": "İncele ve sipariş ver",
       "gorsel": "/img/takvim-cerceve.webp",

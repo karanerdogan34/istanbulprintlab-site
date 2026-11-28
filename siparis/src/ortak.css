@@ -94,3 +94,26 @@ html:not(.hazir) #chips,html:not(.hazir) .layout,html:not(.hazir) section.info{v
 .ornek b{font-size:20px}
 .ornek b small{font-size:13px;font-weight:400;color:var(--mute)}
 .ornek .btn{min-height:46px}
+
+/* Ana sayfadaki hesaplama paneli (?gomulu=1&panel=1): sade, hızlı, tek sütun; renkler ana sayfayla aynı */
+.panel{--ink:#2B2622;--line:#DCD3C2;--mute:#6B6258;--soft:#4A433C;--stone:#EDE5D7}
+.panel body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px;font-variant-numeric:tabular-nums;padding-bottom:0}
+.panel #chips,.panel section.info,.panel .hero{display:none!important}
+.panel .layout{grid-template-columns:1fr;gap:0;padding-bottom:8px}
+.panel .step{padding:16px 0}
+.panel .step:first-child{border-top:0;padding-top:6px}
+.panel .step h2{font-size:17px;font-weight:600;margin-bottom:10px}
+.panel .opts{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.panel .opt{padding:11px 13px;min-height:54px;border-radius:12px;background:#fff}
+.panel .opt small{font-size:13px}
+.panel .opt:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);background:#fff}
+.panel label.f input{height:50px;border-radius:12px;font-size:17px}
+.panel .fields{grid-template-columns:1fr 1fr}
+.panel .fields label:last-child{grid-column:1/-1}
+.panel .drop{padding:18px;border-radius:12px;background:#F4EEE3}
+.panel aside.sum{position:static;margin-top:4px;border-radius:16px;padding:18px;background:#fff}
+.panel .line span:last-child{font-family:inherit}
+.panel .line.big{font-size:26px;font-weight:700;color:#B5482E}
+.panel .btn{min-height:52px;font-weight:600;background:var(--ink);border-color:var(--ink)}
+.panel .btn.ghost{background:#fff;color:var(--ink)}
+.panel .btn:disabled{background:#D8D0C3;border-color:#D8D0C3;color:#fff}
