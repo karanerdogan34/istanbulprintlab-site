@@ -209,7 +209,7 @@ def galeri():
 # ---------- fiyatlar ----------
 TOK = re.compile(r'\{\{([a-z0-9_]+)(?:\*([\d.]+))?(\+kdv|:ham)?\}\}')
 HER_TOK = re.compile(r'\{\{[^{}]{0,40}\}\}')
-KDV_DAHIL = {'takvim', 'takvim_cerceveli', 'takvim_50', 'takvim_100'}
+KDV_DAHIL = {'takvim_cerceveli'}
 # Her fiyat için makul aralık (TL). Dışında kalan değer derlemeyi durdurur.
 ARALIK = {'asgari': (0, 20000), 'kargo_esik': (0, 200000), 'kargo_ucreti': (0, 5000), 'kargo_max_m2': (1, 1000), 'rollup': (500, 50000)}
 VARSAYILAN_ARALIK = (50, 30000)

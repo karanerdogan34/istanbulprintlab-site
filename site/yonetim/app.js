@@ -1204,7 +1204,7 @@ const FIYAT_GRUPLARI = [
   { ad: 'Metrekare fiyatları', not: 'KDV hariç girilir', kdv: 'haric', toplu: true, varsayilan: true, kalemler: [['cam_filmi', 'Ofis cam filmi', 'm²']] },
   { ad: 'Adet fiyatları', not: 'KDV hariç girilir', kdv: 'haric', toplu: true, kalemler: [['rollup', 'Roll-up 85×200', 'adet']] },
   { ad: 'Başlangıç fiyatları', not: 'KDV hariç girilir · sitede "…den başlayan" diye geçer', kdv: 'haric', toplu: true, kalemler: [['dekupe', 'Dekupe figür', 'başlangıç'], ['duvar_kagidi', 'Duvar kağıdı', 'başlangıç']] },
-  { ad: '2027 takvim', not: 'KDV DAHİL girilir', kdv: 'dahil', toplu: true, kalemler: [['takvim', 'Takvim poster', 'adet'], ['takvim_cerceveli', 'Takvim, çerçeveli', 'adet'], ['takvim_50', 'Takvim toplu, 50+ adet', 'adet başı'], ['takvim_100', 'Takvim toplu, 100+ adet', 'adet başı']] },
+  { ad: '2027 takvim', not: 'Poster ve toplu KDV HARİÇ, çerçeveli KDV DAHİL girilir', kdv: 'dahil', toplu: true, kalemler: [['takvim', 'Takvim poster', 'adet'], ['takvim_cerceveli', 'Takvim, çerçeveli', 'adet'], ['takvim_50', 'Takvim toplu, 50+ adet', 'adet başı'], ['takvim_100', 'Takvim toplu, 100+ adet', 'adet başı']] },
 ];
 const FIYAT_ARALIK = { asgari: [0, 20000], kargo_esik: [0, 200000], rollup: [500, 50000] };
 const fiyatAralik = (k) => FIYAT_ARALIK[k] || [50, 30000];

@@ -1,7 +1,7 @@
 {
   "yol": "2027-ajanda-takvim",
   "seo_baslik": "2027 Ajanda Takvim Poster — 12 Renk, Çerçeveli | IstanbulPrintLab",
-  "seo_aciklama": "2027 ajanda takvim poster: 70×100 cm {{takvim}} ₺, çerçeveli 61×91 cm {{takvim_cerceveli}} ₺, 12 renk, 2 iş günü içinde kargoda. Toplu siparişte 50+ adet {{takvim_50}} ₺, logo ücretsiz.",
+  "seo_aciklama": "2027 ajanda takvim poster: 70×100 cm {{takvim}} ₺, çerçeveli 61×91 cm {{takvim_cerceveli}} ₺, 12 renk, 2 iş günü içinde kargoda. Toplu siparişte 50+ adet {{takvim_50}} ₺ + KDV, logo ücretsiz.",
   "etiket": "Sezon ürünü · 2027 sizin olsun",
   "baslik": "2027 ajanda takvim poster",
   "giris": "Tüm yılı tek bakışta gösteren, kalemle üzerine yazılabilen yıllık duvar planlayıcı. 12 renk seçeneği; poster ya da çerçeveli.",
@@ -27,7 +27,7 @@
     },
     {
       "ad": "Toplu sipariş",
-      "deger": "50+ adet **{{takvim_50}} ₺**, 100+ adet **{{takvim_100}} ₺** (adet başı) · firmanızın logosu ücretsiz eklenir"
+      "deger": "50+ adet **{{takvim_50}} ₺ + KDV** (adet başı) · firmanızın logosu ücretsiz eklenir"
     },
     {
       "ad": "Asma",
@@ -42,7 +42,7 @@
     },
     {
       "soru": "Firmamızın logosunu ekleyebilir misiniz?",
-      "cevap": "Evet. 50 adet ve üzeri siparişlerde logonuzu ücretsiz ekliyoruz; 50+ adet {{takvim_50}} ₺, 100+ adet {{takvim_100}} ₺ (adet başı).",
+      "cevap": "Evet. 50 adet ve üzeri siparişlerde logonuzu ücretsiz ekliyoruz; 50+ adet {{takvim_50}} ₺ + KDV (adet başı).",
       "acik": false
     },
     {
