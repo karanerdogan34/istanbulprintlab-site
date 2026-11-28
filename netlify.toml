@@ -27,3 +27,8 @@
     Cache-Control = "no-cache"
     X-Robots-Tag = "noindex, nofollow"
     Content-Security-Policy = "frame-ancestors 'none'"
+
+[[headers]]
+  for = "/llms.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"

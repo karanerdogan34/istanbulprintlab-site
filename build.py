@@ -389,6 +389,148 @@ def ic_baglanti_kontrol():
     return eksik
 
 
+# ---------- ürün sayfaları: Product + Offer yapısal verisi (fiyat her derlemede siparis/src/fiyatlar.json'dan okunur) ----------
+URUN_SEMA = {  # sayfa yolu -> hesaplayıcı kodu (None: sabit fiyat content/fiyatlar.json'dan)
+    'sticker-baski': 'sticker-etiket-baski', 'seffaf-sticker-baski': 'sticker-etiket-baski', 'logo-sticker-baski': 'sticker-etiket-baski',
+    'folyo-baski': 'folyo-baski', 'branda-baski': 'branda-baski', 'one-way-vision': 'one-way-vision-baski', 'folyo-yazi-kesim': 'folyo-yazi-kesim',
+    'foreks-baski': 'foreks-baski', 'fotoblok-baski': 'fotoblok-baski', 'afis-baski': 'afis-baski', 'kartvizit-baski': 'kartvizit-baski',
+    'poster-baski': 'poster-baski', 'mesh-branda': 'mesh-baski', 'soguk-dtf-baski': 'soguk-dtf-baski', 'sicak-dtf-baski': 'sicak-dtf-baski',
+    'duvar-kagidi-baski': 'duvar-kagidi-baski', 'davetiye-baski': 'davetiye-baski', 'roll-up-baski': None, 'dekupe-figur': None}
+
+
+def urun_fiyat_sayi(u):
+    """(en düşük fiyat KDV hariç, birim, 'den mi) — baslangic_fiyati ile aynı mantık."""
+    t = u['tur']
+    if t in ('rulo', 'duvar'):
+        f = [m['m2'] for m in u.get('malzemeler', []) if isinstance(m.get('m2'), (int, float)) and m['m2'] > 0]
+        return (min(f), 'MTK', len(set(f)) > 1) if f else None
+    if t == 'yazi':
+        return (min(k['m2'] for k in u['kademeler']), 'MTK', True)
+    if t == 'dtf':
+        return (u['metre_fiyat'], 'MTR', False) if u.get('metre_fiyat') else (u['tabaka']['fiyat'], 'tabaka', False)
+    if t in ('kartvizit', 'davetiye'):
+        p = u['paketler'][0]
+        return (min(v for k, v in p.items() if k in ('tek', 'cift')), 'paket', True)
+    return None
+
+
+def urun_semalari():
+    F = js('siparis/src/fiyatlar.json')['urunler']
+    C = js('content/fiyatlar.json')
+    taban = 'https://www.istanbulprintlab.com'
+    for yol, kod in URUN_SEMA.items():
+        f = '%s/%s/index.html' % (DIST, yol)
+        if not os.path.exists(f):
+            continue
+        s = open(f, encoding='utf-8').read()
+        if kod:
+            if kod not in F:
+                continue
+            r = urun_fiyat_sayi(F[kod])
+        elif yol == 'roll-up-baski':
+            r = (C.get('rollup'), 'adet', False)
+        else:
+            r = (C.get('dekupe'), 'adet', True)
+        if not r or not r[0]:
+            continue
+        fiyat, birim, den = r
+        h1 = re.search(r'<h1[^>]*>(.*?)</h1>', s, re.S)
+        ad = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', h1.group(1))).strip() if h1 else yol
+        ac = re.search(r'<meta name="description" content="([^"]*)"', s)
+        gr = re.search(r'<meta property="og:image" content="([^"]*)"', s)
+        ps = {'@type': 'UnitPriceSpecification', 'price': '%.2f' % fiyat, 'priceCurrency': 'TRY', 'valueAddedTaxIncluded': False}
+        if birim in ('MTK', 'MTR'):
+            ps['unitCode'] = birim
+            ps['unitText'] = 'm²' if birim == 'MTK' else 'metre'
+        else:
+            ps['unitText'] = birim
+        teklif = {'@type': 'AggregateOffer' if den else 'Offer', 'url': '%s/%s/' % (taban, yol), 'priceCurrency': 'TRY',
+                  'availability': 'https://schema.org/InStock', 'seller': {'@id': taban + '/#isletme'}, 'priceSpecification': ps}
+        if den:
+            teklif['lowPrice'] = '%.2f' % fiyat
+        else:
+            teklif['price'] = '%.2f' % fiyat
+        sema = {'@context': 'https://schema.org', '@type': 'Product', 'name': html.unescape(ad), 'brand': {'@type': 'Brand', 'name': 'IstanbulPrintLab'},
+                'url': '%s/%s/' % (taban, yol), 'offers': teklif}
+        if ac:
+            sema['description'] = html.unescape(ac.group(1))
+        if gr:
+            sema['image'] = gr.group(1)
+        # sayfada elle yazılmış (eski fiyatlı) Product bloğu varsa kaldır, güncelini ekle
+        s = re.sub(r'<script type="application/ld\+json">\s*\{[^<]*?"@type":\s*"Product"[^<]*?</script>\n?', '', s)
+        s = s.replace('</head>', '<script type="application/ld+json">%s</script>\n</head>' % json.dumps(sema, ensure_ascii=False), 1)
+        open(f, 'w', encoding='utf-8').write(s)
+
+
+def llms_txt():
+    """Site köküne yapay zekâ asistanları için tek sayfalık sade özet (fiyatlar her derlemede güncel dosyadan)."""
+    F = js('siparis/src/fiyatlar.json')
+    C = js('content/fiyatlar.json')
+    G = F['genel']
+    taban = 'https://www.istanbulprintlab.com'
+    def tl(x):
+        return ('{:,.0f}'.format(x)).replace(',', '.') + ' TL'
+    birimler = {'MTK': 'm²', 'MTR': 'metre', 'tabaka': 'tabaka', 'paket': 'paket', 'adet': 'adet'}
+    urunler = []
+    for yol, kod in URUN_SEMA.items():
+        f = '%s/%s/index.html' % (DIST, yol)
+        if not os.path.exists(f):
+            continue
+        if kod:
+            if kod not in F['urunler']:
+                continue
+            r = urun_fiyat_sayi(F['urunler'][kod])
+        elif yol == 'roll-up-baski':
+            r = (C.get('rollup'), 'adet', False)
+        else:
+            r = (C.get('dekupe'), 'adet', True)
+        if not r or not r[0]:
+            continue
+        h1 = re.search(r'<h1[^>]*>(.*?)</h1>', open(f, encoding='utf-8').read(), re.S)
+        ad = html.unescape(re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', h1.group(1))).strip()) if h1 else yol
+        urunler.append('- [%s](%s/%s/): %s + KDV / %s%s' % (ad, taban, yol, tl(r[0]), birimler.get(r[1], r[1]), ' (en düşük fiyat; seçeneğe göre değişir)' if r[2] else ''))
+    teklif = []
+    for yol, ad in (('pirinc-tabela', 'Pirinç tabela'), ('rulo-etiket-baski', 'Rulo etiket baskı'), ('ofis-cam-filmi', 'Ofis cam filmi ve kumlama folyo'),
+                    ('yilbasi-ayakli-fotoblok', 'Yılbaşı ayaklı fotoblok (AVM ve mağazalar)'), ('folyo-kaplama', 'Folyo kaplama'), ('cam-yazisi-uygulama', 'Cam yazısı uygulama')):
+        if os.path.exists('%s/%s/index.html' % (DIST, yol)):
+            teklif.append('- [%s](%s/%s/)' % (ad, taban, yol))
+    metin = '\n'.join([
+        '# IstanbulPrintLab',
+        '',
+        "> İstanbul Kadıköy'de dijital baskı atölyesi. Sticker, etiket, folyo, branda, afiş, poster, foreks, fotoblok, one way vision, duvar kağıdı, kartvizit, davetiye ve DTF baskı yapar. Müşteri sitede ürünü seçer, ölçüsünü yazar, dosyasını yükler; fiyatı anında görür ve kartla öder.",
+        '',
+        "IstanbulPrintLab is a digital print workshop in Kadıköy, Istanbul, Türkiye. Customers get an instant price on the website and pay online; orders ship across Türkiye and worldwide.",
+        '',
+        '## Nasıl sipariş verilir',
+        '- Ürünü seçin, ölçüyü yazın, baskı dosyasını yükleyin. Fiyat anında ekranda görünür.',
+        '- Site dosyanın baskıya uygun olup olmadığını hemen söyler. Uygun değilse yeni dosya yüklenir ya da WhatsApp\'tan yardım istenir.',
+        '- Ödeme kartla (PayTR, 3D Secure, taksit seçenekli) ya da havale/EFT ile yapılır.',
+        "- Standart işler dosya ve ödeme onayından sonra 1–2 iş gününde kargoya verilir. Laminasyonlu işler, davetiye ve büyük işlerde süre ürün sayfasında yazar.",
+        '',
+        '## Fiyat kuralları',
+        '- Ürün fiyatları KDV hariç yazılır; hesaplayıcıda ve ödemede KDV dahil toplam gösterilir.',
+        '- En az sipariş tutarı %s + KDV.' % tl(G['asgari_baski']),
+        '- Kargo: KDV dahil %s altındaki siparişlerde %s; %s ve üzerinde ücretsiz (%s m²\'ye kadar). Foreks ve fotoblok kargoyla gönderilmez; atölyeden teslim veya nakliye.' % (tl(G['kargo_ucretsiz_esik']), tl(G['kargo_ucreti']), tl(G['kargo_ucretsiz_esik']), G['kargo_max_m2']),
+        '- Orijinal GREENGUARD Gold sertifikalı Mimaki mürekkep kullanılır.',
+        '',
+        '## Ürünler ve başlangıç fiyatları (KDV hariç)',
+    ] + urunler + [
+        '',
+        '## Ölçüye göre teklifle yapılan işler',
+    ] + teklif + [
+        '',
+        '## İletişim',
+        "- Atölye: Fikirtepe Mah. Dispanser Sok. No:50/A-B, Kadıköy / İstanbul",
+        '- Telefon ve WhatsApp: +90 532 523 73 64',
+        '- E-posta: info@istanbulprintlab.com',
+        '- Çalışma saatleri: Pazartesi–Cumartesi 09:00–19:00',
+        '- Instagram: https://www.instagram.com/istanbulprintlab',
+        '- Site: %s/' % taban,
+        '',
+    ])
+    yaz('%s/llms.txt' % DIST, metin)
+
+
 def main():
     shutil.rmtree(DIST, ignore_errors=True)
     shutil.copytree('site', DIST)
@@ -464,6 +606,8 @@ def main():
         open(f, 'w', encoding='utf-8').write(s.replace('</head>', FAV + '</head>', 1))
     # yönetim uygulaması, değişikliğin sitede yayına girdiğini bu dosyadan anlar
     yaz('%s/yonetim/surum.json' % DIST, json.dumps({'commit': os.environ.get('COMMIT_REF', '')}))
+    urun_semalari()
+    llms_txt()
     diller.site_haritasi(DIST, diller.baglantilar(DIST))
     eksik = ic_baglanti_kontrol()
     if eksik:
