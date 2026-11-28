@@ -15,6 +15,8 @@ KENAR = re.compile(r'^(\s*)(.*?)(\s*)$', re.S)
 # yapılandırma (fiyat dosyası) içindeki görünen metinler
 CFG_RE = re.compile(r'"(ad|not|uyari|b|m|aciklama|ozel_mesaj|lamNot|malzeme_baslik|kargo_metni|mesaj)":\s*"((?:[^"\\]|\\.)*)"')
 CHIPS_RE = re.compile(r'"chips":\s*\[((?:\s*"(?:[^"\\]|\\.)*",?)*)\]')
+KELIME_IZIN = {'adet', 'laminasyon', 'kuşgözü', 'kesim'}  # HTML parçası içindeki küçük harfli kelimeler
+JS_KELIME_IZIN = {'kuşgözü'}  # tek başına JS metni olarak çevrilebilecekler ('adet', 'laminasyon' kod anahtarıdır, çevrilmez)
 TEK_KELIME = re.compile(r'^[A-ZÇĞİÖŞÜ][a-zçğıöşü]+$')
 KORU = {'Tarih', 'Currency', 'Date', 'Error', 'Image', 'Object', 'Math', 'Number', 'String', 'Array', 'Promise', 'Event', 'Blob', 'File', 'Enter', 'Escape'}
 JS_OZ = re.compile(r'\b(placeholder|aria-label|title|alt)="([^"]+)"')
@@ -62,9 +64,9 @@ def _js_metinler(p):
     for m in JS_STR.finditer(p):
         v = m.group(1).replace("\\'", "'")
         if '<' in v:
-            out += [KENAR.match(h.group(2)).group(2) for h in HTML_IC.finditer(v) if _dogal(h.group(2)) or TEK_KELIME.match(h.group(2).strip())]
+            out += [KENAR.match(h.group(2)).group(2) for h in HTML_IC.finditer(v) if _dogal(h.group(2)) or TEK_KELIME.match(h.group(2).strip()) or h.group(2).strip() in KELIME_IZIN]
             out += [o.group(2) for o in JS_OZ.finditer(v) if _html_ok(o.group(2))]
-        elif (' ' in v and _dogal(v)) or (TEK_KELIME.match(v) and v not in KORU):
+        elif (' ' in v and _dogal(v)) or (TEK_KELIME.match(v) and v not in KORU) or v in JS_KELIME_IZIN:
             out.append(v)
     return out
 
@@ -88,7 +90,7 @@ def _js_cevir(x, C):
             yeni = HTML_IC.sub(hr, v)
             yeni = JS_OZ.sub(lambda o: '%s="%s"' % (o.group(1), C.get(o.group(2)) or o.group(2)), yeni)
             return "'%s'" % yeni.replace('\\', '\\\\').replace("'", "\\'") if yeni != v else m.group(0)
-        if v in KORU:
+        if v in KORU or not ((' ' in v and _dogal(v)) or TEK_KELIME.match(v) or v in JS_KELIME_IZIN):
             return m.group(0)
         t = C.get(v)
         return "'%s'" % t.replace('\\', '\\\\').replace("'", "\\'") if t else m.group(0)
@@ -145,23 +147,29 @@ def _sayi(x, dil):
     v = ('{:,.2f}'.format(x) if abs(x - round(x)) > 0.004 else '{:,.0f}'.format(x))
     if dil in ('en', 'ar', 'ur', 'fa'):
         return v
+    if dil in ('ru', 'fr'):
+        return v.replace(',', '\u00a0').replace('.', ',')
     return v.replace(',', ' ').replace('.', ',').replace(' ', '.')
 
 
 YD_CARPAN = 1.2
+ONEK = {'en': 'from ', 'ru': 'от ', 'de': 'ab ', 'fr': 'dès ', 'es': 'desde ', 'it': 'da ', 'ar': 'من ', 'ur': 'از ', 'fa': 'از '}
 FX_JS = ('<script>(function(){var L=document.querySelectorAll("[data-tl]");if(!L.length)return;fetch("/api/kur",{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.text()})'
          '.then(function(x){var d=new DOMParser().parseFromString(x,"application/xml"),g=function(c){var e=d.querySelector(\'Currency[CurrencyCode="\'+c+\'"] ForexSelling\');return e?parseFloat(e.textContent):0};'
          'var E=g("EUR"),U=g("USD");if(!(E>0&&U>0))return;L.forEach(function(el){var t=+el.dataset.tl,s=el.querySelector(".fx");if(!s){s=document.createElement("span");s.className="fx";el.appendChild(s)}'
          's.textContent=" ≈ €"+Math.round(t/E)+" · $"+Math.round(t/U)})}).catch(function(){})})();</script>'
-         '<style>.ukart small .fx{display:block;font-size:11.5px;opacity:.75}</style>')
+         '<style>.ukart small .fx{display:block;font-size:12.5px;opacity:.9;margin-top:2px}</style>')
 
 
 def kart_fiyatlari(s, dil):
     """Ana sayfa ürün kartları: yurt dışı fiyatı (KDV hariç Türkiye fiyatı x1,2, KDV yok) ve euro/dolar karşılığı"""
     def f(m):
         tl = float(m.group(1).replace('.', '')) * YD_CARPAN
-        return '<small data-tl="%.2f"><span>%s ₺</span>' % (tl, _sayi(tl, dil))
-    s = re.sub(r'<small><span>([\d.]+) ₺</span>', f, s)
+        ek = m.group(2)
+        onek = ONEK.get(dil, '') if "'den" in ek else ''
+        birim = re.sub(r"\+ KDV\s*|'den", '', ek).strip()
+        return '<small data-tl="%.2f"><span>%s%s ₺</span>%s' % (tl, onek, _sayi(tl, dil), (' <span>%s</span>' % birim) if birim else '')
+    s = re.sub(r'<small><span>([\d.]+) ₺</span> <span>([^<]*)</span>', f, s)
     return s.replace('</body>', FX_JS + '</body>', 1)
 
 
@@ -179,6 +187,8 @@ def uret(dist, diller, yerel, rtl_css):
             for t in metinler(s):
                 if not C.get(t):
                     eksik.setdefault(dil, set()).add(t)
+            if k == 'index.html':
+                s = kart_fiyatlari(s, dil)
             s = cevir(s, C)
             yol = '/' + k.replace('index.html', '')
             # dil, yön, dil değişkeni
@@ -199,8 +209,6 @@ def uret(dist, diller, yerel, rtl_css):
                 return m.group(0)
             s = re.sub(r'(href)="(/[^"]*)"', bag, s)
             s = re.sub(r'<link rel="alternate" hreflang="[^"]*" href="[^"]*">\n?', '', s)
-            if k == 'index.html':
-                s = kart_fiyatlari(s, dil)
             if k == 'index.html':  # dil bağlantıları için Türkçe karşılığı
                 s = s.replace('</head>', '<link rel="alternate" hreflang="tr" href="%s/">\n</head>' % SITE, 1)
             hedef = os.path.join(dist, dil, k)

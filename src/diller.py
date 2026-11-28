@@ -250,7 +250,7 @@ GUVEN = {
 }
 GUVEN_CSS = ('<style>.guven{background:#F4F4F1;border-bottom:1px solid #E4E4E0;font-size:13.5px;line-height:1.5;color:#3d3b38}'
              '.guven .wrap{display:flex;flex-wrap:wrap;gap:4px 18px;padding-top:8px;padding-bottom:8px}.guven a{color:#0B0B0B;font-weight:600}'
-             '@media (min-width:761px){.guven bdi{white-space:nowrap}}</style>')
+             '@media (min-width:761px){.guven bdi{white-space:nowrap}}@media (max-width:760px){.guven .adr,.guven .mur{display:none}}</style>')
 
 
 def guven_ekle(dist):
@@ -259,9 +259,13 @@ def guven_ekle(dist):
             s = open(f, encoding='utf-8').read()
             if 'class="guven"' in s or '<main id="icerik">' not in s:
                 continue
-            serit = ('<div class="guven"><div class="wrap"><span>%s: <bdi dir="ltr">%s</bdi></span><span>%s</span>'
+            serit = ('<div class="guven"><div class="wrap"><span>%s<span class="adr">: <bdi dir="ltr">%s</bdi></span></span><span class="mur">%s</span>'
                      '<span>%s: <a href="https://wa.me/905325237364" dir="ltr">%s</a></span></div></div>') % (atolye, ADRES, murekkep, yaz, WA)
-            s = s.replace('<main id="icerik">', '<main id="icerik">' + serit, 1).replace('</head>', GUVEN_CSS + '</head>', 1)
+            if '<header' in s:
+                i = s.index('<header'); s = s[:i] + serit + s[i:]
+            else:
+                s = s.replace('<main id="icerik">', '<main id="icerik">' + serit, 1)
+            s = s.replace('</head>', GUVEN_CSS + '</head>', 1)
             open(f, 'w', encoding='utf-8').write(s)
 
 

@@ -30,25 +30,25 @@
 29	Open menu
 30	Mobile menu
 31	Fast digital printing in Istanbul
-32	Design fast, see your price right away,
-33	order easily.
+32	Choose a product, get an instant price,
+33	order online.
 34	1 Choose
-35	2 Measure
+35	2 Enter size
 36	3 Pay
 37	GREENGUARD Gold certified original ink · Made in Kadıköy · Instant price · File check before printing
 38	Order in three steps
 39	Products: get a price and order
-40	Printed vinyl
+40	Self-adhesive vinyl
 41	/ m²
 42	PVC banner
 43	Stickers / labels
-44	One way vision
+44	One way vision film
 45	Cut vinyl lettering
 46	/ m², from
 47	Rigid PVC board
-48	No shipping · pick up at our workshop or delivery
-49	Photo block
-50	Banner sign
+48	Istanbul only · workshop pick-up or van delivery
+49	Foam board (photo block)
+50	Vinyl banner sign
 51	from
 52	Poster
 53	Mesh banner
@@ -298,12 +298,12 @@
 297	A single piece can be up to 152 cm wide.
 298	A single piece can be up to
 299	m²)
-300	Not shipped by courier · pick up at our workshop or delivery
+300	Not sent by courier · Istanbul only: workshop pick-up or van delivery
 301	Hello,
 302	— I would like a quote:
 303	Product details
 304	01 Choose
-305	02 Measure
+305	02 Enter size
 306	03 Pay
 307	Opening the calculator…
 308	Total · VAT included
@@ -313,7 +313,7 @@
 312	See all our projects (
 313	Printed Vinyl — Order | IstanbulPrintLab
 314	Kadıköy, Istanbul
-315	Printed vinyl
+315	Self-adhesive vinyl
 316	No frame
 317	Enter your own size
 318	With frame
@@ -335,7 +335,7 @@
 334	No VAT · shown in euros and dollars · shipping paid separately
 335	Delivery within Türkiye
 336	Turkish lira price + VAT · Turkish shipping rules apply
-337	For orders abroad, you pay for the product on the website right away. We arrange the shipping: we find the cheapest suitable carrier and tell you the shipping cost separately.
+337	For orders abroad you pay only for the product on the website. We arrange the shipping: we find the cheapest suitable carrier and tell you the shipping cost separately.
 338	I have checked and approve the sizes, texts, images and layout I chose. I know there may be small colour differences between the screen and the print.
 339	Order summary
 340	Your price appears here when you enter your size.
@@ -398,7 +398,7 @@
 397	Oracal white gloss
 398	Oracal clear gloss
 399	Original ink, certified production
-400	We use GREENGUARD Gold certified original ink with no dangerous chemicals or cancer-causing substances, safe for every room, even a baby's room.
+400	We use original ink with GREENGUARD Gold certification for low chemical emissions, suitable even for children's rooms.
 401	High-quality print with 8–10 passes
 402	Do you want a cut job?
 403	Gold, silver, ultra clear
@@ -416,7 +416,7 @@
 415	Square
 416	Rectangle
 417	Round
-418	Special / complex shape
+418	Custom shape
 419	Enter the side length
 420	Width and height
 421	Enter the diameter
@@ -455,7 +455,7 @@
 454	Sticker
 455	Area
 456	Printing (
-457	Top-up to the minimum order amount
+457	Minimum order adjustment
 458	Frame (
 459	Eyelets (
 460	Lamination (
@@ -561,8 +561,8 @@
 560	Shapes other than squares and rectangles, figures and letter cuts are made by CNC and priced by quote.
 561	Square and rectangle cut
 562	One piece up to 150 × 300 cm
-563	Photo Block — Order | IstanbulPrintLab
-564	Photo block printing
+563	Foam Board (Photo Block) — Order | IstanbulPrintLab
+564	Foam board (photo block) printing
 565	Shapes other than squares and rectangles, figures and die cuts are made by CNC and priced by quote.
 566	Banner Sign — Order | IstanbulPrintLab
 567	Banner sign printing
@@ -758,3 +758,7 @@
 763	). Items printed just for you cannot be returned; your legal rights for faulty items are reserved (
 764	and
 765	+44 7700 900000
+766	pcs
+767	lamination
+768	eyelets
+769	cut

@@ -113,7 +113,7 @@ __CSS__</style>
    <div id="ozetIc"><p class="small" style="margin:0">Ölçünüzü girdiğinizde fiyat burada görünür.</p></div>
    <button class="btn" id="devam" type="button" disabled>Sipariş talebini gönder</button>
    <p class="small" id="devamNot">Dosya kontrolü ve onay tamamlandığında sipariş talebinizi gönderebilirsiniz.</p>
-   <p class="small">Fiyatlara tasarım ve montaj dahil değildir. __KARGO_METNI__</p>
+   <p class="small" id="kargoNot">Fiyatlara tasarım ve montaj dahil değildir. __KARGO_METNI__</p>
   </aside>
  </div>
 </main>
@@ -133,11 +133,11 @@ var KOD = '__URUN__';
 var C = F.urunler[KOD], G = F.genel;
 var WA = 'https://wa.me/905325237364?text=';
 var $ = function(id){return document.getElementById(id);};
-var tl = function(x){return x.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})+' ₺';};
+var tl = function(x){return x.toLocaleString(SAYI_YEREL,{minimumFractionDigits:2,maximumFractionDigits:2})+' ₺';};
 var esc = function(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
 // Yabancı dil sayfaları: teslimat yeri seçilir. Yurt dışı = KDV hariç Türkiye fiyatı x yurtdisi_carpan, KDV yok, kargo ayrıca (motor hesaplar).
-var DIL = window.IPL_DIL || 'tr', YABANCI = DIL !== 'tr', YD = YABANCI;
-var tlYal = function(x){var k=Math.abs(x-Math.round(x))>0.004;return x.toLocaleString('tr-TR',{minimumFractionDigits:k?2:0,maximumFractionDigits:2})+' ₺';};
+var DIL = window.IPL_DIL || 'tr', YABANCI = DIL !== 'tr', YD = YABANCI, SAYI_YEREL = YABANCI ? (window.IPL_YEREL || 'en-GB') : 'tr-TR';
+var tlYal = function(x){var k=Math.abs(x-Math.round(x))>0.004;return x.toLocaleString(SAYI_YEREL,{minimumFractionDigits:k?2:0,maximumFractionDigits:2})+' ₺';};
 var tl0 = function(x){return tlYal(Math.round(x*(YD ? (G.yurtdisi_carpan||1.2) : 1)*100)/100);}; // yapılandırmadaki birim fiyatlar
 var P0 = function(x){return tl0(x)+(YD ? '' : ' + KDV');};
 var DAHIL = function(){return YD ? 'KDV yok' : 'KDV dahil';};
@@ -342,7 +342,7 @@ function ciz(){
     var k = r.kalemler;
     if (k.parca) h += '<div class="line"><span>Sticker</span><span>'+esc(k.parca)+' × '+g.adet+' adet</span></div>';
     var alanNot = k.parca ? '<p class="small">Alan, her sticker\'ın kesim kutusu üzerinden hesaplanır (genişlik × yükseklik; yuvarlakta çap × çap).</p>' : '';
-    h += '<div class="line"><span>Alan</span><span>'+k.m2.toLocaleString('tr-TR')+' m²</span></div>';
+    h += '<div class="line"><span>Alan</span><span>'+k.m2.toLocaleString(SAYI_YEREL)+' m²</span></div>';
     h += '<div class="line"><span>Baskı ('+tl0(k.birimM2)+' / m²)</span><span>'+tl(k.baski)+'</span></div>';
     if (k.asgariFarki > 0) h += '<div class="line"><span>En az sipariş tutarına tamamlama</span><span>'+tl(k.asgariFarki)+'</span></div>';
     if (k.cerceve > 0) h += '<div class="line"><span>Çerçeve ('+esc(k.cerceveAd)+(g.adet>1?' × '+g.adet:'')+')</span><span>'+tl(k.cerceve)+'</span></div>';
@@ -360,12 +360,13 @@ function ciz(){
     h += '<div class="line"><span>Kargo</span><span style="font-family:inherit">'+IPLMotor.kargoYazi(r)+'</span></div>';
     if (r.kargoUcret > 0) h += '<div class="line big"><span>Kargo dahil toplam</span><span>'+tl(r.genelToplam)+'</span></div>';
     if (r.kargoYurtdisi) h += '<p class="small">Şimdi yalnızca ürün bedelini ödersiniz. Yurt dışı kargo ücreti alıcıya aittir: en uygun kargo firmasını biz buluruz, kargo ücretini size ayrıca bildiririz. Gümrük vergisi ve yerel vergiler varsa alıcı öder.</p>';
-    else if (r.kargoAyrica) h += '<p class="small">'+k.m2.toLocaleString('tr-TR')+' m² ile '+r.kargoMaxM2+' m² sınırının üzerinde olduğu için ücretsiz kargo uygulanmaz; kargo ücreti alıcıya aittir. Dilerseniz Kadıköy\'deki atölyemizden teslim alabilirsiniz.</p>';
+    else if (r.kargoAyrica) h += '<p class="small">'+k.m2.toLocaleString(SAYI_YEREL)+' m² ile '+r.kargoMaxM2+' m² sınırının üzerinde olduğu için ücretsiz kargo uygulanmaz; kargo ücreti alıcıya aittir. Dilerseniz Kadıköy\'deki atölyemizden teslim alabilirsiniz.</p>';
     h += alanNot;
     if (k.asgariFarki > 0 && k.cerceve > 0) h += '<p class="small">En az sipariş tutarı '+P0(G.asgari_baski)+'; çerçeveli siparişlerde baskı ile çerçeve birlikte sayılır, altındaysa aradaki fark eklenir.</p>';
-    else if (k.asgariFarki > 0) { var ek=[]; if (C.laminasyon) ek.push('laminasyon'); if (C.kusgozu) ek.push('kuşgözü');
+    else if (k.asgariFarki > 0) { var ek=[]; if (C.laminasyon) ek.push('Laminasyon'); if (C.kusgozu) ek.push('kuşgözü');
       h += '<p class="small">En az sipariş tutarı '+P0(G.asgari_baski)+'; siparişiniz bunun altındaysa aradaki fark eklenir'+(ek.length?'. '+ek.join(' ve ').replace(/^./,function(c){return c.toUpperCase()})+' ücreti bunun üstüne ayrıca eklenir':'')+'.</p>'; }
     $('mTop').textContent = tl(r.genelToplam || r.toplam); $('mKdv').textContent = DAHIL();
+    if ($('kargoNot')) $('kargoNot').style.display = YD ? 'none' : '';
   }
   var cerVarMi = C.cerceve && document.querySelector('input[name=cerVar]:checked').value==='var';
   var hz = !dolu && !cerVarMi && ornekFiyat(g);
