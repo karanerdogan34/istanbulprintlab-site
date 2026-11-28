@@ -110,8 +110,9 @@ def urun_dugmeleri_html(A):
             b = '/img/urun/%s' % kod
             img = ('<img src="%s-720.jpg" srcset="%s-360.webp 360w, %s-720.webp 720w" sizes="(max-width:760px) 46vw, (max-width:1180px) 30vw, 220px" alt="%s" %s decoding="async" width="720" height="960">'
                    % (b, b, b, E(URUN_GORSEL_ALT.get(kod, d.get('ad', ''))), 'fetchpriority="high"' if i < 2 else 'loading="lazy"'))
-        out.append('<a class="ukart" href="%s" data-kod="%s" data-ad="%s"><span class="ukutu">%s</span><b>%s</b><small>%s</small></a>' % (
-            S.guvenli_url(d['yol']), E(kod), E(d.get('ad', '')), img, E(d.get('ad', '')), fiyat))
+        not_ = '<em class="ukart-et">Kargo yok · atölyeden teslim veya nakliye</em>' if F[kod].get('kargo_yok') else ''
+        out.append('<a class="ukart" href="%s" data-kod="%s" data-ad="%s"><span class="ukutu">%s</span><b>%s</b><small>%s</small>%s</a>' % (
+            S.guvenli_url(d['yol']), E(kod), E(d.get('ad', '')), img, E(d.get('ad', '')), fiyat, not_))
     return '\n' + '\n'.join(out) + '\n'
 
 

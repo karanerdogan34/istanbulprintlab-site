@@ -413,6 +413,7 @@ body.uf #hizli-siparis{padding-bottom:40px!important;scroll-margin-top:84px}
 .ukart:hover,.ukart:focus-visible{color:var(--ink)}
 @media (hover:hover){.ukartlar:hover .ukart{opacity:.66}.ukartlar .ukart:hover{opacity:1}.ukart:hover .ukutu{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 26px -14px rgba(43,38,34,.5)}}
 .ukart:focus-visible{outline:none}.ukart:focus-visible .ukutu{outline:2px solid var(--kiremit);outline-offset:3px}
+.ukart-et{font-style:normal;font-size:12px;color:var(--mute);margin-top:4px;line-height:1.3}
 .ukart-not{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;font-size:14px;color:var(--mute);margin-top:18px}
 .ukart-not a{color:var(--ink);font-weight:600}
 @media (min-width:760px){.ukartlar{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 24px}.ukart b{font-size:17px}.ukart small{font-size:15px}}
@@ -517,7 +518,7 @@ body.kilit{overflow:hidden}
 <div class="shead"><div><span class="eyebrow">Fiyatı belli, hemen sipariş verin</span><h2 class="h2" style="font-size:40px;margin-top:12px" data-y="y2">Öne çıkan ürünlerimiz</h2></div></div>
 <div class="grid g4"><!--ONE_CIKANLAR--><!--/ONE_CIKANLAR-->
 </div>
-<p class="note" style="margin-top:20px">Fiyatlar KDV dahil gösterilir, KDV hariç tutar yanında yazar. KDV dahil {{kargo_esik}} ₺ altındaki siparişlerde kargo {{kargo_ucreti}} ₺, {{kargo_esik}} ₺ ve üzeri siparişlerde kargo bizden. Foreks ve fotoblok kargoyla gönderilmez; nakliye veya Kadıköy'deki atölyemizden teslim. <a href="/teslimat-ve-kargo/">Teslimat ve kargo koşulları</a></p>
+<p class="note" style="margin-top:20px">Ürün fiyatları KDV hariç yazılır; hesaplayıcıda ve ödemede KDV dahil toplam gösterilir. KDV dahil {{kargo_esik}} ₺ altındaki siparişlerde kargo {{kargo_ucreti}} ₺, {{kargo_esik}} ₺ ve üzeri siparişlerde kargo bizden. Foreks ve fotoblok kargoyla gönderilmez; nakliye veya Kadıköy'deki atölyemizden teslim. <a href="/teslimat-ve-kargo/">Teslimat ve kargo koşulları</a></p>
 </section>
 
 <section id="ne-yapiyoruz" class="wrap sec"><span id="hizmetler"></span>
@@ -666,7 +667,7 @@ body.kilit{overflow:hidden}
 <nav aria-label="Hızlı iletişim" class="quickbar">
 <a href="tel:+905325237364" class="ic" aria-label="Telefonla ara"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B0B0B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg></a>
 <a href="https://wa.me/905325237364" class="ic" aria-label="WhatsApp'tan yaz"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B0B0B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"></path></svg></a>
-<a href="#teklif" class="main">Teklif Al</a>
+<a href="#hizli-siparis" class="main">Fiyat hesapla</a>
 </nav>
 
 <script>
