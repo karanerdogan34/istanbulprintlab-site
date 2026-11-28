@@ -261,17 +261,19 @@ function girdi(){
 function dosyaDurum(){
   if (!dosya) return null;
   var g = girdi(), en = IPLMotor.sayi(g.en), boy = IPLMotor.sayi(g.boy);
-  if (!dosya.px) return {sonuc:'inceleme', metin:'Bu dosya türü için otomatik çözünürlük ve ölçü kontrolü yapılmıyor; dosyanızı operatörümüz inceleyecek. Kontrol tamamlanmadan üretim başlamaz.'};
-  if (!(en>0 && boy>0)) return {sonuc:'bekle', metin:'Dosyanın uygunluğunu görmek için ölçüyü girin.'};
-  var k = IPLMotor.dosyaKontrol(C, dosya.px, en, boy);
-  var t;
-  if (k.sonuc==='uygun') t = 'Çözünürlük ön kontrolünden geçti: '+en+' × '+boy+' cm ölçüde yaklaşık '+k.ppi+' PPI. Son kontrol üretim öncesinde yapılır.';
-  else if (k.sonuc==='inceleme') t = 'Çözünürlük sınırda: bu ölçüde yaklaşık '+k.ppi+' PPI. Yakından bakıldığında netlik azalabilir; dosyanızı operatörümüz kontrol edecek.';
-  else t = 'Çözünürlük düşük: bu ölçüde yaklaşık '+k.ppi+' PPI; baskıda netlik belirgin şekilde azalabilir. Daha yüksek çözünürlüklü bir dosyanız varsa onu yükleyin ya da ölçüyü küçültün. Dilerseniz bu dosyayla devam edin: operatörümüz dosyanızı kontrol edip sizinle görüşür; onayınız olmadan üretim başlamaz.';
-  var sonuc = k.sonuc;
-  if (k.dondur) t += ' Dosyanızın yönü girdiğiniz ölçüyle uyuşmuyor (biri yatay, diğeri dikey). Genişlik ve yüksekliği kontrol edin.';
-  if (k.oranSapma > 2) { t += ' Dosyanın en-boy oranı girdiğiniz ölçüden %'+k.oranSapma+' farklı. Dosyayı ölçüye uygun hazırlayın ya da ölçüyü düzeltin'+(sonuc==='uygun-degil'?'.':'; aksi halde dosyanız operatör incelemesine alınır.'); if (sonuc==='uygun') sonuc='inceleme'; }
+  if (!dosya.px) return {sonuc:'inceleme', metin:'Bu dosya türünü (PDF/TIFF) otomatik kontrol edemiyoruz; dosyanıza biz bakacağız. Siparişinizi gönderin: dosyanız baskıya uygunsa size ödeme bağlantısı göndeririz, uygun değilse sizinle iletişime geçeriz.'};
+  if (!(en>0 && boy>0)) return {sonuc:'bekle', metin:'Dosyanızın baskıya uygun olup olmadığını görmek için önce ölçüyü yazın.'};
+  var k = IPLMotor.dosyaKontrol(C, dosya.px, en, boy), t, sonuc = k.sonuc;
+  if (sonuc==='uygun') t = '✓ Dosyanız baskıya uygun. Siparişinizi gönderip hemen ödeyebilirsiniz.';
+  else if (sonuc==='inceleme') t = 'Dosyanız bu ölçü için biraz düşük kalitede: baskı olur ama yakından bakınca hafif bulanık görünebilir. Daha net bir dosyanız varsa onu yükleyin. Bu dosyayla devam ederseniz önce biz kontrol ederiz; ödeme kontrolden sonra alınır.';
+  else t = '✗ Dosyanız baskıya uygun değil: bu ölçüde basılırsa bulanık çıkar. Daha net (daha büyük) bir dosya yükleyin ya da ölçüyü küçültün. Yardım isterseniz bize WhatsApp\'tan yazın.';
+  if (k.dondur) t += ' Dosyanız ile girdiğiniz ölçü ters: biri yatay, diğeri dikey. Genişlik ile yüksekliği yer değiştirin ya da dosyayı düzeltin.';
+  if (k.oranSapma > 2) {
+    t += ' Dosyanızın şekli girdiğiniz ölçüden farklı: baskıda kenarlar kesilebilir ya da boş kalabilir. Dosyayı bu ölçüye göre hazırlayın ya da ölçüyü düzeltin.';
+    if (sonuc==='uygun') sonuc='inceleme';
+  }
   if (k.dondur && sonuc==='uygun') sonuc='inceleme';
+  if (k.sonuc==='uygun' && sonuc!=='uygun') t = t.replace('✓ Dosyanız baskıya uygun. Siparişinizi gönderip hemen ödeyebilirsiniz.', 'Dosyanızın netliği yeterli, ancak bir şeyi kontrol edin:') + ' Düzeltip yeniden yükleyebilir ya da bu hâliyle gönderebilirsiniz; o zaman önce biz kontrol ederiz, ödeme kontrolden sonra alınır.';
   return {sonuc:sonuc, metin:t};
 }
 
@@ -339,8 +341,9 @@ function ciz(){
   if (dosya) {
     var yuv = g.sekil==='yuvarlak';
     dh = '<div class="filecard">'+(dosya.url?'<img alt="" src="'+dosya.url+'"'+(yuv?' style="border-radius:50%;object-fit:cover"':'')+'>':'')+'<div><b style="font-weight:500">'+esc(dosya.ad)+'</b><div class="small" style="margin:0">'+(dosya.px?dosya.px.w+' × '+dosya.px.h+' piksel':dosya.tur.toUpperCase()+' dosyası')+'</div></div></div>';
-    var cls = {uygun:'ok', inceleme:'warn', 'uygun-degil':'warn', bekle:'warn'}[d.sonuc];
+    var cls = {uygun:'ok', inceleme:'warn', 'uygun-degil':'bad', bekle:'warn'}[d.sonuc];
     dh += '<div class="msg '+cls+'">'+esc(d.metin)+'</div>';
+    if (d.sonuc==='uygun-degil') dh += '<a class="btn ghost" style="margin-top:8px" href="https://wa.me/905325237364?text='+encodeURIComponent('Merhaba, '+C.ad+' için yüklediğim dosya baskıya uygun çıkmadı, yardımcı olur musunuz?')+'" target="_blank" rel="noopener">WhatsApp\'tan bize yazın</a>';
     if (yuv && dosya.url) dh += '<p class="hint">Önizleme yuvarlak kesimi gösterir: dairenin dışında kalan köşeler kesilir. Önemli öğeleri dairenin içinde tutun.</p>';
   }
   $('dosyaSonuc').innerHTML = dh;
@@ -351,12 +354,12 @@ function ciz(){
     var wtxt = encodeURIComponent('Merhaba, '+C.ad+' için özel teslimat fiyatı almak istiyorum: '+(mz?mz.ad+', ':'')+g.en+' × '+g.boy+' cm, '+g.adet+' adet. Teslimat adresi: ');
     $('ozetIc').innerHTML += '<div class="msg warn">Özel teslimat bedeli siparişten önce size bildirilir. Teslimat teklifi almak için WhatsApp\'tan yazın; teklifi onayladığınızda ödeme bilgileri iletilir.</div><a class="btn ghost" href="'+WA+wtxt+'" target="_blank" rel="noopener">Özel teslimat teklifi iste</a>';
   }
-  var hazir = !ozelTes && r.durum==='tamam' && dosya && d && (d.sonuc==='uygun' || d.sonuc==='inceleme' || d.sonuc==='uygun-degil') && $('onay').checked;
+  var hazir = !ozelTes && r.durum==='tamam' && dosya && d && (d.sonuc==='uygun' || d.sonuc==='inceleme') && $('onay').checked;
   window.IPLSiparis = {kod: KOD, girdi: g, odenebilir: !!(hazir && d.sonuc==='uygun' && !r.kargoAyrica)}; // doğrudan kartla ödeme: tutar sunucuda yeniden hesaplanır
   $('devam').disabled = !hazir;
   $('devam').style.display = (r.durum==='teklif' || ozelTes) ? 'none' : '';
   var neden = r.durum!=='tamam' ? 'Ölçüyü girin.' : !dosya ? 'Baskı dosyanızı yükleyin.' : ((!$('onay').checked ? 'Onay kutusunu işaretleyin.' : 'Hazır.'));
-  $('devamNot').textContent = hazir ? (d.sonuc!=='uygun' ? 'Dosyanız operatör kontrolüne alınacak; kontrol tamamlanmadan üretim başlamaz.' : 'Telefon numaranızı yazıp gönderin; seçimleriniz, ön fiyat ve dosyanız bize ulaşır.') : neden;
+  $('devamNot').textContent = hazir ? ((window.IPLSiparis||{}).odenebilir ? 'Telefon numaranızı yazıp gönderin; hemen ardından ödeme sayfası açılır.' : 'Telefon numaranızı yazıp gönderin. Siparişinizi kontrol edip size ödeme bağlantısı göndeririz.') : (d && d.sonuc==='uygun-degil' ? 'Dosyanız baskıya uygun değil. Yeni bir dosya yükleyin ya da bize WhatsApp\'tan yazın.' : neden);
   $('devamNot').style.display = (r.durum==='teklif' || ozelTes) ? 'none' : '';
 }
 

@@ -12,7 +12,7 @@
   var not = document.createElement('div');
   not.className = 'msg warn';
   not.style.margin = '12px 0';
-  not.textContent = 'Gösterilen tutar ön hesaplamadır. Kesin fiyat ve üretim uygunluğu dosyanız incelendikten sonra onaylanır; ödeme onayımızdan sonra alınır.';
+  not.textContent = 'Siparişinizi gönderin; dosyanızı kontrol edip size ödeme bağlantısı göndeririz. Ödeme, kontrolden sonra alınır.';
   btn.parentNode.insertBefore(not, btn);
 
   // Talep alanı: tek zorunlu bilgi telefon. Daha önce bu tarayıcıdan talep gönderildiyse numara ve ad hazır gelir.
@@ -320,7 +320,7 @@
     if (gonderiliyor || btn.style.display === 'none') return;
     var o = !!((window.IPLSiparis || {}).odenebilir);
     if (o === sonDurum) return; sonDurum = o;
-    not.textContent = o ? 'Dosyanız ön kontrolden geçti: siparişinizi gönderdikten sonra kartla, dilerseniz taksitle hemen ödeyebilirsiniz. Üretimden önce son teknik kontrol yapılır.' : notOnay;
+    not.textContent = o ? 'Dosyanız baskıya uygun. Siparişi gönderince kartla ya da taksitle hemen ödeyebilirsiniz.' : notOnay;
   }
   setInterval(durumYaz, 600); durumYaz();
   // Ana sayfadaki panelde: güncel tutar üst sayfanın alt çubuğunda da görünür

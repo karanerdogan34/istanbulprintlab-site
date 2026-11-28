@@ -127,15 +127,19 @@ function planCiz(r, g){
 function dosyaDurum(){
   if (!dosya) return null;
   var g = girdi(), en = IPLMotor.sayi(g.en), boy = IPLMotor.sayi(g.boy);
-  if (!dosya.px) return {sonuc:'inceleme', metin:'Bu dosya türü için otomatik çözünürlük ve ölçü kontrolü yapılmıyor; dosyanızı operatörümüz inceleyecek. Kontrol tamamlanmadan üretim başlamaz.'};
-  if (!(en>0 && boy>0)) return {sonuc:'bekle', metin:'Dosyanın uygunluğunu görmek için duvar ölçüsünü girin.'};
+  if (!dosya.px) return {sonuc:'inceleme', metin:'Bu dosya türünü (PDF/TIFF) otomatik kontrol edemiyoruz; dosyanıza biz bakacağız. Siparişinizi gönderin: dosyanız baskıya uygunsa size ödeme bağlantısı göndeririz, uygun değilse sizinle iletişime geçeriz.'};
+  if (!(en>0 && boy>0)) return {sonuc:'bekle', metin:'Dosyanızın baskıya uygun olup olmadığını görmek için önce duvar ölçüsünü yazın.'};
   var k = IPLMotor.dosyaKontrol(C, dosya.px, en, boy), t, sonuc = k.sonuc;
-  if (k.sonuc==='uygun') t = 'Çözünürlük ön kontrolünden geçti: '+en+' × '+boy+' cm duvarda yaklaşık '+k.ppi+' PPI. Son kontrol üretim öncesinde yapılır.';
-  else if (k.sonuc==='inceleme') t = 'Çözünürlük sınırda: bu duvar ölçüsünde yaklaşık '+k.ppi+' PPI. Yakından bakıldığında netlik azalabilir; dosyanızı operatörümüz kontrol edecek.';
-  else t = 'Çözünürlük düşük: bu duvar ölçüsünde yaklaşık '+k.ppi+' PPI; baskıda netlik belirgin şekilde azalabilir. Daha yüksek çözünürlüklü bir dosyanız varsa onu yükleyin. Dilerseniz bu dosyayla devam edin: operatörümüz dosyanızı kontrol edip sizinle görüşür; onayınız olmadan üretim başlamaz.';
-  if (k.dondur) t += ' Dosyanızın yönü duvar ölçüsüyle uyuşmuyor (biri yatay, diğeri dikey). Genişlik ve yüksekliği kontrol edin.';
-  if (k.oranSapma > 2) { t += ' Dosyanın en-boy oranı duvardan %'+k.oranSapma+' farklı; görsel duvarı dolduracak şekilde kırpılır. Kırpılmasını istemiyorsanız dosyayı duvar oranında hazırlayın'+(sonuc==='uygun-degil'?'.':'; dosyanız operatör incelemesine alınır.'); if (sonuc==='uygun') sonuc='inceleme'; }
+  if (sonuc==='uygun') t = '✓ Dosyanız baskıya uygun. Siparişinizi gönderip hemen ödeyebilirsiniz.';
+  else if (sonuc==='inceleme') t = 'Dosyanız bu ölçü için biraz düşük kalitede: baskı olur ama yakından bakınca hafif bulanık görünebilir. Daha net bir dosyanız varsa onu yükleyin. Bu dosyayla devam ederseniz önce biz kontrol ederiz; ödeme kontrolden sonra alınır.';
+  else t = '✗ Dosyanız baskıya uygun değil: bu ölçüde basılırsa bulanık çıkar. Daha net (daha büyük) bir dosya yükleyin. Yardım isterseniz bize WhatsApp\'tan yazın.';
+  if (k.dondur) t += ' Dosyanız ile girdiğiniz ölçü ters: biri yatay, diğeri dikey. Genişlik ile yüksekliği yer değiştirin ya da dosyayı düzeltin.';
+  if (k.oranSapma > 2) {
+    t += ' Dosyanızın şekli duvarınızdan farklı: resim duvarı dolduracak şekilde kenarlarından kırpılır. Kırpılmasın istiyorsanız dosyayı duvar ölçüsüne göre hazırlayın.';
+    if (sonuc==='uygun') sonuc='inceleme';
+  }
   if (k.dondur && sonuc==='uygun') sonuc='inceleme';
+  if (k.sonuc==='uygun' && sonuc!=='uygun') t = t.replace('✓ Dosyanız baskıya uygun. Siparişinizi gönderip hemen ödeyebilirsiniz.', 'Dosyanızın netliği yeterli, ancak bir şeyi kontrol edin:') + ' Düzeltip yeniden yükleyebilir ya da bu hâliyle gönderebilirsiniz; o zaman önce biz kontrol ederiz, ödeme kontrolden sonra alınır.';
   return {sonuc:sonuc, metin:t};
 }
 
@@ -179,16 +183,17 @@ function ciz(){
   var d = dosyaDurum(), dh = '';
   if (dosya) {
     dh = '<div class="filecard">'+(dosya.url?'<img alt="" src="'+dosya.url+'">':'')+'<div><b style="font-weight:500">'+esc(dosya.ad)+'</b><div class="small" style="margin:0">'+(dosya.px?dosya.px.w+' × '+dosya.px.h+' piksel':dosya.tur.toUpperCase()+' dosyası')+'</div></div></div>';
-    dh += '<div class="msg '+({uygun:'ok', inceleme:'warn', 'uygun-degil':'warn', bekle:'warn'}[d.sonuc])+'">'+esc(d.metin)+(d.sonuc==='uygun-degil' ? ' Yüksek çözünürlüklü dosyanız yoksa <a href="'+WA+encodeURIComponent('Merhaba, duvar kağıdı için dosyam baskıya uygun çıkmadı. Dosyamın hazırlanması konusunda bilgi almak istiyorum.')+'" target="_blank" rel="noopener">WhatsApp\'tan</a> ya da +90 532 523 73 64 numaralı telefondan bize ulaşın.' : '')+'</div>';
+    dh += '<div class="msg '+({uygun:'ok', inceleme:'warn', 'uygun-degil':'bad', bekle:'warn'}[d.sonuc])+'">'+esc(d.metin)+'</div>';
+    if (d.sonuc==='uygun-degil') dh += '<a class="btn ghost" style="margin-top:8px" href="https://wa.me/905325237364?text='+encodeURIComponent('Merhaba, duvar kağıdı için yüklediğim dosya baskıya uygun çıkmadı, yardımcı olur musunuz?')+'" target="_blank" rel="noopener">WhatsApp\'tan bize yazın</a>';
   }
   $('dosyaSonuc').innerHTML = dh;
-  var hazir = r.durum==='tamam' && dosya && d && (d.sonuc==='uygun' || d.sonuc==='inceleme' || d.sonuc==='uygun-degil') && $('onay').checked;
+  var hazir = r.durum==='tamam' && dosya && d && (d.sonuc==='uygun' || d.sonuc==='inceleme') && $('onay').checked;
   window.IPLSiparis = {kod: KOD, girdi: g, odenebilir: !!(hazir && d.sonuc==='uygun' && !r.kargoAyrica)}; // doğrudan kartla ödeme: tutar sunucuda yeniden hesaplanır
   $('devam').disabled = !hazir;
   $('devam').style.display = r.durum==='teklif' ? 'none' : '';
   $('devamNot').style.display = r.durum==='teklif' ? 'none' : '';
   var neden = r.durum!=='tamam' ? 'Duvar ölçüsünü girin.' : !dosya ? 'Baskı dosyanızı yükleyin.' : ((!$('onay').checked ? 'Onay kutusunu işaretleyin.' : ''));
-  $('devamNot').textContent = hazir ? (d.sonuc!=='uygun' ? 'Dosyanız operatör kontrolüne alınacak; kontrol tamamlanmadan üretim başlamaz.' : 'Telefon numaranızı yazıp gönderin; seçimleriniz, ön fiyat ve dosyanız bize ulaşır.') : neden;
+  $('devamNot').textContent = hazir ? ((window.IPLSiparis||{}).odenebilir ? 'Telefon numaranızı yazıp gönderin; hemen ardından ödeme sayfası açılır.' : 'Telefon numaranızı yazıp gönderin. Siparişinizi kontrol edip size ödeme bağlantısı göndeririz.') : (d && d.sonuc==='uygun-degil' ? 'Dosyanız baskıya uygun değil. Yeni bir dosya yükleyin ya da bize WhatsApp\'tan yazın.' : neden);
 }
 
 function dosyaAl(file){
